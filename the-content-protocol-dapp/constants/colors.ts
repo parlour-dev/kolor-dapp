@@ -14,6 +14,6 @@ export default {
         background: "#1a1a1a"
         primaryButtonColor: "#2e63fb"
         secondaryButtonColor: "#121212"
-        outlineColor: "#121212"
+        outlineColor: "#535353"
 	},
 }
