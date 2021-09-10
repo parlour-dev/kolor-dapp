@@ -1,5 +1,5 @@
-import "../PostImage/PostImage.css"
-function PostImage() {
+import "../PostText/PostText.css"
+function PostText() {
 
 
     return <div className="post">
@@ -16,13 +16,14 @@ function PostImage() {
                 </div>  
                 <div className="text">Jakiś Bono z proafrykańskiej partii JUTU spotkał się gdzieś z niemiecko-maltańskim UE kierownikiem D.Tuskiem z partii proniemieckiej by ...ha,ha,ha...by ...ha,ha,ha...”rozmawiać” o ..ha,ha,ha,o „POLSKIEJ”, !!! ,o ..ha,ha,ha...o „POLSKIEJ POLITYCE” !!! Ha,ha </div>  
             </div>
-            <div className="middle"></div>
+           
             <div className="bot">
-              <div className="button">Appreciate</div>  
-              <div className="button button-black">Comment</div>  
+              <div className="appreciate">Appreciate</div>  
+              <div className="comment">Comment</div>  
             </div>
         </div>
     </div>;
 }
 
-export default PostImage;
+export default PostText;
+

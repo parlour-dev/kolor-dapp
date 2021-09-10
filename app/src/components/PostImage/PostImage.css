@@ -1,0 +1,86 @@
+.post {
+  font-size: 1vmp;
+  width: 35vmax;
+  aspect-ratio: 3/4;
+  margin: auto;
+  background-color: #1a1a1a;
+  border: 0.1vmax solid #535353;
+  border-radius: 1.5vmax;
+}
+.container {
+  width: 90%;
+  margin: auto;
+  padding-top: 5%;
+}
+
+.middle {
+  padding-top: 5%;
+  background-color: green;
+  border-radius: 1.5vw;
+  height: 10rem;
+}
+.bot {
+  height: 10%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.button {
+  width: 47%;
+  height: 70%;
+  margin-top: 1vmax;
+  margin-bottom: 1vmax;
+  line-height: 1rem;
+  font-size: 1.5vmax;
+  padding: 0.2vmax;
+  text-align: center;
+  aspect-ratio: 6/1;
+  background-color: #2e63fb;
+  color: #fff;
+  border-radius: 0.8vmax;
+  font-family: "Lato", sans-serif;
+  font-weight: 600;
+}
+
+.button-black {
+  background-color: #121212;
+}
+
+.user {
+  display: flex;
+  flex-direction: row-reverse;
+  aspect-ratio: 7/1;
+  text-align: left;
+}
+.profpicture {
+  background-color: salmon;
+  height: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+}
+.contentcreator {
+  width: 100%;
+  margin-top: 0.6vmax;
+  margin-left: 0.8vmax;
+}
+.creatornick {
+  color: #fff;
+  font-size: 0.6rem;
+  font-weight: 600;
+  font-family: "Lato", sans-serif;
+}
+.creatortag {
+  margin-top: 0.08vmax;
+  height: 25%;
+  font-size: 1vmax;
+  color: #535353;
+  font-family: "Lato", sans-serif;
+}
+.text {
+  margin-top: 1vmax;
+  font-size: 0.75rem;
+  color: #fff;
+  text-align: left;
+  margin-bottom: 1vmax;
+  font-family: "Lato", sans-serif;
+}
