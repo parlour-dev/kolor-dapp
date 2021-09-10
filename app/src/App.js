@@ -1,10 +1,10 @@
-import logo from './logo.svg';
+import PostImage from "../src/components/PostImage/PostImage"
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <p>eluwina</p>
+      <PostImage />
     </div>
   );
 }
