@@ -1,0 +1,82 @@
+.post {
+    font-size: 1vmp; 
+    border-radius:1vw;
+    width: 25%;
+    aspect-ratio: 3/4;
+    margin: auto;
+    background-color: yellow;
+    }
+.container{
+    width: 90%;
+    margin: auto;
+    aspect-ratio: 3/4;
+    padding-top: 5%;
+}
+.top{
+    background-color: red;
+    height: 20%;
+}
+.middle{
+    padding-top: 5% ;
+    background-color:green;
+    border-radius:1.5vw;
+    height: 70%;
+}
+.bot{
+    background-color: blue;
+    height: 10%;
+    display:flex;
+    flex-direction: row;
+    margin: auto;
+    
+}
+.appreciate
+{
+    width: 45%;
+    margin: auto;
+    font-size: 1vw;
+    text-align: center;
+    aspect-ratio: 6/1;
+    background-color: greenyellow;
+}
+.comment
+{
+
+    text-align: center;
+    width: 45%;
+    aspect-ratio: 6/1;
+    margin: auto;
+    font-size: 1vw;
+    background-color: royalblue;
+}
+.user
+{    
+display: flex;
+flex-direction: row-reverse;
+    aspect-ratio: 7/1;
+    text-align: left;
+    background-color: royalblue;
+}
+.profpicture{
+    background-color: salmon;
+    height: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+  
+}
+.contentcreator{
+    width: 100%;
+  
+}
+.creatornick{
+background-color: seagreen;
+font-size: 1vw;
+}
+.creatortag{
+height: 25%;
+font-size: 0.5vw;
+background-color: springgreen;
+}
+.text{
+    font-size: .55vw;
+}
