@@ -6,6 +6,7 @@
   background-color: #1a1a1a;
   border: 0.1vmax solid #535353;
   border-radius: 1.5vmax;
+  margin-bottom: 2vmax;
 }
 .container {
   width: 90%;
@@ -17,7 +18,7 @@
   padding-top: 5%;
   background-color: green;
   border-radius: 1.5vw;
-  height: 10rem;
+  height: 20vmax;
 }
 .bot {
   height: 10%;
@@ -78,7 +79,7 @@
 }
 .text {
   margin-top: 1vmax;
-  font-size: 0.75rem;
+  font-size: 1.5vmax;
   color: #fff;
   text-align: left;
   margin-bottom: 1vmax;
