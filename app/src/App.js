@@ -10,6 +10,7 @@ import {
   useRouteMatch,
   useParams,
 } from "react-router-dom";
+import CreateNewPost from "../src/components/CreateNewPost/CreateNewPost";
 
 function App() {
   return (
@@ -21,8 +22,8 @@ function App() {
           <PostImage />
           <PostText />
         </Route>
-        <Route path='/home'>
-          <PostText />
+        <Route path='/create'>
+          <CreateNewPost />
         </Route>
       </Switch>
     </div>

@@ -1,0 +1,12 @@
+.createContainer{
+    width: 50vmax;
+    height: 10vmax;
+    background-color: red;
+}
+
+.title{
+    font-family: 'Lato', sans-serif;
+    color: #FFF;
+    font-weight: 600;
+    float: left;
+}
