@@ -8,18 +8,18 @@ function PostText() {
             <div className="top">
                 <div className="user">
                     <div className="contentcreator">
-                    <div className="creatornick">Krystyna Pawłowicz</div>
-                    <div className="creatortag">0x1029381d89889hf98189dh981</div>
+                    <div className="creatornick">Jarosław Jakimowicz</div>
+                    <div className="creatortag">0x102938a290d90109d29132189189d</div>
                     </div>
                     <div className="profpicture"> </div>
                     
                 </div>  
-                <div className="text">Jakiś Bono z proafrykańskiej partii JUTU spotkał się gdzieś z niemiecko-maltańskim UE kierownikiem D.Tuskiem z partii proniemieckiej by ...ha,ha,ha...by ...ha,ha,ha...”rozmawiać” o ..ha,ha,ha,o „POLSKIEJ”, !!! ,o ..ha,ha,ha...o „POLSKIEJ POLITYCE” !!! Ha,ha </div>  
+                <div className="text">Mam dwóch synów: 19-letniego i 15-letniego. Żaden z nich nie posługuje się takim językiem ani nie odnosi się do rodziców w ten sposób, co raper Mata. Rap mi się kojarzył zawsze z muzyką biedy, ulicą, muzyką dla tych, którzy są trochę odrzuceni i nie bardzo mają jakąś przyszłość. A tymczasem tu mamy bananowego chłopca, który wcale nie żyje na ulicy. Ta piosenka pokazuje ewidentnie braki w wychowaniu tego młodzieńca. To jest jego jakiś chory bunt. Jest z dobrego domu, a udaje gangsta. Ja bym go posłał do wojska.</div>  
             </div>
            
             <div className="bot">
-              <div className="appreciate">Appreciate</div>  
-              <div className="comment">Comment</div>  
+              <div className="button">Appreciate</div>  
+              <div className="button button-black">Comment</div>  
             </div>
         </div>
     </div>;

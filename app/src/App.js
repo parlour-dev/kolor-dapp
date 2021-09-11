@@ -1,6 +1,6 @@
 import Navbar from "../src/components/Navbar/Navbar";
 import PostImage from "../src/components/PostImage/PostImage";
-// import PostText from "../src/components/PostText/PostText"
+import PostText from "../src/components/PostText/PostText";
 import "./App.css";
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
     <div className="App">
       <Navbar />
       <PostImage />
-      {/* //<PostText />  */}
+      <PostText /> 
     </div>
   );
 }
