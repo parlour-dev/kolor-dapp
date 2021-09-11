@@ -30,7 +30,7 @@
   height: 70%;
   margin-top: 1vmax;
   margin-bottom: 1vmax;
-  line-height: 1rem;
+  line-height: 2.5vmax;
   font-size: 1.5vmax;
   padding: 0.2vmax;
   text-align: center;
@@ -65,7 +65,7 @@
 }
 .creatornick {
   color: #fff;
-  font-size: 0.6rem;
+  font-size: 1.2vmax;
   font-weight: 600;
   font-family: "Lato", sans-serif;
 }
