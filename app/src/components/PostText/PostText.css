@@ -1,26 +1,57 @@
 .post {
-    font-size: 1vmp;
     width: 35vmax;
-    aspect-ratio: 4/4;
-    margin: auto;
-    background-color: #1a1a1a;
+    aspect-ratio: 1/1;
     border: 0.1vmax solid #535353;
-    border-radius: 1.5vmax;
+    border-radius: 1.5vmax; 
+    margin: auto;
     margin-bottom: 2vmax;
+    font-size: 1vmp;
+    background-color: #1a1a1a;
   }
   .container {
     width: 90%;
     margin: auto;
     padding-top: 5%;
   }
-  
-  .middle {
-    padding-top: 5%;
-    background-color: green;
-    border-radius: 1.5vw;
-    height: 20vmax;
+  .creator {
+    aspect-ratio: 7/1;
+    text-align: left;
+    display: flex;
+    flex-direction: row-reverse;
   }
-  .bot {
+  .profpicture {
+    height: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    background-color: salmon;
+  }
+  .creatorinfo {
+    width: 100%;
+    margin-top: 0.6vmax;
+    margin-left: 0.8vmax;
+  }
+  .creatornick {
+    font-size: 1.2vmax;
+    font-weight: 600;
+    font-family: "Lato", sans-serif;
+    color: #fff;
+  }
+  .creatorwallet {
+    height: 25%;
+    margin-top: 0.08vmax;
+    font-size: 1vmax;
+    font-family: "Lato", sans-serif;
+    color: #535353;
+  }
+  .text {
+    margin-top: 1vmax;
+    margin-bottom: 1vmax;
+    text-align: left;
+    font-size: 1.5vmax;
+    font-family: "Lato", sans-serif;
+    color: #fff;
+  }  
+  .vieweraction {
     height: 10%;
     display: flex;
     flex-direction: row;
@@ -29,60 +60,20 @@
   .button {
     width: 47%;
     height: 70%;
+    aspect-ratio: 6/1;
+    border-radius: 0.8vmax;
     margin-top: 1vmax;
     margin-bottom: 1vmax;
+    padding: 0.2vmax;
     line-height: 2.5vmax;
     font-size: 1.5vmax;
-    padding: 0.2vmax;
     text-align: center;
-    aspect-ratio: 6/1;
-    background-color: #2e63fb;
-    color: #fff;
-    border-radius: 0.8vmax;
     font-family: "Lato", sans-serif;
     font-weight: 600;
+    background-color: #2e63fb;
+    color: #fff; 
   }
-  
   .button-black {
     background-color: #121212;
-  }
-  
-  .user {
-    display: flex;
-    flex-direction: row-reverse;
-    aspect-ratio: 7/1;
-    text-align: left;
-  }
-  .profpicture {
-    background-color: salmon;
-    height: 100%;
-    aspect-ratio: 1/1;
-    border-radius: 50%;
-  }
-  .contentcreator {
-    width: 100%;
-    margin-top: 0.6vmax;
-    margin-left: 0.8vmax;
-  }
-  .creatornick {
-    color: #fff;
-    font-size: 1.2vmax;
-    font-weight: 600;
-    font-family: "Lato", sans-serif;
-  }
-  .creatortag {
-    margin-top: 0.08vmax;
-    height: 25%;
-    font-size: 1vmax;
-    color: #535353;
-    font-family: "Lato", sans-serif;
-  }
-  .text {
-    margin-top: 1vmax;
-    font-size: 1.5vmax;
-    color: #fff;
-    text-align: left;
-    margin-bottom: 1vmax;
-    font-family: "Lato", sans-serif;
   }
   
