@@ -23,6 +23,7 @@
   font-family: "Lato", sans-serif;
   display: inline;
   float: left;
+  border: 0px;
 }
 
 .logo {
@@ -36,4 +37,6 @@
   margin-left: -12vmax;
   line-height: 5vmax;
   position: relative;
+  background-color: #1a1a1a;
+  border: 0px;
 }

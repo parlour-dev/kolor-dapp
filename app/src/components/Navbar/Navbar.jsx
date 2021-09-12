@@ -1,16 +1,20 @@
 import React from "react";
 import "../Navbar/Navbar.css";
+import { useHistory } from 'react-router-dom';
 
 const Navbar = () => {
+
+  const history = useHistory();
+
   return (
     <div>
       <div className='navbar'>
 
-          <div className='navbar-button'>Create</div>
+          <button className='navbar-button' onClick={() => history.push('/create')}>Create</button>
 
 
 
-          <div className='logo'>The Content Protocol</div>
+          <button className='logo' onClick={() => history.push('/')}>The Content Protocol</button>
       </div>
     </div>
   );
