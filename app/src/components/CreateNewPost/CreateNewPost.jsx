@@ -10,7 +10,7 @@ import { useHistory } from "react-router-dom";
 const CreateNewPost = ({inputText, setInputText, posts, setPosts}) => {
   
 
-  posts=[];
+ 
   
   let history = useHistory();
   
@@ -22,7 +22,7 @@ const CreateNewPost = ({inputText, setInputText, posts, setPosts}) => {
 
   const submitPostHandler = (e) => {
     e.preventDefault();
-    setPosts([   ...posts, {text: inputText, wallet: "creatorWallet", nick: "creatorNick", id: Math.random()*1000}]);
+    setPosts([{text: inputText, wallet: "creatorWallet", nick: "creatorNick", id: Math.random()*1000},  ...posts]);
   
 
     console.log(posts);
