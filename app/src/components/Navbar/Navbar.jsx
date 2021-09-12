@@ -10,7 +10,7 @@ const Navbar = () => {
     <div>
       <div className='navbar'>
 
-          <button className='navbar-button' onClick={() => history.push('/create')}>Create</button>
+          <button className='navbar-button animation' onClick={() => history.push('/create')}>Create</button>
 
 
 
