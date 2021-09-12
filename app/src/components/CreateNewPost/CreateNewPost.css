@@ -1,12 +1,56 @@
-.createContainer{
-    width: 50vmax;
-    height: 10vmax;
-    background-color: red;
+.createContainer {
+  width: 50%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: auto;
 }
 
-.title{
-    font-family: 'Lato', sans-serif;
-    color: #FFF;
-    font-weight: 600;
-    float: left;
+.title {
+  font-family: "Lato", sans-serif;
+  color: #fff;
+  font-weight: 600;
+  float: left;
+  font-size: 1.5vmax;
+}
+
+.textField {
+  margin-top: 0.5vmax;
+  width: 95%;
+  height: 15vmax;
+  resize: none;
+  font-size: 2vmax;
+  font-family: "Lato", "Roboto", sans-serif;
+  background-color: #1a1a1a;
+  color: #fff;
+  padding-left: 1vmax;
+  padding-top: 1vmax;
+  border: 0.1vmax solid #535353;
+  border-radius: 1.5vmax;
+
+}
+
+.bottomButtons {
+  flex-direction: row;
+  justify-content: space-between;
+  display: flex;
+  margin-left: 1.2%;
+  margin-right: 1.2%;
+  margin-top: 1vmax;
+}
+
+.uploadImage {
+  width: 65%;
+  height: 10vmax;
+  background-color: #1a1a1a;
+  border: 0.1vmax solid #535353;
+  border-radius: 1.5vmax;
+}
+
+.submit {
+  width: 32.5%;
+  height: 10vmax;
+  background-color: #2e63fb;
+  color: #FFF;
+  border-radius: 1.5vmax;
 }
