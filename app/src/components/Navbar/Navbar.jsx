@@ -11,9 +11,6 @@ const Navbar = () => {
       <div className='navbar'>
 
           <button className='navbar-button animation' onClick={() => history.push('/create')}>Create</button>
-
-
-
           <button className='logo' onClick={() => history.push('/')}>The Content Protocol</button>
       </div>
     </div>
