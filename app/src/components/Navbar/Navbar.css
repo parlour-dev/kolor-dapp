@@ -45,6 +45,15 @@
 
 }
 
+.walletAddress {
+  color: #FFF;
+  float: right;
+  margin-top: -4vmax;
+  font-size: 1vmax;
+  margin-right: 12vmax;
+  font-weight: 300;
+}
+
 .animation {
   /* animation */
   -webkit-transition: all 1s ease;

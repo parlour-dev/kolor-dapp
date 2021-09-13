@@ -16,8 +16,9 @@ const Navbar = () => {
           <button className='logo' onClick={() => history.push('/')}>The Content Protocol</button>
           {/* ConnetWalletButton */}
           <div>
-          <span>{account && <p>Account: {account}</p>}</span>
-        <button className='navbarButtonRight animation'  onClick={() => activateBrowserWallet()}>Log In</button>
+          <button className='navbarButtonRight animation'  onClick={() => activateBrowserWallet()}>Log In</button>
+          <span className='walletAddress'>{account && <p>Hello {account.substr(0, 16)}...!</p>}</span>
+        
       </div>
       </div>
     </div>
