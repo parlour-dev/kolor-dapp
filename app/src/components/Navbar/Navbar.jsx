@@ -17,7 +17,7 @@ const Navbar = () => {
           {/* ConnetWalletButton */}
           <div>
           <button className='navbarButtonRight animation'  onClick={() => activateBrowserWallet()}>Log In</button>
-          <span className='walletAddress'>{account && <p>Hello {account.substr(0, 16)}...!</p>}</span>
+          <span className='walletAddress'>{account && <p>Hello {account.substr(0, 16)}...</p>}</span>
         
       </div>
       </div>
