@@ -44,6 +44,15 @@
   background-color: #1a1a1a;
   border: 0.1vmax solid #535353;
   border-radius: 1.5vmax;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.uploadImagePreview {
+  height: 90%;
+  display: inline-block;
 }
 
 .submit {
@@ -52,4 +61,9 @@
   background-color: #2e63fb;
   color: #fff;
   border-radius: 1.5vmax;
+}
+
+.submitArrow {
+  width: 6vmax; 
+  margin-top: 3vmax;
 }

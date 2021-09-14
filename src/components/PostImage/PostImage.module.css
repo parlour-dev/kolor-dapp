@@ -61,22 +61,9 @@
   flex-direction: row;
   justify-content: space-between;
 }
-.button {
-  width: 47%;
-  height: 70%;
-  aspect-ratio: 6/1;
-  border-radius: 0.8vmax;
-  margin-top: 1vmax;
-  margin-bottom: 1vmax;
-  padding: 0.2vmax;
-  line-height: 2.5vmax;
-  font-size: 1.5vmax;
-  text-align: center;
-  font-family: "Lato", sans-serif;
-  font-weight: 600;
-  background-color: #2e63fb;
-  color: #fff;
+.buttonBlue {
+  composes: buttonBlue from '../PostText/PostText.module.css';
 }
 .buttonBlack {
-  background-color: #121212;
+  composes: buttonBlack from '../PostText/PostText.module.css';
 }

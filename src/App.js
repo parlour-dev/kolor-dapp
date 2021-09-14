@@ -7,9 +7,12 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import CreateNewPost from "../src/components/CreateNewPost/CreateNewPost";
 
 function App() {
-  const [inputText, setInputText] = useState("");
   const [posts, setPosts] = useState([]);
-  const [file, setFile] = useState();
+
+  function newPostHandler(newPost) {
+    setPosts([ newPost, ...posts ])
+  }
+
   return (
     <Router>
       <div className="App">
@@ -17,21 +20,14 @@ function App() {
 
         <Switch>
           <Route exact path="/">
-            {posts.map((post) => {
-              console.log(post);
-              return (
+            <PostText text="ehhhh" />
+            {posts.map((post) =>
                 <PostImage key={post.id} text={post.text} img={post.file} />
-              );
-            })}
+            )}
           </Route>
           <Route path="/create">
             <CreateNewPost
-              posts={posts}
-              setPosts={setPosts}
-              inputText={inputText}
-              setInputText={setInputText}
-              file={file}
-              setFile={setFile}
+              onSubmit={newPostHandler}
             />
           </Route>
         </Switch>

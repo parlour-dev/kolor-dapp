@@ -1,7 +1,7 @@
 import React from "react";
-import "../Navbar/Navbar.css";
+import styles from "../Navbar/Navbar.module.css";
 import { useHistory } from "react-router-dom";
-import { useEthers, useEtherBalance } from "@usedapp/core";
+import { useEthers } from "@usedapp/core";
 
 const Navbar = () => {
   const history = useHistory();
@@ -9,25 +9,25 @@ const Navbar = () => {
 
   return (
     <div>
-      <div className="navbar">
+      <div className={styles.navbar}>
         <button
-          className="navbarButtonLeft animation"
+          className={[styles.navbarButtonLeft, styles.animation].join(" ")}
           onClick={() => history.push("/create")}
         >
           Create
         </button>
-        <button className="logo" onClick={() => history.push("/")}>
+        <button className={styles.logo} onClick={() => history.push("/")}>
           The Content Protocol
         </button>
         {/* ConnetWalletButton */}
         <div>
           <button
-            className="navbarButtonRight animation"
+            className={[styles.navbarButtonRight, styles.animation].join(" ")}
             onClick={() => activateBrowserWallet()}
           >
             Log In
           </button>
-          <span className="walletAddress">
+          <span className={styles.walletAddress}>
             {account && <p>Hello {account.substr(0, 16)}...</p>}
           </span>
         </div>

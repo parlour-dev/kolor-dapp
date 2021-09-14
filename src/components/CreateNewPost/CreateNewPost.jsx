@@ -1,50 +1,32 @@
 import React from "react";
-import styles from "../CreateNewPost/CreateNewPost.css";
-import uploadImage from "../CreateNewPost/image.png";
+import styles from "../CreateNewPost/CreateNewPost.module.css";
+import imagePlaceholder from "../CreateNewPost/image.png";
 import submitArrow from "../CreateNewPost/arrow.png";
-import PostImage from "../PostImage/PostImage";
-import ImageUploading from "react-images-uploading";
 import { useHistory } from "react-router-dom";
+import { useState } from "react";
 
 const CreateNewPost = ({
-  inputText,
-  setInputText,
-  posts,
-  setPosts,
-  file,
-  setFile,
-  props,
+  onSubmit
 }) => {
+  const [ file, setFile ] = useState();
+  const [ inputText, setInputText ] = useState("")
+
   let history = useHistory();
 
-  const submitPhotoHandler = (e) => {
-    console.log(e.target.files[0].name);
-    setFile(e.target.files[0].name);
-  };
-
-  // const submitPhotoHandler = (e) => {
-
-  //   console.log(e.target.value);
-  //   setFile(e.target.value);
-  // };
-
   const inputTextHandler = (e) => {
-    console.log(e.target.value);
     setInputText(e.target.value);
   };
 
   const submitPostHandler = (e) => {
     e.preventDefault();
-    setPosts([
-      {
-        text: inputText,
-        file: file,
-        wallet: "creatorWallet",
-        nick: "creatorNick",
-        id: Math.random() * 1000,
-      },
-      ...posts,
-    ]);
+    const newPost = {
+      text: inputText,
+      file: file,
+      wallet: "creatorWallet",
+      nick: "creatorNick",
+      id: Math.random() * 1000,
+    };
+    onSubmit(newPost)
     setInputText("");
     history.goBack();
   };
@@ -55,36 +37,36 @@ const CreateNewPost = ({
 
   return (
     <>
-      <div className="createContainer">
-        <div className="title">Create new post</div>
+      <div className={styles.createContainer}>
+        <div className={styles.title}>Create new post</div>
         <div>
           <form>
             <textarea
-              className="textField"
+              className={styles.textField}
               placeholder="What's on your mind?"
               onChange={inputTextHandler}
             ></textarea>
           </form>
         </div>
-        <div className="bottomButtons">
-          <div className="uploadImage" style={{ display: "flex", alignItems: "center", justifyContent: "center" }} onClick={() => { document.getElementById("multi").click() }}>
+        <div className={styles.bottomButtons}>
+          <div className={styles.uploadImage} onClick={() => { document.getElementById("multi").click() }}>
             <img
-              src={file ? file : uploadImage}
+              src={file ? file : imagePlaceholder}
               alt="Upload"
-              style={{ height: "90%" }}
+              className={styles.uploadImagePreview}
             />
             <input
-              style={{ display: "none" }}
+              style={{ display: "none", width: 0, height: 0 }}
               type="file"
               onChange={handleChange}
               id="multi"
             />
           </div>
-          <div className="submit" onClick={submitPostHandler}>
+          <div className={styles.submit} onClick={submitPostHandler}>
             <img
               src={submitArrow}
               alt="Submit"
-              style={{ width: "6vmax", marginTop: "3vmax" }}
+              className={styles.submitArrow}
             />
           </div>
         </div>
