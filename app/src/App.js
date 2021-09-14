@@ -16,7 +16,7 @@ import CreateNewPost from "../src/components/CreateNewPost/CreateNewPost";
 function App() {
   const [inputText, setInputText] = useState("");
   const [posts, setPosts] = useState([]);
-
+  const [file,  setFile] = useState();
   return (
     <Router>
       <div className="App">
@@ -25,7 +25,7 @@ function App() {
         <Switch>
           <Route exact path="/">
             {posts.map((post) => (
-              <PostText text={post.text} />
+              <PostImage text={post.text} />
             ))}
 
           </Route>
@@ -35,6 +35,8 @@ function App() {
               setPosts={setPosts}
               inputText={inputText}
               setInputText={setInputText}
+              file={file}
+              setFile={setFile}
             />
           </Route>
         </Switch>
