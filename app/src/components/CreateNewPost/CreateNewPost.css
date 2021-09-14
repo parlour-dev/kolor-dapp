@@ -27,7 +27,6 @@
   padding-top: 1vmax;
   border: 0.1vmax solid #535353;
   border-radius: 1.5vmax;
-
 }
 
 .bottomButtons {
@@ -51,6 +50,6 @@
   width: 32.5%;
   height: 10vmax;
   background-color: #2e63fb;
-  color: #FFF;
+  color: #fff;
   border-radius: 1.5vmax;
 }

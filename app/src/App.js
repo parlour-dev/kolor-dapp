@@ -3,20 +3,13 @@ import PostImage from "../src/components/PostImage/PostImage";
 import PostText from "../src/components/PostText/PostText";
 import "./App.css";
 import React, { useState } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useRouteMatch,
-  useParams,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import CreateNewPost from "../src/components/CreateNewPost/CreateNewPost";
 
 function App() {
   const [inputText, setInputText] = useState("");
   const [posts, setPosts] = useState([]);
-  const [file,  setFile] = useState();
+  const [file, setFile] = useState();
   return (
     <Router>
       <div className="App">
@@ -24,10 +17,12 @@ function App() {
 
         <Switch>
           <Route exact path="/">
-            {posts.map((post) => (
-              <PostImage text={post.text} />
-            ))}
-
+            {posts.map((post) => {
+              console.log(post);
+              return (
+                <PostImage key={post.id} text={post.text} img={post.file} />
+              );
+            })}
           </Route>
           <Route path="/create">
             <CreateNewPost

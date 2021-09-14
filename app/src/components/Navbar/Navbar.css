@@ -42,11 +42,10 @@
   font-family: "Lato", sans-serif;
   display: inline;
   border: 0px;
-
 }
 
 .walletAddress {
-  color: #FFF;
+  color: #fff;
   float: right;
   margin-top: -4vmax;
   font-size: 1vmax;
@@ -64,11 +63,10 @@
   transition-duration: 300ms;
 }
 
-.animation:hover{
+.animation:hover {
   transform: scale(1.1);
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.42);
 }
-
 
 .logo {
   display: inline-block;
@@ -93,7 +91,7 @@
   transition-duration: 300ms;
 }
 
-.logo:hover{
+.logo:hover {
   color: #2e63fb;
   font-size: 2.25vmax;
 }
