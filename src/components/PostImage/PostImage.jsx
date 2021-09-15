@@ -16,8 +16,8 @@ function PostImage({ text, img }) {
           <img alt="" src={img} className={styles.mediaContent} />
         </div>
         <div className={styles.viewerAction}>
-          <div className={styles.buttonBlue}>Appreciate</div>
-          <div className={styles.buttonBlack}>Comment</div>
+          <div className={[styles.buttonBlue, styles.animation].join(" ")}>Appreciate</div>
+          <div className={[styles.buttonBlack, styles.animation].join(" ")}>Comment</div>
         </div>
       </div>
     </div>
