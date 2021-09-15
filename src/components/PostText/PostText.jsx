@@ -1,4 +1,5 @@
 import styles from "../PostText/PostText.module.css";
+import Comments from "../Comments/Comments"
 function PostText({text}) {
   return (
     <div className={styles.post}>
@@ -15,6 +16,7 @@ function PostText({text}) {
           <div className={styles.buttonBlue}>Appreciate</div>
           <div className={styles.buttonBlack}>Comment</div>
         </div>
+        <Comments />
       </div>
     </div>
   );
