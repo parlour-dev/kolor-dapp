@@ -20,9 +20,14 @@ function App() {
 
         <Switch>
           <Route exact path="/">
-            <PostText text="ehhhh" />
+            <PostImage text="ehhhh" />
+      
+
             {posts.map((post) =>
                 <PostImage key={post.id} text={post.text} img={post.file} />
+                
+
+
             )}
           </Route>
           <Route path="/create">

@@ -1,6 +1,18 @@
 import styles from "./PostImage.module.css";
-
+import Comments from "./Comments/Comments";
+import AddComment from "./Comments/AddComment";
+import { render } from "@testing-library/react";
+import ReactDOM from 'react-dom';
 function PostImage({ text, img }) {
+
+
+  function renderCommentHandler() {
+
+   
+  ReactDOM.render(<AddComment/>, document.getElementById("renderAddComment"));
+  }
+
+
   return (
     <div className={styles.post}>
       <div className={styles.container}>
@@ -17,8 +29,11 @@ function PostImage({ text, img }) {
         </div>
         <div className={styles.viewerAction}>
           <div className={styles.buttonBlue}>Appreciate</div>
-          <div className={styles.buttonBlack}>Comment</div>
-        </div>
+          <div  className={styles.buttonBlack} onClick={renderCommentHandler}>Comment</div>
+        </div>  
+        <div id="renderAddComment"></div>
+        <Comments/>
+     
       </div>
     </div>
   );
