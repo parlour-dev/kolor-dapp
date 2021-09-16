@@ -26,6 +26,7 @@ const CreateNewPost = ({
       nick: "creatorNick",
       id: Math.random() * 1000,
     };
+
     onSubmit(newPost)
     setInputText("");
     history.goBack();
