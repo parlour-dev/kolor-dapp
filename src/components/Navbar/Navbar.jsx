@@ -2,11 +2,13 @@ import React from "react";
 import styles from "../Navbar/Navbar.module.css";
 import { useHistory } from "react-router-dom";
 import { useEthers } from "@usedapp/core";
+import Web3 from "web3";
+
 
 const Navbar = () => {
   const history = useHistory();
   const { activateBrowserWallet, account } = useEthers();
-
+  
   return (
     <div>
       <div className={styles.navbar}>
@@ -27,9 +29,9 @@ const Navbar = () => {
           >
             Log In
           </button>
-          <span className={styles.walletAddress}>
-            {account && <p>Hello {account.substr(0, 16)}...</p>}
-          </span>
+          <button className={styles.walletAddress} onClick={() => history.push("/profile")}>
+            {account && <p>Hello <b>{account.substr(0, 16)}</b>...</p>}
+          </button>
         </div>
       </div>
     </div>

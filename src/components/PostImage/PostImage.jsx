@@ -33,7 +33,6 @@ function PostImage({ text, img }) {
         </div>  
         <div id="renderAddComment"></div>
         <Comments/>
-     
       </div>
     </div>
   );
