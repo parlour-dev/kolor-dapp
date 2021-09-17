@@ -7,8 +7,6 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import CreateNewPost from "../src/components/CreateNewPost/CreateNewPost";
 import Profile from "./components/Profile/Profile";
 
-import detectEthereumProvider from '@metamask/detect-provider';
-
 function App() {
   const [posts, setPosts] = useState([]);
 
