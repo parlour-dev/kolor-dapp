@@ -3,9 +3,6 @@ import styles from "../Navbar/Navbar.module.css";
 import { useHistory } from "react-router-dom";
 import { useEthers } from "@usedapp/core";
 import Web3 from "web3";
-import Web3Modal from "web3modal";
-import WalletConnectProvider from "@walletconnect/web3-provider";
-
 
 
 const Navbar = () => {
