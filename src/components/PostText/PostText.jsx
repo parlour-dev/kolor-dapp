@@ -1,5 +1,6 @@
 import styles from "../PostText/PostText.module.css";
 import Comments from "../Comments/Comments"
+
 function PostText({text}) {
   return (
     <div className={styles.post}>
