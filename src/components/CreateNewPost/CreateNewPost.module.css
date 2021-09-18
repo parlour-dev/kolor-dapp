@@ -1,69 +1,69 @@
 .createContainer {
-  width: 50%;
-  height: auto;
-  margin-left: auto;
-  margin-right: auto;
-  overflow: auto;
+	width: 50%;
+	height: auto;
+	margin-left: auto;
+	margin-right: auto;
+	overflow: auto;
 }
 
 .title {
-  font-family: "Lato", sans-serif;
-  color: #fff;
-  font-weight: 600;
-  float: left;
-  font-size: 1.5vmax;
+	font-family: "Lato", sans-serif;
+	color: #fff;
+	font-weight: 600;
+	float: left;
+	font-size: 1.5vmax;
 }
 
 .textField {
-  margin-top: 0.5vmax;
-  width: 95%;
-  height: 15vmax;
-  resize: none;
-  font-size: 2vmax;
-  font-family: "Lato", "Roboto", sans-serif;
-  background-color: #1a1a1a;
-  color: #fff;
-  padding-left: 1vmax;
-  padding-top: 1vmax;
-  border: 0.1vmax solid #535353;
-  border-radius: 1.5vmax;
+	margin-top: 0.5vmax;
+	width: 95%;
+	height: 15vmax;
+	resize: none;
+	font-size: 2vmax;
+	font-family: "Lato", "Roboto", sans-serif;
+	background-color: #1a1a1a;
+	color: #fff;
+	padding-left: 1vmax;
+	padding-top: 1vmax;
+	border: 0.1vmax solid #535353;
+	border-radius: 1.5vmax;
 }
 
 .bottomButtons {
-  flex-direction: row;
-  justify-content: space-between;
-  display: flex;
-  margin-left: 1.2%;
-  margin-right: 1.2%;
-  margin-top: 1vmax;
+	flex-direction: row;
+	justify-content: space-between;
+	display: flex;
+	margin-left: 1.2%;
+	margin-right: 1.2%;
+	margin-top: 1vmax;
 }
 
 .uploadImage {
-  width: 65%;
-  height: 10vmax;
-  background-color: #1a1a1a;
-  border: 0.1vmax solid #535353;
-  border-radius: 1.5vmax;
+	width: 65%;
+	height: 10vmax;
+	background-color: #1a1a1a;
+	border: 0.1vmax solid #535353;
+	border-radius: 1.5vmax;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .uploadImagePreview {
-  height: 90%;
-  display: inline-block;
+	height: 90%;
+	display: inline-block;
 }
 
 .submit {
-  width: 32.5%;
-  height: 10vmax;
-  background-color: #2e63fb;
-  color: #fff;
-  border-radius: 1.5vmax;
+	width: 32.5%;
+	height: 10vmax;
+	background-color: #2e63fb;
+	color: #fff;
+	border-radius: 1.5vmax;
 }
 
 .submitArrow {
-  width: 6vmax; 
-  margin-top: 3vmax;
+	width: 6vmax;
+	margin-top: 3vmax;
 }

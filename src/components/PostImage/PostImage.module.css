@@ -1,86 +1,86 @@
 .post {
-  width: 35vmax;
-  border: 0.1vmax solid #535353;
-  border-radius: 1.5vmax;
-  margin: auto;
-  margin-bottom: 2vmax;
-  font-size: 1vmp;
-  background-color: #1a1a1a;
-  word-wrap:break-word;
+	width: 35vmax;
+	border: 0.1vmax solid #535353;
+	border-radius: 1.5vmax;
+	margin: auto;
+	margin-bottom: 2vmax;
+	font-size: 1vmp;
+	background-color: #1a1a1a;
+	word-wrap: break-word;
 }
 .container {
-  width: 90%;
-  margin: auto;
-  padding-top: 5%;
+	width: 90%;
+	margin: auto;
+	padding-top: 5%;
 }
 .creator {
-  aspect-ratio: 7/1;
-  text-align: left;
-  display: flex;
-  flex-direction: row-reverse;
+	aspect-ratio: 7/1;
+	text-align: left;
+	display: flex;
+	flex-direction: row-reverse;
 }
 .profPicture {
-  height: 100%;
-  aspect-ratio: 1/1;
-  border-radius: 50%;
-  background-color: salmon;
+	height: 100%;
+	aspect-ratio: 1/1;
+	border-radius: 50%;
+	background-color: salmon;
 }
 .creatorInfo {
-  width: 100%;
-  margin-top: 0.6vmax;
-  margin-left: 0.8vmax;
+	width: 100%;
+	margin-top: 0.6vmax;
+	margin-left: 0.8vmax;
 }
 .creatorNick {
-  font-size: 1.2vmax;
-  font-weight: 600;
-  font-family: "Lato", sans-serif;
-  color: #fff;
+	font-size: 1.2vmax;
+	font-weight: 600;
+	font-family: "Lato", sans-serif;
+	color: #fff;
 }
 .creatorWallet {
-  height: 25%;
-  margin-top: 0.08vmax;
-  font-size: 1vmax;
-  font-family: "Lato", sans-serif;
-  color: #535353;
+	height: 25%;
+	margin-top: 0.08vmax;
+	font-size: 1vmax;
+	font-family: "Lato", sans-serif;
+	color: #535353;
 }
 .text {
-  margin-top: 1vmax;
-  margin-bottom: 1vmax;
-  text-align: left;
-  font-size: 1.5vmax;
-  font-family: "Lato", sans-serif;
-  color: #fff;
+	margin-top: 1vmax;
+	margin-bottom: 1vmax;
+	text-align: left;
+	font-size: 1.5vmax;
+	font-family: "Lato", sans-serif;
+	color: #fff;
 }
 .mediaContent {
-  width: 100%;
-  border-radius: 1.5vw;
-  padding-top: 2%;
+	width: 100%;
+	border-radius: 1.5vw;
+	padding-top: 2%;
 }
 .viewerAction {
-  height: 10%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+	height: 10%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
 }
 .buttonBlue {
-  composes: buttonBlue from '../PostText/PostText.module.css';
+	composes: buttonBlue from "../PostText/PostText.module.css";
 }
 
 .buttonBlack {
-  composes: buttonBlack from '../PostText/PostText.module.css';
+	composes: buttonBlack from "../PostText/PostText.module.css";
 }
 
 .animation {
-  /* animation */
-  -webkit-transition: all 1s ease;
-  -moz-transition: all 1s ease;
-  -o-transition: all 1s ease;
-  -ms-transition: all 1s ease;
-  transition: all 1s ease;
-  transition-duration: 300ms;
+	/* animation */
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+	-ms-transition: all 1s ease;
+	transition: all 1s ease;
+	transition-duration: 300ms;
 }
 
 .animation:hover {
-  transform: scale(1.1);
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.42);
+	transform: scale(1.1);
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.42);
 }

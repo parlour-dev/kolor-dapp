@@ -1,72 +1,58 @@
+.container {
+	width: 100%;
+	margin-bottom: 1vmax;
 
-  .creator {
- 
-    text-align: left;
-    display: flex;
-    flex-direction: row-reverse;
-  }
-  .profPicture {
-    height:100%;
-    aspect-ratio: 1/1;
-    border-radius: 50%;
-    background-color: rgb(241, 117, 103);
-  }
-  .creatorInfo {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    
-  }
-  .userInfoContainer{
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	justify-content: center;
+}
 
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-  }
-  .creatorNick {
-    width: 100%;
-    font-size: 0.6vmax;
-    font-weight: 600;
-    font-family: "Lato", sans-serif;
-    color: #fff;
-    margin-left: 0.1vmax;
-    display: flex;
-    align-items: center;
-  }
-  .creatorWallet {
-    width: 100%;
-    font-size: 0.6vmax;
-    font-family: "Lato", sans-serif;
-    color: #535353;
-    display: flex;
-    align-items: center;
-    justify-content: right;
-  }
-  .textAreaContainer{
-    width: 100%;
-    color:white;
-    display: flex;
-    justify-content: center;
-    margin-top: 0.5vmax;
-    margin-bottom: 0.5vmax;
-    background-color: #121212;
-    border-radius: 1vmax;
-    resize: none;
-    font-family: "Lato", sans-serif;
-    font-size: 1vmax;
-  
-    padding-top: 2.5%;
-    padding-bottom: 2.5%;
-  }
-  .text {
-    
-    width: 90%;
-    padding-top: 2.5%;
-    padding-bottom: 2.5%;
-    margin:auto;
-    text-align: left;
-    font-size: 1vmax;
-    font-family: "Lato", sans-serif;
-    color: #fff;
-  }
-  
+.textAreaContainer {
+	box-sizing: border-box;
+	width: 100%;
+	border-radius: 1vmax;
+}
+
+.textArea {
+	box-sizing: border-box;
+
+	width: 100%;
+	min-height: 4.5rem;
+	overflow: auto;
+
+	color: white;
+	background-color: #121212;
+
+	align-items: flex-start;
+	justify-content: flex-start;
+	text-align: start;
+
+	border: none;
+	outline: none;
+	border-radius: inherit;
+
+	resize: none;
+	font-family: "Lato", sans-serif;
+	font-size: 1vmax;
+
+	padding: 0.8rem 5%;
+}
+
+.button {
+	border-radius: 0.8vmax;
+	margin: 0.7vmax 0;
+	padding: 0 1vmax;
+
+	line-height: 2.5vmax;
+	font-size: 1rem;
+	font-family: "Lato", sans-serif;
+	font-weight: 600;
+
+	text-align: center;
+
+	color: #fff;
+	background-color: #2e63fb;
+
+	cursor: pointer;
+}

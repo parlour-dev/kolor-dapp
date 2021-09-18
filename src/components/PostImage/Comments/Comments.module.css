@@ -1,63 +1,56 @@
-
-  .creator {
- 
-    text-align: left;
-    display: flex;
-    flex-direction: row-reverse;
-  }
-  .profPicture {
-    height:100%;
-    aspect-ratio: 1/1;
-    border-radius: 50%;
-    background-color: rgb(241, 117, 103);
-  }
-  .creatorInfo {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    
-  }
-  .userInfoContainer{
-
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-  }
-  .creatorNick {
-    width: 100%;
-    font-size: 0.6vmax;
-    font-weight: 600;
-    font-family: "Lato", sans-serif;
-    color: #fff;
-    margin-left: 0.1vmax;
-    display: flex;
-    align-items: center;
-  }
-  .creatorWallet {
-    width: 100%;
-    font-size: 0.6vmax;
-    font-family: "Lato", sans-serif;
-    color: #535353;
-    display: flex;
-    align-items: center;
-    justify-content: right;
-  }
-  .textContainer{
-
-    margin-top: 0.5vmax;
-    margin-bottom: 0.5vmax;
-    background-color: #121212;
-    border-radius: 1vmax;
-  }
-  .text {
-    
-    width: 90%;
-    padding-top: 2.5%;
-    padding-bottom: 2.5%;
-    margin:auto;
-    text-align: left;
-    font-size: 1vmax;
-    font-family: "Lato", sans-serif;
-    color: #fff;
-  }
-  
+.creator {
+	text-align: left;
+	display: flex;
+	flex-direction: row-reverse;
+}
+.profPicture {
+	height: 100%;
+	aspect-ratio: 1/1;
+	border-radius: 50%;
+	background-color: rgb(241, 117, 103);
+}
+.creatorInfo {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+}
+.userInfoContainer {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+}
+.creatorNick {
+	width: 100%;
+	font-size: 0.6vmax;
+	font-weight: 600;
+	font-family: "Lato", sans-serif;
+	color: #fff;
+	margin-left: 0.1vmax;
+	display: flex;
+	align-items: center;
+}
+.creatorWallet {
+	width: 100%;
+	font-size: 0.6vmax;
+	font-family: "Lato", sans-serif;
+	color: #535353;
+	display: flex;
+	align-items: center;
+	justify-content: right;
+}
+.textContainer {
+	margin-top: 0.5vmax;
+	margin-bottom: 0.5vmax;
+	background-color: #121212;
+	border-radius: 1vmax;
+}
+.text {
+	width: 90%;
+	padding-top: 0.8rem;
+	padding-bottom: 0.8rem;
+	margin: auto;
+	text-align: left;
+	font-size: 1vmax;
+	font-family: "Lato", sans-serif;
+	color: #fff;
+}

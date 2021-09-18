@@ -1,22 +1,27 @@
+import { useRef } from "react";
 import styles from "../Comments/AddComment.module.css";
 
-function Comments() {
-  return (
-    <div>
-    <div className={styles.creator}>
-          <div className={styles.creatorInfo}>
+function AddComment({ onSubmit }) {
+	const inputBox = useRef();
 
-            <div className={styles.profPicture}> </div> 
+	function addComment() {
+		onSubmit(inputBox.current.textContent);
+	}
 
-            <div className={styles.userInfoContainer}>
-                <div className={styles.creatorNick}>Jarosław Jakimowicz</div>
-                <div className={styles.creatorWallet}>0x102938a290d90109d29132189189d</div>
-            </div>                  
-          </div>         
-        </div>
-        <textarea className={styles.textAreaContainer}></textarea>          
-    </div>
-  );
+	return (
+		<div className={styles.container}>
+			<div className={styles.textAreaContainer}>
+				<div
+					ref={inputBox}
+					className={styles.textArea}
+					contentEditable={true}
+				></div>
+			</div>
+			<div className={styles.button} onClick={addComment}>
+				Add comment
+			</div>
+		</div>
+	);
 }
 
-export default Comments;
+export default AddComment;

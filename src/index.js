@@ -6,12 +6,12 @@ import reportWebVitals from "./reportWebVitals";
 import { DAppProvider } from "@usedapp/core";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <DAppProvider>
-      <App />
-    </DAppProvider>
-  </React.StrictMode>,
-  document.getElementById("root")
+	<React.StrictMode>
+		<DAppProvider>
+			<App />
+		</DAppProvider>
+	</React.StrictMode>,
+	document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
