@@ -38,8 +38,18 @@ function App() {
 	const { account, library } = useEthers();
 	const [tcpdata, setTcpdata] = useState();
 
-	function newPostHandler(newPost) {
-		dispatch({ type: "add", value: newPost });
+	async function newPostHandler(newPostRaw) {
+		if (!tcpdata) {
+			console.error("Can't post: no TCPData");
+			return false
+		}
+		// {"title": "The First Text Post", "tags": ["text", "first", "small"], "url": "https://ipfs.io/ipfs/QmNrgEMcUygbKzZeZgYFosdd27VE9KnWbyUD73bKZJ3bGi"}
+		
+		const newPost = { title: newPostRaw.text, url: newPostRaw.file, tags: ["testtag"] }
+		const newPostString = JSON.stringify(newPost)
+		
+		const result = tcpdata.addContent(newPostString)
+		result.catch(e => console.error)
 	}
 
 	const tcpdata_address = "0xa398De2fEF0b37cf50c2F9D88b8953b94b49c78C";
@@ -52,10 +62,24 @@ function App() {
 		}
 
 		const fetchTCPData = async () => {
-			const signer = new ethers.providers.Web3Provider(
+			const provider = new ethers.providers.Web3Provider(
 				window.ethereum
-			).getSigner();
+			);
+			// refresh whenever a user changes the network
+			provider.on("network", (newNetwork, oldNetwork) => {
+				if(oldNetwork) window.location.reload()
+			})
+			const signer = provider.getSigner();
+
 			const tcpdata = new ethers.Contract(tcpdata_address, tcpdataABI, signer);
+
+			tcpdata.on("ContentAdded", async idx => {
+				const content = await tcpdata.content(idx);
+				const author = content.author
+				const header = JSON.parse(content.header);
+				const newPost = { id: idx, text: header.title, author: author };
+				dispatch({ type: "add", value: newPost });
+			})
 
 			// set the contract object
 			setTcpdata(tcpdata);
