@@ -2,7 +2,7 @@ import styles from "./PostImage.module.css";
 import AddComment from "./Comments/AddComment";
 import { useToggle } from "../../hooks";
 
-function PostImage({ text, img, children, onCommentSubmit }) {
+function PostImage({ text, img, author, children, onCommentSubmit }) {
 	const [showAddComment, toggleAddComment] = useToggle(false);
 
 	return (
@@ -11,15 +11,13 @@ function PostImage({ text, img, children, onCommentSubmit }) {
 				<div className={styles.creator}>
 					<div className={styles.creatorInfo}>
 						<div className={styles.creatorNick}>ja</div>
-						<div className={styles.creatorWallet}>
-							0x1029381d89889hf98189dh981
-						</div>
+						<div className={styles.creatorWallet}>{author}</div>
 					</div>
 					<div className={styles.profPicture}></div>
 				</div>
 				<div className={styles.text}>{text}</div>
 				<div className={styles.mediaContent}>
-					<img alt="" src={img} className={styles.mediaContent} />
+					{img && <img alt="" src={img} className={styles.mediaContent} />}
 				</div>
 				<div className={styles.viewerAction}>
 					<div className={styles.buttonBlue}>Appreciate</div>

@@ -1,13 +1,17 @@
 import Navbar from "../src/components/Navbar/Navbar";
-import PostImage from "../src/components/PostImage/PostImage";
-import PostText from "../src/components/PostText/PostText";
-import Comments from "../src/components/PostImage/Comments/Comments";
 
+import MainPage from "./components/MainPage";
 import "./App.css";
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import CreateNewPost from "../src/components/CreateNewPost/CreateNewPost";
 import Profile from "./components/Profile/Profile";
+import { useEthers } from "@usedapp/core";
+import tcpdataABI from "./abi.json";
+import { ethers } from "ethers";
+
+export const PostsContext = React.createContext();
+export const TCPDataContext = React.createContext();
 
 function postsReducer(state, action) {
 	switch (action.type) {
@@ -18,10 +22,10 @@ function postsReducer(state, action) {
 		case "update": {
 			const { value, idx } = action;
 			state[idx] = value;
-
-			console.log("update");
-			console.log(value);
 			return state;
+		}
+		case "clear": {
+			return [];
 		}
 		default: {
 			return state;
@@ -31,58 +35,77 @@ function postsReducer(state, action) {
 
 function App() {
 	const [posts, dispatch] = useReducer(postsReducer, []);
-
-	const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
+	const { account, library } = useEthers();
+	const [tcpdata, setTcpdata] = useState();
 
 	function newPostHandler(newPost) {
 		dispatch({ type: "add", value: newPost });
 	}
 
-	function newCommentHandler(commentText, idx) {
-		const newComments = posts[idx].comments
-			? [commentText, ...posts[idx].comments]
-			: [commentText];
-		const newValue = { ...posts[idx], comments: newComments };
-		const dispatchAction = { type: "update", value: newValue, idx: idx };
+	const tcpdata_address = "0xa398De2fEF0b37cf50c2F9D88b8953b94b49c78C";
 
-		dispatch(dispatchAction);
+	useEffect(() => {
+		if (!library) {
+			// if an account is not connected, remove all posts and bail out
+			dispatch({ type: "clear" });
+			return undefined;
+		}
 
-		// FIXME: DONT DO THIS!!!
-		forceUpdate();
-	}
+		const fetchTCPData = async () => {
+			const signer = new ethers.providers.Web3Provider(
+				window.ethereum
+			).getSigner();
+			const tcpdata = new ethers.Contract(tcpdata_address, tcpdataABI, signer);
+
+			// set the contract object
+			setTcpdata(tcpdata);
+
+			// add all the fetched posts
+			const contents = await tcpdata.getContent();
+
+			if (contents) {
+				for (let idx in contents) {
+					const author = contents[idx].author;
+					const header = JSON.parse(contents[idx].header);
+					const newPost = { id: idx, text: header.title, author: author };
+					dispatch({ type: "add", value: newPost });
+				}
+			} else {
+				// if we didn't get anything, remove the saved posts
+				dispatch({ type: "clear" });
+			}
+		};
+
+		fetchTCPData().catch((e) => {
+			console.error(e);
+			dispatch({ type: "clear" });
+		});
+	}, [library]);
 
 	return (
 		<Router>
-			<div className="App">
-				<Navbar />
+			<TCPDataContext.Provider value={tcpdata}>
+				<div className="App">
+					<Navbar />
 
-				<Switch>
-					<Route exact path="/">
-						{posts.map((post, idx) => (
-							<PostImage
-								key={idx}
-								text={post.text}
-								img={post.file}
-								onCommentSubmit={(text) => newCommentHandler(text, idx)}
-							>
-								{post.comments &&
-									post.comments.map((text, idx) => (
-										<Comments key={idx} text={text} />
-									))}
-							</PostImage>
-						))}
-					</Route>
-					<Route exact path="/create">
-						<CreateNewPost onSubmit={newPostHandler} />
-					</Route>
-					<Route exact path="/profile">
-						<Profile
-							username="bigBoyMIKE"
-							walletAddress="0x91AEEDE11Cb99a060696B9936B5512b51646329f"
-						/>
-					</Route>
-				</Switch>
-			</div>
+					{account && (
+						<Switch>
+							<Route exact path="/">
+								<PostsContext.Provider value={{ posts, dispatch }}>
+									<MainPage />
+								</PostsContext.Provider>
+							</Route>
+							<Route exact path="/create">
+								<CreateNewPost onSubmit={newPostHandler} />
+							</Route>
+							<Route exact path="/profile">
+								<Profile username="bigBoyMIKE" walletAddress={account} />
+							</Route>
+						</Switch>
+					)}
+					{!account && <p style={{ color: "white" }}>Please log in</p>}
+				</div>
+			</TCPDataContext.Provider>
 		</Router>
 	);
 }

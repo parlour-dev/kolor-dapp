@@ -2,7 +2,6 @@ import React from "react";
 import styles from "../Navbar/Navbar.module.css";
 import { useHistory } from "react-router-dom";
 import { useEthers } from "@usedapp/core";
-import Web3 from "web3";
 
 const Navbar = () => {
 	const history = useHistory();
