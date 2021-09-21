@@ -5,6 +5,16 @@ import { useToggle } from "../../hooks";
 function PostImage({ text, img, author, children, onCommentSubmit }) {
 	const [showAddComment, toggleAddComment] = useToggle(false);
 
+  
+  var EtherTips = 0;
+  var DaiTips = 0;
+
+  function renderTips() {
+    if (EtherTips>0 || DaiTips>0) {
+      ReactDOM.render(<Tips/>, document.getElementById("renderTips"));
+    }
+  }
+  
 	return (
 		<div className={styles.post}>
 			<div className={styles.container}>
@@ -19,6 +29,9 @@ function PostImage({ text, img, author, children, onCommentSubmit }) {
 				<div className={styles.mediaContent}>
 					{img && <img alt="" src={img} className={styles.mediaContent} />}
 				</div>
+
+        <div onload={renderTips()} id="renderTips"></div>
+
 				<div className={styles.viewerAction}>
 					<div className={styles.buttonBlue}>Appreciate</div>
 					<div className={styles.buttonBlack} onClick={toggleAddComment}>
