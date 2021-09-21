@@ -1,14 +1,24 @@
 import styles from "./PostImage.module.css";
 import Comments from "./Comments/Comments";
 import AddComment from "./Comments/AddComment";
-import { render } from "@testing-library/react";
+
 import ReactDOM from 'react-dom';
+import Tips from "../Tips/Tips";
+
 function PostImage({ text, img }) {
 
+  var EtherTips = 0;
+  var DaiTips = 0;
+
+  function renderTips()
+{
+  if (EtherTips>0 || DaiTips>0) {
+    ReactDOM.render(<Tips/>, document.getElementById("renderTips"));
+ }
+
+}
 
   function renderCommentHandler() {
-
-   
   ReactDOM.render(<AddComment/>, document.getElementById("renderAddComment"));
   }
 
@@ -27,6 +37,8 @@ function PostImage({ text, img }) {
         <div className={styles.mediaContent}>
           <img alt="" src={img} className={styles.mediaContent} />
         </div>
+        <div  onload={renderTips()} id="renderTips"></div>
+      
         <div className={styles.viewerAction}>
           <div className={styles.buttonBlue}>Appreciate</div>
           <div  className={styles.buttonBlack} onClick={renderCommentHandler}>Comment</div>
