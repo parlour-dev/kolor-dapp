@@ -2,12 +2,32 @@ import styles from "./PostImage.module.css";
 import AddComment from "./Comments/AddComment";
 import Tips from "../Tips/Tips";
 import { useToggle } from "../../hooks";
+import { useState, useContext, useEffect } from "react";
+import { TCPDataContext } from "../../App";
+import { ethers } from "ethers";
 
-function PostImage({ text, img, author, children, onCommentSubmit }) {
+function PostImage({ text, img, idx, author, children, onCommentSubmit }) {
 	const [showAddComment, toggleAddComment] = useToggle(false);
 
-	var EtherTips = 1;
-	var DaiTips = 100;
+	const [etherTipBalance, setEtherTipBalance] = useState(0);
+	const tcpdata = useContext(TCPDataContext);
+
+	useEffect(() => {
+		const fetchBalance = async () => {
+			const balance = await tcpdata.getContentBalance(idx);
+			const formatted_balance = ethers.utils.formatUnits(balance, "ether");
+			setEtherTipBalance(formatted_balance);
+		};
+
+		fetchBalance().catch(console.error);
+	}, [idx, tcpdata]);
+
+	function handleTip() {
+		const result = tcpdata.tipContent(idx, {
+			value: ethers.utils.bigNumberify("30000000000000000"),
+		});
+		result.catch(console.error);
+	}
 
 	return (
 		<div className={styles.post}>
@@ -25,15 +45,18 @@ function PostImage({ text, img, author, children, onCommentSubmit }) {
 				</div>
 
 				<div id="renderTips">
-					{EtherTips > 0 && DaiTips > 0 && (
-						<Tips
-							amounts={{ main: 2.003, additional: { dai: 23, wbtc: 0.5 } }}
-						/>
-					)}
+					<Tips
+						amounts={{
+							main: etherTipBalance,
+							additional: { dai: 23, wbtc: 0.5 },
+						}}
+					/>
 				</div>
 
 				<div className={styles.viewerAction}>
-					<div className={styles.buttonBlue}>Appreciate</div>
+					<div className={styles.buttonBlue} onClick={handleTip}>
+						Appreciate
+					</div>
 					<div className={styles.buttonBlack} onClick={toggleAddComment}>
 						Comment
 					</div>
