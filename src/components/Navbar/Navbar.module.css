@@ -1,6 +1,6 @@
 .navbar {
 	width: 100%;
-	height: 5vmax;
+	height: auto;
 	background-color: #1a1a1a;
 	border-bottom: 0.1vmax solid #535353;
 	margin-bottom: 2vmax;
