@@ -1,16 +1,14 @@
 .container {
-
-  text-align: left;
-  font-size: 0.9vmax;
-  border-bottom: 0.1vmax solid #535353;
-  display: flex;
-  flex-direction: row;
-  }
-  .EtherTips{
-  
-    color: white;
-  }
-  .DaiTips{
-    margin-left: 1.5vmax;
-    color: #535353;
-  }
+	text-align: left;
+	font-size: 0.9vmax;
+	border-bottom: 0.1vmax solid #535353;
+	display: flex;
+	flex-direction: row;
+}
+.MainTip {
+	color: white;
+}
+.AdditionalTip {
+	margin-left: 1.5vmax;
+	color: #535353;
+}

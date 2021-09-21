@@ -1,20 +1,14 @@
 import styles from "./PostImage.module.css";
 import AddComment from "./Comments/AddComment";
+import Tips from "../Tips/Tips";
 import { useToggle } from "../../hooks";
 
 function PostImage({ text, img, author, children, onCommentSubmit }) {
 	const [showAddComment, toggleAddComment] = useToggle(false);
 
-  
-  var EtherTips = 0;
-  var DaiTips = 0;
+	var EtherTips = 1;
+	var DaiTips = 100;
 
-  function renderTips() {
-    if (EtherTips>0 || DaiTips>0) {
-      ReactDOM.render(<Tips/>, document.getElementById("renderTips"));
-    }
-  }
-  
 	return (
 		<div className={styles.post}>
 			<div className={styles.container}>
@@ -30,7 +24,13 @@ function PostImage({ text, img, author, children, onCommentSubmit }) {
 					{img && <img alt="" src={img} className={styles.mediaContent} />}
 				</div>
 
-        <div onload={renderTips()} id="renderTips"></div>
+				<div id="renderTips">
+					{EtherTips > 0 && DaiTips > 0 && (
+						<Tips
+							amounts={{ main: 2.003, additional: { dai: 23, wbtc: 0.5 } }}
+						/>
+					)}
+				</div>
 
 				<div className={styles.viewerAction}>
 					<div className={styles.buttonBlue}>Appreciate</div>
