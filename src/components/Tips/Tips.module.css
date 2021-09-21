@@ -4,11 +4,19 @@
 	border-bottom: 0.1vmax solid #535353;
 	display: flex;
 	flex-direction: row;
+	padding-bottom: 0.5vmax;
 }
-.MainTip {
+.mainTips {
 	color: white;
+	margin-right: 0.75vmax;
 }
-.AdditionalTip {
-	margin-left: 1.5vmax;
+
+.mainTips img {
+	width: 0.8vmax;
+	margin-right: 0.25vmax;
+}
+
+.additionalTips {
+	margin-left: 0.75vmax;
 	color: #535353;
 }

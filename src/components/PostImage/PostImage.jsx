@@ -27,7 +27,7 @@ function PostImage({ text, img, author, children, onCommentSubmit }) {
 				<div id="renderTips">
 					{EtherTips > 0 && DaiTips > 0 && (
 						<Tips
-							amounts={{ main: 2.003, additional: { dai: 23, wbtc: 0.5 } }}
+							amounts={{ ethereum: 2.003, dai: 32, additional: { WBTC: 0.5, WAP: 69 } }}
 						/>
 					)}
 				</div>
