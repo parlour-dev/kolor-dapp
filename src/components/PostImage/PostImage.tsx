@@ -5,12 +5,21 @@ import { useToggle } from "../../hooks";
 import { useState, useContext, useEffect } from "react";
 import { TCPDataContext } from "../../App";
 import { ethers } from "ethers";
+import { TCPData } from "../../TCPData";
 
-function PostImage({ text, img, idx, author, children, onCommentSubmit }) {
+type PostImageT = {
+	text: string,
+	img: string,
+	idx: number,
+	author: string,
+	onCommentSubmit: (comment: string) => void
+}
+
+const PostImage: React.FC<PostImageT> = ({ text, img, idx, author, children, onCommentSubmit }) => {
 	const [showAddComment, toggleAddComment] = useToggle(false);
 
-	const [etherTipBalance, setEtherTipBalance] = useState(0);
-	const tcpdata = useContext(TCPDataContext);
+	const [etherTipBalance, setEtherTipBalance] = useState("");
+	const tcpdata = useContext(TCPDataContext) as TCPData;
 
 	useEffect(() => {
 		const fetchBalance = async () => {
@@ -48,8 +57,8 @@ function PostImage({ text, img, idx, author, children, onCommentSubmit }) {
 					<Tips
 						amounts={{
 							ethereum: etherTipBalance,
-              dai: 32,
-							additional: { wap: 23, wbtc: 0.5 },
+							dai: 32,
+							additional: [ {name: "wap", amount: 23}, { name:"wbtc",amount: 0.5 } ],
 						}}
 					/>
 				</div>
@@ -58,7 +67,7 @@ function PostImage({ text, img, idx, author, children, onCommentSubmit }) {
 					<div className={styles.buttonBlue} onClick={handleTip}>
 						Appreciate
 					</div>
-					<div className={styles.buttonBlack} onClick={toggleAddComment}>
+					<div className={styles.buttonBlack} onClick={() => toggleAddComment()}>
 						Comment
 					</div>
 				</div>

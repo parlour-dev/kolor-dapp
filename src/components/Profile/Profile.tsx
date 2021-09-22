@@ -2,7 +2,12 @@ import React from "react";
 import styles from "../Profile/Profile.module.css";
 import { useEthers } from "@usedapp/core";
 
-const Profile = ({ username, walletAddress }) => {
+type ProfileT = {
+	username: string,
+	walletAddress: string
+}
+
+const Profile: React.FC<ProfileT> = ({ username, walletAddress }) => {
 	const { deactivate } = useEthers();
 
 	return (

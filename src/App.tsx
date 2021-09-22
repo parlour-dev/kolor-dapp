@@ -1,5 +1,4 @@
 import Navbar from "../src/components/Navbar/Navbar";
-
 import MainPage from "./components/MainPage";
 import "./App.css";
 import React, { useEffect, useReducer, useState } from "react";
@@ -9,11 +8,13 @@ import Profile from "./components/Profile/Profile";
 import { useEthers } from "@usedapp/core";
 import tcpdataABI from "./abi.json";
 import { ethers } from "ethers";
+import { TCPData } from "./TCPData";
+import { Post, PostAction, ContractPost, PostContextT } from "./types";
 
-export const PostsContext = React.createContext();
-export const TCPDataContext = React.createContext();
+export const PostsContext = React.createContext<PostContextT | undefined>(undefined);
+export const TCPDataContext = React.createContext<TCPData | undefined>(undefined);
 
-function postsReducer(state, action) {
+function postsReducer(state: Post[], action: PostAction): Post[] {
 	switch (action.type) {
 		case "add": {
 			const { value } = action;
@@ -21,6 +22,10 @@ function postsReducer(state, action) {
 		}
 		case "update": {
 			const { value, idx } = action;
+
+			// bail if idx is null or undefined
+			if(!idx) return state;
+
 			state[idx] = value;
 			return state;
 		}
@@ -36,16 +41,16 @@ function postsReducer(state, action) {
 function App() {
 	const [posts, dispatch] = useReducer(postsReducer, []);
 	const { account, library } = useEthers();
-	const [tcpdata, setTcpdata] = useState();
+	const [ tcpdata, setTcpdata ] = useState<TCPData>();
 
-	async function newPostHandler(newPostRaw) {
+	async function newPostHandler(newPostRaw: Post) {
 		if (!tcpdata) {
 			console.error("Can't post: no TCPData");
 			return false;
 		}
 		// {"title": "The First Text Post", "tags": ["text", "first", "small"], "url": "https://ipfs.io/ipfs/QmNrgEMcUygbKzZeZgYFosdd27VE9KnWbyUD73bKZJ3bGi"}
 
-		const newPost = {
+		const newPost: ContractPost = {
 			title: newPostRaw.text,
 			url: newPostRaw.file,
 			tags: ["testtag"],
@@ -53,7 +58,7 @@ function App() {
 		const newPostString = JSON.stringify(newPost);
 
 		const result = tcpdata.addContent(newPostString);
-		result.catch((e) => console.error);
+		result.catch(console.error);
 	}
 
 	const tcpdata_address = "0xa398De2fEF0b37cf50c2F9D88b8953b94b49c78C";
@@ -66,6 +71,9 @@ function App() {
 		}
 
 		const fetchTCPData = async () => {
+			// @ts-ignore
+			if(!window.ethereum) return null;
+			// @ts-ignore
 			const provider = new ethers.providers.Web3Provider(window.ethereum);
 			// refresh whenever a user changes the network
 			provider.on("network", (newNetwork, oldNetwork) => {
@@ -73,9 +81,9 @@ function App() {
 			});
 			const signer = provider.getSigner();
 
-			const tcpdata = new ethers.Contract(tcpdata_address, tcpdataABI, signer);
+			const tcpdata = new ethers.Contract(tcpdata_address, tcpdataABI, signer) as unknown as TCPData;
 
-			tcpdata.on("ContentAdded", async (idx) => {
+			tcpdata.on("ContentAdded", async (idx: number) => {
 				// avoid creating duplicate posts
 				if (posts.find((el) => el.id == idx)) return undefined;
 

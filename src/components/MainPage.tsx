@@ -2,19 +2,19 @@ import PostImage from "./PostImage/PostImage";
 import Comments from "./PostImage/Comments/Comments";
 import { useContext, useReducer } from "react";
 import { PostsContext } from "../App";
+import { PostContextT } from "../types";
 
 const MainPage = () => {
 	const [, forceUpdate] = useReducer((x) => x + 1, 0);
-	const { posts, dispatch } = useContext(PostsContext);
+	const { posts, dispatch } = useContext(PostsContext) as PostContextT;
 
-	function newCommentHandler(commentText, idx) {
+	function newCommentHandler(commentText: string, idx: number) {
 		const newComments = posts[idx].comments
-			? [commentText, ...posts[idx].comments]
+			? [commentText, ...posts[idx].comments!]
 			: [commentText];
 		const newValue = { ...posts[idx], comments: newComments };
-		const dispatchAction = { type: "update", value: newValue, idx: idx };
 
-		dispatch(dispatchAction);
+		dispatch({ type: "update", value: newValue, idx: idx });
 
 		// FIXME: DONT DO THIS!!!
 		forceUpdate();
@@ -26,8 +26,8 @@ const MainPage = () => {
 				<PostImage
 					key={idx}
 					text={post.text}
-					author={post.author}
-					img={post.file}
+					author={post.author!}
+					img={post.file!}
 					idx={idx}
 					onCommentSubmit={(text) => newCommentHandler(text, idx)}
 				>

@@ -4,18 +4,19 @@ import imagePlaceholder from "../CreateNewPost/image.png";
 import submitArrow from "../CreateNewPost/arrow.png";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
+import { Post } from "../../types";
 
-const CreateNewPost = ({ onSubmit }) => {
+const CreateNewPost = ({ onSubmit }: { onSubmit: (post: Post) => void }) => {
 	const [file, setFile] = useState();
 	const [inputText, setInputText] = useState("");
 
 	let history = useHistory();
 
-	const inputTextHandler = (e) => {
+	const inputTextHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 		setInputText(e.target.value);
 	};
 
-	const submitPostHandler = (e) => {
+	const submitPostHandler = (e: React.MouseEvent) => {
 		e.preventDefault();
 		const newPost = {
 			text: inputText,
@@ -30,8 +31,11 @@ const CreateNewPost = ({ onSubmit }) => {
 		history.goBack();
 	};
 
-	const handleChange = (e) => {
-		setFile(URL.createObjectURL(e.target.files[0]));
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		try {
+			// @ts-ignore
+			setFile(URL.createObjectURL(e.target.files[0]));
+		} catch(e) {  }
 	};
 
 	return (
@@ -51,7 +55,7 @@ const CreateNewPost = ({ onSubmit }) => {
 					<div
 						className={styles.uploadImage}
 						onClick={() => {
-							document.getElementById("multi").click();
+							document.getElementById("multi")!.click();
 						}}
 					>
 						<img

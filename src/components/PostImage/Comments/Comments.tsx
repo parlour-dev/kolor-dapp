@@ -1,6 +1,6 @@
 import styles from "../Comments/Comments.module.css";
 
-function Comments() {
+const Comments: React.FC<{ text: string }> = ({ text }) => {
 	return (
 		<div>
 			<div className={styles.creator}>
@@ -16,7 +16,7 @@ function Comments() {
 				</div>
 			</div>
 			<div className={styles.textContainer}>
-				<div className={styles.text}>w szczebrzeszynie chrząszcz brz</div>
+				<div className={styles.text}>{text}</div>
 			</div>
 		</div>
 	);

@@ -1,11 +1,11 @@
-import { useRef } from "react";
+import React, { useRef } from "react";
 import styles from "../Comments/AddComment.module.css";
 
-function AddComment({ onSubmit }) {
-	const inputBox = useRef();
+const AddComment: React.FC<{ onSubmit: (newComment: string) => void }> = ({ onSubmit }) => {
+	const inputBox = useRef<HTMLDivElement>(null);
 
 	function addComment() {
-		onSubmit(inputBox.current.textContent);
+		onSubmit(inputBox.current!.textContent || "");
 	}
 
 	return (
