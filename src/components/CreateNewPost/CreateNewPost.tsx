@@ -17,18 +17,29 @@ const CreateNewPost = ({ onSubmit }: { onSubmit: (post: Post) => void }) => {
 	};
 
 	const submitPostHandler = (e: React.MouseEvent) => {
-		e.preventDefault();
-		const newPost = {
-			text: inputText,
-			file: file,
-			wallet: "creatorWallet",
-			nick: "creatorNick",
-			id: Math.random() * 1000,
-		};
+		
 
-		onSubmit(newPost);
-		setInputText("");
-		history.goBack();
+	if(!inputText && !file){console.log("emptypost"); return;}
+
+
+			e.preventDefault();
+			const newPost = {
+				text: inputText,
+				file: file,
+				wallet: "creatorWallet",
+				nick: "creatorNick",
+				id: Math.random() * 1000,
+			};
+	
+			onSubmit(newPost);
+			setInputText("");
+			history.goBack();
+	
+
+		
+
+
+
 	};
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

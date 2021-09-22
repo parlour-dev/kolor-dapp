@@ -6,6 +6,7 @@ import { useEthers } from "@usedapp/core";
 const Navbar = () => {
 	const history = useHistory();
 	const { activateBrowserWallet, account } = useEthers();
+  
 
 	return (
 		<div>
