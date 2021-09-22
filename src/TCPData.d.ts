@@ -3,17 +3,17 @@
 /* eslint-disable */
 
 import {
-  ethers,
-  EventFilter,
-  Signer,
-  BigNumber,
-  BigNumberish,
-  PopulatedTransaction,
-  BaseContract,
-  ContractTransaction,
-  Overrides,
-  PayableOverrides,
-  CallOverrides,
+	ethers,
+	EventFilter,
+	Signer,
+	BigNumber,
+	BigNumberish,
+	PopulatedTransaction,
+	BaseContract,
+	ContractTransaction,
+	Overrides,
+	PayableOverrides,
+	CallOverrides,
 } from "ethers";
 import { BytesLike } from "@ethersproject/bytes";
 import { Listener, Provider } from "@ethersproject/providers";
@@ -21,373 +21,373 @@ import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 import { TypedEventFilter, TypedEvent, TypedListener } from "./commons";
 
 interface TCPDataInterface extends ethers.utils.Interface {
-  functions: {
-    "addContent(string)": FunctionFragment;
-    "content(uint256)": FunctionFragment;
-    "getBalance()": FunctionFragment;
-    "getContent()": FunctionFragment;
-    "getContentBalance(uint256)": FunctionFragment;
-    "getContentLength()": FunctionFragment;
-    "getLastContent()": FunctionFragment;
-    "initialize()": FunctionFragment;
-    "tipContent(uint256)": FunctionFragment;
-    "tipPerson(address)": FunctionFragment;
-    "withdrawBalance()": FunctionFragment;
-  };
+	functions: {
+		"addContent(string)": FunctionFragment;
+		"content(uint256)": FunctionFragment;
+		"getBalance()": FunctionFragment;
+		"getContent()": FunctionFragment;
+		"getContentBalance(uint256)": FunctionFragment;
+		"getContentLength()": FunctionFragment;
+		"getLastContent()": FunctionFragment;
+		"initialize()": FunctionFragment;
+		"tipContent(uint256)": FunctionFragment;
+		"tipPerson(address)": FunctionFragment;
+		"withdrawBalance()": FunctionFragment;
+	};
 
-  encodeFunctionData(functionFragment: "addContent", values: [string]): string;
-  encodeFunctionData(
-    functionFragment: "content",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getBalance",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getContent",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getContentBalance",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getContentLength",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getLastContent",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "initialize",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "tipContent",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(functionFragment: "tipPerson", values: [string]): string;
-  encodeFunctionData(
-    functionFragment: "withdrawBalance",
-    values?: undefined
-  ): string;
+	encodeFunctionData(functionFragment: "addContent", values: [string]): string;
+	encodeFunctionData(
+		functionFragment: "content",
+		values: [BigNumberish]
+	): string;
+	encodeFunctionData(
+		functionFragment: "getBalance",
+		values?: undefined
+	): string;
+	encodeFunctionData(
+		functionFragment: "getContent",
+		values?: undefined
+	): string;
+	encodeFunctionData(
+		functionFragment: "getContentBalance",
+		values: [BigNumberish]
+	): string;
+	encodeFunctionData(
+		functionFragment: "getContentLength",
+		values?: undefined
+	): string;
+	encodeFunctionData(
+		functionFragment: "getLastContent",
+		values?: undefined
+	): string;
+	encodeFunctionData(
+		functionFragment: "initialize",
+		values?: undefined
+	): string;
+	encodeFunctionData(
+		functionFragment: "tipContent",
+		values: [BigNumberish]
+	): string;
+	encodeFunctionData(functionFragment: "tipPerson", values: [string]): string;
+	encodeFunctionData(
+		functionFragment: "withdrawBalance",
+		values?: undefined
+	): string;
 
-  decodeFunctionResult(functionFragment: "addContent", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "content", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "getBalance", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "getContent", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "getContentBalance",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getContentLength",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getLastContent",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "tipContent", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "tipPerson", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "withdrawBalance",
-    data: BytesLike
-  ): Result;
+	decodeFunctionResult(functionFragment: "addContent", data: BytesLike): Result;
+	decodeFunctionResult(functionFragment: "content", data: BytesLike): Result;
+	decodeFunctionResult(functionFragment: "getBalance", data: BytesLike): Result;
+	decodeFunctionResult(functionFragment: "getContent", data: BytesLike): Result;
+	decodeFunctionResult(
+		functionFragment: "getContentBalance",
+		data: BytesLike
+	): Result;
+	decodeFunctionResult(
+		functionFragment: "getContentLength",
+		data: BytesLike
+	): Result;
+	decodeFunctionResult(
+		functionFragment: "getLastContent",
+		data: BytesLike
+	): Result;
+	decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
+	decodeFunctionResult(functionFragment: "tipContent", data: BytesLike): Result;
+	decodeFunctionResult(functionFragment: "tipPerson", data: BytesLike): Result;
+	decodeFunctionResult(
+		functionFragment: "withdrawBalance",
+		data: BytesLike
+	): Result;
 
-  events: {
-    "ContentAdded(uint256)": EventFragment;
-    "TipReceived(uint256,uint256)": EventFragment;
-  };
+	events: {
+		"ContentAdded(uint256)": EventFragment;
+		"TipReceived(uint256,uint256)": EventFragment;
+	};
 
-  getEvent(nameOrSignatureOrTopic: "ContentAdded"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "TipReceived"): EventFragment;
+	getEvent(nameOrSignatureOrTopic: "ContentAdded"): EventFragment;
+	getEvent(nameOrSignatureOrTopic: "TipReceived"): EventFragment;
 }
 
 export type ContentAddedEvent = TypedEvent<[BigNumber] & { idx: BigNumber }>;
 
 export type TipReceivedEvent = TypedEvent<
-  [BigNumber, BigNumber] & { idx: BigNumber; amount: BigNumber }
+	[BigNumber, BigNumber] & { idx: BigNumber; amount: BigNumber }
 >;
 
 export class TCPData extends BaseContract {
-  connect(signerOrProvider: Signer | Provider | string): this;
-  attach(addressOrName: string): this;
-  deployed(): Promise<this>;
+	connect(signerOrProvider: Signer | Provider | string): this;
+	attach(addressOrName: string): this;
+	deployed(): Promise<this>;
 
-  listeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
-  ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
-  off<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
-  on<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
-  once<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
-  removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
-  removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
-  ): this;
+	listeners<EventArgsArray extends Array<any>, EventArgsObject>(
+		eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
+	): Array<TypedListener<EventArgsArray, EventArgsObject>>;
+	off<EventArgsArray extends Array<any>, EventArgsObject>(
+		eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
+		listener: TypedListener<EventArgsArray, EventArgsObject>
+	): this;
+	on<EventArgsArray extends Array<any>, EventArgsObject>(
+		eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
+		listener: TypedListener<EventArgsArray, EventArgsObject>
+	): this;
+	once<EventArgsArray extends Array<any>, EventArgsObject>(
+		eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
+		listener: TypedListener<EventArgsArray, EventArgsObject>
+	): this;
+	removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
+		eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
+		listener: TypedListener<EventArgsArray, EventArgsObject>
+	): this;
+	removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
+		eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
+	): this;
 
-  listeners(eventName?: string): Array<Listener>;
-  off(eventName: string, listener: Listener): this;
-  on(eventName: string, listener: Listener): this;
-  once(eventName: string, listener: Listener): this;
-  removeListener(eventName: string, listener: Listener): this;
-  removeAllListeners(eventName?: string): this;
+	listeners(eventName?: string): Array<Listener>;
+	off(eventName: string, listener: Listener): this;
+	on(eventName: string, listener: Listener): this;
+	once(eventName: string, listener: Listener): this;
+	removeListener(eventName: string, listener: Listener): this;
+	removeAllListeners(eventName?: string): this;
 
-  queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
-    event: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
-  ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
+	queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
+		event: TypedEventFilter<EventArgsArray, EventArgsObject>,
+		fromBlockOrBlockhash?: string | number | undefined,
+		toBlock?: string | number | undefined
+	): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
-  interface: TCPDataInterface;
+	interface: TCPDataInterface;
 
-  functions: {
-    addContent(
-      newHeader: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+	functions: {
+		addContent(
+			newHeader: string,
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<ContractTransaction>;
 
-    content(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[string, string] & { author: string; header: string }>;
+		content(
+			arg0: BigNumberish,
+			overrides?: CallOverrides
+		): Promise<[string, string] & { author: string; header: string }>;
 
-    getBalance(overrides?: CallOverrides): Promise<[BigNumber]>;
+		getBalance(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    getContent(
-      overrides?: CallOverrides
-    ): Promise<[([string, string] & { author: string; header: string })[]]>;
+		getContent(
+			overrides?: CallOverrides
+		): Promise<[([string, string] & { author: string; header: string })[]]>;
 
-    getContentBalance(
-      idx: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+		getContentBalance(
+			idx: BigNumberish,
+			overrides?: CallOverrides
+		): Promise<[BigNumber]>;
 
-    getContentLength(overrides?: CallOverrides): Promise<[BigNumber]>;
+		getContentLength(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    getLastContent(
-      overrides?: CallOverrides
-    ): Promise<[string, string, BigNumber]>;
+		getLastContent(
+			overrides?: CallOverrides
+		): Promise<[string, string, BigNumber]>;
 
-    initialize(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+		initialize(
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<ContractTransaction>;
 
-    tipContent(
-      idx: BigNumberish,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+		tipContent(
+			idx: BigNumberish,
+			overrides?: PayableOverrides & { from?: string | Promise<string> }
+		): Promise<ContractTransaction>;
 
-    tipPerson(
-      who: string,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+		tipPerson(
+			who: string,
+			overrides?: PayableOverrides & { from?: string | Promise<string> }
+		): Promise<ContractTransaction>;
 
-    withdrawBalance(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-  };
+		withdrawBalance(
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<ContractTransaction>;
+	};
 
-  addContent(
-    newHeader: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+	addContent(
+		newHeader: string,
+		overrides?: Overrides & { from?: string | Promise<string> }
+	): Promise<ContractTransaction>;
 
-  content(
-    arg0: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<[string, string] & { author: string; header: string }>;
+	content(
+		arg0: BigNumberish,
+		overrides?: CallOverrides
+	): Promise<[string, string] & { author: string; header: string }>;
 
-  getBalance(overrides?: CallOverrides): Promise<BigNumber>;
+	getBalance(overrides?: CallOverrides): Promise<BigNumber>;
 
-  getContent(
-    overrides?: CallOverrides
-  ): Promise<([string, string] & { author: string; header: string })[]>;
+	getContent(
+		overrides?: CallOverrides
+	): Promise<([string, string] & { author: string; header: string })[]>;
 
-  getContentBalance(
-    idx: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+	getContentBalance(
+		idx: BigNumberish,
+		overrides?: CallOverrides
+	): Promise<BigNumber>;
 
-  getContentLength(overrides?: CallOverrides): Promise<BigNumber>;
+	getContentLength(overrides?: CallOverrides): Promise<BigNumber>;
 
-  getLastContent(
-    overrides?: CallOverrides
-  ): Promise<[string, string, BigNumber]>;
+	getLastContent(
+		overrides?: CallOverrides
+	): Promise<[string, string, BigNumber]>;
 
-  initialize(
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+	initialize(
+		overrides?: Overrides & { from?: string | Promise<string> }
+	): Promise<ContractTransaction>;
 
-  tipContent(
-    idx: BigNumberish,
-    overrides?: PayableOverrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+	tipContent(
+		idx: BigNumberish,
+		overrides?: PayableOverrides & { from?: string | Promise<string> }
+	): Promise<ContractTransaction>;
 
-  tipPerson(
-    who: string,
-    overrides?: PayableOverrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+	tipPerson(
+		who: string,
+		overrides?: PayableOverrides & { from?: string | Promise<string> }
+	): Promise<ContractTransaction>;
 
-  withdrawBalance(
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+	withdrawBalance(
+		overrides?: Overrides & { from?: string | Promise<string> }
+	): Promise<ContractTransaction>;
 
-  callStatic: {
-    addContent(newHeader: string, overrides?: CallOverrides): Promise<void>;
+	callStatic: {
+		addContent(newHeader: string, overrides?: CallOverrides): Promise<void>;
 
-    content(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[string, string] & { author: string; header: string }>;
+		content(
+			arg0: BigNumberish,
+			overrides?: CallOverrides
+		): Promise<[string, string] & { author: string; header: string }>;
 
-    getBalance(overrides?: CallOverrides): Promise<BigNumber>;
+		getBalance(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getContent(
-      overrides?: CallOverrides
-    ): Promise<([string, string] & { author: string; header: string })[]>;
+		getContent(
+			overrides?: CallOverrides
+		): Promise<([string, string] & { author: string; header: string })[]>;
 
-    getContentBalance(
-      idx: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+		getContentBalance(
+			idx: BigNumberish,
+			overrides?: CallOverrides
+		): Promise<BigNumber>;
 
-    getContentLength(overrides?: CallOverrides): Promise<BigNumber>;
+		getContentLength(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getLastContent(
-      overrides?: CallOverrides
-    ): Promise<[string, string, BigNumber]>;
+		getLastContent(
+			overrides?: CallOverrides
+		): Promise<[string, string, BigNumber]>;
 
-    initialize(overrides?: CallOverrides): Promise<void>;
+		initialize(overrides?: CallOverrides): Promise<void>;
 
-    tipContent(idx: BigNumberish, overrides?: CallOverrides): Promise<void>;
+		tipContent(idx: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
-    tipPerson(who: string, overrides?: CallOverrides): Promise<void>;
+		tipPerson(who: string, overrides?: CallOverrides): Promise<void>;
 
-    withdrawBalance(overrides?: CallOverrides): Promise<void>;
-  };
+		withdrawBalance(overrides?: CallOverrides): Promise<void>;
+	};
 
-  filters: {
-    "ContentAdded(uint256)"(
-      idx?: BigNumberish | null
-    ): TypedEventFilter<[BigNumber], { idx: BigNumber }>;
+	filters: {
+		"ContentAdded(uint256)"(
+			idx?: BigNumberish | null
+		): TypedEventFilter<[BigNumber], { idx: BigNumber }>;
 
-    ContentAdded(
-      idx?: BigNumberish | null
-    ): TypedEventFilter<[BigNumber], { idx: BigNumber }>;
+		ContentAdded(
+			idx?: BigNumberish | null
+		): TypedEventFilter<[BigNumber], { idx: BigNumber }>;
 
-    "TipReceived(uint256,uint256)"(
-      idx?: BigNumberish | null,
-      amount?: null
-    ): TypedEventFilter<
-      [BigNumber, BigNumber],
-      { idx: BigNumber; amount: BigNumber }
-    >;
+		"TipReceived(uint256,uint256)"(
+			idx?: BigNumberish | null,
+			amount?: null
+		): TypedEventFilter<
+			[BigNumber, BigNumber],
+			{ idx: BigNumber; amount: BigNumber }
+		>;
 
-    TipReceived(
-      idx?: BigNumberish | null,
-      amount?: null
-    ): TypedEventFilter<
-      [BigNumber, BigNumber],
-      { idx: BigNumber; amount: BigNumber }
-    >;
-  };
+		TipReceived(
+			idx?: BigNumberish | null,
+			amount?: null
+		): TypedEventFilter<
+			[BigNumber, BigNumber],
+			{ idx: BigNumber; amount: BigNumber }
+		>;
+	};
 
-  estimateGas: {
-    addContent(
-      newHeader: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+	estimateGas: {
+		addContent(
+			newHeader: string,
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<BigNumber>;
 
-    content(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+		content(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
-    getBalance(overrides?: CallOverrides): Promise<BigNumber>;
+		getBalance(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getContent(overrides?: CallOverrides): Promise<BigNumber>;
+		getContent(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getContentBalance(
-      idx: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+		getContentBalance(
+			idx: BigNumberish,
+			overrides?: CallOverrides
+		): Promise<BigNumber>;
 
-    getContentLength(overrides?: CallOverrides): Promise<BigNumber>;
+		getContentLength(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getLastContent(overrides?: CallOverrides): Promise<BigNumber>;
+		getLastContent(overrides?: CallOverrides): Promise<BigNumber>;
 
-    initialize(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+		initialize(
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<BigNumber>;
 
-    tipContent(
-      idx: BigNumberish,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+		tipContent(
+			idx: BigNumberish,
+			overrides?: PayableOverrides & { from?: string | Promise<string> }
+		): Promise<BigNumber>;
 
-    tipPerson(
-      who: string,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+		tipPerson(
+			who: string,
+			overrides?: PayableOverrides & { from?: string | Promise<string> }
+		): Promise<BigNumber>;
 
-    withdrawBalance(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-  };
+		withdrawBalance(
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<BigNumber>;
+	};
 
-  populateTransaction: {
-    addContent(
-      newHeader: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+	populateTransaction: {
+		addContent(
+			newHeader: string,
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<PopulatedTransaction>;
 
-    content(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+		content(
+			arg0: BigNumberish,
+			overrides?: CallOverrides
+		): Promise<PopulatedTransaction>;
 
-    getBalance(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+		getBalance(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    getContent(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+		getContent(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    getContentBalance(
-      idx: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+		getContentBalance(
+			idx: BigNumberish,
+			overrides?: CallOverrides
+		): Promise<PopulatedTransaction>;
 
-    getContentLength(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+		getContentLength(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    getLastContent(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+		getLastContent(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    initialize(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+		initialize(
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<PopulatedTransaction>;
 
-    tipContent(
-      idx: BigNumberish,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+		tipContent(
+			idx: BigNumberish,
+			overrides?: PayableOverrides & { from?: string | Promise<string> }
+		): Promise<PopulatedTransaction>;
 
-    tipPerson(
-      who: string,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+		tipPerson(
+			who: string,
+			overrides?: PayableOverrides & { from?: string | Promise<string> }
+		): Promise<PopulatedTransaction>;
 
-    withdrawBalance(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-  };
+		withdrawBalance(
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<PopulatedTransaction>;
+	};
 }

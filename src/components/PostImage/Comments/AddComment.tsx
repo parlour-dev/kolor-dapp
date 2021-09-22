@@ -1,7 +1,9 @@
 import React, { useRef } from "react";
 import styles from "../Comments/AddComment.module.css";
 
-const AddComment: React.FC<{ onSubmit: (newComment: string) => void }> = ({ onSubmit }) => {
+const AddComment: React.FC<{ onSubmit: (newComment: string) => void }> = ({
+	onSubmit,
+}) => {
 	const inputBox = useRef<HTMLDivElement>(null);
 
 	function addComment() {
@@ -22,6 +24,6 @@ const AddComment: React.FC<{ onSubmit: (newComment: string) => void }> = ({ onSu
 			</div>
 		</div>
 	);
-}
+};
 
 export default AddComment;

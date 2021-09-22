@@ -35,7 +35,7 @@ const CreateNewPost = ({ onSubmit }: { onSubmit: (post: Post) => void }) => {
 		try {
 			// @ts-ignore
 			setFile(URL.createObjectURL(e.target.files[0]));
-		} catch(e) {  }
+		} catch (e) {}
 	};
 
 	return (

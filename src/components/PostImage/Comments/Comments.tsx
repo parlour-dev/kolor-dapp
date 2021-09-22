@@ -20,6 +20,6 @@ const Comments: React.FC<{ text: string }> = ({ text }) => {
 			</div>
 		</div>
 	);
-}
+};
 
 export default Comments;

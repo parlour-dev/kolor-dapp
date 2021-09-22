@@ -28,7 +28,7 @@ const MainPage = () => {
 					text={post.text}
 					author={post.author!}
 					img={post.file!}
-					idx={idx}
+					idx={post.id}
 					onCommentSubmit={(text) => newCommentHandler(text, idx)}
 				>
 					{post.comments &&

@@ -3,7 +3,7 @@ import eth from "../Tips/icons/eth.png";
 import dai from "../Tips/icons/dai.png";
 import { TipAmounts } from "../../types";
 
-const Tips: React.FC<{ amounts: TipAmounts}> = ({ amounts }) => {
+const Tips: React.FC<{ amounts: TipAmounts }> = ({ amounts }) => {
 	return (
 		<div className={styles.container}>
 			<div className={styles.mainTips}>
@@ -22,6 +22,6 @@ const Tips: React.FC<{ amounts: TipAmounts}> = ({ amounts }) => {
 				))}
 		</div>
 	);
-}
+};
 
 export default Tips;

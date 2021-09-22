@@ -87,7 +87,8 @@
 
 .buttonBlack {
 	composes: button;
-	background-color: #121212;}
+	background-color: #121212;
+}
 
 .animation {
 	/* animation */

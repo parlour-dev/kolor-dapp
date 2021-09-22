@@ -11,8 +11,12 @@ import { ethers } from "ethers";
 import { TCPData } from "./TCPData";
 import { Post, PostAction, ContractPost, PostContextT } from "./types";
 
-export const PostsContext = React.createContext<PostContextT | undefined>(undefined);
-export const TCPDataContext = React.createContext<TCPData | undefined>(undefined);
+export const PostsContext = React.createContext<PostContextT | undefined>(
+	undefined
+);
+export const TCPDataContext = React.createContext<TCPData | undefined>(
+	undefined
+);
 
 function postsReducer(state: Post[], action: PostAction): Post[] {
 	switch (action.type) {
@@ -24,7 +28,7 @@ function postsReducer(state: Post[], action: PostAction): Post[] {
 			const { value, idx } = action;
 
 			// bail if idx is null or undefined
-			if(!idx) return state;
+			if (!idx) return state;
 
 			state[idx] = value;
 			return state;
@@ -41,7 +45,7 @@ function postsReducer(state: Post[], action: PostAction): Post[] {
 function App() {
 	const [posts, dispatch] = useReducer(postsReducer, []);
 	const { account, library } = useEthers();
-	const [ tcpdata, setTcpdata ] = useState<TCPData>();
+	const [tcpdata, setTcpdata] = useState<TCPData>();
 
 	async function newPostHandler(newPostRaw: Post) {
 		if (!tcpdata) {
@@ -72,7 +76,7 @@ function App() {
 
 		const fetchTCPData = async () => {
 			// @ts-ignore
-			if(!window.ethereum) return null;
+			if (!window.ethereum) return null;
 			// @ts-ignore
 			const provider = new ethers.providers.Web3Provider(window.ethereum);
 			// refresh whenever a user changes the network
@@ -81,7 +85,11 @@ function App() {
 			});
 			const signer = provider.getSigner();
 
-			const tcpdata = new ethers.Contract(tcpdata_address, tcpdataABI, signer) as unknown as TCPData;
+			const tcpdata = new ethers.Contract(
+				tcpdata_address,
+				tcpdataABI,
+				signer
+			) as unknown as TCPData;
 
 			tcpdata.on("ContentAdded", async (idx: number) => {
 				// avoid creating duplicate posts
@@ -99,12 +107,17 @@ function App() {
 
 			// add all the fetched posts
 			const contents = await tcpdata.getContent();
+			console.log(contents);
 
 			if (contents) {
 				for (let idx in contents) {
 					const author = contents[idx].author;
 					const header = JSON.parse(contents[idx].header);
-					const newPost = { id: idx, text: header.title, author: author };
+					const newPost: Post = {
+						id: parseInt(idx),
+						text: header.title,
+						author: author,
+					};
 					dispatch({ type: "add", value: newPost });
 				}
 			} else {

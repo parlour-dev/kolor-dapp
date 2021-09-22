@@ -8,14 +8,21 @@ import { ethers } from "ethers";
 import { TCPData } from "../../TCPData";
 
 type PostImageT = {
-	text: string,
-	img: string,
-	idx: number,
-	author: string,
-	onCommentSubmit: (comment: string) => void
-}
+	text: string;
+	img: string;
+	idx: number;
+	author: string;
+	onCommentSubmit: (comment: string) => void;
+};
 
-const PostImage: React.FC<PostImageT> = ({ text, img, idx, author, children, onCommentSubmit }) => {
+const PostImage: React.FC<PostImageT> = ({
+	text,
+	img,
+	idx,
+	author,
+	children,
+	onCommentSubmit,
+}) => {
 	const [showAddComment, toggleAddComment] = useToggle(false);
 
 	const [etherTipBalance, setEtherTipBalance] = useState("");
@@ -43,7 +50,7 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author, children, onC
 			<div className={styles.container}>
 				<div className={styles.creator}>
 					<div className={styles.creatorInfo}>
-						<div className={styles.creatorNick}>ja</div>
+						<div className={styles.creatorNick}>ja debugid:{idx}</div>
 						<div className={styles.creatorWallet}>{author}</div>
 					</div>
 					<div className={styles.profPicture}></div>
@@ -58,7 +65,10 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author, children, onC
 						amounts={{
 							ethereum: etherTipBalance,
 							dai: 32,
-							additional: [ {name: "wap", amount: 23}, { name:"wbtc",amount: 0.5 } ],
+							additional: [
+								{ name: "wap", amount: 23 },
+								{ name: "wbtc", amount: 0.5 },
+							],
 						}}
 					/>
 				</div>
@@ -67,7 +77,10 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author, children, onC
 					<div className={styles.buttonBlue} onClick={handleTip}>
 						Appreciate
 					</div>
-					<div className={styles.buttonBlack} onClick={() => toggleAddComment()}>
+					<div
+						className={styles.buttonBlack}
+						onClick={() => toggleAddComment()}
+					>
 						Comment
 					</div>
 				</div>
@@ -76,6 +89,6 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author, children, onC
 			</div>
 		</div>
 	);
-}
+};
 
 export default PostImage;
