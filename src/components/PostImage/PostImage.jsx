@@ -48,7 +48,7 @@ function PostImage({ text, img, idx, author, children, onCommentSubmit }) {
 					<Tips
 						amounts={{
 							ethereum: etherTipBalance,
-              dai: 32,
+							dai: 32,
 							additional: { wap: 23, wbtc: 0.5 },
 						}}
 					/>
