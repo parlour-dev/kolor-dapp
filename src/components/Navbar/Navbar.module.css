@@ -26,6 +26,17 @@
 	border: 0px;
 }
 
+.balance {
+	float: left;
+	color: #fff;
+	font-family: "Lato", sans-serif;
+	font-weight: 300;
+	font-size: 1vmax;
+	margin-top: 2vmax;
+	margin-left: 1vmax;
+	margin-right: -20vmax;
+}
+
 .navbarButtonRight {
 	width: 10vmax;
 	margin-top: -4vmax;
@@ -86,14 +97,15 @@
 .logo {
 	display: inline-block;
 	justify-content: center;
+	margin-left: -12vmax;
+	width: auto;
+	position: relative;
 	height: 100%;
 	color: #fff;
 	font-family: "Helvetica", sans-serif;
 	font-weight: 700;
 	font-size: 2vmax;
-	margin-left: -12vmax;
 	line-height: 5vmax;
-	position: relative;
 	background-color: #1a1a1a;
 	border: 0px;
 
