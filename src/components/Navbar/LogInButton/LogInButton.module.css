@@ -1,0 +1,17 @@
+.navbarButtonRight {
+	width: 10vmax;
+	margin-top: -4vmax;
+	margin-right: 1vmax;
+	float: right;
+	background-color: #2e63fb;
+	color: #fff;
+	border-radius: 0.8vmax;
+	font-family: "Lato", sans-serif;
+	font-weight: 600;
+	line-height: 3vmax;
+	font-size: 1.8vmax;
+	text-align: center;
+	font-family: "Lato", sans-serif;
+	display: inline;
+	border: 0px;
+}

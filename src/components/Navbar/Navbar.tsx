@@ -2,11 +2,15 @@ import React from "react";
 import styles from "../Navbar/Navbar.module.css";
 import { useHistory } from "react-router-dom";
 import { useEthers } from "@usedapp/core";
-
+import LogInButton from "./LogInButton/LogInButton";
+import { render } from "react-dom";
 const Navbar = () => {
 	const history = useHistory();
 	const { activateBrowserWallet, account } = useEthers();
-  
+    
+    
+
+
 
 	return (
 		<div>
@@ -22,15 +26,11 @@ const Navbar = () => {
 				</button>
 				{/* ConnetWalletButton */}
 				<div>
-					<button
-						className={[styles.navbarButtonRight, styles.animation].join(" ")}
-						onClick={() => activateBrowserWallet()}
-					>
-						Log In
-					</button>
+					{!account && <LogInButton/>}
 					<button
 						className={styles.walletAddress}
 						onClick={() => history.push("/profile")}
+						
 					>
 						{account && (
 							<p>
