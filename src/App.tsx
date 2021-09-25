@@ -11,7 +11,6 @@ import { Post, PostAction, ContractPost, PostContextT } from "./types";
 import { fetchContent, getTCPData } from "./api/tcpdata";
 import { ethers } from "ethers";
 
-
 export const PostsContext = React.createContext<PostContextT | undefined>(
 	undefined
 );
@@ -78,7 +77,7 @@ function App() {
 
 			// asynchronously add new posts
 			tcpdata.on("ContentAdded", async (idx_raw: ethers.utils.BigNumber) => {
-				const idx = idx_raw.toNumber()
+				const idx = idx_raw.toNumber();
 
 				// avoid creating duplicate posts
 				if (posts.find((el) => el.id === idx)) return undefined;

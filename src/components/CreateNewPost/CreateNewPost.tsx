@@ -18,6 +18,12 @@ const CreateNewPost = ({ onSubmit }: { onSubmit: (post: Post) => void }) => {
 
 	const submitPostHandler = (e: React.MouseEvent) => {
 		e.preventDefault();
+
+		if (!inputText && !file) {
+			console.error("The post is empty.");
+			return;
+		}
+
 		const newPost = {
 			text: inputText,
 			file: file,
