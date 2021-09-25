@@ -14,20 +14,14 @@
 	padding-top: 5%;
 }
 .creator {
-	aspect-ratio: 7/1;
+	height: 4rem;
 	text-align: left;
 	display: flex;
 	flex-direction: row-reverse;
-}
-.profPicture {
-	height: 100%;
-	aspect-ratio: 1/1;
-	border-radius: 50%;
-	background-color: salmon;
+	align-items: center;
 }
 .creatorInfo {
 	width: 100%;
-	margin-top: 0.6vmax;
 	margin-left: 0.8vmax;
 }
 .creatorNick {

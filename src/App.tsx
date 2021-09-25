@@ -52,7 +52,6 @@ function App() {
 			console.error("Can't post: no TCPData");
 			return false;
 		}
-		// {"title": "The First Text Post", "tags": ["text", "first", "small"], "url": "https://ipfs.io/ipfs/QmNrgEMcUygbKzZeZgYFosdd27VE9KnWbyUD73bKZJ3bGi"}
 
 		const newPost: ContractPost = {
 			title: newPostRaw.text,
@@ -79,6 +78,7 @@ function App() {
 			if (!window.ethereum) return null;
 			// @ts-ignore
 			const provider = new ethers.providers.Web3Provider(window.ethereum);
+
 			// refresh whenever a user changes the network
 			provider.on("network", (newNetwork, oldNetwork) => {
 				if (oldNetwork) window.location.reload();
@@ -93,7 +93,7 @@ function App() {
 
 			tcpdata.on("ContentAdded", async (idx: number) => {
 				// avoid creating duplicate posts
-				if (posts.find((el) => el.id == idx)) return undefined;
+				if (posts.find((el) => el.id === idx)) return undefined;
 
 				const content = await tcpdata.content(idx);
 				const author = content.author;
@@ -130,7 +130,8 @@ function App() {
 			console.error(e);
 			dispatch({ type: "clear" });
 		});
-	}, [library]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [library /* posts missing on purpose */]);
 
 	return (
 		<Router>

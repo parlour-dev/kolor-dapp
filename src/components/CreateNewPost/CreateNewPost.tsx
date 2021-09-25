@@ -23,7 +23,7 @@ const CreateNewPost = ({ onSubmit }: { onSubmit: (post: Post) => void }) => {
 			file: file,
 			wallet: "creatorWallet",
 			nick: "creatorNick",
-			id: Math.random() * 1000,
+			id: -1
 		};
 
 		onSubmit(newPost);

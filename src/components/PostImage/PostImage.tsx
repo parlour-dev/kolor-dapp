@@ -1,6 +1,7 @@
 import styles from "./PostImage.module.css";
 import AddComment from "./Comments/AddComment";
 import Tips from "../Tips/Tips";
+import ProfilePicture from "../ProfilePicture/ProfilePicture";
 import { useToggle } from "../../hooks";
 import { useState, useContext, useEffect } from "react";
 import { TCPDataContext } from "../../App";
@@ -53,7 +54,7 @@ const PostImage: React.FC<PostImageT> = ({
 						<div className={styles.creatorNick}>ja debugid:{idx}</div>
 						<div className={styles.creatorWallet}>{author}</div>
 					</div>
-					<div className={styles.profPicture}></div>
+					<ProfilePicture address={author} />
 				</div>
 				<div className={styles.text}>{text}</div>
 				<div className={styles.mediaContent}>
