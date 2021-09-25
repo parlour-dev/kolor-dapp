@@ -37,11 +37,15 @@
 	margin-right: -20vmax;
 }
 
-.navbarButtonRight {
-	width: 10vmax;
+.navbarRight {
 	margin-top: -4vmax;
 	margin-right: 1vmax;
 	float: right;
+	box-shadow: none;
+}
+
+.navbarButtonRight {
+	width: 10vmax;
 	background-color: #2e63fb;
 	color: #fff;
 	border-radius: 0.8vmax;
@@ -57,24 +61,15 @@
 
 .walletAddress {
 	color: #fff;
-	float: right;
-	margin-top: -4vmax;
+	background-color: inherit;
 	font-size: 1vmax;
-	margin-right: 12vmax;
 	font-weight: 300;
-	/* animation */
-	-webkit-transition: all 1s ease;
-	-moz-transition: all 1s ease;
-	-o-transition: all 1s ease;
-	-ms-transition: all 1s ease;
-	transition: all 1s ease;
-	transition-duration: 300ms;
-	background-color: #1a1a1a;
 	border: 0px;
 	font-family: "Lato", sans-serif;
 }
 
 .walletAddress:hover {
+	box-shadow: none !important;
 	color: #2e63fb;
 	font-size: 1.1vmax;
 }

@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "../Navbar/Navbar.module.css";
 import { useHistory } from "react-router-dom";
 import { useEthers } from "@usedapp/core";
@@ -33,22 +32,34 @@ const Navbar = () => {
 				</button>
 				{/* ConnetWalletButton */}
 				<div>
-					<button
-						className={[styles.navbarButtonRight, styles.animation].join(" ")}
-						onClick={() => activateBrowserWallet()}
-					>
-						Log In
-					</button>
-					<button
-						className={styles.walletAddress}
-						onClick={() => history.push("/profile")}
-					>
-						{account && (
-							<p>
-								Hello <b>{account.substr(0, 16)}</b>...
-							</p>
-						)}
-					</button>
+					{!account && (
+						<button
+							className={[
+								styles.navbarRight,
+								styles.navbarButtonRight,
+								styles.animation,
+							].join(" ")}
+							onClick={() => activateBrowserWallet()}
+						>
+							Log In
+						</button>
+					)}
+					{account && (
+						<button
+							className={[
+								styles.navbarRight,
+								styles.walletAddress,
+								styles.animation,
+							].join(" ")}
+							onClick={() => history.push("/profile")}
+						>
+							{account && (
+								<p>
+									Hello <b>{account.substr(0, 16)}</b>...
+								</p>
+							)}
+						</button>
+					)}
 				</div>
 			</div>
 		</div>
