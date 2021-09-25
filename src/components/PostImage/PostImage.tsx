@@ -26,7 +26,7 @@ const PostImage: React.FC<PostImageT> = ({
 }) => {
 	const [showAddComment, toggleAddComment] = useToggle(false);
 
-	const [etherTipBalance, setEtherTipBalance] = useState("");
+	const [etherTipBalance, setEtherTipBalance] = useState("0.0");
 	const tcpdata = useContext(TCPDataContext) as TCPData;
 
 	useEffect(() => {

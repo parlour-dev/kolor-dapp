@@ -6,10 +6,9 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import CreateNewPost from "../src/components/CreateNewPost/CreateNewPost";
 import Profile from "./components/Profile/Profile";
 import { useEthers } from "@usedapp/core";
-import tcpdataABI from "./abi.json";
-import { ethers } from "ethers";
 import { TCPData } from "./TCPData";
 import { Post, PostAction, ContractPost, PostContextT } from "./types";
+import { fetchContent, getTCPData } from "./api/tcpdata";
 
 export const PostsContext = React.createContext<PostContextT | undefined>(
 	undefined
@@ -64,8 +63,6 @@ function App() {
 		result.catch(console.error);
 	}
 
-	const tcpdata_address = "0xa398De2fEF0b37cf50c2F9D88b8953b94b49c78C";
-
 	useEffect(() => {
 		if (!library) {
 			// if an account is not connected, remove all posts and bail out
@@ -74,23 +71,10 @@ function App() {
 		}
 
 		const fetchTCPData = async () => {
-			// @ts-ignore
-			if (!window.ethereum) return null;
-			// @ts-ignore
-			const provider = new ethers.providers.Web3Provider(window.ethereum);
+			const tcpdata = getTCPData();
+			if(!tcpdata) return undefined;
 
-			// refresh whenever a user changes the network
-			provider.on("network", (newNetwork, oldNetwork) => {
-				if (oldNetwork) window.location.reload();
-			});
-			const signer = provider.getSigner();
-
-			const tcpdata = new ethers.Contract(
-				tcpdata_address,
-				tcpdataABI,
-				signer
-			) as unknown as TCPData;
-
+			// asynchronously add new posts
 			tcpdata.on("ContentAdded", async (idx: number) => {
 				// avoid creating duplicate posts
 				if (posts.find((el) => el.id === idx)) return undefined;
@@ -106,22 +90,12 @@ function App() {
 			setTcpdata(tcpdata);
 
 			// add all the fetched posts
-			const contents = await tcpdata.getContent();
-			console.log(contents);
+			const fetchSuccess = await fetchContent(tcpdata, (post) => {
+				dispatch({ type: "add", value: post })
+			})
 
-			if (contents) {
-				for (let idx in contents) {
-					const author = contents[idx].author;
-					const header = JSON.parse(contents[idx].header);
-					const newPost: Post = {
-						id: parseInt(idx),
-						text: header.title,
-						author: author,
-					};
-					dispatch({ type: "add", value: newPost });
-				}
-			} else {
-				// if we didn't get anything, remove the saved posts
+			// if we didn't get anything, remove the saved posts
+			if (!fetchSuccess) {
 				dispatch({ type: "clear" });
 			}
 		};
@@ -130,8 +104,9 @@ function App() {
 			console.error(e);
 			dispatch({ type: "clear" });
 		});
+		// posts are missing from the dependency array on purpose
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [library /* posts missing on purpose */]);
+	}, [library]);
 
 	return (
 		<Router>
