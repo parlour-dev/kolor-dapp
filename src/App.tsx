@@ -1,6 +1,7 @@
 import Navbar from "../src/components/Navbar/Navbar";
 import MainPage from "./components/MainPage";
 import "./App.css";
+
 import React, { useEffect, useReducer, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import CreateNewPost from "../src/components/CreateNewPost/CreateNewPost";
@@ -124,7 +125,7 @@ function App() {
 			<TCPDataContext.Provider value={tcpdata}>
 				<div className="App">
 					<Navbar />
-
+                   
 					{account && (
 						<Switch>
 							<Route exact path="/">

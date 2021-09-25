@@ -6,7 +6,7 @@ import { useState, useContext, useEffect } from "react";
 import { TCPDataContext } from "../../App";
 import { ethers } from "ethers";
 import { TCPData } from "../../TCPData";
-
+import Popup from 'reactjs-popup';
 type PostImageT = {
 	text: string,
 	img: string,
@@ -17,9 +17,9 @@ type PostImageT = {
 
 const PostImage: React.FC<PostImageT> = ({ text, img, idx, author, children, onCommentSubmit }) => {
 	const [showAddComment, toggleAddComment] = useToggle(false);
-
 	const [etherTipBalance, setEtherTipBalance] = useState("");
 	const tcpdata = useContext(TCPDataContext) as TCPData;
+
 
 	useEffect(() => {
 		const fetchBalance = async () => {
@@ -64,9 +64,32 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author, children, onC
 				</div>
 
 				<div className={styles.viewerAction}>
-					<div className={styles.buttonBlue} onClick={handleTip}>
-						Appreciate
+
+					<Popup trigger={<div className={styles.buttonBlue}> Appreciate </div>} modal>
+    				<div  className={styles.popup}>
+				
+					<input
+    				 onKeyPress={(event) => {
+						 
+						 if (!/[0-9]/.test(event.key) ) 
+						 
+						 
+						 
+						 
+						 {event.preventDefault();}}}className={styles.popupInput}/>
+
+
+
+					<div  onClick={handleTip}  className={styles.popupTip}>Tip</div>
 					</div>
+  					</Popup>
+
+
+
+
+
+
+					
 					<div className={styles.buttonBlack} onClick={() => toggleAddComment()}>
 						Comment
 					</div>
