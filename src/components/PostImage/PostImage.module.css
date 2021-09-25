@@ -98,3 +98,29 @@
 	transform: scale(1.1);
 	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.42);
 }
+.popup {
+	background-color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 3vmax;
+	width: 25vmax;
+	height: 8vmax;
+}
+.popupTip {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 30%;
+	height: 5vmax;
+	background-color: red;
+	margin-left: 5vmax;
+}
+.popupInput {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 30%;
+	height: 5vmax;
+	background-color: blue;
+}

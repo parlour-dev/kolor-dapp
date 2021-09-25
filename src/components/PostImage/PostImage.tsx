@@ -2,6 +2,7 @@ import styles from "./PostImage.module.css";
 import AddComment from "./Comments/AddComment";
 import Tips from "../Tips/Tips";
 import ProfilePicture from "../ProfilePicture/ProfilePicture";
+import Popup from "reactjs-popup";
 import { useToggle } from "../../hooks";
 import { useState, useContext, useEffect } from "react";
 import { TCPDataContext } from "../../App";
@@ -75,9 +76,28 @@ const PostImage: React.FC<PostImageT> = ({
 				</div>
 
 				<div className={styles.viewerAction}>
-					<div className={styles.buttonBlue} onClick={handleTip}>
-						Appreciate
-					</div>
+					<Popup
+						trigger={
+							<div className={styles.buttonBlue} /*onClick={handleTip}*/>
+								Appreciate
+							</div>
+						}
+						modal
+					>
+						<div className={styles.popup}>
+							<input
+								onKeyPress={(event) => {
+									if (!/[0-9]/.test(event.key)) {
+										event.preventDefault();
+									}
+								}}
+								className={styles.popupInput}
+							/>
+							<div onClick={handleTip} className={styles.popupTip}>
+								Tip
+							</div>
+						</div>
+					</Popup>
 					<div
 						className={styles.buttonBlack}
 						onClick={() => toggleAddComment()}
