@@ -9,6 +9,8 @@ import { useEthers } from "@usedapp/core";
 import { TCPData } from "./TCPData";
 import { Post, PostAction, ContractPost, PostContextT } from "./types";
 import { fetchContent, getTCPData } from "./api/tcpdata";
+import { ethers } from "ethers";
+
 
 export const PostsContext = React.createContext<PostContextT | undefined>(
 	undefined
@@ -72,10 +74,12 @@ function App() {
 
 		const fetchTCPData = async () => {
 			const tcpdata = getTCPData();
-			if(!tcpdata) return undefined;
+			if (!tcpdata) return undefined;
 
 			// asynchronously add new posts
-			tcpdata.on("ContentAdded", async (idx: number) => {
+			tcpdata.on("ContentAdded", async (idx_raw: ethers.utils.BigNumber) => {
+				const idx = idx_raw.toNumber()
+
 				// avoid creating duplicate posts
 				if (posts.find((el) => el.id === idx)) return undefined;
 
@@ -91,8 +95,8 @@ function App() {
 
 			// add all the fetched posts
 			const fetchSuccess = await fetchContent(tcpdata, (post) => {
-				dispatch({ type: "add", value: post })
-			})
+				dispatch({ type: "add", value: post });
+			});
 
 			// if we didn't get anything, remove the saved posts
 			if (!fetchSuccess) {

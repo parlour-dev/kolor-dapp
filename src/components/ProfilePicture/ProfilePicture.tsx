@@ -14,7 +14,7 @@ const generateProfilePictureGradient = (address: string) => {
 	const color5 = randomInt(0, 255);
 	const color6 = randomInt(0, 255);
 
-	const tilt = randomInt(0, 360);
+	const tilt = 0; //randomInt(0, 360);
 
 	const style = {
 		background: `linear-gradient(${tilt}deg, rgba(${color1},${color2},${color3},1) 0%, rgba(${color4},${color5},${color6},1) 100%)`,
