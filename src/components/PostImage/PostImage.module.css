@@ -99,28 +99,88 @@
 	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.42);
 }
 .popup {
-	background-color: white;
+	background-color: #17161d;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	border-radius: 3vmax;
-	width: 25vmax;
-	height: 8vmax;
+	border-radius: 2vmax;
+	border: 0.1vmax solid #535353;
+	width: 50vmax;
+	height: 20vmax;
+	box-shadow: 1px -1px 54px 11px rgba(47,145,220,0.75);
 }
-.popupTip {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 30%;
-	height: 5vmax;
-	background-color: red;
-	margin-left: 5vmax;
-}
+
 .popupInput {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	width: 30%;
 	height: 5vmax;
-	background-color: blue;
+	background-color: #050111;
+	border: 0px;
+	border-radius: 1.5vmax;
+	color: #fff;
+	font-size: 2.2vmax;
+	padding-left: 1vmax;
+	margin-right: 0.5vmax;
+}
+
+/* Hide input arrows */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+/* End of Hide input arrows */
+
+/* currencyChooser styling */
+.currencyChooser {
+	color: #FFF;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+select {	
+	appearance: none;
+	background-color: #050111;
+	text-align: center;
+	border-radius: 1.5vmax;
+	border: none;
+	font-size: 1.2vmax;
+	margin: 0;
+	width: 4vmax;
+	height: 5vmax;
+	font-family: inherit;
+	cursor: inherit;
+	line-height: inherit;
+	color: #FFF;
+  }
+  
+  select::-ms-expand {
+	display: none;
+  }
+  
+/* End of currencyChooser styling */
+.popupTip {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 30%;
+	height: 5vmax;
+	background-color: #2e63fb;
+	color: #FFF;
+	font-size: 2.5vmax;
+	font-weight: 600;
+	border-radius: 1.5vmax;
+	margin-left: 2vmax;
 }

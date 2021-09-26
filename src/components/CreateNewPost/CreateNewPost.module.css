@@ -21,7 +21,7 @@
 	resize: none;
 	font-size: 2vmax;
 	font-family: "Lato", "Roboto", sans-serif;
-	background-color: #1a1a1a;
+	background-color: #17161d;
 	color: #fff;
 	padding-left: 1vmax;
 	padding-top: 1vmax;
@@ -41,7 +41,7 @@
 .uploadImage {
 	width: 65%;
 	height: 10vmax;
-	background-color: #1a1a1a;
+	background-color: #17161d;
 	border: 0.1vmax solid #535353;
 	border-radius: 1.5vmax;
 
