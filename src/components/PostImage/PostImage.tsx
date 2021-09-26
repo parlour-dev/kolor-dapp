@@ -86,15 +86,20 @@ const PostImage: React.FC<PostImageT> = ({
 					>
 						<div className={styles.popup}>
 							<input
-								onKeyPress={(event) => {
-									if (!/[0-9]/.test(event.key)) {
-										event.preventDefault();
-									}
-								}}
+								type="number"
 								className={styles.popupInput}
+								placeholder='Amount'
 							/>
+							<div className='currencyChooser'>
+								<select name='currency' id='currency'>
+									<option value='ETH'>ETH</option>
+									<option value='DAI'>DAI</option>
+									<option value='WBTC'>WBTC</option>
+									
+								</select>
+							</div>
 							<div onClick={handleTip} className={styles.popupTip}>
-								Tip
+								Send
 							</div>
 						</div>
 					</Popup>
