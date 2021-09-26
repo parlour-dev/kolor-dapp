@@ -31,13 +31,21 @@ const PostImage: React.FC<PostImageT> = ({
 	const tcpdata = useContext(TCPDataContext) as TCPData;
 
 	useEffect(() => {
+		let isSubscribed = true;
+
 		const fetchBalance = async () => {
 			const balance = await tcpdata.getContentBalance(idx);
 			const formatted_balance = ethers.utils.formatUnits(balance, "ether");
-			setEtherTipBalance(formatted_balance);
+			if (isSubscribed) {
+				setEtherTipBalance(formatted_balance);
+			}
 		};
 
 		fetchBalance().catch(console.error);
+
+		return () => {
+			isSubscribed = false;
+		};
 	}, [idx, tcpdata]);
 
 	function handleTip() {
