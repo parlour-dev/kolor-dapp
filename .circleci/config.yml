@@ -9,9 +9,11 @@ workflows:
     jobs:
       - node/test:
           pkg-manager: yarn
+          version: 14.17.4
       - node/run:
           pkg-manager: yarn
           yarn-run: build
+          version: 14.17.4
           #requires: 
           #  - node/test
       - heroku/deploy-via-git:
