@@ -16,7 +16,7 @@
 
 .textField {
 	margin-top: 0.5vmax;
-	width: 95%;
+	width: 100%;
 	height: 15vmax;
 	resize: none;
 	font-size: 2vmax;
@@ -33,8 +33,6 @@
 	flex-direction: row;
 	justify-content: space-between;
 	display: flex;
-	margin-left: 1.2%;
-	margin-right: 1.2%;
 	margin-top: 1vmax;
 }
 
