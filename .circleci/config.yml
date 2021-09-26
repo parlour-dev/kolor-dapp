@@ -1,0 +1,24 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@4.7
+  heroku: circleci/heroku@1.2
+
+workflows:
+  test-dapp:
+    jobs:
+      - node/test:
+          pkg-manager: yarn
+      - node/run:
+          pkg-manager: yarn
+          yarn-run: build
+          #requires: 
+          #  - node/test
+      - heroku/deploy-via-git:
+          force: true # this parameter instructs the push to use a force flag when pushing to the heroku remote, see: https://devcenter.heroku.com/articles/git
+          app-name: deso-dapp
+          requires:
+            - node/run
+          filters:
+            branches:
+              only: master
