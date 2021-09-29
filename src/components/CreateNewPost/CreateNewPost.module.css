@@ -65,3 +65,7 @@
 	width: 6vmax;
 	margin-top: 3vmax;
 }
+@media only screen and (max-width: 1200px) {
+	.createContainer{width: 80%; height: auto;}
+	
+	}

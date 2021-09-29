@@ -184,3 +184,7 @@ select {
 	border-radius: 1.5vmax;
 	margin-left: 2vmax;
 }
+@media only screen and (max-width: 1200px) {
+	.post{width: 50vmax;}
+
+}
