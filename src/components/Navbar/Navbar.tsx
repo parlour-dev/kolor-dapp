@@ -12,30 +12,23 @@ const Navbar = () => {
 	return (
 		<div>
 			<div className={styles.navbar}>
-				<div>
+				<div className={styles.navbarLeft}>
 					<button
 						className={[styles.navbarButtonLeft, styles.animation].join(" ")}
 						onClick={() => history.push("/create")}
 					>
 						Create
 					</button>
-					<div>
-						{etherBalance && (
-							<div className={styles.balance}>
-								Balance: <b>{formatEther(etherBalance).substr(0, 8)} ETH</b>
-							</div>
-						)}
-					</div>
-				</div>
-				<button className={styles.logo} onClick={() => history.push("/")}>
+				
+			    </div>
+				<div className={styles.logo} onClick={() => history.push("/")}>
 					The Content Protocol
-				</button>
-				{/* ConnetWalletButton */}
-				<div>
+				</div>
+				 {/* ConnetWalletButton */}
+				<div className={styles.navbarRight}>
 					{!account && (
 						<button
 							className={[
-								styles.navbarRight,
 								styles.navbarButtonRight,
 								styles.animation,
 							].join(" ")}
@@ -47,7 +40,7 @@ const Navbar = () => {
 					{account && (
 						<button
 							className={[
-								styles.navbarRight,
+								
 								styles.walletAddress,
 								styles.animation,
 							].join(" ")}

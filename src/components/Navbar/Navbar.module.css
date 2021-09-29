@@ -1,13 +1,17 @@
+
 .navbar {
 	width: 100%;
 	height: auto;
 	background-color: #17161d;
 	border-bottom: 0.1vmax solid #535353;
 	margin-bottom: 2vmax;
-	overflow: auto;
+	display: flex;
+    align-items: center;
+	position: fixed;
+	margin-bottom: 5vmax;
 }
-
 .navbarButtonLeft {
+	
 	width: 10vmax;
 	height: 60%;
 	background-color: #2e63fb;
@@ -18,47 +22,42 @@
 	line-height: 3vmax;
 	font-size: 1.8vmax;
 	text-align: center;
-	margin-top: 1vmax;
-	margin-left: 1vmax;
 	font-family: "Lato", sans-serif;
-	display: inline;
-	float: left;
 	border: 0px;
+	
+	
 }
 
-.balance {
-	float: left;
-	color: #fff;
-	font-family: "Lato", sans-serif;
-	font-weight: 300;
-	font-size: 1vmax;
-	margin-top: 2vmax;
-	margin-left: 1vmax;
-	margin-right: -20vmax;
-}
 
-.navbarRight {
-	margin-top: -4vmax;
-	margin-right: 1vmax;
-	float: right;
+.navbarRight {		
 	box-shadow: none;
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+    margin-right: 1vmax;
 }
-
+.navbarLeft{
+	display: flex;
+	flex-direction: row;
+    align-items: center;
+	margin-left: 1vmax;
+}
 .navbarButtonRight {
 	width: 10vmax;
 	background-color: #2e63fb;
 	color: #fff;
 	border-radius: 0.8vmax;
-	font-family: "Lato", sans-serif;
 	font-weight: 600;
 	line-height: 3vmax;
 	font-size: 1.8vmax;
 	text-align: center;
 	font-family: "Lato", sans-serif;
-	display: inline;
 	border: 0px;
+    display: flex;
+	justify-content: center;
+	justify-self: right;
+	
 }
-
 .walletAddress {
 	color: #fff;
 	background-color: inherit;
@@ -66,6 +65,7 @@
 	font-weight: 300;
 	border: 0px;
 	font-family: "Lato", sans-serif;
+	justify-self: right;
 }
 
 .walletAddress:hover {
@@ -90,11 +90,10 @@
 }
 
 .logo {
-	display: inline-block;
-	justify-content: center;
-	margin-left: -12vmax;
+	margin: auto;
 	width: auto;
-	position: relative;
+	justify-content: center;
+	align-self: center; 
 	height: 100%;
 	color: #fff;
 	font-family: "Helvetica", sans-serif;
@@ -117,3 +116,8 @@
 	color: #2e63fb;
 	font-size: 2.25vmax;
 }
+@media only screen and (max-width: 1200px) {
+
+
+	
+  }
