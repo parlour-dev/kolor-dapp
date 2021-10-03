@@ -50,7 +50,7 @@ const PostImage: React.FC<PostImageT> = ({
 
 	function handleTip() {
 		const result = tcpdata.tipContent(idx, {
-			value: ethers.utils.bigNumberify("30000000000000000"),
+			value: ethers.BigNumber.from("30000000000000000"),
 		});
 		result.catch(console.error);
 	}

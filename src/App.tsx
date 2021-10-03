@@ -76,7 +76,7 @@ function App() {
 			if (!tcpdata) return undefined;
 
 			// asynchronously add new posts
-			tcpdata.on("ContentAdded", async (idx_raw: ethers.utils.BigNumber) => {
+			tcpdata.on("ContentAdded", async (idx_raw: ethers.BigNumber) => {
 				const idx = idx_raw.toNumber();
 
 				// avoid creating duplicate posts
