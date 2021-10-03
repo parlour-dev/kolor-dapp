@@ -116,7 +116,7 @@ function App() {
 			<TCPDataContext.Provider value={tcpdata}>
 				<div className="App">
 					<Navbar />
-                    <div className="Separator" style={{height: "7.5vmax"}}></div>
+					<div className="Separator" style={{ height: "7.5vmax" }}></div>
 					{account && (
 						<Switch>
 							<Route exact path="/">

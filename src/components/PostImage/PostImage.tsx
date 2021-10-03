@@ -67,7 +67,13 @@ const PostImage: React.FC<PostImageT> = ({
 				</div>
 				<div className={styles.text}>{text}</div>
 				<div className={styles.mediaContent}>
-					{img && <img alt="" src={img} className={styles.mediaContent} />}
+					{img && (
+						<img
+							alt=""
+							src={"https://" + img}
+							className={styles.mediaContent}
+						/>
+					)}
 				</div>
 
 				<div id="renderTips">
@@ -96,14 +102,13 @@ const PostImage: React.FC<PostImageT> = ({
 							<input
 								type="number"
 								className={styles.popupInput}
-								placeholder='Amount'
+								placeholder="Amount"
 							/>
-							<div className='currencyChooser'>
-								<select name='currency' id='currency'>
-									<option value='ETH'>ETH</option>
-									<option value='DAI'>DAI</option>
-									<option value='WBTC'>WBTC</option>
-									
+							<div className="currencyChooser">
+								<select name="currency" id="currency">
+									<option value="ETH">ETH</option>
+									<option value="DAI">DAI</option>
+									<option value="WBTC">WBTC</option>
 								</select>
 							</div>
 							<div onClick={handleTip} className={styles.popupTip}>

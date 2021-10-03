@@ -107,7 +107,7 @@
 	border: 0.1vmax solid #535353;
 	width: 50vmax;
 	height: 20vmax;
-	box-shadow: 1px -1px 54px 11px rgba(47,145,220,0.75);
+	box-shadow: 1px -1px 54px 11px rgba(47, 145, 220, 0.75);
 }
 
 .popupInput {
@@ -129,28 +129,28 @@
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+	-webkit-appearance: none;
+	margin: 0;
 }
 
 /* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
+input[type="number"] {
+	-moz-appearance: textfield;
 }
 /* End of Hide input arrows */
 
 /* currencyChooser styling */
 .currencyChooser {
-	color: #FFF;
+	color: #fff;
 }
 
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
-select {	
+select {
 	appearance: none;
 	background-color: #050111;
 	text-align: center;
@@ -163,13 +163,13 @@ select {
 	font-family: inherit;
 	cursor: inherit;
 	line-height: inherit;
-	color: #FFF;
-  }
-  
-  select::-ms-expand {
+	color: #fff;
+}
+
+select::-ms-expand {
 	display: none;
-  }
-  
+}
+
 /* End of currencyChooser styling */
 .popupTip {
 	display: flex;
@@ -178,13 +178,14 @@ select {
 	width: 30%;
 	height: 5vmax;
 	background-color: #2e63fb;
-	color: #FFF;
+	color: #fff;
 	font-size: 2.5vmax;
 	font-weight: 600;
 	border-radius: 1.5vmax;
 	margin-left: 2vmax;
 }
 @media only screen and (max-width: 1200px) {
-	.post{width: 50vmax;}
-
+	.post {
+		width: 50vmax;
+	}
 }

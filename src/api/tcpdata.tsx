@@ -45,10 +45,16 @@ export async function fetchContent(
 	for (let idx in contents) {
 		const author = contents[idx].author;
 		const header = JSON.parse(contents[idx].header);
+
+		let url = undefined;
+
+		if (header.url && !header.url.startsWith("blob")) url = header.url;
+
 		const newPost: Post = {
 			id: parseInt(idx),
 			text: header.title,
 			author: author,
+			file: url,
 		};
 
 		addPost(newPost);

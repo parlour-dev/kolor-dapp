@@ -19,19 +19,15 @@ const Navbar = () => {
 					>
 						Create
 					</button>
-				
-			    </div>
+				</div>
 				<div className={styles.logo} onClick={() => history.push("/")}>
 					The Content Protocol
 				</div>
-				 {/* ConnetWalletButton */}
+				{/* ConnetWalletButton */}
 				<div className={styles.navbarRight}>
 					{!account && (
 						<button
-							className={[
-								styles.navbarButtonRight,
-								styles.animation,
-							].join(" ")}
+							className={[styles.navbarButtonRight, styles.animation].join(" ")}
 							onClick={() => activateBrowserWallet()}
 						>
 							Log In
@@ -39,11 +35,7 @@ const Navbar = () => {
 					)}
 					{account && (
 						<button
-							className={[
-								
-								styles.walletAddress,
-								styles.animation,
-							].join(" ")}
+							className={[styles.walletAddress, styles.animation].join(" ")}
 							onClick={() => history.push("/profile")}
 						>
 							{account && (

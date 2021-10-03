@@ -7,7 +7,7 @@ import { useState } from "react";
 import { Post } from "../../types";
 
 const CreateNewPost = ({ onSubmit }: { onSubmit: (post: Post) => void }) => {
-	const [file, setFile] = useState();
+	const [file, setFile] = useState("");
 	const [inputText, setInputText] = useState("");
 
 	let history = useHistory();
@@ -16,7 +16,7 @@ const CreateNewPost = ({ onSubmit }: { onSubmit: (post: Post) => void }) => {
 		setInputText(e.target.value);
 	};
 
-	const submitPostHandler = (e: React.MouseEvent) => {
+	const submitPostHandler = async (e: React.MouseEvent) => {
 		e.preventDefault();
 
 		if (!inputText && !file) {
@@ -24,9 +24,30 @@ const CreateNewPost = ({ onSubmit }: { onSubmit: (post: Post) => void }) => {
 			return;
 		}
 
+		const fileContents = await (await fetch(file)).arrayBuffer();
+
+		console.log(fileContents);
+
+		const response = await fetch("https://imageupload.desoapp.co/upload", {
+			method: "POST",
+			body: fileContents,
+			headers: {
+				"Content-Type": "application/octet-stream",
+			},
+		});
+
+		if (!response.ok) {
+			console.error("Failed to upload.");
+			return;
+		}
+
+		const uploadedTo = await response.text();
+
+		console.log("Uploaded to: " + uploadedTo);
+
 		const newPost = {
 			text: inputText,
-			file: file,
+			file: uploadedTo,
 			wallet: "creatorWallet",
 			nick: "creatorNick",
 			id: -1,
@@ -45,47 +66,41 @@ const CreateNewPost = ({ onSubmit }: { onSubmit: (post: Post) => void }) => {
 	};
 
 	return (
-		<>
-			<div className={styles.createContainer}>
-				<div className={styles.title}>Create new post</div>
+		<form className={styles.createContainer}>
+			<div className={styles.title}>Create new post</div>
+			<div>
 				<div>
-					<form>
-						<textarea
-							className={styles.textField}
-							placeholder="What's on your mind?"
-							onChange={inputTextHandler}
-						></textarea>
-					</form>
-				</div>
-				<div className={styles.bottomButtons}>
-					<div
-						className={styles.uploadImage}
-						onClick={() => {
-							document.getElementById("multi")!.click();
-						}}
-					>
-						<img
-							src={file ? file : imagePlaceholder}
-							alt="Upload"
-							className={styles.uploadImagePreview}
-						/>
-						<input
-							style={{ display: "none", width: 0, height: 0 }}
-							type="file"
-							onChange={handleChange}
-							id="multi"
-						/>
-					</div>
-					<div className={styles.submit} onClick={submitPostHandler}>
-						<img
-							src={submitArrow}
-							alt="Submit"
-							className={styles.submitArrow}
-						/>
-					</div>
+					<textarea
+						className={styles.textField}
+						placeholder="What's on your mind?"
+						onChange={inputTextHandler}
+					></textarea>
 				</div>
 			</div>
-		</>
+			<div className={styles.bottomButtons}>
+				<div
+					className={styles.uploadImage}
+					onClick={() => {
+						document.getElementById("multi")!.click();
+					}}
+				>
+					<img
+						src={file ? file : imagePlaceholder}
+						alt="Upload"
+						className={styles.uploadImagePreview}
+					/>
+					<input
+						style={{ display: "none", width: 0, height: 0 }}
+						type="file"
+						onChange={handleChange}
+						id="multi"
+					/>
+				</div>
+				<div className={styles.submit} onClick={submitPostHandler}>
+					<img src={submitArrow} alt="Submit" className={styles.submitArrow} />
+				</div>
+			</div>
+		</form>
 	);
 };
 
