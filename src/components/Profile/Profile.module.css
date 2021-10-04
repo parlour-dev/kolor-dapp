@@ -9,12 +9,14 @@
 }
 
 .profilePicture {
-	border-radius: 50%;
+	border-radius: 100vmax;
 	aspect-ratio: 1/1;
-	background-color: red;
-	width: 20%;
+	width: 3.5vmax;
+	height: auto;
 	margin: auto;
-	margin-top: 2vmax;
+	margin-top: 5vmax;
+	margin-bottom: 4vmax;
+	transform: scale(3);
 }
 
 .username {
