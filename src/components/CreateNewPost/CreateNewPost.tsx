@@ -5,6 +5,7 @@ import submitArrow from "../CreateNewPost/arrow.png";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import { Post } from "../../types";
+import { uploadImageToAWS } from "../../api/uploadImage";
 
 const CreateNewPost = ({ onSubmit }: { onSubmit: (post: Post) => void }) => {
 	const [file, setFile] = useState("");
@@ -24,30 +25,11 @@ const CreateNewPost = ({ onSubmit }: { onSubmit: (post: Post) => void }) => {
 			return;
 		}
 
-		const fileContents = await (await fetch(file)).arrayBuffer();
-
-		console.log(fileContents);
-
-		const response = await fetch("https://imageupload.desoapp.co/upload", {
-			method: "POST",
-			body: fileContents,
-			headers: {
-				"Content-Type": "application/octet-stream",
-			},
-		});
-
-		if (!response.ok) {
-			console.error("Failed to upload.");
-			return;
-		}
-
-		const uploadedTo = await response.text();
-
-		console.log("Uploaded to: " + uploadedTo);
+		let fileUploadedTo = file ? await uploadImageToAWS(file) : undefined;
 
 		const newPost = {
 			text: inputText,
-			file: uploadedTo,
+			file: fileUploadedTo,
 			wallet: "creatorWallet",
 			nick: "creatorNick",
 			id: -1,
