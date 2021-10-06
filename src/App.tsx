@@ -28,7 +28,7 @@ function postsReducer(state: Post[], action: PostAction): Post[] {
 			const { value, idx } = action;
 
 			// bail if idx is null or undefined
-			if (!idx) return state;
+			if (idx == null) return state;
 
 			state[idx] = value;
 			return state;
