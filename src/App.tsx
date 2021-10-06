@@ -10,7 +10,7 @@ import { TCPData } from "./TCPData";
 import { Post, PostAction, ContractPost, PostContextT } from "./types";
 import { fetchContent, getTCPData } from "./api/tcpdata";
 import { ethers } from "ethers";
-
+import ReactGa from "react-ga";
 export const PostsContext = React.createContext<PostContextT | undefined>(
 	undefined
 );
@@ -43,6 +43,13 @@ function postsReducer(state: Post[], action: PostAction): Post[] {
 }
 
 function App() {
+	useEffect(() => {
+		ReactGa.initialize("UA-208668639-1");
+
+		//reporting page view
+		ReactGa.pageview("/");
+	}, []);
+
 	const [posts, dispatch] = useReducer(postsReducer, []);
 	const { account, library } = useEthers();
 	const [tcpdata, setTcpdata] = useState<TCPData>();
