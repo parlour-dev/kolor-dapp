@@ -8,6 +8,7 @@
 	align-items: center;
 	position: fixed;
 	margin-bottom: 5vmax;
+	z-index: 9999;
 }
 .navbarButtonLeft {
 	width: 10vmax;
