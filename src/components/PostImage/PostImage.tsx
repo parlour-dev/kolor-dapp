@@ -82,8 +82,8 @@ const PostImage: React.FC<PostImageT> = ({
 							ethereum: etherTipBalance,
 							dai: 32,
 							additional: [
-								{ name: "wap", amount: 23 },
-								{ name: "wbtc", amount: 0.5 },
+								{ name: "WAP", amount: 23 },
+								{ name: "WBTC", amount: 0.5 },
 							],
 						}}
 					/>
