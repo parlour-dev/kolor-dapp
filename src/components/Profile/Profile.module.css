@@ -9,12 +9,26 @@
 }
 
 .profilePicture {
-	border-radius: 50%;
+	border-radius: 100vmax;
 	aspect-ratio: 1/1;
-	background-color: red;
-	width: 20%;
+	width: 3.5vmax;
+	height: auto;
 	margin: auto;
-	margin-top: 2vmax;
+	margin-top: 5vmax;
+	margin-bottom: 4vmax;
+	transform: scale(3);
+}
+
+.usernameEditBox {
+	display: table;
+	table-layout: fixed;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.usernameEditButton {
+	background-color: transparent;
+	border: 0;
 }
 
 .username {
@@ -23,6 +37,13 @@
 	font-size: 2vmax;
 	font-weight: 600;
 	margin-top: 1vmax;
+	display: table-cell;
+}
+
+.editUsername {
+	width: 1.5vmax;
+	display: table-cell;
+	cursor: pointer;
 }
 
 .walletAddress {
@@ -69,4 +90,49 @@
 	.logOutButton {
 		margin-top: 23vmax;
 	}
+}
+
+/* Popup */
+
+.popup {
+	background-color: #17161d;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 1.6vmax;
+	border: 0.1vmax solid #535353;
+	width: 20vmax;
+	height: 5vmax;
+	box-shadow: 1px -1px 54px 11px rgba(0, 110, 236, 0.75);
+}
+
+.popupInput {
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
+	height: 2vmax;
+	background-color: #050111;
+	border: 0px;
+	border-radius: 1.5vmax;
+	color: #fff;
+	font-size: 0.9vmax;
+	padding-left: 0.5vmax;
+	margin-left: 2vmax;
+}
+
+.popupTip {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 30%;
+	height: 2vmax;
+	background-color: #2e63fb;
+	color: #fff;
+	font-size: 1vmax;
+	font-weight: 600;
+	border-radius: 1.5vmax;
+	margin-left: 1vmax;
+	margin-right: 2vmax;
+	padding-left: 1vmax;
+	padding-right: 1vmax;
 }

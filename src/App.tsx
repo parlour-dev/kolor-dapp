@@ -128,7 +128,11 @@ function App() {
 								<CreateNewPost onSubmit={newPostHandler} />
 							</Route>
 							<Route exact path="/profile">
-								<Profile username="bigBoyMIKE" walletAddress={account} />
+								<Profile
+									username="bigBoyMIKE"
+									walletAddress={account}
+									author={account}
+								/>
 							</Route>
 						</Switch>
 					)}
