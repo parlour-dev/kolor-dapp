@@ -25,16 +25,17 @@ const generateProfilePictureGradient = (address: string) => {
 
 type ProfilePictureT = {
 	address: string;
+	className?: string;
 };
 
-const ProfilePicture: React.FC<ProfilePictureT> = ({ address }) => {
+const ProfilePicture: React.FC<ProfilePictureT> = ({ address, className }) => {
 	const profilePictureStyles = useMemo(
 		() => generateProfilePictureGradient(address),
 		[address]
 	);
 
 	return (
-		<div style={profilePictureStyles} className={styles.profilePicture}></div>
+		<div style={profilePictureStyles} className={[styles.profilePicture, className].join(" ")}></div>
 	);
 };
 
