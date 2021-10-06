@@ -79,13 +79,11 @@
 	width: auto;
 	justify-content: center;
 	align-self: center;
-	height: 100%;
 	color: #fff;
 	font-family: "Helvetica", sans-serif;
 	font-weight: 700;
 	font-size: 2vmax;
-	line-height: 5vmax;
-	background-color: inherit;
+	background-color: transparent;
 	border: 0px;
 
 	/* animation */
@@ -97,7 +95,13 @@
 	transition-duration: 300ms;
 }
 
+.logo img {
+	width: 10vmax;
+	margin-top: -2vmax;
+	margin-bottom: -3.5vmax;
+}
+
 .logo:hover {
-	color: #2e63fb;
-	font-size: 2.25vmax;
+	transform: scale(1.2);
+	background-color: transparent;
 }
