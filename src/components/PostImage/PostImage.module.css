@@ -47,8 +47,9 @@
 }
 .mediaContent {
 	width: 100%;
-	border-radius: 1.5vw;
+	border-radius: 1.5vmax;
 	padding-top: 2%;
+	margin-bottom: 1vmax;
 }
 .viewerAction {
 	height: 10%;

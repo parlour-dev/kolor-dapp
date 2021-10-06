@@ -2,6 +2,7 @@ import styles from "../Navbar/Navbar.module.css";
 import { useHistory } from "react-router-dom";
 import { useEthers } from "@usedapp/core";
 import ProfilePicture from "../ProfilePicture/ProfilePicture";
+import Logo from "../Navbar/logo.png";
 
 const Navbar = () => {
 	const history = useHistory();
@@ -19,7 +20,7 @@ const Navbar = () => {
 					</button>
 				</div>
 				<div className={styles.logo} onClick={() => history.push("/")}>
-					The Content Protocol
+					<img src={Logo} alt="DeSo" />
 				</div>
 				{/* ConnetWalletButton */}
 				<div className={styles.navbarRight}>
