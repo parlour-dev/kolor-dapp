@@ -25,17 +25,24 @@ const CreateNewPost = ({ onSubmit }: { onSubmit: (post: Post) => void }) => {
 			return;
 		}
 
-		let fileUploadedTo = file ? await uploadImageToAWS(file) : undefined;
 
-		const newPost = {
-			text: inputText,
-			file: fileUploadedTo,
-			wallet: "creatorWallet",
-			nick: "creatorNick",
-			id: -1,
-		};
+		try {
+			let fileUploadedTo = file ? await uploadImageToAWS(file) : undefined;
 
-		onSubmit(newPost);
+			const newPost = {
+				text: inputText,
+				file: fileUploadedTo,
+				wallet: "creatorWallet",
+				nick: "creatorNick",
+				id: -1,
+			};
+
+			onSubmit(newPost);
+		} catch (err) {
+			console.error(err)
+			return
+		}
+
 		setInputText("");
 		history.goBack();
 	};

@@ -10,8 +10,7 @@ const uploadImageToAWS = async (blobUrl: string) => {
     });
 
     if (!response.ok) {
-        console.error("Failed to upload.");
-        return;
+        throw new Error("Failed to upload.")
     }
 
     const uploadedTo = await response.text();

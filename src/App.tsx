@@ -85,7 +85,7 @@ function App() {
 				const content = await tcpdata.content(idx);
 				const author = content.author;
 				const header = JSON.parse(content.header);
-				const newPost = { id: idx, text: header.title, author: author };
+				const newPost: Post = { id: idx, text: header.title, author: author, file: header.url || undefined };
 				dispatch({ type: "add", value: newPost });
 			});
 
