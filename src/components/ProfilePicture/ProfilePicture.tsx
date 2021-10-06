@@ -35,7 +35,10 @@ const ProfilePicture: React.FC<ProfilePictureT> = ({ address, className }) => {
 	);
 
 	return (
-		<div style={profilePictureStyles} className={[styles.profilePicture, className].join(" ")}></div>
+		<div
+			style={profilePictureStyles}
+			className={[styles.profilePicture, className].join(" ")}
+		></div>
 	);
 };
 

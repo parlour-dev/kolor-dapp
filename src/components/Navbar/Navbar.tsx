@@ -37,7 +37,10 @@ const Navbar = () => {
 							onClick={() => history.push("/profile")}
 						>
 							{account && (
-								<ProfilePicture className={styles.animation} address={account} />
+								<ProfilePicture
+									className={styles.animation}
+									address={account}
+								/>
 							)}
 						</div>
 					)}

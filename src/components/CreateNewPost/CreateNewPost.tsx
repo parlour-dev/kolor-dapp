@@ -25,7 +25,6 @@ const CreateNewPost = ({ onSubmit }: { onSubmit: (post: Post) => void }) => {
 			return;
 		}
 
-
 		try {
 			let fileUploadedTo = file ? await uploadImageToAWS(file) : undefined;
 
@@ -39,8 +38,8 @@ const CreateNewPost = ({ onSubmit }: { onSubmit: (post: Post) => void }) => {
 
 			onSubmit(newPost);
 		} catch (err) {
-			console.error(err)
-			return
+			console.error(err);
+			return;
 		}
 
 		setInputText("");
