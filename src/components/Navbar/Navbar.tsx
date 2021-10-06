@@ -1,13 +1,11 @@
 import styles from "../Navbar/Navbar.module.css";
 import { useHistory } from "react-router-dom";
 import { useEthers } from "@usedapp/core";
-import { useEtherBalance } from "@usedapp/core";
-import { formatEther } from "@ethersproject/units";
+import ProfilePicture from "../ProfilePicture/ProfilePicture";
 
 const Navbar = () => {
 	const history = useHistory();
 	const { activateBrowserWallet, account } = useEthers();
-	const etherBalance = useEtherBalance(account);
 
 	return (
 		<div>
@@ -34,16 +32,17 @@ const Navbar = () => {
 						</button>
 					)}
 					{account && (
-						<button
-							className={[styles.walletAddress, styles.animation].join(" ")}
+						<div
+							className={styles.profilePictureButton}
 							onClick={() => history.push("/profile")}
 						>
 							{account && (
-								<p>
-									Hello <b>{account.substr(0, 16)}</b>...
-								</p>
+								<ProfilePicture
+									className={styles.animation}
+									address={account}
+								/>
 							)}
-						</button>
+						</div>
 					)}
 				</div>
 			</div>
