@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../Profile/Profile.module.css";
 import { useEthers } from "@usedapp/core";
 import ProfilePicture from "../ProfilePicture/ProfilePicture";
@@ -6,17 +6,15 @@ import editIcon from "../Profile/editIcon.png";
 import Popup from "reactjs-popup";
 
 type ProfileT = {
-	username: string;
 	walletAddress: string;
 	author: string;
+	username: string;
 };
 
-const Profile: React.FC<ProfileT> = ({ username, walletAddress, author }) => {
+const Profile: React.FC<ProfileT> = ({ walletAddress, author }) => {
 	const { deactivate } = useEthers();
 
-	const ChangeUsername = () => {
-		alert("helo");
-	};
+	const [username, setUsername] = useState(author.substr(0, 8));
 
 	return (
 		<>
@@ -28,10 +26,7 @@ const Profile: React.FC<ProfileT> = ({ username, walletAddress, author }) => {
 					<div className={styles.username}>{username}</div>
 					<Popup
 						trigger={
-							<button
-								onClick={ChangeUsername}
-								className={styles.usernameEditButton}
-							>
+							<button className={styles.usernameEditButton}>
 								<img
 									src={editIcon}
 									alt="edit"
@@ -46,8 +41,10 @@ const Profile: React.FC<ProfileT> = ({ username, walletAddress, author }) => {
 								type="text"
 								className={styles.popupInput}
 								placeholder="Your beautiful name"
+								maxLength={32}
+								onChange={(e) => setUsername(e.target.value)}
 							/>
-							<div className={styles.popupTip}>Change</div>
+							<button className={styles.popupTip}>OK</button>
 						</div>
 					</Popup>
 				</div>
