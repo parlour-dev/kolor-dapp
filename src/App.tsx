@@ -129,7 +129,7 @@ function App() {
 							</Route>
 							<Route exact path="/profile">
 								<Profile
-									username="bigBoyMIKE"
+									username="helko"
 									walletAddress={account}
 									author={account}
 								/>
