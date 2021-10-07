@@ -58,7 +58,14 @@ function App() {
 			action: 'entering profile'
 		})
 	}
-
+	
+	
+	const goToProfileGa = ()=> {
+		ReactGa.event({
+			category: 'navigation',
+			action: 'entering profile'
+		})
+	}
 
 	const [posts, dispatch] = useReducer(postsReducer, []);
 	const { account, library } = useEthers();
