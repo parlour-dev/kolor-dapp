@@ -52,13 +52,13 @@ function App() {
 	}, []);
 
 	
-	const goToProfileGa = ()=> {
+	const goToCreatePostGa = ()=> {
 		ReactGa.event({
 			category: 'navigation',
-			action: 'entering profile'
+			action: 'entering post creating'
 		})
 	}
-	
+
 	
 	const goToProfileGa = ()=> {
 		ReactGa.event({
