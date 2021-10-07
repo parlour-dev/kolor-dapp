@@ -14,7 +14,7 @@
 	padding-top: 5%;
 }
 .creator {
-	height: 4rem;
+	height: 4vmax;
 	text-align: left;
 	display: flex;
 	flex-direction: row-reverse;
@@ -188,5 +188,19 @@ select::-ms-expand {
 @media only screen and (max-width: 1200px) {
 	.post {
 		width: 50vmax;
+	}
+}
+
+@media only screen and (max-width: 400px) {
+	.post {
+		width: 90%;
+	}
+
+	.creator {
+		margin-top: 0px;
+	}
+
+	.text {
+		font-size: 2vmax;
 	}
 }
