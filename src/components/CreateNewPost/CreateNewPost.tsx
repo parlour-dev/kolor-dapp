@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import { Post } from "../../types";
 import { uploadImageToAWS } from "../../api/uploadImage";
-
+import ReactGa from "react-ga";
 const CreateNewPost = ({ onSubmit }: { onSubmit: (post: Post) => void }) => {
 	const [file, setFile] = useState("");
 	const [inputText, setInputText] = useState("");
@@ -19,7 +19,10 @@ const CreateNewPost = ({ onSubmit }: { onSubmit: (post: Post) => void }) => {
 
 	const submitPostHandler = async (e: React.MouseEvent) => {
 		e.preventDefault();
-
+		ReactGa.event({
+				category: 'navigation',
+				action: 'entering profile'
+		})
 		if (!inputText && !file) {
 			console.error("The post is empty.");
 			return;

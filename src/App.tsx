@@ -51,13 +51,19 @@ function App() {
 		ReactGa.pageview(window.location.pathname);
 	}, []);
 
-	
-	const goToProfileGa = ()=> {
-		ReactGa.event({
-			category: 'navigation',
-			action: 'entering profile'
-		})
-	}
+	// const goToCreatePostGa = ()=> {
+	// 	ReactGa.event({
+	// 		category: 'navigation',
+	// 		action: 'entering post creating'
+	// 	})
+	// }
+
+	// const goToProfileGa = ()=> {
+	// 	ReactGa.event({
+	// 		category: 'navigation',
+	// 		action: 'entering profile'
+	// 	})
+	// }
 
 
 	const [posts, dispatch] = useReducer(postsReducer, []);
