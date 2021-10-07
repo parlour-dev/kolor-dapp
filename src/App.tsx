@@ -43,12 +43,22 @@ function postsReducer(state: Post[], action: PostAction): Post[] {
 }
 
 function App() {
+
 	useEffect(() => {
 		ReactGa.initialize("UA-208668639-1");
 
 		//reporting page view
-		ReactGa.pageview("/");
+		ReactGa.pageview(window.location.pathname);
 	}, []);
+
+	
+	const goToProfileGa = ()=> {
+		ReactGa.event({
+			category: 'navigation',
+			action: 'entering profile'
+		})
+	}
+
 
 	const [posts, dispatch] = useReducer(postsReducer, []);
 	const { account, library } = useEthers();
@@ -136,8 +146,8 @@ function App() {
 									<MainPage />
 								</PostsContext.Provider>
 							</Route>
-							<Route exact path="/create">
-								<CreateNewPost onSubmit={newPostHandler} />
+							<Route exact path="/create" >
+									<CreateNewPost onSubmit={newPostHandler}/>
 							</Route>
 							<Route exact path="/profile">
 								<Profile
