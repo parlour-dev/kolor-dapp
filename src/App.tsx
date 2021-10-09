@@ -11,6 +11,7 @@ import { Post, PostAction, ContractPost, PostContextT } from "./types";
 import { fetchContent, getTCPData } from "./api/tcpdata";
 import { ethers } from "ethers";
 import ReactGa from "react-ga";
+
 export const PostsContext = React.createContext<PostContextT | undefined>(
 	undefined
 );
@@ -43,7 +44,6 @@ function postsReducer(state: Post[], action: PostAction): Post[] {
 }
 
 function App() {
-
 	useEffect(() => {
 		ReactGa.initialize("UA-208668639-1");
 
@@ -64,7 +64,6 @@ function App() {
 	// 		action: 'entering profile'
 	// 	})
 	// }
-
 
 	const [posts, dispatch] = useReducer(postsReducer, []);
 	const { account, library } = useEthers();
@@ -152,8 +151,8 @@ function App() {
 									<MainPage />
 								</PostsContext.Provider>
 							</Route>
-							<Route exact path="/create" >
-									<CreateNewPost onSubmit={newPostHandler}/>
+							<Route exact path="/create">
+								<CreateNewPost onSubmit={newPostHandler} />
 							</Route>
 							<Route exact path="/profile">
 								<Profile

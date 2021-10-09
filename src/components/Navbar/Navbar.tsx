@@ -3,11 +3,18 @@ import { useHistory } from "react-router-dom";
 import { useEthers } from "@usedapp/core";
 import ProfilePicture from "../ProfilePicture/ProfilePicture";
 import Logo from "../Navbar/logo.png";
+import ReactGa from "react-ga";
 
 const Navbar = () => {
 	const history = useHistory();
 	const { activateBrowserWallet, account } = useEthers();
-
+	function logInHandler() {
+		activateBrowserWallet();
+		ReactGa.event({
+			category: "User status",
+			action: "Logging in",
+		});
+	}
 	return (
 		<div>
 			<div className={styles.navbar}>
@@ -27,7 +34,7 @@ const Navbar = () => {
 					{!account && (
 						<button
 							className={[styles.navbarButtonRight, styles.animation].join(" ")}
-							onClick={() => activateBrowserWallet()}
+							onClick={logInHandler}
 						>
 							Log In
 						</button>

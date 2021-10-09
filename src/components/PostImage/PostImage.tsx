@@ -8,6 +8,7 @@ import { useState, useContext, useEffect } from "react";
 import { TCPDataContext } from "../../App";
 import { ethers } from "ethers";
 import { TCPData } from "../../TCPData";
+import ReactGa from "react-ga";
 
 type PostImageT = {
 	text: string;
@@ -51,6 +52,10 @@ const PostImage: React.FC<PostImageT> = ({
 	function handleTip() {
 		const result = tcpdata.tipContent(idx, {
 			value: ethers.BigNumber.from("30000000000000000"),
+		});
+		ReactGa.event({
+			category: "Tip",
+			action: "Tip sent",
 		});
 		result.catch(console.error);
 	}

@@ -4,6 +4,8 @@ import { useEthers } from "@usedapp/core";
 import ProfilePicture from "../ProfilePicture/ProfilePicture";
 import editIcon from "../Profile/editIcon.png";
 import Popup from "reactjs-popup";
+import ReactGa from "react-ga";
+import Slider from "../Profile/Slider/Slider.jsx";
 
 type ProfileT = {
 	walletAddress: string;
@@ -13,7 +15,13 @@ type ProfileT = {
 
 const Profile: React.FC<ProfileT> = ({ walletAddress, author }) => {
 	const { deactivate } = useEthers();
-
+	function logOutHandler() {
+		deactivate();
+		ReactGa.event({
+			category: "User status",
+			action: "Logging out",
+		});
+	}
 	const [username, setUsername] = useState(author.substr(0, 8));
 
 	return (
@@ -49,12 +57,18 @@ const Profile: React.FC<ProfileT> = ({ walletAddress, author }) => {
 					</Popup>
 				</div>
 				<div className={styles.walletAddress}>{walletAddress}</div>
-				<button
-					className={[styles.logOutButton, styles.animation].join(" ")}
-					onClick={() => deactivate()}
-				>
-					Log Out
-				</button>
+				<div className={styles.NSFWSwitch}>
+					<div className={styles.NSFWtext}>Blurring NSFW content</div>
+					<Slider></Slider>
+				</div>
+				<div>
+					<button
+						className={[styles.logOutButton, styles.animation].join(" ")}
+						onClick={logOutHandler}
+					>
+						Log Out
+					</button>
+				</div>
 			</div>
 		</>
 	);

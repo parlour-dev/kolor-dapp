@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Post } from "../../types";
 import { uploadImageToAWS } from "../../api/uploadImage";
 import ReactGa from "react-ga";
+
 const CreateNewPost = ({ onSubmit }: { onSubmit: (post: Post) => void }) => {
 	const [file, setFile] = useState("");
 	const [inputText, setInputText] = useState("");
@@ -20,11 +21,16 @@ const CreateNewPost = ({ onSubmit }: { onSubmit: (post: Post) => void }) => {
 	const submitPostHandler = async (e: React.MouseEvent) => {
 		e.preventDefault();
 		ReactGa.event({
-				category: 'navigation',
-				action: 'entering profile'
-		})
+			category: "Post Creation",
+			action: "Post submission ",
+		});
+
 		if (!inputText && !file) {
 			console.error("The post is empty.");
+			ReactGa.event({
+				category: "Post Creation",
+				action: "Empty Post",
+			});
 			return;
 		}
 
@@ -55,10 +61,10 @@ const CreateNewPost = ({ onSubmit }: { onSubmit: (post: Post) => void }) => {
 			setFile(URL.createObjectURL(e.target.files[0]));
 		} catch (e) {}
 	};
-	
+
 	return (
 		<form className={styles.createContainer}>
-			<div className={styles.title} >Create new post</div>
+			<div className={styles.title}>Create new post</div>
 			<div>
 				<div>
 					<textarea
@@ -73,6 +79,10 @@ const CreateNewPost = ({ onSubmit }: { onSubmit: (post: Post) => void }) => {
 					className={styles.uploadImage}
 					onClick={() => {
 						document.getElementById("multi")!.click();
+						ReactGa.event({
+							category: "Post creating",
+							action: "Image submission ",
+						});
 					}}
 				>
 					<img
