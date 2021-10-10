@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import styles from "../Comments/AddComment.module.css";
+import ReactGa from "react-ga";
 
 const AddComment: React.FC<{ onSubmit: (newComment: string) => void }> = ({
 	onSubmit,
@@ -8,6 +9,10 @@ const AddComment: React.FC<{ onSubmit: (newComment: string) => void }> = ({
 
 	function addComment() {
 		onSubmit(inputBox.current!.textContent || "");
+		ReactGa.event({
+			category: "Comment",
+			action: "Comment added",
+		});
 	}
 
 	return (

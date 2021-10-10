@@ -1,6 +1,6 @@
 .container {
 	width: 50vmax;
-	height: 40vmax;
+	height: 45vmax;
 	margin: auto;
 	background-color: #17161d;
 	word-wrap: break-word;
@@ -136,4 +136,17 @@
 	padding-left: 1vmax;
 	padding-right: 1vmax;
 	border: 0;
+}
+.NSFWSwitch {
+	display: flex;
+	margin-top: 1vmax;
+	justify-content: center;
+	align-content: center;
+}
+.NSFWtext {
+	color: white;
+	display: flex;
+	align-items: center;
+	margin-right: 2vmax;
+	font-size: 1.5vmax;
 }
