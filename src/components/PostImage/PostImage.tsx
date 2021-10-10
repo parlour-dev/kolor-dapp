@@ -68,7 +68,9 @@ const PostImage: React.FC<PostImageT> = ({
 						<div className={styles.creatorNick}>ja debugid:{idx}</div>
 						<div className={styles.creatorWallet}>{author}</div>
 					</div>
+					<div className={styles.profilePicutre}>
 					<ProfilePicture address={author} />
+					</div>
 				</div>
 				<div className={styles.text}>{text}</div>
 				<div className={styles.mediaContent}>
