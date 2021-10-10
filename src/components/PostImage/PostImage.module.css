@@ -231,6 +231,7 @@ select::-ms-expand {
 
 	.text {
 		margin-top: 4vmax;
+		font-size: 3vmax;
 	}
 	
 	.profilePicutre {
