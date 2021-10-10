@@ -52,10 +52,10 @@ const CreateNewPost = ({ onSubmit }: { onSubmit: (post: Post) => void }) => {
 			setFile(URL.createObjectURL(e.target.files[0]));
 		} catch (e) {}
 	};
-	
+
 	return (
 		<form className={styles.createContainer}>
-			<div className={styles.title} >Create new post</div>
+			<div className={styles.title}>Create new post</div>
 			<div>
 				<div>
 					<textarea

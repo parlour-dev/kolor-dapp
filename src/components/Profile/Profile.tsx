@@ -4,6 +4,7 @@ import { useEthers } from "@usedapp/core";
 import ProfilePicture from "../ProfilePicture/ProfilePicture";
 import editIcon from "../Profile/editIcon.png";
 import Popup from "reactjs-popup";
+import { useHistory } from "react-router-dom";
 
 type ProfileT = {
 	walletAddress: string;
@@ -13,7 +14,7 @@ type ProfileT = {
 
 const Profile: React.FC<ProfileT> = ({ walletAddress, author }) => {
 	const { deactivate } = useEthers();
-
+	let history = useHistory();
 	const [username, setUsername] = useState(author.substr(0, 8));
 
 	return (
@@ -51,7 +52,10 @@ const Profile: React.FC<ProfileT> = ({ walletAddress, author }) => {
 				<div className={styles.walletAddress}>{walletAddress}</div>
 				<button
 					className={[styles.logOutButton, styles.animation].join(" ")}
-					onClick={() => deactivate()}
+					onClick={() => {
+						deactivate();
+						history.goBack();
+					}}
 				>
 					Log Out
 				</button>

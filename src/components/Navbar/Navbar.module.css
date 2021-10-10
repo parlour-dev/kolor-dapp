@@ -24,7 +24,10 @@
 	font-family: "Lato", sans-serif;
 	border: 0px;
 }
-
+.buttonDisabled {
+	background-color: #535353;
+	cursor: not-allowed;
+}
 .navbarRight {
 	box-shadow: none;
 	display: flex;
