@@ -6,6 +6,7 @@ import editIcon from "../Profile/editIcon.png";
 import Popup from "reactjs-popup";
 import ReactGa from "react-ga";
 import Slider from "../Profile/Slider/Slider.jsx";
+import { useHistory } from "react-router-dom";
 
 type ProfileT = {
 	walletAddress: string;
@@ -15,14 +16,19 @@ type ProfileT = {
 
 const Profile: React.FC<ProfileT> = ({ walletAddress, author }) => {
 	const { deactivate } = useEthers();
-	function logOutHandler() {
+
+  function logOutHandler() {
 		deactivate();
+    history.goBack();
 		ReactGa.event({
 			category: "User status",
 			action: "Logging out",
 		});
 	}
-	const [username, setUsername] = useState(author.substr(0, 8));
+
+	let history = useHistory();
+
+  const [username, setUsername] = useState(author.substr(0, 8));
 
 	return (
 		<>

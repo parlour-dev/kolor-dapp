@@ -1,16 +1,18 @@
 import Navbar from "../src/components/Navbar/Navbar";
 import MainPage from "./components/MainPage";
 import "./App.css";
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import CreateNewPost from "../src/components/CreateNewPost/CreateNewPost";
 import Profile from "./components/Profile/Profile";
 import { useEthers } from "@usedapp/core";
 import { TCPData } from "./TCPData";
-import { Post, PostAction, ContractPost, PostContextT } from "./types";
-import { fetchContent, getTCPData } from "./api/tcpdata";
+import { PostContextT } from "./types";
+import { fetchAllPosts, fetchOnePost, getTCPData } from "./api/tcpdata";
 import { ethers } from "ethers";
 import ReactGa from "react-ga";
+import { usePosts } from "./hooks";
+import { addNewPostToContract } from "./api/newPost";
 
 export const PostsContext = React.createContext<PostContextT | undefined>(
 	undefined
@@ -19,100 +21,34 @@ export const TCPDataContext = React.createContext<TCPData | undefined>(
 	undefined
 );
 
-function postsReducer(state: Post[], action: PostAction): Post[] {
-	switch (action.type) {
-		case "add": {
-			const { value } = action;
-			return [value, ...state];
-		}
-		case "update": {
-			const { value, idx } = action;
-
-			// bail if idx is null or undefined
-			if (idx == null) return state;
-
-			state[idx] = value;
-			return state;
-		}
-		case "clear": {
-			return [];
-		}
-		default: {
-			return state;
-		}
-	}
-}
-
 function App() {
 	useEffect(() => {
 		ReactGa.initialize("UA-208668639-1");
-
 		//reporting page view
 		ReactGa.pageview(window.location.pathname);
 	}, []);
 
-	// const goToCreatePostGa = ()=> {
-	// 	ReactGa.event({
-	// 		category: 'navigation',
-	// 		action: 'entering post creating'
-	// 	})
-	// }
-
-	// const goToProfileGa = ()=> {
-	// 	ReactGa.event({
-	// 		category: 'navigation',
-	// 		action: 'entering profile'
-	// 	})
-	// }
-
-	const [posts, dispatch] = useReducer(postsReducer, []);
+	const [posts, dispatch] = usePosts();
 	const { account, library } = useEthers();
 	const [tcpdata, setTcpdata] = useState<TCPData>();
 
-	async function newPostHandler(newPostRaw: Post) {
-		if (!tcpdata) {
-			console.error("Can't post: no TCPData");
-			return false;
-		}
-
-		const newPost: ContractPost = {
-			title: newPostRaw.text,
-			url: newPostRaw.file,
-			tags: ["testtag"],
-		};
-		const newPostString = JSON.stringify(newPost);
-
-		const result = tcpdata.addContent(newPostString);
-		result.catch(console.error);
-	}
-
 	useEffect(() => {
 		if (!library) {
-			// if an account is not connected, remove all posts and bail out
+			// there isn't a provider, remove all posts and bail out
 			dispatch({ type: "clear" });
 			return undefined;
 		}
 
 		const fetchTCPData = async () => {
-			const tcpdata = getTCPData();
+			const tcpdata = getTCPData(library);
 			if (!tcpdata) return undefined;
 
-			// asynchronously add new posts
+			// whenever a post is added, asynchronously add it to the list
 			tcpdata.on("ContentAdded", async (idx_raw: ethers.BigNumber) => {
 				const idx = idx_raw.toNumber();
+				if (posts.find((el) => el.id === idx)) return undefined; // avoid creating duplicate posts
 
-				// avoid creating duplicate posts
-				if (posts.find((el) => el.id === idx)) return undefined;
-
-				const content = await tcpdata.content(idx);
-				const author = content.author;
-				const header = JSON.parse(content.header);
-				const newPost: Post = {
-					id: idx,
-					text: header.title,
-					author: author,
-					file: header.url || undefined,
-				};
+				const newPost = await fetchOnePost(tcpdata, idx);
 				dispatch({ type: "add", value: newPost });
 			});
 
@@ -120,14 +56,12 @@ function App() {
 			setTcpdata(tcpdata);
 
 			// add all the fetched posts
-			const fetchSuccess = await fetchContent(tcpdata, (post) => {
+			const fetchSuccess = await fetchAllPosts(tcpdata, (post) => {
 				dispatch({ type: "add", value: post });
 			});
 
-			// if we didn't get anything, remove the saved posts
-			if (!fetchSuccess) {
-				dispatch({ type: "clear" });
-			}
+			// if we didn't get anything, throw
+			if (!fetchSuccess) throw Error("Couldn't fetch posts");
 		};
 
 		fetchTCPData().catch((e) => {
@@ -144,16 +78,20 @@ function App() {
 				<div className="App">
 					<Navbar />
 					<div className="Separator" style={{ height: "7.5vmax" }}></div>
-					{account && (
-						<Switch>
-							<Route exact path="/">
-								<PostsContext.Provider value={{ posts, dispatch }}>
-									<MainPage />
-								</PostsContext.Provider>
-							</Route>
-							<Route exact path="/create">
-								<CreateNewPost onSubmit={newPostHandler} />
-							</Route>
+					<Switch>
+						<Route exact path="/">
+							<PostsContext.Provider value={{ posts, dispatch }}>
+								<MainPage />
+							</PostsContext.Provider>
+						</Route>
+						<Route exact path="/create">
+							<CreateNewPost
+								onSubmit={(newPostRaw) =>
+									addNewPostToContract(tcpdata!, newPostRaw)
+								}
+							/>
+						</Route>
+						{account && (
 							<Route exact path="/profile">
 								<Profile
 									username="helko"
@@ -161,9 +99,8 @@ function App() {
 									author={account}
 								/>
 							</Route>
-						</Switch>
-					)}
-					{!account && <p style={{ color: "white" }}>Please log in</p>}
+						)}
+					</Switch>
 				</div>
 			</TCPDataContext.Provider>
 		</Router>

@@ -19,12 +19,26 @@ const Navbar = () => {
 		<div>
 			<div className={styles.navbar}>
 				<div className={styles.navbarLeft}>
-					<button
-						className={[styles.navbarButtonLeft, styles.animation].join(" ")}
-						onClick={() => history.push("/create")}
-					>
-						Create
-					</button>
+					{account && (
+						<button
+							className={[styles.navbarButtonLeft, styles.animation].join(" ")}
+							onClick={() => history.push("/create")}
+						>
+							Create
+						</button>
+					)}
+					{!account && (
+						<button
+							className={[
+								styles.navbarButtonLeft,
+								styles.buttonDisabled,
+								styles.animation,
+							].join(" ")}
+							disabled
+						>
+							Create
+						</button>
+					)}
 				</div>
 				<div className={styles.logo} onClick={() => history.push("/")}>
 					<img src={Logo} alt="DeSo" />
