@@ -7,6 +7,7 @@ import { useToggle } from "../../hooks";
 import { ethers } from "ethers";
 import { tcpdata_abi, tcpdata_address } from "../../api/tcpdata";
 import { useContractCall } from "@usedapp/core";
+import ReactGa from "react-ga";
 
 type PostImageT = {
 	text: string;
@@ -33,7 +34,12 @@ const PostImage: React.FC<PostImageT> = ({
 		/*const result = tcpdata.tipContent(idx, {
 			value: ethers.BigNumber.from("30000000000000000"),
 		});
-		result.catch(console.error);*/
+		*/
+		ReactGa.event({
+			category: "Tip",
+			action: "Tip sent",
+		});
+		//result.catch(console.error);
 	}
 
 	return (
@@ -44,7 +50,9 @@ const PostImage: React.FC<PostImageT> = ({
 						<div className={styles.creatorNick}>ja debugid:{idx}</div>
 						<div className={styles.creatorWallet}>{author}</div>
 					</div>
+					<div className={styles.profilePicutre}>
 					<ProfilePicture address={author} />
+					</div>
 				</div>
 				<div className={styles.text}>{text}</div>
 				<div className={styles.mediaContent}>

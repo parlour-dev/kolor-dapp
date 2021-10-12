@@ -191,9 +191,12 @@ select::-ms-expand {
 	}
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 500px) and (min-height: 300px) {
 	.post {
-		width: 90%;
+		width: 100%;
+		border-left: none;
+		border-right: none;
+		border-radius: 0px;
 	}
 
 	.creator {
@@ -202,5 +205,38 @@ select::-ms-expand {
 
 	.text {
 		font-size: 2vmax;
+	}
+
+	.buttonBlue {
+		height: 5vmax;
+		line-height: 5vmax;
+		font-size: 2vmax;
+		border-radius: 1.4vmax;
+	}
+	
+	.buttonBlack {
+		height: 5vmax;
+		line-height: 5vmax;
+		font-size: 2vmax;
+		border-radius: 1.4vmax;
+	}
+
+	.creatorNick {
+		font-size: 2vmax;
+	}
+
+	.creatorInfo {
+		margin-left: 3vmax;
+	}
+
+	.text {
+		margin-top: 4vmax;
+		font-size: 3vmax;
+	}
+	
+	.profilePicutre {
+		transform: scale(2);
+		margin-left: 1.8vmax;
+		margin-top: 2vmax;
 	}
 }

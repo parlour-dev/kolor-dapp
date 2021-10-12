@@ -20,3 +20,14 @@
 	margin-left: 0.75vmax;
 	color: #535353;
 }
+
+@media only screen and (max-width: 500px) and (min-height: 300px) {
+	.container {
+		font-size: 2vmax;
+	}
+
+	.mainTips img {
+		width: 1.4vmax;
+		margin-right: 0.5vmax;
+	}
+}

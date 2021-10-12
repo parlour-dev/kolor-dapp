@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import { Post } from "../../types";
 import { uploadImageToAWS } from "../../api/uploadImage";
+import ReactGa from "react-ga";
 
 const CreateNewPost = ({ onSubmit }: { onSubmit: (post: Post) => void }) => {
 	const [file, setFile] = useState("");
@@ -19,9 +20,17 @@ const CreateNewPost = ({ onSubmit }: { onSubmit: (post: Post) => void }) => {
 
 	const submitPostHandler = async (e: React.MouseEvent) => {
 		e.preventDefault();
+		ReactGa.event({
+			category: "Post Creation",
+			action: "Post submission ",
+		});
 
 		if (!inputText && !file) {
 			console.error("The post is empty.");
+			ReactGa.event({
+				category: "Post Creation",
+				action: "Empty Post",
+			});
 			return;
 		}
 
@@ -70,6 +79,10 @@ const CreateNewPost = ({ onSubmit }: { onSubmit: (post: Post) => void }) => {
 					className={styles.uploadImage}
 					onClick={() => {
 						document.getElementById("multi")!.click();
+						ReactGa.event({
+							category: "Post creating",
+							action: "Image submission ",
+						});
 					}}
 				>
 					<img
