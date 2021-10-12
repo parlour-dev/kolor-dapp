@@ -1,25 +1,17 @@
 import Navbar from "../src/components/Navbar/Navbar";
 import MainPage from "./components/MainPage";
 import "./App.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import CreateNewPost from "../src/components/CreateNewPost/CreateNewPost";
 import Profile from "./components/Profile/Profile";
-import { useEthers } from "@usedapp/core";
-import { TCPData } from "./TCPData";
-import { PostContextT } from "./types";
-import { fetchAllPosts, fetchOnePost, getTCPData } from "./api/tcpdata";
-import { ethers } from "ethers";
+import { useEthers, useContractCall, useContractFunction } from "@usedapp/core";
+import { ContractPost, Post } from "./types";
+import { rawPostToPost, tcpdata_abi, tcpdata_address } from "./api/tcpdata";
+import { Contract, ethers } from "ethers";
 import ReactGa from "react-ga";
-import { usePosts } from "./hooks";
-import { addNewPostToContract } from "./api/newPost";
 
-export const PostsContext = React.createContext<PostContextT | undefined>(
-	undefined
-);
-export const TCPDataContext = React.createContext<TCPData | undefined>(
-	undefined
-);
+export const PostsContext = React.createContext<Post[]>([]);
 
 function App() {
 	useEffect(() => {
@@ -27,68 +19,41 @@ function App() {
 		//reporting page view
 		ReactGa.pageview(window.location.pathname);
 	}, []);
+	const { account } = useEthers();
 
-	const [posts, dispatch] = usePosts();
-	const { account, library } = useEthers();
-	const [tcpdata, setTcpdata] = useState<TCPData>();
+	const [postsRaw] = useContractCall({ abi: new ethers.utils.Interface(tcpdata_abi), address: tcpdata_address, method: 'getContent', args: [] }) || []
 
-	useEffect(() => {
-		if (!library) {
-			// there isn't a provider, remove all posts and bail out
-			dispatch({ type: "clear" });
-			return undefined;
-		}
+	const posts = postsRaw?.map((el: string[], idx: number) => rawPostToPost(idx, el[0], el[1])).reverse()
 
-		const fetchTCPData = async () => {
-			const tcpdata = getTCPData(library);
-			if (!tcpdata) return undefined;
+	// FIXME move this to API
+	// @ts-ignore
+	const { state, send } = useContractFunction(new Contract(tcpdata_address, tcpdata_abi), 'addContent', { transactionName: 'Add content' })
 
-			// whenever a post is added, asynchronously add it to the list
-			tcpdata.on("ContentAdded", async (idx_raw: ethers.BigNumber) => {
-				const idx = idx_raw.toNumber();
-				if (posts.find((el) => el.id === idx)) return undefined; // avoid creating duplicate posts
-
-				const newPost = await fetchOnePost(tcpdata, idx);
-				dispatch({ type: "add", value: newPost });
-			});
-
-			// set the contract object
-			setTcpdata(tcpdata);
-
-			// add all the fetched posts
-			const fetchSuccess = await fetchAllPosts(tcpdata, (post) => {
-				dispatch({ type: "add", value: post });
-			});
-
-			// if we didn't get anything, throw
-			if (!fetchSuccess) throw Error("Couldn't fetch posts");
-		};
-
-		fetchTCPData().catch((e) => {
-			console.error(e);
-			dispatch({ type: "clear" });
-		});
-		// posts are missing from the dependency array on purpose
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [library]);
+	useEffect(() => { console.log(state) }, [state])
 
 	return (
 		<Router>
-			<TCPDataContext.Provider value={tcpdata}>
 				<div className="App">
 					<Navbar />
 					<div className="Separator" style={{ height: "7.5vmax" }}></div>
 					<Switch>
 						<Route exact path="/">
-							<PostsContext.Provider value={{ posts, dispatch }}>
+							<PostsContext.Provider value={posts}>
 								<MainPage />
 							</PostsContext.Provider>
 						</Route>
 						<Route exact path="/create">
 							<CreateNewPost
-								onSubmit={(newPostRaw) =>
-									addNewPostToContract(tcpdata!, newPostRaw)
-								}
+								onSubmit={(newPostRaw) => {
+									//addNewPostToContract(tcpdata!, newPostRaw)
+									const newPost: ContractPost = {
+										title: newPostRaw.text,
+										url: newPostRaw.file,
+										tags: ["testtag"],
+									};
+
+									send(JSON.stringify(newPost))
+								}}
 							/>
 						</Route>
 						{account && (
@@ -102,7 +67,6 @@ function App() {
 						)}
 					</Switch>
 				</div>
-			</TCPDataContext.Provider>
 		</Router>
 	);
 }

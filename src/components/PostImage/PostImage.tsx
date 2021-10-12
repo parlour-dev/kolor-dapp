@@ -4,10 +4,9 @@ import Tips from "../Tips/Tips";
 import ProfilePicture from "../ProfilePicture/ProfilePicture";
 import Popup from "reactjs-popup";
 import { useToggle } from "../../hooks";
-import { useState, useContext, useEffect } from "react";
-import { TCPDataContext } from "../../App";
 import { ethers } from "ethers";
-import { TCPData } from "../../TCPData";
+import { tcpdata_abi, tcpdata_address } from "../../api/tcpdata";
+import { useContractCall } from "@usedapp/core";
 
 type PostImageT = {
 	text: string;
@@ -27,32 +26,14 @@ const PostImage: React.FC<PostImageT> = ({
 }) => {
 	const [showAddComment, toggleAddComment] = useToggle(false);
 
-	const [etherTipBalance, setEtherTipBalance] = useState("0.0");
-	const tcpdata = useContext(TCPDataContext) as TCPData;
-
-	useEffect(() => {
-		let isSubscribed = true;
-
-		const fetchBalance = async () => {
-			const balance = await tcpdata.getContentBalance(idx);
-			const formatted_balance = ethers.utils.formatUnits(balance, "ether");
-			if (isSubscribed) {
-				setEtherTipBalance(formatted_balance);
-			}
-		};
-
-		fetchBalance().catch(console.error);
-
-		return () => {
-			isSubscribed = false;
-		};
-	}, [idx, tcpdata]);
+	const [etherTipBalanceRaw] = useContractCall({ abi: new ethers.utils.Interface(tcpdata_abi), address: tcpdata_address, method: 'getContentBalance', args: [idx] }) || [0]
+	const etherTipBalance = ethers.utils.formatUnits(etherTipBalanceRaw, "ether");
 
 	function handleTip() {
-		const result = tcpdata.tipContent(idx, {
+		/*const result = tcpdata.tipContent(idx, {
 			value: ethers.BigNumber.from("30000000000000000"),
 		});
-		result.catch(console.error);
+		result.catch(console.error);*/
 	}
 
 	return (

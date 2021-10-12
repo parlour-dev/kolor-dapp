@@ -2,11 +2,10 @@ import PostImage from "./PostImage/PostImage";
 import Comments from "./PostImage/Comments/Comments";
 import { useContext, useReducer } from "react";
 import { PostsContext } from "../App";
-import { PostContextT } from "../types";
 
 const MainPage = () => {
 	const [, forceUpdate] = useReducer((x) => x + 1, 0);
-	const { posts, dispatch } = useContext(PostsContext) as PostContextT;
+	const posts = useContext(PostsContext);
 
 	function newCommentHandler(commentText: string, idx: number) {
 		const newComments = posts[idx].comments
@@ -14,7 +13,8 @@ const MainPage = () => {
 			: [commentText];
 		const newValue = { ...posts[idx], comments: newComments };
 
-		dispatch({ type: "update", value: newValue, idx: idx });
+		console.log("new comment", newValue)
+		//dispatch({ type: "update", value: newValue, idx: idx });
 
 		// FIXME: DONT DO THIS!!!
 		forceUpdate();
@@ -22,7 +22,7 @@ const MainPage = () => {
 
 	return (
 		<>
-			{posts.map((post, idx) => (
+			{posts?.map((post, idx) => (
 				<PostImage
 					key={idx}
 					text={post.text}

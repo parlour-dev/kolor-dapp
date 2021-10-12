@@ -13,25 +13,6 @@ export type ContractPost = {
 	tags?: string[];
 };
 
-export type PostAction =
-	| {
-			type: "add";
-			value: Post;
-	  }
-	| {
-			type: "update";
-			value: Post;
-			idx: number;
-	  }
-	| {
-			type: "clear";
-	  };
-
-export type PostContextT = {
-	posts: Post[];
-	dispatch: (action: PostAction) => void;
-};
-
 export type TipAmounts = {
 	ethereum: string | number;
 	dai: string | number;
