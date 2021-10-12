@@ -213,7 +213,7 @@ select::-ms-expand {
 		font-size: 2vmax;
 		border-radius: 1.4vmax;
 	}
-	
+
 	.buttonBlack {
 		height: 5vmax;
 		line-height: 5vmax;
@@ -233,7 +233,7 @@ select::-ms-expand {
 		margin-top: 4vmax;
 		font-size: 3vmax;
 	}
-	
+
 	.profilePicutre {
 		transform: scale(2);
 		margin-left: 1.8vmax;

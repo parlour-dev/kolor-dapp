@@ -13,7 +13,7 @@ const MainPage = () => {
 			: [commentText];
 		const newValue = { ...posts[idx], comments: newComments };
 
-		console.log("new comment", newValue)
+		console.log("new comment", newValue);
 		//dispatch({ type: "update", value: newValue, idx: idx });
 
 		// FIXME: DONT DO THIS!!!

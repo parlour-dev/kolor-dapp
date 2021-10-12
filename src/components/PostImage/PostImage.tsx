@@ -27,7 +27,12 @@ const PostImage: React.FC<PostImageT> = ({
 }) => {
 	const [showAddComment, toggleAddComment] = useToggle(false);
 
-	const [etherTipBalanceRaw] = useContractCall({ abi: new ethers.utils.Interface(tcpdata_abi), address: tcpdata_address, method: 'getContentBalance', args: [idx] }) || [0]
+	const [etherTipBalanceRaw] = useContractCall({
+		abi: new ethers.utils.Interface(tcpdata_abi),
+		address: tcpdata_address,
+		method: "getContentBalance",
+		args: [idx],
+	}) || [0];
 	const etherTipBalance = ethers.utils.formatUnits(etherTipBalanceRaw, "ether");
 
 	function handleTip() {
@@ -51,7 +56,7 @@ const PostImage: React.FC<PostImageT> = ({
 						<div className={styles.creatorWallet}>{author}</div>
 					</div>
 					<div className={styles.profilePicutre}>
-					<ProfilePicture address={author} />
+						<ProfilePicture address={author} />
 					</div>
 				</div>
 				<div className={styles.text}>{text}</div>

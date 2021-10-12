@@ -17,9 +17,9 @@ type ProfileT = {
 const Profile: React.FC<ProfileT> = ({ walletAddress, author }) => {
 	const { deactivate } = useEthers();
 
-  function logOutHandler() {
+	function logOutHandler() {
 		deactivate();
-    history.goBack();
+		history.goBack();
 		ReactGa.event({
 			category: "User status",
 			action: "Logging out",
@@ -28,7 +28,7 @@ const Profile: React.FC<ProfileT> = ({ walletAddress, author }) => {
 
 	let history = useHistory();
 
-  const [username, setUsername] = useState(author.substr(0, 8));
+	const [username, setUsername] = useState(author.substr(0, 8));
 
 	return (
 		<>

@@ -21,52 +21,66 @@ function App() {
 	}, []);
 	const { account } = useEthers();
 
-	const [postsRaw] = useContractCall({ abi: new ethers.utils.Interface(tcpdata_abi), address: tcpdata_address, method: 'getContent', args: [] }) || []
+	const [postsRaw] =
+		useContractCall({
+			abi: new ethers.utils.Interface(tcpdata_abi),
+			address: tcpdata_address,
+			method: "getContent",
+			args: [],
+		}) || [];
 
-	const posts = postsRaw?.map((el: string[], idx: number) => rawPostToPost(idx, el[0], el[1])).reverse()
+	const posts = postsRaw
+		?.map((el: string[], idx: number) => rawPostToPost(idx, el[0], el[1]))
+		.reverse();
 
 	// FIXME move this to API
-	// @ts-ignore
-	const { state, send } = useContractFunction(new Contract(tcpdata_address, tcpdata_abi), 'addContent', { transactionName: 'Add content' })
+	const { state, send } = useContractFunction(
+		// @ts-ignore
+		new Contract(tcpdata_address, tcpdata_abi),
+		"addContent",
+		{ transactionName: "Add content" }
+	);
 
-	useEffect(() => { console.log(state) }, [state])
+	useEffect(() => {
+		console.log(state);
+	}, [state]);
 
 	return (
 		<Router>
-				<div className="App">
-					<Navbar />
-					<div className="Separator" style={{ height: "7.5vmax" }}></div>
-					<Switch>
-						<Route exact path="/">
-							<PostsContext.Provider value={posts}>
-								<MainPage />
-							</PostsContext.Provider>
-						</Route>
-						<Route exact path="/create">
-							<CreateNewPost
-								onSubmit={(newPostRaw) => {
-									//addNewPostToContract(tcpdata!, newPostRaw)
-									const newPost: ContractPost = {
-										title: newPostRaw.text,
-										url: newPostRaw.file,
-										tags: ["testtag"],
-									};
+			<div className="App">
+				<Navbar />
+				<div className="Separator" style={{ height: "7.5vmax" }}></div>
+				<Switch>
+					<Route exact path="/">
+						<PostsContext.Provider value={posts}>
+							<MainPage />
+						</PostsContext.Provider>
+					</Route>
+					<Route exact path="/create">
+						<CreateNewPost
+							onSubmit={(newPostRaw) => {
+								//addNewPostToContract(tcpdata!, newPostRaw)
+								const newPost: ContractPost = {
+									title: newPostRaw.text,
+									url: newPostRaw.file,
+									tags: ["testtag"],
+								};
 
-									send(JSON.stringify(newPost))
-								}}
+								send(JSON.stringify(newPost));
+							}}
+						/>
+					</Route>
+					{account && (
+						<Route exact path="/profile">
+							<Profile
+								username="helko"
+								walletAddress={account}
+								author={account}
 							/>
 						</Route>
-						{account && (
-							<Route exact path="/profile">
-								<Profile
-									username="helko"
-									walletAddress={account}
-									author={account}
-								/>
-							</Route>
-						)}
-					</Switch>
-				</div>
+					)}
+				</Switch>
+			</div>
 		</Router>
 	);
 }

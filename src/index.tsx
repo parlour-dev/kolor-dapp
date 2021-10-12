@@ -13,7 +13,7 @@ ReactDOM.render(
 					[ChainId.Ropsten]:
 						"https://ropsten.infura.io/v3/40ecaa4d584d4e2e8624f7352dfd5136",
 				},
-				supportedChains: [ChainId.Ropsten]
+				supportedChains: [ChainId.Ropsten],
 			}}
 		>
 			<App />
