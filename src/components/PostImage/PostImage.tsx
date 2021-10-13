@@ -8,13 +8,16 @@ import { ethers } from "ethers";
 import { tcpdata_abi, tcpdata_address } from "../../api/tcpdata";
 import { useContractCall } from "@usedapp/core";
 import ReactGa from "react-ga";
+import { useEffect } from "react";
+import { useState } from "react";
+import Comments from "./Comments/Comments";
+import { fetchComments, postComment } from "../../api/comments";
 
 type PostImageT = {
 	text: string;
 	img: string;
 	idx: number;
 	author: string;
-	onCommentSubmit: (comment: string) => void;
 };
 
 const PostImage: React.FC<PostImageT> = ({
@@ -22,10 +25,9 @@ const PostImage: React.FC<PostImageT> = ({
 	img,
 	idx,
 	author,
-	children,
-	onCommentSubmit,
 }) => {
 	const [showAddComment, toggleAddComment] = useToggle(false);
+	const [comments, setComments] = useState([])
 
 	const [etherTipBalanceRaw] = useContractCall({
 		abi: new ethers.utils.Interface(tcpdata_abi),
@@ -34,6 +36,10 @@ const PostImage: React.FC<PostImageT> = ({
 		args: [idx],
 	}) || [0];
 	const etherTipBalance = ethers.utils.formatUnits(etherTipBalanceRaw, "ether");
+
+	useEffect(() => {
+		fetchComments(idx).then(data => setComments(data)).catch(console.error)
+	}, [idx])
 
 	function handleTip() {
 		/*const result = tcpdata.tipContent(idx, {
@@ -45,6 +51,10 @@ const PostImage: React.FC<PostImageT> = ({
 			action: "Tip sent",
 		});
 		//result.catch(console.error);
+	}
+
+	async function onCommentSubmit(newComment: string) {
+		await postComment(idx, newComment)
 	}
 
 	return (
@@ -112,13 +122,16 @@ const PostImage: React.FC<PostImageT> = ({
 					</Popup>
 					<div
 						className={styles.buttonBlack}
-						onClick={() => toggleAddComment()}
+						onClick={toggleAddComment}
 					>
 						Comment
 					</div>
 				</div>
 				{showAddComment && <AddComment onSubmit={onCommentSubmit} />}
-				{children}
+
+				{comments?.map((comment) =>
+					<Comments text={comment} />
+				)}
 			</div>
 		</div>
 	);

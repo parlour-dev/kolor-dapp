@@ -19,6 +19,7 @@ function App() {
 		//reporting page view
 		ReactGa.pageview(window.location.pathname);
 	}, []);
+
 	const { account } = useEthers();
 
 	const [postsRaw] =
@@ -34,16 +35,12 @@ function App() {
 		.reverse();
 
 	// FIXME move this to API
-	const { state, send } = useContractFunction(
+	const { send } = useContractFunction(
 		// @ts-ignore
 		new Contract(tcpdata_address, tcpdata_abi),
 		"addContent",
 		{ transactionName: "Add content" }
 	);
-
-	useEffect(() => {
-		console.log(state);
-	}, [state]);
 
 	return (
 		<Router>
@@ -58,15 +55,14 @@ function App() {
 					</Route>
 					<Route exact path="/create">
 						<CreateNewPost
-							onSubmit={(newPostRaw) => {
-								//addNewPostToContract(tcpdata!, newPostRaw)
+							onSubmit={async (newPostRaw) => {
 								const newPost: ContractPost = {
 									title: newPostRaw.text,
 									url: newPostRaw.file,
 									tags: ["testtag"],
 								};
 
-								send(JSON.stringify(newPost));
+								await send(JSON.stringify(newPost));
 							}}
 						/>
 					</Route>

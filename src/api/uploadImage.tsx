@@ -1,7 +1,7 @@
 const uploadImageToAWS = async (blobUrl: string) => {
 	const fileContents = await (await fetch(blobUrl)).arrayBuffer();
 
-	const response = await fetch("https://imageupload.desoapp.co/upload", {
+	const response = await fetch("https://api.desoapp.co/upload", {
 		method: "POST",
 		body: fileContents,
 		headers: {

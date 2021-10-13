@@ -8,7 +8,11 @@ import { Post } from "../../types";
 import { uploadImageToAWS } from "../../api/uploadImage";
 import ReactGa from "react-ga";
 
-const CreateNewPost = ({ onSubmit }: { onSubmit: (post: Post) => void }) => {
+const CreateNewPost = ({
+	onSubmit,
+}: {
+	onSubmit: (post: Post) => Promise<void>;
+}) => {
 	const [file, setFile] = useState("");
 	const [inputText, setInputText] = useState("");
 
@@ -45,7 +49,7 @@ const CreateNewPost = ({ onSubmit }: { onSubmit: (post: Post) => void }) => {
 				id: -1,
 			};
 
-			onSubmit(newPost);
+			await onSubmit(newPost);
 		} catch (err) {
 			console.error(err);
 			return;
@@ -81,7 +85,7 @@ const CreateNewPost = ({ onSubmit }: { onSubmit: (post: Post) => void }) => {
 						document.getElementById("multi")!.click();
 						ReactGa.event({
 							category: "Post creating",
-							action: "Image submission ",
+							action: "Image submission",
 						});
 					}}
 				>
