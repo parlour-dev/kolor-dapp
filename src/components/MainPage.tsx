@@ -14,8 +14,7 @@ const MainPage = () => {
 					author={post.author!}
 					img={post.file!}
 					idx={post.id}
-				>
-				</PostImage>
+				></PostImage>
 			))}
 		</>
 	);

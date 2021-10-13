@@ -9,6 +9,7 @@ const AddComment: React.FC<{ onSubmit: (newComment: string) => void }> = ({
 
 	function addComment() {
 		onSubmit(inputBox.current!.textContent || "");
+		inputBox.current!.textContent = "";
 		ReactGa.event({
 			category: "Comment",
 			action: "Comment added",

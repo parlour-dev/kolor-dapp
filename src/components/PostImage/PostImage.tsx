@@ -20,14 +20,9 @@ type PostImageT = {
 	author: string;
 };
 
-const PostImage: React.FC<PostImageT> = ({
-	text,
-	img,
-	idx,
-	author,
-}) => {
+const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 	const [showAddComment, toggleAddComment] = useToggle(false);
-	const [comments, setComments] = useState([])
+	const [comments, setComments] = useState<string[]>([]);
 
 	const [etherTipBalanceRaw] = useContractCall({
 		abi: new ethers.utils.Interface(tcpdata_abi),
@@ -38,8 +33,10 @@ const PostImage: React.FC<PostImageT> = ({
 	const etherTipBalance = ethers.utils.formatUnits(etherTipBalanceRaw, "ether");
 
 	useEffect(() => {
-		fetchComments(idx).then(data => setComments(data)).catch(console.error)
-	}, [idx])
+		fetchComments(idx)
+			.then((data) => setComments(data))
+			.catch(console.error);
+	}, [idx]);
 
 	function handleTip() {
 		/*const result = tcpdata.tipContent(idx, {
@@ -54,7 +51,18 @@ const PostImage: React.FC<PostImageT> = ({
 	}
 
 	async function onCommentSubmit(newComment: string) {
-		await postComment(idx, newComment)
+		// prevent empty comments
+		if (!newComment) {
+			console.error("Empty comment");
+			return;
+		}
+
+		// post the comment using the api
+		const result = await postComment(idx, newComment);
+
+		// if the posting went fine, add the comment to the local list
+		// (to avoid fetching again)
+		if (result.ok) setComments([...comments, newComment]);
 	}
 
 	return (
@@ -120,18 +128,15 @@ const PostImage: React.FC<PostImageT> = ({
 							</div>
 						</div>
 					</Popup>
-					<div
-						className={styles.buttonBlack}
-						onClick={toggleAddComment}
-					>
+					<div className={styles.buttonBlack} onClick={toggleAddComment}>
 						Comment
 					</div>
 				</div>
 				{showAddComment && <AddComment onSubmit={onCommentSubmit} />}
 
-				{comments?.map((comment) =>
-					<Comments text={comment} />
-				)}
+				{comments?.map((comment, idx) => (
+					<Comments key={idx} text={comment} />
+				))}
 			</div>
 		</div>
 	);
