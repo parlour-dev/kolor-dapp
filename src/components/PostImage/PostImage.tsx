@@ -27,9 +27,16 @@ const PostImage: React.FC<PostImageT> = ({
 	onCommentSubmit,
 }) => {
 	const [showAddComment, toggleAddComment] = useToggle(false);
-
 	const [etherTipBalance, setEtherTipBalance] = useState("0.0");
 	const tcpdata = useContext(TCPDataContext) as TCPData;
+	///O TUTAJ ANTONI PATRZYMY TUTAJ JEST NSFW!
+	const [isActive, setActive] = useState(true);
+	const handleToggle = () => {
+		setActive(!isActive);
+		console.log("you just clicked");
+	};
+	const [tipValue, handleTipValue] = useState("");
+	const [isNSFW, setNSFW] = useState(true);
 
 	useEffect(() => {
 		let isSubscribed = true;
@@ -59,7 +66,21 @@ const PostImage: React.FC<PostImageT> = ({
 		});
 		result.catch(console.error);
 	}
-
+	const refreshValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+		handleTipValue(e.target.value);
+	};
+	function tipFunction1() {
+		console.log("button1")
+		handleTipValue("0.1");
+	}
+	function tipFunction2() {
+		console.log("button2")
+		handleTipValue("0.5");
+	}
+	function tipFunction3() {
+		console.log("button3")
+		handleTipValue("1");
+	}
 	return (
 		<div className={styles.post}>
 			<div className={styles.container}>
@@ -76,7 +97,8 @@ const PostImage: React.FC<PostImageT> = ({
 						<img
 							alt=""
 							src={"https://" + img}
-							className={styles.mediaContent}
+							className={isNSFW && isActive ? styles.cont : styles.cont2}
+							onClick={handleToggle}
 						/>
 					)}
 				</div>
@@ -103,21 +125,25 @@ const PostImage: React.FC<PostImageT> = ({
 						}
 						modal
 					>
-						<div className={styles.popup}>
-							<input
-								type="number"
-								className={styles.popupInput}
-								placeholder="Amount"
-							/>
-							<div className="currencyChooser">
-								<select name="currency" id="currency">
-									<option value="ETH">ETH</option>
-									<option value="DAI">DAI</option>
-									<option value="WBTC">WBTC</option>
-								</select>
+						<div className={styles.popupContainer}>
+							<div className={styles.popup}>
+								<input
+									onChange={refreshValue}
+									type="number"
+									className={styles.popupInput}
+									placeholder="Amount"
+									value={tipValue}	
+								/>
+								<div className={styles.Currency}>ETH</div>
+
+								<div onClick={handleTip} className={styles.popupTip}>
+									Send
+								</div>
 							</div>
-							<div onClick={handleTip} className={styles.popupTip}>
-								Send
+							<div className={styles.buttonTipContainer}>
+								<button className={styles.buttonTip} onClick={tipFunction1}>0.1</button>
+								<button className={styles.buttonTip} onClick={tipFunction2}>0.5</button>
+								<button className={styles.buttonTip} onClick={tipFunction3}>1</button>
 							</div>
 						</div>
 					</Popup>

@@ -58,8 +58,8 @@ const Profile: React.FC<ProfileT> = ({ walletAddress, author }) => {
 				</div>
 				<div className={styles.walletAddress}>{walletAddress}</div>
 				<div className={styles.NSFWSwitch}>
-					<div className={styles.NSFWtext}>Blurring NSFW content</div>
-					<Slider></Slider>
+					{/* <div className={styles.NSFWtext}>Blurring NSFW content</div> */}
+					{/* <Slider></Slider> */}
 				</div>
 				<div>
 					<button

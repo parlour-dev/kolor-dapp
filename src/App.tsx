@@ -51,20 +51,6 @@ function App() {
 		ReactGa.pageview(window.location.pathname);
 	}, []);
 
-	// const goToCreatePostGa = ()=> {
-	// 	ReactGa.event({
-	// 		category: 'navigation',
-	// 		action: 'entering post creating'
-	// 	})
-	// }
-
-	// const goToProfileGa = ()=> {
-	// 	ReactGa.event({
-	// 		category: 'navigation',
-	// 		action: 'entering profile'
-	// 	})
-	// }
-
 	const [posts, dispatch] = useReducer(postsReducer, []);
 	const { account, library } = useEthers();
 	const [tcpdata, setTcpdata] = useState<TCPData>();

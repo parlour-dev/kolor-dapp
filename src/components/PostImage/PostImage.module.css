@@ -50,6 +50,21 @@
 	border-radius: 1.5vmax;
 	padding-top: 2%;
 	margin-bottom: 1vmax;
+	
+}
+.cont{
+	width: 100%;
+	border-radius: 1.5vmax;
+	padding-top: 2%;
+	margin-bottom: 1vmax;
+    filter: blur(1vmax);
+}
+.cont2{
+	width: 100%;
+	border-radius: 1.5vmax;
+	padding-top: 2%;
+	margin-bottom: 1vmax;
+    
 }
 .viewerAction {
 	height: 10%;
@@ -99,29 +114,34 @@
 	transform: scale(1.1);
 	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.42);
 }
-.popup {
-	background-color: #17161d;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+.popupContainer {
+	background-color: #17161d;	
 	border-radius: 2vmax;
 	border: 0.1vmax solid #535353;
-	width: 50vmax;
-	height: 20vmax;
+	width: 25vmax;
+	height: 8vmax;
 	box-shadow: 1px -1px 54px 11px rgba(0, 110, 236, 0.75);
 }
-
+.popup {
+	display: flex;
+	justify-content: space-between;
+	border-radius: 2vmax;
+	width: 80%;
+	height: 45%;
+	margin: auto;
+	padding-top: 5%;
+}
 .popupInput {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 30%;
-	height: 5vmax;
+	width: 55%;
+	height: 3vmax;
 	background-color: #050111;
 	border: 0px;
-	border-radius: 1.5vmax;
+	border-radius: 1vmax;
 	color: #fff;
-	font-size: 2.2vmax;
+	font-size: 1vmax;
 	padding-left: 1vmax;
 	margin-right: 0.5vmax;
 }
@@ -138,12 +158,22 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
 	-moz-appearance: textfield;
 }
+.Currency{
+	color: #fff;
+	display: flex;
+	width: 25%;
+	height: 3vmax;
+	font-size: 1vmax;
+	justify-content: center;
+	align-items: center;
+	background-color: #050111;
+	border: 0px;
+	border-radius: 1vmax;
+}
 /* End of Hide input arrows */
 
-/* currencyChooser styling */
-.currencyChooser {
-	color: #fff;
-}
+/* currencyChooser styling
+
 
 *,
 *::before,
@@ -155,12 +185,12 @@ select {
 	appearance: none;
 	background-color: #050111;
 	text-align: center;
-	border-radius: 1.5vmax;
+	border-radius: 1vmax;
 	border: none;
 	font-size: 1.2vmax;
 	margin: 0;
 	width: 4vmax;
-	height: 5vmax;
+	height: 3vmax;
 	font-family: inherit;
 	cursor: inherit;
 	line-height: inherit;
@@ -169,7 +199,7 @@ select {
 
 select::-ms-expand {
 	display: none;
-}
+} */
 
 /* End of currencyChooser styling */
 .popupTip {
@@ -177,13 +207,34 @@ select::-ms-expand {
 	align-items: center;
 	justify-content: center;
 	width: 30%;
-	height: 5vmax;
+	height: 3vmax;
 	background-color: #2e63fb;
 	color: #fff;
-	font-size: 2.5vmax;
+	font-size: 1vmax;
 	font-weight: 600;
-	border-radius: 1.5vmax;
-	margin-left: 2vmax;
+	border-radius: 1vmax;
+	margin-left: 0.5vmax;
+}
+.buttonTipContainer{
+	width: 80%;
+	height: 25%;
+	padding-bottom:51% ;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin: auto;
+	padding-bottom: 5%;
+
+}
+.buttonTip{
+	width: 30%;
+	
+	font-size: 1vmax;
+	align-self: center;
+	background-color: #050111;
+	border-radius: 2vmax;
+	border: 0.1vmax solid #535353;
+	color: white;
 }
 @media only screen and (max-width: 1200px) {
 	.post {
