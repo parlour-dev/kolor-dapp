@@ -1,13 +1,18 @@
 import React, { useRef } from "react";
 import styles from "../Comments/AddComment.module.css";
 import ReactGa from "react-ga";
+import { useEthers } from "@usedapp/core";
 
 const AddComment: React.FC<{ onSubmit: (newComment: string) => void }> = ({
 	onSubmit,
 }) => {
+	const { account } = useEthers();
+
 	const inputBox = useRef<HTMLDivElement>(null);
 
 	function addComment() {
+		if (!account) return;
+
 		onSubmit(inputBox.current!.textContent || "");
 		inputBox.current!.textContent = "";
 		ReactGa.event({
@@ -25,7 +30,10 @@ const AddComment: React.FC<{ onSubmit: (newComment: string) => void }> = ({
 					contentEditable={true}
 				></div>
 			</div>
-			<div className={styles.button} onClick={addComment}>
+			<div
+				className={account ? styles.button : styles.buttonDisabled}
+				onClick={addComment}
+			>
 				Add comment
 			</div>
 		</div>

@@ -6,12 +6,13 @@ import Popup from "reactjs-popup";
 import { useToggle } from "../../hooks";
 import { ethers } from "ethers";
 import { tcpdata_abi, tcpdata_address } from "../../api/tcpdata";
-import { useContractCall } from "@usedapp/core";
+import { useContractCall, useEthers } from "@usedapp/core";
 import ReactGa from "react-ga";
 import { useEffect } from "react";
 import { useState } from "react";
 import { fetchComments, postComment } from "../../api/comments";
 import Comments from "./Comments/Comments";
+import { CommentT } from "../../types";
 
 type PostImageT = {
 	text: string;
@@ -22,7 +23,9 @@ type PostImageT = {
 
 const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 	const [showAddComment, toggleAddComment] = useToggle(false);
-	const [comments, setComments] = useState<string[]>([]);
+	const [comments, setComments] = useState<CommentT[]>([]);
+
+	const { account, library } = useEthers();
 
 	const [etherTipBalanceRaw] = useContractCall({
 		abi: new ethers.utils.Interface(tcpdata_abi),
@@ -57,12 +60,21 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 			return;
 		}
 
+		if (!account || !library) {
+			return;
+		}
+
 		// post the comment using the api
-		const result = await postComment(idx, newComment);
+		const result = await postComment(
+			idx,
+			newComment,
+			account,
+			await library.getSigner().signMessage(newComment)
+		);
 
 		// if the posting went fine, add the comment to the local list
 		// (to avoid fetching again)
-		if (result.ok) setComments([...comments, newComment]);
+		if (result.ok) setComments([...comments, { a: account, c: newComment }]);
 	}
 
 	return (

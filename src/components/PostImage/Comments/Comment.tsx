@@ -1,22 +1,22 @@
+import { CommentT } from "../../../types";
+import ProfilePicture from "../../ProfilePicture/ProfilePicture";
 import styles from "../Comments/Comment.module.css";
 
-const Comment: React.FC<{ text: string }> = ({ text }) => {
+const Comment: React.FC<{ data: CommentT }> = ({ data }) => {
 	return (
 		<div>
 			<div className={styles.creator}>
 				<div className={styles.creatorInfo}>
-					<div className={styles.profPicture}> </div>
+					<ProfilePicture address={data.a} className={styles.profPicture} />
 
 					<div className={styles.userInfoContainer}>
 						<div className={styles.creatorNick}>Jarosław Jakimowicz</div>
-						<div className={styles.creatorWallet}>
-							0x102938a290d90109d29132189189d
-						</div>
+						<div className={styles.creatorWallet}>{data.a}</div>
 					</div>
 				</div>
 			</div>
 			<div className={styles.textContainer}>
-				<div className={styles.text}>{text}</div>
+				<div className={styles.text}>{data.c}</div>
 			</div>
 		</div>
 	);

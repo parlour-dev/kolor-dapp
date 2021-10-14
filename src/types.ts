@@ -7,6 +7,12 @@ export type Post = {
 	author?: string;
 };
 
+export type CommentT = {
+	a: string; // author
+	c: string; // content
+	s?: string; // signature
+};
+
 export type ContractPost = {
 	title: string;
 	url?: string;

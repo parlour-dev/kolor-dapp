@@ -54,5 +54,13 @@
 	color: #fff;
 	background-color: #2e63fb;
 
+	user-select: none;
+
 	cursor: pointer;
+}
+
+.buttonDisabled {
+	composes: button;
+	background-color: #535353;
+	cursor: not-allowed;
 }

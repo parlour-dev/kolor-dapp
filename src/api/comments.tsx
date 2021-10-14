@@ -8,12 +8,23 @@ const fetchComments = async (idx: number) => {
 	return data;
 };
 
-const postComment = (idx: number, content: string) => {
+const postComment = (
+	idx: number,
+	content: string,
+	address: string,
+	signature: string
+) => {
+	const value = {
+		a: address,
+		c: content,
+		s: signature,
+	};
+
 	return fetch(`https://api.desoapp.co/comments/${idx}`, {
 		method: "POST",
-		body: content,
+		body: JSON.stringify(value),
 		headers: {
-			"Content-Type": "text/plain",
+			"Content-Type": "application/json",
 		},
 	});
 };
