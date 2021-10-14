@@ -1,23 +1,40 @@
-import styles from "../Comments/Comments.module.css";
+import { useState } from "react";
+import Comment from "./Comment";
+import styles from "./Comments.module.css";
 
-const Comments: React.FC<{ text: string }> = ({ text }) => {
+const Comments: React.FC<{ commentData: string[] }> = ({ commentData }) => {
+	const [hideExcess, setHideExcess] = useState(true);
+	const maxComments = 2;
+
+	if (hideExcess && commentData.length > maxComments) {
+		return (
+			<div className={styles.container}>
+				{commentData.slice(0, maxComments).map((comment, idx) => (
+					<Comment key={idx} text={comment} />
+				))}
+				<button
+					className={styles.showHideButton}
+					onClick={() => setHideExcess(false)}
+				>
+					Show {commentData.length - maxComments} more comments
+				</button>
+			</div>
+		);
+	}
+
 	return (
-		<div>
-			<div className={styles.creator}>
-				<div className={styles.creatorInfo}>
-					<div className={styles.profPicture}> </div>
-
-					<div className={styles.userInfoContainer}>
-						<div className={styles.creatorNick}>Jarosław Jakimowicz</div>
-						<div className={styles.creatorWallet}>
-							0x102938a290d90109d29132189189d
-						</div>
-					</div>
-				</div>
-			</div>
-			<div className={styles.textContainer}>
-				<div className={styles.text}>{text}</div>
-			</div>
+		<div className={styles.container}>
+			{commentData.map((comment, idx) => (
+				<Comment key={idx} text={comment} />
+			))}
+			{commentData.length > maxComments && (
+				<button
+					className={styles.showHideButton}
+					onClick={() => setHideExcess(true)}
+				>
+					Hide excess
+				</button>
+			)}
 		</div>
 	);
 };

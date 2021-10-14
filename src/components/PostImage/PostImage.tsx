@@ -10,8 +10,8 @@ import { useContractCall } from "@usedapp/core";
 import ReactGa from "react-ga";
 import { useEffect } from "react";
 import { useState } from "react";
-import Comments from "./Comments/Comments";
 import { fetchComments, postComment } from "../../api/comments";
+import Comments from "./Comments/Comments";
 
 type PostImageT = {
 	text: string;
@@ -134,9 +134,7 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 				</div>
 				{showAddComment && <AddComment onSubmit={onCommentSubmit} />}
 
-				{comments?.map((comment, idx) => (
-					<Comments key={idx} text={comment} />
-				))}
+				<Comments commentData={comments} />
 			</div>
 		</div>
 	);
