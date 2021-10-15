@@ -33,12 +33,13 @@ const AlertSnackbar: React.FC<AlertSnackbarT> = ({
 	return (
 		<Snackbar
 			open={open}
-			autoHideDuration={30000 /* 12 seconds */}
+			autoHideDuration={15000 /* 12 seconds */}
 			onClose={handleCloseInternal}
 		>
 			<Alert
 				onClose={handleCloseInternal}
 				severity={severity}
+				variant="filled"
 				sx={{ width: "100%" }}
 			>
 				{value}
