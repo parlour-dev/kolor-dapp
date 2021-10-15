@@ -10,7 +10,7 @@ type AlertSnackbarT = {
 	open: boolean;
 	severity: AlertColor;
 	value: string;
-	handleClose: (reason: SnackbarCloseReason) => void;
+	handleClose: (reason?: SnackbarCloseReason) => void;
 };
 
 const AlertSnackbar: React.FC<AlertSnackbarT> = ({
@@ -27,9 +27,7 @@ const AlertSnackbar: React.FC<AlertSnackbarT> = ({
 			return;
 		}
 
-		if (reason) {
-			handleClose(reason);
-		}
+		handleClose(reason);
 	};
 
 	return (

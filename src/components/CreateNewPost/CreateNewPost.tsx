@@ -99,7 +99,7 @@ const CreateNewPost = () => {
 	return (
 		<form className={styles.createContainer}>
 			{loading && (
-				<Backdrop sx={{ color: "#fff" }} open={loading}>
+				<Backdrop sx={{ color: "#fff", zIndex: 999999 }} open={loading}>
 					<CircularProgress />
 				</Backdrop>
 			)}

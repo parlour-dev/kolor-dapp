@@ -20,7 +20,7 @@ const UniversalAlertProvider: React.FC = ({ children }) => {
 		setAlertOpen(true);
 	};
 
-	const handleAlertClose = (reason: SnackbarCloseReason) => {
+	const handleAlertClose = (reason?: SnackbarCloseReason) => {
 		setAlertOpen(false);
 	};
     
