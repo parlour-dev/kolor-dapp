@@ -11,5 +11,5 @@ export function useToggle(initial: boolean): [boolean, () => void] {
 }
 
 export function useShowAlert() {
-	return useContext(UniversalAlertContext)
+	return useContext(UniversalAlertContext);
 }

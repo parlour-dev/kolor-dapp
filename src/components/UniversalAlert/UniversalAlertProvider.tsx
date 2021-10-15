@@ -10,11 +10,11 @@ export const UniversalAlertContext = React.createContext<ShowAlertT>(
 );
 
 const UniversalAlertProvider: React.FC = ({ children }) => {
-    const [alertSeverity, setAlertSeveirty] = useState<AlertColor>("info");
+	const [alertSeverity, setAlertSeveirty] = useState<AlertColor>("info");
 	const [alertText, setAlertText] = useState("");
 	const [alertOpen, setAlertOpen] = useState(false);
 
-    const showAlert: ShowAlertT = (text, severity) => {
+	const showAlert: ShowAlertT = (text, severity) => {
 		setAlertSeveirty(severity);
 		setAlertText(text);
 		setAlertOpen(true);
@@ -23,20 +23,20 @@ const UniversalAlertProvider: React.FC = ({ children }) => {
 	const handleAlertClose = (reason?: SnackbarCloseReason) => {
 		setAlertOpen(false);
 	};
-    
-    return (
-        <UniversalAlertContext.Provider value={showAlert}>
-        {children}
-        {alertOpen && (
-					<AlertSnackbar
-						severity={alertSeverity}
-						value={alertText}
-						open={alertOpen}
-						handleClose={handleAlertClose}
-					/>
-				)}
-        </UniversalAlertContext.Provider>
-    )
-}
 
-export default UniversalAlertProvider
+	return (
+		<UniversalAlertContext.Provider value={showAlert}>
+			{children}
+			{alertOpen && (
+				<AlertSnackbar
+					severity={alertSeverity}
+					value={alertText}
+					open={alertOpen}
+					handleClose={handleAlertClose}
+				/>
+			)}
+		</UniversalAlertContext.Provider>
+	);
+};
+
+export default UniversalAlertProvider;
