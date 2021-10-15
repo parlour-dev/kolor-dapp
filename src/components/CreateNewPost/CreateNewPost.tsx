@@ -8,10 +8,7 @@ import { ContractPost } from "../../types";
 import { uploadImageToAWS } from "../../api/uploadImage";
 import ReactGa from "react-ga";
 import { Backdrop, CircularProgress } from "@mui/material";
-import { useContractFunction } from "@usedapp/core";
-import { Contract } from "ethers";
-import { tcpdata_abi, tcpdata_address } from "../../api/tcpdata";
-import { useShowAlert } from "../../hooks";
+import { useShowAlert, useTCPDataFunction } from "../../hooks";
 
 const CreateNewPost = () => {
 	const [file, setFile] = useState("");
@@ -21,12 +18,7 @@ const CreateNewPost = () => {
 
 	let history = useHistory();
 
-	const { send, state } = useContractFunction(
-		// @ts-ignore
-		new Contract(tcpdata_address, tcpdata_abi),
-		"addContent",
-		{ transactionName: "Add content" }
-	);
+	const { send, state } = useTCPDataFunction("addContent", "Add content")
 
 	const inputTextHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 		setInputText(e.target.value);

@@ -5,12 +5,12 @@ import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import CreateNewPost from "../src/components/CreateNewPost/CreateNewPost";
 import Profile from "./components/Profile/Profile";
-import { useEthers, useContractCall } from "@usedapp/core";
+import { useEthers } from "@usedapp/core";
 import { Post } from "./types";
-import { rawPostToPost, tcpdata_abi, tcpdata_address } from "./api/tcpdata";
-import { ethers } from "ethers";
+import { rawPostToPost } from "./api/tcpdata";
 import ReactGa from "react-ga";
 import UniversalAlertProvider from "./components/UniversalAlert/UniversalAlertProvider";
+import { useTCPDataCall } from "./hooks";
 
 export const PostsContext = React.createContext<Post[]>([]);
 export const NotificationsContext = React.createContext<any[]>([]);
@@ -24,13 +24,7 @@ function App() {
 
 	const { account } = useEthers();
 
-	const [postsRaw] =
-		useContractCall({
-			abi: new ethers.utils.Interface(tcpdata_abi),
-			address: tcpdata_address,
-			method: "getContent",
-			args: [],
-		}) || [];
+	const [postsRaw] = useTCPDataCall("getContent") || []
 
 	const posts = postsRaw
 		?.map((el: string[], idx: number) => rawPostToPost(idx, el[0], el[1]))
