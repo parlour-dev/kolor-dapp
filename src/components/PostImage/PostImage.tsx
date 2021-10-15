@@ -13,6 +13,7 @@ import { useState } from "react";
 import { fetchComments, postComment } from "../../api/comments";
 import Comments from "./Comments/Comments";
 import { CommentT } from "../../types";
+import { useSendTransaction } from "@usedapp/core";
 
 type PostImageT = {
 	text: string;
@@ -24,7 +25,9 @@ type PostImageT = {
 const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 	const [showAddComment, toggleAddComment] = useToggle(false);
 	const [comments, setComments] = useState<CommentT[]>([]);
-
+	const [tip, setTip] = useState(0);
+	// FOR ANTONI: use tip variable to set the amount of a tip.
+	 
 	const { account, library } = useEthers();
 
 	const [etherTipBalanceRaw] = useContractCall({
@@ -42,10 +45,7 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 	}, [idx]);
 
 	function handleTip() {
-		/*const result = tcpdata.tipContent(idx, {
-			value: ethers.BigNumber.from("30000000000000000"),
-		});
-		*/
+		
 		ReactGa.event({
 			category: "Tip",
 			action: "Tip sent",
@@ -127,6 +127,7 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 								type="number"
 								className={styles.popupInput}
 								placeholder="Amount"
+								onChange={(e) => setTip(parseInt(e.target.value))}
 							/>
 							<div className="currencyChooser">
 								<select name="currency" id="currency">

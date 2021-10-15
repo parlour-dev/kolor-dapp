@@ -84,6 +84,7 @@
 .buttonBlue {
 	composes: button;
 	background-color: #2e63fb;
+	cursor: pointer;
 }
 
 .buttonBlack {
