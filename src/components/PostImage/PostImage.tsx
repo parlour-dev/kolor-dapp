@@ -2,7 +2,6 @@ import styles from "./PostImage.module.css";
 import AddComment from "./Comments/AddComment";
 import Tips from "../Tips/Tips";
 import ProfilePicture from "../ProfilePicture/ProfilePicture";
-import Popup from "reactjs-popup";
 import {
 	useShowAlert,
 	useShowLoading,
@@ -18,6 +17,7 @@ import { useState } from "react";
 import { fetchComments, postComment } from "../../api/comments";
 import Comments from "./Comments/Comments";
 import { CommentT } from "../../types";
+import { Box, Grid, Modal } from "@mui/material";
 
 type PostImageT = {
 	text: string;
@@ -29,6 +29,7 @@ type PostImageT = {
 const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 	const [showAddComment, toggleAddComment] = useToggle(false);
 	const [comments, setComments] = useState<CommentT[]>([]);
+	const [popup, setPopup] = useState(false);
 
 	const showAlert = useShowAlert();
 	const showLoading = useShowLoading();
@@ -40,7 +41,7 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 	];
 	const etherTipBalance = ethers.utils.formatUnits(etherTipBalanceRaw, "ether");
 
-	const [tipAmount, setTipAmount] = useState(ethers.BigNumber.from(0));
+	const [tipAmount, setTipAmount] = useState("0");
 	const { send, state } = useTCPDataFunction("tipContent", "Tip post");
 
 	useEffect(() => {
@@ -56,7 +57,7 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 		});
 
 		showLoading(true);
-		send(idx, { value: tipAmount });
+		send(idx, { value: ethers.utils.parseUnits(tipAmount) });
 	}
 
 	useEffect(() => {
@@ -152,35 +153,54 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 				</div>
 
 				<div className={styles.viewerAction}>
-					<Popup
-						trigger={
-							<div className={styles.buttonBlue} /*onClick={handleTip}*/>
-								Appreciate
-							</div>
-						}
-						modal
+					<div
+						className={styles.buttonBlue}
+						onClick={() => {
+							setPopup(true);
+						}}
 					>
-						<div className={styles.popup}>
-							<input
-								type="number"
-								className={styles.popupInput}
-								placeholder="Amount"
-								onChange={(e) =>
-									setTipAmount(ethers.utils.parseUnits(e.target.value))
-								}
-							/>
-							<div className="currencyChooser">
-								<select name="currency" id="currency">
-									<option value="ETH">ETH</option>
-									<option value="DAI">DAI</option>
-									<option value="WBTC">WBTC</option>
-								</select>
+						Appreciate
+					</div>
+					<Modal
+						open={popup}
+						onClose={() => setPopup(false)}
+						sx={{ zIndex: 99999 }}
+					>
+						<Box
+							sx={{
+								position: "absolute",
+								left: "50%",
+								top: "50%",
+								transform: "translate(-50%, -50%)",
+								outline: "none",
+							}}
+						>
+							<div className={styles.popupContainer}>
+								<div className={styles.popupRow}>
+									<input
+										type="number"
+										className={styles.popupInput}
+										placeholder="Amount"
+										onChange={(e) =>
+											setTipAmount(e.target.value)
+										}
+									/>
+									<div className={styles.currency}>ETH</div>
+									<div onClick={handleTip} className={styles.popupTip}>
+										Send
+									</div>
+								</div>
+								<div className={styles.popupRow}>
+									<button className={styles.popupAmountButton}>0.5 ETH</button>
+									<button className={styles.popupAmountButton}>0.1 ETH</button>
+									<button className={styles.popupAmountButton}>0.05 ETH</button>
+									<button className={styles.popupAmountButton}>$10</button>
+									<button className={styles.popupAmountButton}>$5</button>
+									<button className={styles.popupAmountButton}>$1</button>
+								</div>
 							</div>
-							<div onClick={handleTip} className={styles.popupTip}>
-								Send
-							</div>
-						</div>
-					</Popup>
+						</Box>
+					</Modal>
 					<div className={styles.buttonBlack} onClick={toggleAddComment}>
 						Comment
 					</div>
