@@ -3,7 +3,7 @@ import AddComment from "./Comments/AddComment";
 import Tips from "../Tips/Tips";
 import ProfilePicture from "../ProfilePicture/ProfilePicture";
 import Popup from "reactjs-popup";
-import { useToggle } from "../../hooks";
+import { useShowAlert, useToggle } from "../../hooks";
 import { ethers } from "ethers";
 import { tcpdata_abi, tcpdata_address } from "../../api/tcpdata";
 import { useContractCall, useEthers } from "@usedapp/core";
@@ -14,6 +14,7 @@ import { fetchComments, postComment } from "../../api/comments";
 import Comments from "./Comments/Comments";
 import { CommentT } from "../../types";
 // import { useSendTransaction } from "@usedapp/core";
+import { Backdrop, CircularProgress } from "@mui/material";
 
 type PostImageT = {
 	text: string;
@@ -25,8 +26,13 @@ type PostImageT = {
 const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 	const [showAddComment, toggleAddComment] = useToggle(false);
 	const [comments, setComments] = useState<CommentT[]>([]);
-	// const [tip, setTip] = useState(0);
+
+  // const [tip, setTip] = useState(0);
 	// FOR ANTONI: use tip variable to set the amount of a tip.
+
+	const [commentPending, setCommentPending] = useState(false);
+
+	const showAlert = useShowAlert();
 
 	const { account, library } = useEthers();
 
@@ -54,27 +60,33 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 	}
 
 	async function onCommentSubmit(newComment: string) {
+		setCommentPending(true);
+
 		// prevent empty comments
 		if (!newComment) {
-			console.error("Empty comment");
-			return;
+			showAlert("The comment can't be empty!", "error");
+		} else if (!account || !library) {
+			showAlert("You have to be logged in to add a comment.", "error");
+		} else {
+			try {
+				// post the comment using the api
+				const result = await postComment(
+					idx,
+					newComment,
+					account,
+					await library.getSigner().signMessage(newComment)
+				);
+
+				// if the posting went fine, add the comment to the local list
+				// (to avoid fetching again)
+				if (result.ok)
+					setComments([...comments, { a: account, c: newComment }]);
+			} catch (e) {
+				showAlert("There was an error while submitting your comment.", "error");
+			}
 		}
 
-		if (!account || !library) {
-			return;
-		}
-
-		// post the comment using the api
-		const result = await postComment(
-			idx,
-			newComment,
-			account,
-			await library.getSigner().signMessage(newComment)
-		);
-
-		// if the posting went fine, add the comment to the local list
-		// (to avoid fetching again)
-		if (result.ok) setComments([...comments, { a: account, c: newComment }]);
+		setCommentPending(false);
 	}
 
 	return (
@@ -149,6 +161,12 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 
 				<Comments commentData={comments} />
 			</div>
+
+			{commentPending && (
+				<Backdrop sx={{ color: "#fff", zIndex: 999999 }} open={commentPending}>
+					<CircularProgress />
+				</Backdrop>
+			)}
 		</div>
 	);
 };

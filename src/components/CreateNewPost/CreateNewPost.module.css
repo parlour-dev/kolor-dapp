@@ -59,6 +59,7 @@
 	background-color: #2e63fb;
 	color: #fff;
 	border-radius: 1.5vmax;
+	cursor: pointer;
 }
 
 .submitArrow {
