@@ -10,17 +10,10 @@ import { Post } from "./types";
 import { rawPostToPost, tcpdata_abi, tcpdata_address } from "./api/tcpdata";
 import { ethers } from "ethers";
 import ReactGa from "react-ga";
-import { AlertColor, SnackbarCloseReason } from "@mui/material";
-import { useState } from "react";
-import AlertSnackbar from "./components/AlertSnackbar";
-
-type ShowAlertT = (text: string, severity: AlertColor) => void;
+import UniversalAlertProvider from "./components/UniversalAlert/UniversalAlertProvider";
 
 export const PostsContext = React.createContext<Post[]>([]);
 export const NotificationsContext = React.createContext<any[]>([]);
-export const UniversalAlertContext = React.createContext<ShowAlertT>(
-	(text: string, severity: AlertColor) => {}
-);
 
 function App() {
 	useEffect(() => {
@@ -30,10 +23,6 @@ function App() {
 	}, []);
 
 	const { account } = useEthers();
-
-	const [alertSeverity, setAlertSeveirty] = useState<AlertColor>("info");
-	const [alertText, setAlertText] = useState("");
-	const [alertOpen, setAlertOpen] = useState(false);
 
 	const [postsRaw] =
 		useContractCall({
@@ -47,19 +36,9 @@ function App() {
 		?.map((el: string[], idx: number) => rawPostToPost(idx, el[0], el[1]))
 		.reverse();
 
-	const showAlert: ShowAlertT = (text, severity) => {
-		setAlertSeveirty(severity);
-		setAlertText(text);
-		setAlertOpen(true);
-	};
-
-	const handleAlertClose = (reason: SnackbarCloseReason) => {
-		setAlertOpen(false);
-	};
-
 	return (
 		<Router>
-			<UniversalAlertContext.Provider value={showAlert}>
+			<UniversalAlertProvider>
 				<div className="App">
 					<Navbar />
 					<div className="Separator" style={{ height: "7.5vmax" }}></div>
@@ -83,16 +62,7 @@ function App() {
 						)}
 					</Switch>
 				</div>
-
-				{alertOpen && (
-					<AlertSnackbar
-						severity={alertSeverity}
-						value={alertText}
-						open={alertOpen}
-						handleClose={handleAlertClose}
-					/>
-				)}
-			</UniversalAlertContext.Provider>
+			</UniversalAlertProvider>
 		</Router>
 	);
 }

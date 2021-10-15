@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import styles from "../CreateNewPost/CreateNewPost.module.css";
 import imagePlaceholder from "../CreateNewPost/image.png";
 import submitArrow from "../CreateNewPost/arrow.png";
@@ -11,13 +11,13 @@ import { Backdrop, CircularProgress } from "@mui/material";
 import { useContractFunction } from "@usedapp/core";
 import { Contract } from "ethers";
 import { tcpdata_abi, tcpdata_address } from "../../api/tcpdata";
-import { UniversalAlertContext } from "../../App";
+import { useShowAlert } from "../../hooks";
 
 const CreateNewPost = () => {
 	const [file, setFile] = useState("");
 	const [inputText, setInputText] = useState("");
 	const [loading, setLoading] = useState(false);
-	const sendAlert = useContext(UniversalAlertContext);
+	const showAlert = useShowAlert();
 
 	let history = useHistory();
 
@@ -41,7 +41,7 @@ const CreateNewPost = () => {
 		});
 
 		if (!inputText && !file) {
-			sendAlert("The post can't be empty!", "error");
+			showAlert("The post can't be empty!", "error");
 			ReactGa.event({
 				category: "Post Creation",
 				action: "Empty Post",
@@ -80,21 +80,21 @@ const CreateNewPost = () => {
 		}
 
 		if (state.status === "Exception") {
-			sendAlert(
+			showAlert(
 				"There was a problem while processing your transaction.",
 				"error"
 			);
 		}
 
 		if (state.status === "Mining") {
-			sendAlert(
+			showAlert(
 				"Your post has been submitted. You will need to wait a minute until the transaction is mined on the blockchain.",
 				"info"
 			);
 			setInputText("");
 			history.push("/");
 		}
-	}, [state, history, sendAlert]);
+	}, [state, history, showAlert]);
 
 	return (
 		<form className={styles.createContainer}>
