@@ -70,15 +70,15 @@ const PostImage: React.FC<PostImageT> = ({
 		handleTipValue(e.target.value);
 	};
 	function tipFunction1() {
-		console.log("button1")
+		console.log("button1");
 		handleTipValue("0.1");
 	}
 	function tipFunction2() {
-		console.log("button2")
+		console.log("button2");
 		handleTipValue("0.5");
 	}
 	function tipFunction3() {
-		console.log("button3")
+		console.log("button3");
 		handleTipValue("1");
 	}
 	return (
@@ -132,7 +132,7 @@ const PostImage: React.FC<PostImageT> = ({
 									type="number"
 									className={styles.popupInput}
 									placeholder="Amount"
-									value={tipValue}	
+									value={tipValue}
 								/>
 								<div className={styles.Currency}>ETH</div>
 
@@ -141,9 +141,15 @@ const PostImage: React.FC<PostImageT> = ({
 								</div>
 							</div>
 							<div className={styles.buttonTipContainer}>
-								<button className={styles.buttonTip} onClick={tipFunction1}>0.1</button>
-								<button className={styles.buttonTip} onClick={tipFunction2}>0.5</button>
-								<button className={styles.buttonTip} onClick={tipFunction3}>1</button>
+								<button className={styles.buttonTip} onClick={tipFunction1}>
+									0.1
+								</button>
+								<button className={styles.buttonTip} onClick={tipFunction2}>
+									0.5
+								</button>
+								<button className={styles.buttonTip} onClick={tipFunction3}>
+									1
+								</button>
 							</div>
 						</div>
 					</Popup>
