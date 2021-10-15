@@ -7,22 +7,17 @@ import { useState } from "react";
 import { ContractPost } from "../../types";
 import { uploadImageToAWS } from "../../api/uploadImage";
 import ReactGa from "react-ga";
-import { Backdrop, CircularProgress } from "@mui/material";
-import { useShowAlert, useTCPDataFunction } from "../../hooks";
+import { useShowAlert, useShowLoading, useTCPDataFunction } from "../../hooks";
 
 const CreateNewPost = () => {
 	const [file, setFile] = useState("");
 	const [inputText, setInputText] = useState("");
-	const [loading, setLoading] = useState(false);
 	const showAlert = useShowAlert();
+	const showLoading = useShowLoading();
 
 	let history = useHistory();
 
-	const { send, state } = useTCPDataFunction("addContent", "Add content")
-
-	const inputTextHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-		setInputText(e.target.value);
-	};
+	const { send, state } = useTCPDataFunction("addContent", "Add content");
 
 	const submitPostHandler = async (e: React.MouseEvent) => {
 		e.preventDefault();
@@ -41,7 +36,7 @@ const CreateNewPost = () => {
 			return;
 		}
 
-		setLoading(true);
+		showLoading(true);
 
 		try {
 			let fileUploadedTo = file ? await uploadImageToAWS(file) : undefined;
@@ -54,8 +49,8 @@ const CreateNewPost = () => {
 
 			send(JSON.stringify(newPost));
 		} catch (err) {
-			setLoading(false);
-			console.error(err);
+			showLoading(false);
+			showAlert("There was an error while creating your post.", "error");
 		}
 	};
 
@@ -68,7 +63,7 @@ const CreateNewPost = () => {
 
 	useEffect(() => {
 		if (state.status !== "None") {
-			setLoading(false);
+			showLoading(false);
 		}
 
 		if (state.status === "Exception") {
@@ -86,23 +81,17 @@ const CreateNewPost = () => {
 			setInputText("");
 			history.push("/");
 		}
-	}, [state, history, showAlert]);
+	}, [state, history, showAlert, showLoading]);
 
 	return (
 		<form className={styles.createContainer}>
-			{loading && (
-				<Backdrop sx={{ color: "#fff", zIndex: 999999 }} open={loading}>
-					<CircularProgress />
-				</Backdrop>
-			)}
-
 			<div className={styles.title}>Create new post</div>
 			<div>
 				<div>
 					<textarea
 						className={styles.textField}
 						placeholder="What's on your mind?"
-						onChange={inputTextHandler}
+						onChange={(e) => setInputText(e.target.value)}
 					></textarea>
 				</div>
 			</div>

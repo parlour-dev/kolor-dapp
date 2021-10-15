@@ -3,7 +3,13 @@ import AddComment from "./Comments/AddComment";
 import Tips from "../Tips/Tips";
 import ProfilePicture from "../ProfilePicture/ProfilePicture";
 import Popup from "reactjs-popup";
-import { useShowAlert, useTCPDataCall, useToggle } from "../../hooks";
+import {
+	useShowAlert,
+	useShowLoading,
+	useTCPDataCall,
+	useTCPDataFunction,
+	useToggle,
+} from "../../hooks";
 import { ethers } from "ethers";
 import { useEthers } from "@usedapp/core";
 import ReactGa from "react-ga";
@@ -12,7 +18,6 @@ import { useState } from "react";
 import { fetchComments, postComment } from "../../api/comments";
 import Comments from "./Comments/Comments";
 import { CommentT } from "../../types";
-import { Backdrop, CircularProgress } from "@mui/material";
 
 type PostImageT = {
 	text: string;
@@ -25,14 +30,18 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 	const [showAddComment, toggleAddComment] = useToggle(false);
 	const [comments, setComments] = useState<CommentT[]>([]);
 
-	const [commentPending, setCommentPending] = useState(false);
-
 	const showAlert = useShowAlert();
+	const showLoading = useShowLoading();
 
 	const { account, library } = useEthers();
 
-	const [etherTipBalanceRaw] = useTCPDataCall("getContentBalance", [idx]) || [0]
+	const [etherTipBalanceRaw] = useTCPDataCall("getContentBalance", [idx]) || [
+		0,
+	];
 	const etherTipBalance = ethers.utils.formatUnits(etherTipBalanceRaw, "ether");
+
+	const [tipAmount, setTipAmount] = useState(ethers.BigNumber.from(0));
+	const { send, state } = useTCPDataFunction("tipContent", "Tip post");
 
 	useEffect(() => {
 		fetchComments(idx)
@@ -40,16 +49,39 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 			.catch(console.error);
 	}, [idx]);
 
-	function handleTip() {
+	async function handleTip() {
 		ReactGa.event({
 			category: "Tip",
 			action: "Tip sent",
 		});
-		//result.catch(console.error);
+
+		showLoading(true);
+		send(idx, { value: tipAmount });
 	}
 
+	useEffect(() => {
+		if (state.status !== "None") {
+			console.log("gere");
+			showLoading(false);
+		}
+
+		if (state.status === "Exception") {
+			showAlert(
+				"There was a problem while processing your transaction.",
+				"error"
+			);
+		}
+
+		if (state.status === "Mining") {
+			showAlert(
+				"Your tip has been sent. You will need to wait a minute until the transaction is mined on the blockchain.",
+				"info"
+			);
+		}
+	}, [state, showAlert, showLoading]);
+
 	async function onCommentSubmit(newComment: string) {
-		setCommentPending(true);
+		showLoading(true);
 
 		// prevent empty comments
 		if (!newComment) {
@@ -70,12 +102,17 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 				// (to avoid fetching again)
 				if (result.ok)
 					setComments([...comments, { a: account, c: newComment }]);
+				else
+					showAlert(
+						"There was an error while submitting your comment.",
+						"error"
+					);
 			} catch (e) {
 				showAlert("There was an error while submitting your comment.", "error");
 			}
 		}
 
-		setCommentPending(false);
+		showLoading(false);
 	}
 
 	return (
@@ -128,7 +165,9 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 								type="number"
 								className={styles.popupInput}
 								placeholder="Amount"
-								onChange={(e) => parseInt(e.target.value)}
+								onChange={(e) =>
+									setTipAmount(ethers.utils.parseUnits(e.target.value))
+								}
 							/>
 							<div className="currencyChooser">
 								<select name="currency" id="currency">
@@ -150,12 +189,6 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 
 				<Comments commentData={comments} />
 			</div>
-
-			{commentPending && (
-				<Backdrop sx={{ color: "#fff", zIndex: 999999 }} open={commentPending}>
-					<CircularProgress />
-				</Backdrop>
-			)}
 		</div>
 	);
 };

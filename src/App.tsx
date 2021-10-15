@@ -24,7 +24,7 @@ function App() {
 
 	const { account } = useEthers();
 
-	const [postsRaw] = useTCPDataCall("getContent") || []
+	const [postsRaw] = useTCPDataCall("getContent") || [];
 
 	const posts = postsRaw
 		?.map((el: string[], idx: number) => rawPostToPost(idx, el[0], el[1]))

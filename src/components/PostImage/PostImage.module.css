@@ -179,6 +179,8 @@ select::-ms-expand {
 
 /* End of currencyChooser styling */
 .popupTip {
+	composes: button;
+	
 	display: flex;
 	align-items: center;
 	justify-content: center;
