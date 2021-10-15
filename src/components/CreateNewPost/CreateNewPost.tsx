@@ -1,22 +1,32 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import styles from "../CreateNewPost/CreateNewPost.module.css";
 import imagePlaceholder from "../CreateNewPost/image.png";
 import submitArrow from "../CreateNewPost/arrow.png";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
-import { Post } from "../../types";
+import { ContractPost } from "../../types";
 import { uploadImageToAWS } from "../../api/uploadImage";
 import ReactGa from "react-ga";
+import { Backdrop, CircularProgress } from "@mui/material";
+import { useContractFunction } from "@usedapp/core";
+import { Contract } from "ethers";
+import { tcpdata_abi, tcpdata_address } from "../../api/tcpdata";
+import { UniversalAlertContext } from "../../App";
 
-const CreateNewPost = ({
-	onSubmit,
-}: {
-	onSubmit: (post: Post) => Promise<void>;
-}) => {
+const CreateNewPost = () => {
 	const [file, setFile] = useState("");
 	const [inputText, setInputText] = useState("");
+	const [loading, setLoading] = useState(false);
+	const sendAlert = useContext(UniversalAlertContext);
 
 	let history = useHistory();
+
+	const { send, state } = useContractFunction(
+		// @ts-ignore
+		new Contract(tcpdata_address, tcpdata_abi),
+		"addContent",
+		{ transactionName: "Add content" }
+	);
 
 	const inputTextHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 		setInputText(e.target.value);
@@ -24,13 +34,14 @@ const CreateNewPost = ({
 
 	const submitPostHandler = async (e: React.MouseEvent) => {
 		e.preventDefault();
+
 		ReactGa.event({
 			category: "Post Creation",
 			action: "Post submission ",
 		});
 
 		if (!inputText && !file) {
-			console.error("The post is empty.");
+			sendAlert("The post can't be empty!", "error");
 			ReactGa.event({
 				category: "Post Creation",
 				action: "Empty Post",
@@ -38,25 +49,22 @@ const CreateNewPost = ({
 			return;
 		}
 
+		setLoading(true);
+
 		try {
 			let fileUploadedTo = file ? await uploadImageToAWS(file) : undefined;
 
-			const newPost = {
-				text: inputText,
-				file: fileUploadedTo,
-				wallet: "creatorWallet",
-				nick: "creatorNick",
-				id: -1,
+			const newPost: ContractPost = {
+				title: inputText,
+				url: fileUploadedTo,
+				tags: ["testtag"],
 			};
 
-			await onSubmit(newPost);
+			send(JSON.stringify(newPost));
 		} catch (err) {
+			setLoading(false);
 			console.error(err);
-			return;
 		}
-
-		setInputText("");
-		history.goBack();
 	};
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,8 +74,36 @@ const CreateNewPost = ({
 		} catch (e) {}
 	};
 
+	useEffect(() => {
+		if (state.status !== "None") {
+			setLoading(false);
+		}
+
+		if (state.status === "Exception") {
+			sendAlert(
+				"There was a problem while processing your transaction.",
+				"error"
+			);
+		}
+
+		if (state.status === "Mining") {
+			sendAlert(
+				"Your post has been submitted. You will need to wait a minute until the transaction is mined on the blockchain.",
+				"info"
+			);
+			setInputText("");
+			history.push("/");
+		}
+	}, [state, history, sendAlert]);
+
 	return (
 		<form className={styles.createContainer}>
+			{loading && (
+				<Backdrop sx={{ color: "#fff" }} open={loading}>
+					<CircularProgress />
+				</Backdrop>
+			)}
+
 			<div className={styles.title}>Create new post</div>
 			<div>
 				<div>

@@ -5,13 +5,22 @@ import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import CreateNewPost from "../src/components/CreateNewPost/CreateNewPost";
 import Profile from "./components/Profile/Profile";
-import { useEthers, useContractCall, useContractFunction } from "@usedapp/core";
-import { ContractPost, Post } from "./types";
+import { useEthers, useContractCall } from "@usedapp/core";
+import { Post } from "./types";
 import { rawPostToPost, tcpdata_abi, tcpdata_address } from "./api/tcpdata";
-import { Contract, ethers } from "ethers";
+import { ethers } from "ethers";
 import ReactGa from "react-ga";
+import { AlertColor, SnackbarCloseReason } from "@mui/material";
+import { useState } from "react";
+import AlertSnackbar from "./components/AlertSnackbar";
+
+type ShowAlertT = (text: string, severity: AlertColor) => void;
 
 export const PostsContext = React.createContext<Post[]>([]);
+export const NotificationsContext = React.createContext<any[]>([]);
+export const UniversalAlertContext = React.createContext<ShowAlertT>(
+	(text: string, severity: AlertColor) => {}
+);
 
 function App() {
 	useEffect(() => {
@@ -21,6 +30,10 @@ function App() {
 	}, []);
 
 	const { account } = useEthers();
+
+	const [alertSeverity, setAlertSeveirty] = useState<AlertColor>("info");
+	const [alertText, setAlertText] = useState("");
+	const [alertOpen, setAlertOpen] = useState(false);
 
 	const [postsRaw] =
 		useContractCall({
@@ -34,49 +47,52 @@ function App() {
 		?.map((el: string[], idx: number) => rawPostToPost(idx, el[0], el[1]))
 		.reverse();
 
-	// FIXME move this to API
-	const { send } = useContractFunction(
-		// @ts-ignore
-		new Contract(tcpdata_address, tcpdata_abi),
-		"addContent",
-		{ transactionName: "Add content" }
-	);
+	const showAlert: ShowAlertT = (text, severity) => {
+		setAlertSeveirty(severity);
+		setAlertText(text);
+		setAlertOpen(true);
+	};
+
+	const handleAlertClose = (reason: SnackbarCloseReason) => {
+		setAlertOpen(false);
+	};
 
 	return (
 		<Router>
-			<div className="App">
-				<Navbar />
-				<div className="Separator" style={{ height: "7.5vmax" }}></div>
-				<Switch>
-					<Route exact path="/">
-						<PostsContext.Provider value={posts}>
-							<MainPage />
-						</PostsContext.Provider>
-					</Route>
-					<Route exact path="/create">
-						<CreateNewPost
-							onSubmit={async (newPostRaw) => {
-								const newPost: ContractPost = {
-									title: newPostRaw.text,
-									url: newPostRaw.file,
-									tags: ["testtag"],
-								};
-
-								await send(JSON.stringify(newPost));
-							}}
-						/>
-					</Route>
-					{account && (
-						<Route exact path="/profile">
-							<Profile
-								username="helko"
-								walletAddress={account}
-								author={account}
-							/>
+			<UniversalAlertContext.Provider value={showAlert}>
+				<div className="App">
+					<Navbar />
+					<div className="Separator" style={{ height: "7.5vmax" }}></div>
+					<Switch>
+						<Route exact path="/">
+							<PostsContext.Provider value={posts}>
+								<MainPage />
+							</PostsContext.Provider>
 						</Route>
-					)}
-				</Switch>
-			</div>
+						<Route exact path="/create">
+							<CreateNewPost />
+						</Route>
+						{account && (
+							<Route exact path="/profile">
+								<Profile
+									username="helko"
+									walletAddress={account}
+									author={account}
+								/>
+							</Route>
+						)}
+					</Switch>
+				</div>
+
+				{alertOpen && (
+					<AlertSnackbar
+						severity={alertSeverity}
+						value={alertText}
+						open={alertOpen}
+						handleClose={handleAlertClose}
+					/>
+				)}
+			</UniversalAlertContext.Provider>
 		</Router>
 	);
 }
