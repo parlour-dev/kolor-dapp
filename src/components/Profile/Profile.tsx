@@ -5,7 +5,6 @@ import ProfilePicture from "../ProfilePicture/ProfilePicture";
 import editIcon from "../Profile/editIcon.png";
 import Popup from "reactjs-popup";
 import ReactGa from "react-ga";
-import Slider from "../Profile/Slider/Slider.jsx";
 import { useHistory } from "react-router-dom";
 
 type ProfileT = {
@@ -63,10 +62,6 @@ const Profile: React.FC<ProfileT> = ({ walletAddress, author }) => {
 					</Popup>
 				</div>
 				<div className={styles.walletAddress}>{walletAddress}</div>
-				<div className={styles.NSFWSwitch}>
-					<div className={styles.NSFWtext}>Blurring NSFW content</div>
-					<Slider></Slider>
-				</div>
 				<div>
 					<button
 						className={[styles.logOutButton, styles.animation].join(" ")}

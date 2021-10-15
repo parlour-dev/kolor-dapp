@@ -137,16 +137,3 @@
 	padding-right: 1vmax;
 	border: 0;
 }
-.NSFWSwitch {
-	display: flex;
-	margin-top: 1vmax;
-	justify-content: center;
-	align-content: center;
-}
-.NSFWtext {
-	color: white;
-	display: flex;
-	align-items: center;
-	margin-right: 2vmax;
-	font-size: 1.5vmax;
-}
