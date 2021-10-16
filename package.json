@@ -16,6 +16,7 @@
 		"@types/react": "^17.0.24",
 		"@types/react-dom": "^17.0.9",
 		"@types/react-router-dom": "^5.3.0",
+		"@usedapp/coingecko": "^0.3.24",
 		"@usedapp/core": "^0.5.4",
 		"@web3-react/core": "^6.1.9",
 		"axios": "^0.21.4",

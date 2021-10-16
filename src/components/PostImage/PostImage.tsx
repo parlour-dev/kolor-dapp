@@ -46,18 +46,14 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 	const refreshValue = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setTipAmount(e.target.value);
 	};
-	function tipFunction1() {
-		console.log("button1")
-		setTipAmount("0.5");
-	}
-	function tipFunction2() {
-		console.log("button2")
-		setTipAmount("0.1");
-	}
-	function tipFunction3() {
-		console.log("button3")
-		setTipAmount("0.05");
-	}
+
+	// async function usdToEther() {
+	// 	let etherPrice = await fetch(
+	// 		"https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd"
+	// 	);
+	// 	console.log(etherPrice);
+	// }
+
 	const { send, state } = useTCPDataFunction("tipContent", "Tip post");
 
 	useEffect(() => {
@@ -66,7 +62,7 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 			.catch(console.error);
 	}, [idx]);
 
-  function handleTip() {
+	function handleTip() {
 		ReactGa.event({
 			category: "Tip",
 			action: "Tip sent",
@@ -201,12 +197,54 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 									</div>
 								</div>
 								<div className={styles.popupRow}>
-									<button className={styles.popupAmountButton} onClick={tipFunction1}>0.5 ETH</button>
-									<button className={styles.popupAmountButton} onClick={tipFunction2}>0.1 ETH</button>
-									<button className={styles.popupAmountButton} onClick={tipFunction3}>0.05 ETH</button>
-									<button className={styles.popupAmountButton}>$10</button>
-									<button className={styles.popupAmountButton}>$5</button>
-									<button className={styles.popupAmountButton}>$1</button>
+									<button
+										className={styles.popupAmountButton}
+										onClick={() => {
+											setTipAmount("0.01");
+										}}
+									>
+										0.01 ETH
+									</button>
+									<button
+										className={styles.popupAmountButton}
+										onClick={() => {
+											setTipAmount("0.005");
+										}}
+									>
+										0.005 ETH
+									</button>
+									<button
+										className={styles.popupAmountButton}
+										onClick={() => {
+											setTipAmount("0.001");
+										}}
+									>
+										0.001 ETH
+									</button>
+									<button
+										className={styles.popupAmountButton}
+										onClick={() => {
+											alert("Nothing here yet. We'll figure that out soon.");
+										}}
+									>
+										$10
+									</button>
+									<button
+										className={styles.popupAmountButton}
+										onClick={() => {
+											alert("Nothing here yet. We'll figure that out soon.");
+										}}
+									>
+										$5
+									</button>
+									<button
+										className={styles.popupAmountButton}
+										onClick={() => {
+											alert("Nothing here yet. We'll figure that out soon.");
+										}}
+									>
+										$1
+									</button>
 								</div>
 							</div>
 						</Box>
