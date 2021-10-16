@@ -128,7 +128,7 @@
 	align-items: center;
 	flex-direction: row;
 	width: 80%;
-	margin: .6vmax 0;
+	margin: 0.6vmax 0;
 }
 
 .popupInput {
@@ -158,7 +158,7 @@
 	font-weight: 600;
 	border-radius: 1.5vmax;
 	margin-left: 4vmax;
-	margin-right: .2vmax;
+	margin-right: 0.2vmax;
 }
 
 .currency {
@@ -177,13 +177,13 @@
 .popupAmountButton {
 	display: inline-block;
 	border-radius: 0.8vmax;
-	
-	margin: 0 .2vmax;
+
+	margin: 0 0.2vmax;
 
 	padding: 0.2vmax;
 
 	line-height: 2.5vmax;
-	font-size: .9rem;
+	font-size: 0.9rem;
 	text-align: center;
 	font-family: "Lato", sans-serif;
 	font-weight: 600;
