@@ -119,7 +119,7 @@
 	border-radius: 2vmax;
 	width: 50vmax;
 	padding: 2vmax 0;
-	border: 0.1vmax solid #535353;
+	border: 0.15vmax solid #535353;
 }
 
 .popupRow {
@@ -135,52 +135,57 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 50%;
+	width: 64%;
 	height: 5vmax;
 	background-color: #050111;
 	border: 0px;
 	border-radius: 1.5vmax;
 	color: #fff;
-	font-size: 2.2vmax;
+	font-size: 1.8vmax;
 	padding-left: 1vmax;
-	margin: 0 0.2vmax;
+	margin-left: 1%;
+	margin-right: 1%;
 }
 
 .popupTip {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 30%;
+	width: 45%;
 	height: 5vmax;
 	background-color: #2e63fb;
 	color: #fff;
 	font-size: 2.5vmax;
 	font-weight: 600;
 	border-radius: 1.5vmax;
-	margin-left: 4vmax;
-	margin-right: 0.2vmax;
+	margin-left: 1%;
+	margin-right: 1%;
 }
 
 .currency {
 	color: #fff;
 	display: flex;
-	width: 9%;
+	width: 20%;
+	margin-left: 1%;
+	margin-right: 1%;
 	height: 5vmax;
 	font-size: 1.3rem;
 	justify-content: center;
 	align-items: center;
-	background-color: #050111;
-	border: 0px;
+	/* background-color: #050111; */
+	background-color: transparent;
+	border: 0.1vmax solid #535353;
 	border-radius: 1vmax;
 }
 
 .popupAmountButton {
 	display: inline-block;
 	border-radius: 0.8vmax;
+	
 
-	margin: 0 0.2vmax;
+	margin: 0 1%;
 
-	padding: 0.2vmax;
+	padding: 1%;
 
 	line-height: 2.5vmax;
 	font-size: 0.9rem;
@@ -199,8 +204,8 @@
 
 	width: 15%;
 	height: 2.5vmax;
-	border: none;
-	background-color: #111;
+	border: 0.1vmax solid #535353;
+	background-color: #050111;
 	color: white;
 }
 
