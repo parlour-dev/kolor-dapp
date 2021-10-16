@@ -26,7 +26,7 @@ const Profile: React.FC<ProfileT> = ({ walletAddress, author }) => {
 
 	let history = useHistory();
 
-	const [username, setUsername] = useState(author.substr(0, 8));
+	const [username /*, setUsername*/] = useState(author.substr(0, 8));
 
 	return (
 		<>
@@ -36,15 +36,12 @@ const Profile: React.FC<ProfileT> = ({ walletAddress, author }) => {
 				</div>
 				<div className={styles.usernameEditBox}>
 					<div className={styles.username}>{username}</div>
+					<button className={styles.usernameEditButton}>
+						<img src={editIcon} alt="edit" className={styles.editUsername} />
+					</button>
 					{/*<Popup
 						trigger={
-							<button className={styles.usernameEditButton}>
-								<img
-									src={editIcon}
-									alt="edit"
-									className={styles.editUsername}
-								/>
-							</button>
+							
 						}
 						modal
 					>

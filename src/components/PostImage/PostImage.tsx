@@ -17,7 +17,7 @@ import { useState } from "react";
 import { fetchComments, postComment } from "../../api/comments";
 import Comments from "./Comments/Comments";
 import { CommentT } from "../../types";
-import { Box, Grid, Modal } from "@mui/material";
+import { Box, Modal } from "@mui/material";
 
 type PostImageT = {
 	text: string;
@@ -177,9 +177,7 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 										type="number"
 										className={styles.popupInput}
 										placeholder="Amount"
-										onChange={(e) =>
-											setTipAmount(e.target.value)
-										}
+										onChange={(e) => setTipAmount(e.target.value)}
 									/>
 									<div className={styles.currency}>ETH</div>
 									<div onClick={handleTip} className={styles.popupTip}>

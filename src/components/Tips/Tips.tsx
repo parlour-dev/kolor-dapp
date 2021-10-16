@@ -10,10 +10,12 @@ const Tips: React.FC<{ amounts: TipAmounts }> = ({ amounts }) => {
 				<img src={eth} alt="ETH " />
 				{amounts.ethereum}
 			</div>
-			{amounts.dai && <div className={styles.mainTips}>
-				<img src={dai} alt="DAI " />
-				{amounts.dai}
-			</div>}
+			{amounts.dai && (
+				<div className={styles.mainTips}>
+					<img src={dai} alt="DAI " />
+					{amounts.dai}
+				</div>
+			)}
 			{amounts.additional &&
 				amounts.additional.map((coin, idx) => (
 					<div key={idx} className={styles.additionalTips}>
