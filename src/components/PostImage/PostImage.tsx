@@ -29,6 +29,7 @@ type PostImageT = {
 const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 	const [showAddComment, toggleAddComment] = useToggle(false);
 	const [comments, setComments] = useState<CommentT[]>([]);
+
 	const [popup, setPopup] = useState(false);
 
 	const showAlert = useShowAlert();
@@ -50,7 +51,7 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 			.catch(console.error);
 	}, [idx]);
 
-	async function handleTip() {
+  function handleTip() {
 		ReactGa.event({
 			category: "Tip",
 			action: "Tip sent",
