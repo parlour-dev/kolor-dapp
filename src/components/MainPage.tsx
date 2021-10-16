@@ -8,13 +8,7 @@ const MainPage = () => {
 	return (
 		<>
 			{posts?.map((post, idx) => (
-				<PostImage
-					key={idx}
-					text={post.text}
-					author={post.author!}
-					img={post.file!}
-					idx={post.id}
-				></PostImage>
+				<PostImage key={idx} post={post}></PostImage>
 			))}
 		</>
 	);

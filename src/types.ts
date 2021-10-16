@@ -5,6 +5,7 @@ export type Post = {
 	tags?: string[];
 	comments?: string[];
 	author?: string;
+	removed?: boolean;
 };
 
 export type CommentT = {
