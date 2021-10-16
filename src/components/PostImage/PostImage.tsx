@@ -143,11 +143,6 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 					<Tips
 						amounts={{
 							ethereum: etherTipBalance,
-							dai: 32,
-							additional: [
-								{ name: "WAP", amount: 23 },
-								{ name: "WBTC", amount: 0.5 },
-							],
 						}}
 					/>
 				</div>
