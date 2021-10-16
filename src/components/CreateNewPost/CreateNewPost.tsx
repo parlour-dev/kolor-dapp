@@ -87,13 +87,11 @@ const CreateNewPost = () => {
 		<form className={styles.createContainer}>
 			<div className={styles.title}>Create new post</div>
 			<div>
-				<div>
-					<textarea
-						className={styles.textField}
-						placeholder="What's on your mind?"
-						onChange={(e) => setInputText(e.target.value)}
-					></textarea>
-				</div>
+				<textarea
+					className={styles.textField}
+					placeholder="   What's on your mind?"
+					onChange={(e) => setInputText(e.target.value)}
+				></textarea>
 			</div>
 			<div className={styles.bottomButtons}>
 				<div
