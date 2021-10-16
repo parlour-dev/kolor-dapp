@@ -3,7 +3,6 @@ import styles from "../Profile/Profile.module.css";
 import { useEthers } from "@usedapp/core";
 import ProfilePicture from "../ProfilePicture/ProfilePicture";
 import editIcon from "../Profile/editIcon.png";
-import Popup from "reactjs-popup";
 import ReactGa from "react-ga";
 import { useHistory } from "react-router-dom";
 
@@ -37,7 +36,7 @@ const Profile: React.FC<ProfileT> = ({ walletAddress, author }) => {
 				</div>
 				<div className={styles.usernameEditBox}>
 					<div className={styles.username}>{username}</div>
-					<Popup
+					{/*<Popup
 						trigger={
 							<button className={styles.usernameEditButton}>
 								<img
@@ -59,7 +58,7 @@ const Profile: React.FC<ProfileT> = ({ walletAddress, author }) => {
 							/>
 							<button className={styles.popupTip}>OK</button>
 						</div>
-					</Popup>
+					</Popup>*/}
 				</div>
 				<div className={styles.walletAddress}>{walletAddress}</div>
 				<div>

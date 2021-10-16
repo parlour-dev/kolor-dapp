@@ -1,4 +1,9 @@
-import { AlertColor, SnackbarCloseReason } from "@mui/material";
+import {
+	AlertColor,
+	Backdrop,
+	CircularProgress,
+	SnackbarCloseReason,
+} from "@mui/material";
 import React from "react";
 import { useState } from "react";
 import AlertSnackbar from "./AlertSnackbar";
@@ -6,13 +11,19 @@ import AlertSnackbar from "./AlertSnackbar";
 type ShowAlertT = (text: string, severity: AlertColor) => void;
 
 export const UniversalAlertContext = React.createContext<ShowAlertT>(
-	(text: string, severity: AlertColor) => {}
+	(text, severity) => {}
 );
+
+type ShowLoadingT = (value: boolean) => void;
+
+export const LoadingContext = React.createContext<ShowLoadingT>((value) => {});
 
 const UniversalAlertProvider: React.FC = ({ children }) => {
 	const [alertSeverity, setAlertSeveirty] = useState<AlertColor>("info");
 	const [alertText, setAlertText] = useState("");
 	const [alertOpen, setAlertOpen] = useState(false);
+
+	const [loading, setLoading] = useState(false);
 
 	const showAlert: ShowAlertT = (text, severity) => {
 		setAlertSeveirty(severity);
@@ -20,21 +31,33 @@ const UniversalAlertProvider: React.FC = ({ children }) => {
 		setAlertOpen(true);
 	};
 
+	const showLoading = (value: boolean) => {
+		setLoading(value);
+	};
+
 	const handleAlertClose = (reason?: SnackbarCloseReason) => {
 		setAlertOpen(false);
+		setAlertText("");
 	};
 
 	return (
 		<UniversalAlertContext.Provider value={showAlert}>
-			{children}
-			{alertOpen && (
-				<AlertSnackbar
-					severity={alertSeverity}
-					value={alertText}
-					open={alertOpen}
-					handleClose={handleAlertClose}
-				/>
-			)}
+			<LoadingContext.Provider value={showLoading}>
+				{children}
+				{alertOpen && (
+					<AlertSnackbar
+						severity={alertSeverity}
+						value={alertText}
+						open={alertOpen}
+						handleClose={handleAlertClose}
+					/>
+				)}
+				{loading && (
+					<Backdrop sx={{ color: "#fff", zIndex: 999999 }} open={loading}>
+						<CircularProgress />
+					</Backdrop>
+				)}
+			</LoadingContext.Provider>
 		</UniversalAlertContext.Provider>
 	);
 };

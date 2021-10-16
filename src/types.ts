@@ -21,7 +21,7 @@ export type ContractPost = {
 
 export type TipAmounts = {
 	ethereum: string | number;
-	dai: string | number;
+	dai?: string | number;
 	additional?: {
 		name: string;
 		amount: string | number;

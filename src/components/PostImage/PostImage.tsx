@@ -2,19 +2,22 @@ import styles from "./PostImage.module.css";
 import AddComment from "./Comments/AddComment";
 import Tips from "../Tips/Tips";
 import ProfilePicture from "../ProfilePicture/ProfilePicture";
-import Popup from "reactjs-popup";
-import { useShowAlert, useToggle } from "../../hooks";
+import {
+	useShowAlert,
+	useShowLoading,
+	useTCPDataCall,
+	useTCPDataFunction,
+	useToggle,
+} from "../../hooks";
 import { ethers } from "ethers";
-import { tcpdata_abi, tcpdata_address } from "../../api/tcpdata";
-import { useContractCall, useEthers } from "@usedapp/core";
+import { useEthers } from "@usedapp/core";
 import ReactGa from "react-ga";
 import { useEffect } from "react";
 import { useState } from "react";
 import { fetchComments, postComment } from "../../api/comments";
 import Comments from "./Comments/Comments";
 import { CommentT } from "../../types";
-// import { useSendTransaction } from "@usedapp/core";
-import { Backdrop, CircularProgress } from "@mui/material";
+import { Box, Grid, Modal } from "@mui/material";
 
 type PostImageT = {
 	text: string;
@@ -27,22 +30,20 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 	const [showAddComment, toggleAddComment] = useToggle(false);
 	const [comments, setComments] = useState<CommentT[]>([]);
 
-  // const [tip, setTip] = useState(0);
-	// FOR ANTONI: use tip variable to set the amount of a tip.
-
-	const [commentPending, setCommentPending] = useState(false);
+	const [popup, setPopup] = useState(false);
 
 	const showAlert = useShowAlert();
+	const showLoading = useShowLoading();
 
 	const { account, library } = useEthers();
 
-	const [etherTipBalanceRaw] = useContractCall({
-		abi: new ethers.utils.Interface(tcpdata_abi),
-		address: tcpdata_address,
-		method: "getContentBalance",
-		args: [idx],
-	}) || [0];
+	const [etherTipBalanceRaw] = useTCPDataCall("getContentBalance", [idx]) || [
+		0,
+	];
 	const etherTipBalance = ethers.utils.formatUnits(etherTipBalanceRaw, "ether");
+
+	const [tipAmount, setTipAmount] = useState("0");
+	const { send, state } = useTCPDataFunction("tipContent", "Tip post");
 
 	useEffect(() => {
 		fetchComments(idx)
@@ -50,17 +51,39 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 			.catch(console.error);
 	}, [idx]);
 
-	function handleTip() {
-		
+  function handleTip() {
 		ReactGa.event({
 			category: "Tip",
 			action: "Tip sent",
 		});
-		//result.catch(console.error);
+
+		showLoading(true);
+		send(idx, { value: ethers.utils.parseUnits(tipAmount) });
 	}
 
+	useEffect(() => {
+		if (state.status !== "None") {
+			console.log("gere");
+			showLoading(false);
+		}
+
+		if (state.status === "Exception") {
+			showAlert(
+				"There was a problem while processing your transaction.",
+				"error"
+			);
+		}
+
+		if (state.status === "Mining") {
+			showAlert(
+				"Your tip has been sent. You will need to wait a minute until the transaction is mined on the blockchain.",
+				"info"
+			);
+		}
+	}, [state, showAlert, showLoading]);
+
 	async function onCommentSubmit(newComment: string) {
-		setCommentPending(true);
+		showLoading(true);
 
 		// prevent empty comments
 		if (!newComment) {
@@ -81,12 +104,17 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 				// (to avoid fetching again)
 				if (result.ok)
 					setComments([...comments, { a: account, c: newComment }]);
+				else
+					showAlert(
+						"There was an error while submitting your comment.",
+						"error"
+					);
 			} catch (e) {
 				showAlert("There was an error while submitting your comment.", "error");
 			}
 		}
 
-		setCommentPending(false);
+		showLoading(false);
 	}
 
 	return (
@@ -116,43 +144,59 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 					<Tips
 						amounts={{
 							ethereum: etherTipBalance,
-							dai: 32,
-							additional: [
-								{ name: "WAP", amount: 23 },
-								{ name: "WBTC", amount: 0.5 },
-							],
 						}}
 					/>
 				</div>
 
 				<div className={styles.viewerAction}>
-					<Popup
-						trigger={
-							<div className={styles.buttonBlue} /*onClick={handleTip}*/>
-								Appreciate
-							</div>
-						}
-						modal
+					<div
+						className={styles.buttonBlue}
+						onClick={() => {
+							setPopup(true);
+						}}
 					>
-						<div className={styles.popup}>
-							<input
-								type="number"
-								className={styles.popupInput}
-								placeholder="Amount"
-								// onChange={(e) => setTip(parseInt(e.target.value))}
-							/>
-							<div className="currencyChooser">
-								<select name="currency" id="currency">
-									<option value="ETH">ETH</option>
-									<option value="DAI">DAI</option>
-									<option value="WBTC">WBTC</option>
-								</select>
+						Appreciate
+					</div>
+					<Modal
+						open={popup}
+						onClose={() => setPopup(false)}
+						sx={{ zIndex: 99999 }}
+					>
+						<Box
+							sx={{
+								position: "absolute",
+								left: "50%",
+								top: "50%",
+								transform: "translate(-50%, -50%)",
+								outline: "none",
+							}}
+						>
+							<div className={styles.popupContainer}>
+								<div className={styles.popupRow}>
+									<input
+										type="number"
+										className={styles.popupInput}
+										placeholder="Amount"
+										onChange={(e) =>
+											setTipAmount(e.target.value)
+										}
+									/>
+									<div className={styles.currency}>ETH</div>
+									<div onClick={handleTip} className={styles.popupTip}>
+										Send
+									</div>
+								</div>
+								<div className={styles.popupRow}>
+									<button className={styles.popupAmountButton}>0.5 ETH</button>
+									<button className={styles.popupAmountButton}>0.1 ETH</button>
+									<button className={styles.popupAmountButton}>0.05 ETH</button>
+									<button className={styles.popupAmountButton}>$10</button>
+									<button className={styles.popupAmountButton}>$5</button>
+									<button className={styles.popupAmountButton}>$1</button>
+								</div>
 							</div>
-							<div onClick={handleTip} className={styles.popupTip}>
-								Send
-							</div>
-						</div>
-					</Popup>
+						</Box>
+					</Modal>
 					<div className={styles.buttonBlack} onClick={toggleAddComment}>
 						Comment
 					</div>
@@ -161,12 +205,6 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 
 				<Comments commentData={comments} />
 			</div>
-
-			{commentPending && (
-				<Backdrop sx={{ color: "#fff", zIndex: 999999 }} open={commentPending}>
-					<CircularProgress />
-				</Backdrop>
-			)}
 		</div>
 	);
 };
