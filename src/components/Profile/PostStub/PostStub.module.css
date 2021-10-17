@@ -1,10 +1,68 @@
-.bottomPostContainer {
+.container {
+	width: 80%;
+	height: auto;
+
+	margin: 1vmax auto;
+
+	background-color: #050111;
+	word-wrap: break-word;
+	/* border: 0.1vmax solid #535353; */
+	border-radius: 1.5vmax;
+	padding: 1rem;
+}
+
+.mediaContent {
+	width: 100%;
+	border-radius: 1vmax;
+	margin-bottom: 0.5vmax;
+}
+
+.text {
+	color: #FFF;
+	font-size: 1.6vmax;
+	padding: 0.2vmax 0.8vmax;
 	text-align: left;
-	font-size: 0.9vmax;
-	border-top: 0.1vmax solid #535353;
-	color: white;
-	font-family: "Lato", sans-serif;
+	margin-bottom: 1vmax;
+}
+
+.bottomPostContainer {
 	display: flex;
-	flex-direction: row;
-	padding-bottom: 0.5vmax;
+}
+
+.bottomPostContainer button {
+	background-color: #2e63fb;
+	color: #FFF;
+	border: none;
+	border-radius: 0.4vmax;
+	margin-left: 0.8vmax;
+	padding: 0.2vmax 0.6vmax;
+	font-weight: bold;
+	font-size: 1vmax;
+	font-family: 'Lato', 'Helvetica', 'Arial';
+}
+
+.timeAdded {
+	color: #535353;
+	text-align: left;
+	padding: 0.2vmax 0.8vmax;
+	font-size: 1vmax;
+}
+
+@media only screen and (max-width: 500px) and (min-height: 300px) {
+	.text {
+		font-size: 3vmax;
+	}
+
+	.timeAdded {
+		font-size: 1.4vmax;
+	}
+
+	.bottomPostContainer button {
+		margin-left: 0.8vmax;
+		padding: 0.2vmax 0.6vmax;
+		font-weight: bold;
+		width: 20%;
+		border-radius: 1vmax;
+		font-size: 1vmax;
+	}
 }

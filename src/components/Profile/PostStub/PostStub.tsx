@@ -6,7 +6,6 @@ import {
 	useTCPDataFunction,
 } from "../../../hooks";
 import { Post } from "../../../types";
-import stylesPost from "../../PostImage/PostImage.module.css";
 import styles from "./PostStub.module.css";
 
 const PostStub: React.FC<{ post: Post }> = ({ post }) => {
@@ -44,15 +43,15 @@ const PostStub: React.FC<{ post: Post }> = ({ post }) => {
 	}
 
 	return (
-		<div className={stylesPost.post}>
-			<div className={stylesPost.container}>
-				<div className={stylesPost.text}>{post.text}</div>
-				<div className={stylesPost.mediaContent}>
+		<div className={styles.post}>
+			<div className={styles.container}>
+				<div className={styles.text}>{post.text}</div>
+				<div className={styles.mediaContent}>
 					{post.file && post.file.startsWith("p.deso") && (
 						<img
 							alt=""
 							src={"https://" + post.file}
-							className={stylesPost.mediaContent}
+							className={styles.mediaContent}
 						/>
 					)}
 				</div>

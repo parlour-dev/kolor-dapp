@@ -67,7 +67,7 @@ const Profile: React.FC<ProfileT> = ({ walletAddress, author }) => {
 				</Popup>*/}
 			</div>
 			<div className={styles.walletAddress}>{walletAddress}</div>
-			<div className={styles.balance}>Your total earnings: {balance} ETH</div>
+			<div className={styles.balance}>Your total earnings: <b>{balance} ETH</b></div>
 			<div>
 				{posts
 					?.filter((post) => post.author === author)
