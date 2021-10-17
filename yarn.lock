@@ -3072,7 +3072,14 @@
     "@typescript-eslint/types" "4.33.0"
     eslint-visitor-keys "^2.0.0"
 
-"@usedapp/core@^0.5.4":
+"@usedapp/coingecko@^0.3.24":
+  version "0.3.24"
+  resolved "https://registry.yarnpkg.com/@usedapp/coingecko/-/coingecko-0.3.24.tgz#a58dc014319658dfaf7017aab9204bed169b9ad8"
+  integrity sha512-HOx2uBsSK20BWctxcL0gDFhO+Ee0fMTWCeQE7WZbkGnmzIGyuU4jhrGsElWnbQTh8OCBb3F6qAS+ggcxjWVnyA==
+  dependencies:
+    "@usedapp/core" "^0.5.0"
+
+"@usedapp/core@^0.5.0", "@usedapp/core@^0.5.4":
   version "0.5.4"
   resolved "https://registry.yarnpkg.com/@usedapp/core/-/core-0.5.4.tgz#c03b1fa34e4ff658ee2d6a65ac74de46c7ab2b7f"
   integrity sha512-KAGnH/PA8WBEOR14N9mE3woDXkraVHNVj64XvZTAyxFW9N6rSUX3e6LX85TQ3WRvX1fysppP9433c2ciUrx4Yw==
@@ -15673,10 +15680,8 @@ watchpack@^1.7.4:
   resolved "https://registry.yarnpkg.com/watchpack/-/watchpack-1.7.5.tgz#1267e6c55e0b9b5be44c2023aed5437a2c26c453"
   integrity sha512-9P3MWk6SrKjHsGkLT2KHXdQ/9SNkyoJbabxnKOoJepsvJjJG8uYTR3yTPxPQvNDI3w4Nz1xnE0TLHK4RIVe/MQ==
   dependencies:
-    chokidar "^3.4.1"
     graceful-fs "^4.1.2"
     neo-async "^2.5.0"
-    watchpack-chokidar2 "^2.0.1"
   optionalDependencies:
     chokidar "^3.4.1"
     watchpack-chokidar2 "^2.0.1"
