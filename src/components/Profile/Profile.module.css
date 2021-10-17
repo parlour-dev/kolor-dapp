@@ -2,12 +2,15 @@
 	width: 50vmax;
 	height: auto;
 
-	margin: 0 auto;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 6vmax;
 	background-color: #17161d;
 	word-wrap: break-word;
 	border: 0.1vmax solid #535353;
 	border-radius: 1.5vmax;
 	padding: 1rem;
+	
 }
 
 .profilePicture {
@@ -55,12 +58,15 @@
 }
 
 .balance {
+	margin: 1vmax 1vmax;
+	font-size: 1vmax;
 	color: #fff;
 }
 
 .logOutButton {
 	width: 20vmax;
 	margin-top: 18vmax;
+	margin-bottom: 2vmax;
 	background-color: #2e63fb;
 	color: #fff;
 	border-radius: 0.8vmax;
@@ -90,7 +96,7 @@
 
 @media only screen and (max-width: 1200px) {
 	.container {
-		width: 75%;
+		width: 80%;
 	}
 	.logOutButton {
 		margin-top: 23vmax;
@@ -141,4 +147,22 @@
 	padding-left: 1vmax;
 	padding-right: 1vmax;
 	border: 0;
+}
+
+@media only screen and (max-width: 500px) and (min-height: 300px) {
+	.container {
+		width: 100%;
+		margin: 0;
+		padding: 0;
+		border: none;
+		margin-bottom: 6vmax;
+	}
+
+	.logOutButton {
+		font-size: 3vmax;
+		width: 60%;
+		height: 4vmax;
+		border-radius: 1vmax;
+	}
+
 }
