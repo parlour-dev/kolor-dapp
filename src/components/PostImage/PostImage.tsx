@@ -6,20 +6,18 @@ import {
 	useShowAlert,
 	useShowLoading,
 	useTCPDataCall,
-	useTCPDataFunction,
 	useToggle,
 } from "../../hooks";
 import { ethers } from "ethers";
 import { useEthers } from "@usedapp/core";
-import ReactGa from "react-ga";
 import { useEffect } from "react";
 import { useState } from "react";
 import { fetchComments, postComment } from "../../api/comments";
 import Comments from "./Comments/Comments";
 import { CommentT, Post } from "../../types";
-import { Box, Modal } from "@mui/material";
 import { LazyLoadImage, ScrollPosition } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import TipPopup from "./TipPopup/TipPopup";
 
 type PostImageT = {
 	post: Post;
@@ -42,11 +40,6 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 	]) || [0];
 	const etherTipBalance = ethers.utils.formatUnits(etherTipBalanceRaw, "ether");
 
-	const [tipAmount, setTipAmount] = useState("0");
-	const refreshValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setTipAmount(e.target.value);
-	};
-
 	// async function usdToEther() {
 	// 	let etherPrice = await fetch(
 	// 		"https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd"
@@ -54,43 +47,11 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 	// 	console.log(etherPrice);
 	// }
 
-	const { send, state } = useTCPDataFunction("tipContent", "Tip post");
-
 	useEffect(() => {
 		fetchComments(post.id)
 			.then((data) => setComments(data))
 			.catch(console.error);
 	}, [post.id]);
-
-	function handleTip() {
-		ReactGa.event({
-			category: "Tip",
-			action: "Tip sent",
-		});
-
-		showLoading(true);
-		send(post.id, { value: ethers.utils.parseUnits(tipAmount) });
-	}
-
-	useEffect(() => {
-		if (state.status !== "None") {
-			showLoading(false);
-		}
-
-		if (state.status === "Exception") {
-			showAlert(
-				"There was a problem while processing your transaction.",
-				"error"
-			);
-		}
-
-		if (state.status === "Mining") {
-			showAlert(
-				"Your tip has been sent. You will need to wait a minute until the transaction is mined on the blockchain.",
-				"info"
-			);
-		}
-	}, [state, showAlert, showLoading]);
 
 	async function onCommentSubmit(newComment: string) {
 		showLoading(true);
@@ -169,87 +130,11 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 					>
 						Appreciate
 					</div>
-					<Modal
+					<TipPopup
+						postId={post.id}
 						open={popup}
 						onClose={() => setPopup(false)}
-						sx={{ zIndex: 99999 }}
-					>
-						<Box
-							sx={{
-								position: "absolute",
-								left: "50%",
-								top: "50%",
-								transform: "translate(-50%, -50%)",
-								outline: "none",
-							}}
-						>
-							<div className={styles.popupContainer}>
-								<div className={styles.popupRow}>
-									<input
-										type="number"
-										className={styles.popupInput}
-										placeholder="Amount"
-										onChange={refreshValue}
-										value={tipAmount}
-									/>
-									<div className={styles.currency}>ETH</div>
-									<div onClick={handleTip} className={styles.popupTip}>
-										Send
-									</div>
-								</div>
-								<div className={styles.popupRow}>
-									<button
-										className={styles.popupAmountButton}
-										onClick={() => {
-											setTipAmount("0.01");
-										}}
-									>
-										0.01 ETH
-									</button>
-									<button
-										className={styles.popupAmountButton}
-										onClick={() => {
-											setTipAmount("0.005");
-										}}
-									>
-										0.005 ETH
-									</button>
-									<button
-										className={styles.popupAmountButton}
-										onClick={() => {
-											setTipAmount("0.001");
-										}}
-									>
-										0.001 ETH
-									</button>
-									<button
-										className={styles.popupAmountButton}
-										onClick={() => {
-											alert("Nothing here yet. We'll figure that out soon.");
-										}}
-									>
-										$10
-									</button>
-									<button
-										className={styles.popupAmountButton}
-										onClick={() => {
-											alert("Nothing here yet. We'll figure that out soon.");
-										}}
-									>
-										$5
-									</button>
-									<button
-										className={styles.popupAmountButton}
-										onClick={() => {
-											alert("Nothing here yet. We'll figure that out soon.");
-										}}
-									>
-										$1
-									</button>
-								</div>
-							</div>
-						</Box>
-					</Modal>
+					/>
 					<div className={styles.buttonBlack} onClick={toggleAddComment}>
 						Comment
 					</div>
