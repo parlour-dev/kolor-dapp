@@ -18,12 +18,15 @@ import { fetchComments, postComment } from "../../api/comments";
 import Comments from "./Comments/Comments";
 import { CommentT, Post } from "../../types";
 import { Box, Modal } from "@mui/material";
+import { LazyLoadImage, ScrollPosition } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 type PostImageT = {
 	post: Post;
+	scrollPosition: ScrollPosition;
 };
 
-const PostImage: React.FC<PostImageT> = ({ post }) => {
+const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 	const [showAddComment, toggleAddComment] = useToggle(false);
 	const [comments, setComments] = useState<CommentT[]>([]);
 
@@ -143,10 +146,12 @@ const PostImage: React.FC<PostImageT> = ({ post }) => {
 				<div className={styles.text}>{post.text}</div>
 				<div className={styles.mediaContent}>
 					{post.file && (
-						<img
+						<LazyLoadImage
 							alt=""
+							effect="blur"
 							src={"https://" + post.file}
 							className={styles.mediaContent}
+							scrollPosition={scrollPosition}
 						/>
 					)}
 				</div>
