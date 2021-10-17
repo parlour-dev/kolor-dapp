@@ -114,11 +114,7 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 				</div>
 
 				<div id="renderTips">
-					<Tips
-						amounts={{
-							ethereum: etherTipBalance,
-						}}
-					/>
+					<Tips amounts={{ ethereum: etherTipBalance }} />
 				</div>
 
 				<div className={styles.viewerAction}>

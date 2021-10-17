@@ -7,8 +7,12 @@ import {
 } from "../../../hooks";
 import { Post } from "../../../types";
 import styles from "./PostStub.module.css";
+import { LazyLoadImage, ScrollPosition } from "react-lazy-load-image-component";
 
-const PostStub: React.FC<{ post: Post }> = ({ post }) => {
+const PostStub: React.FC<{ post: Post; scrollPosition: ScrollPosition }> = ({
+	post,
+	scrollPosition,
+}) => {
 	const { send, state } = useTCPDataFunction("removeContent", "Remove post");
 
 	const showLoading = useShowLoading();
@@ -48,10 +52,12 @@ const PostStub: React.FC<{ post: Post }> = ({ post }) => {
 				<div className={styles.text}>{post.text}</div>
 				<div className={styles.mediaContent}>
 					{post.file && post.file.startsWith("p.deso") && (
-						<img
+						<LazyLoadImage
 							alt=""
+							effect="blur"
 							src={"https://" + post.file}
 							className={styles.mediaContent}
+							scrollPosition={scrollPosition}
 						/>
 					)}
 				</div>

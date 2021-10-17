@@ -18,7 +18,7 @@
 }
 
 .text {
-	color: #FFF;
+	color: #fff;
 	font-size: 1.6vmax;
 	padding: 0.2vmax 0.8vmax;
 	text-align: left;
@@ -31,14 +31,14 @@
 
 .bottomPostContainer button {
 	background-color: #2e63fb;
-	color: #FFF;
+	color: #fff;
 	border: none;
 	border-radius: 0.4vmax;
 	margin-left: 0.8vmax;
 	padding: 0.2vmax 0.6vmax;
 	font-weight: bold;
 	font-size: 1vmax;
-	font-family: 'Lato', 'Helvetica', 'Arial';
+	font-family: "Lato", "Helvetica", "Arial";
 }
 
 .timeAdded {

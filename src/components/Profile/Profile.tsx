@@ -10,14 +10,23 @@ import { PostsContext } from "../../App";
 import { useTCPDataCall } from "../../hooks";
 import { ethers } from "ethers";
 import PostStub from "./PostStub/PostStub";
+import {
+	trackWindowScroll,
+	ScrollPosition,
+} from "react-lazy-load-image-component";
 
 type ProfileT = {
 	walletAddress: string;
 	author: string;
 	username: string;
+	scrollPosition: ScrollPosition;
 };
 
-const Profile: React.FC<ProfileT> = ({ walletAddress, author }) => {
+const Profile: React.FC<ProfileT> = ({
+	walletAddress,
+	author,
+	scrollPosition,
+}) => {
 	const posts = useContext(PostsContext);
 
 	const { deactivate } = useEthers();
@@ -67,12 +76,14 @@ const Profile: React.FC<ProfileT> = ({ walletAddress, author }) => {
 				</Popup>*/}
 			</div>
 			<div className={styles.walletAddress}>{walletAddress}</div>
-			<div className={styles.balance}>Your total earnings: <b>{balance} ETH</b></div>
+			<div className={styles.balance}>
+				Your total earnings: <b>{balance} ETH</b>
+			</div>
 			<div>
 				{posts
 					?.filter((post) => post.author === author)
 					.map((post, idx) => (
-						<PostStub key={idx} post={post} />
+						<PostStub key={idx} post={post} scrollPosition={scrollPosition} />
 					))}
 			</div>
 			<div>
@@ -87,4 +98,4 @@ const Profile: React.FC<ProfileT> = ({ walletAddress, author }) => {
 	);
 };
 
-export default Profile;
+export default trackWindowScroll(Profile);

@@ -13,9 +13,6 @@ const fetchComments = async (idx: number) => {
 	);
 
 	const data = await response.json();
-
-	console.log(data[index_in_batch]);
-
 	return data[index_in_batch] || [];
 };
 
