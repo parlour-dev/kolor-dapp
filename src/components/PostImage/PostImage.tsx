@@ -44,15 +44,15 @@ const PostImage: React.FC<PostImageT> = ({ post }) => {
 		setTipAmount(e.target.value);
 	};
 	function tipFunction1() {
-		console.log("button1")
+		console.log("button1");
 		setTipAmount("0.5");
 	}
 	function tipFunction2() {
-		console.log("button2")
+		console.log("button2");
 		setTipAmount("0.1");
 	}
 	function tipFunction3() {
-		console.log("button3")
+		console.log("button3");
 		setTipAmount("0.05");
 	}
 	const { send, state } = useTCPDataFunction("tipContent", "Tip post");
@@ -197,9 +197,24 @@ const PostImage: React.FC<PostImageT> = ({ post }) => {
 									</div>
 								</div>
 								<div className={styles.popupRow}>
-									<button className={styles.popupAmountButton} onClick={tipFunction1}>0.5 ETH</button>
-									<button className={styles.popupAmountButton} onClick={tipFunction2}>0.1 ETH</button>
-									<button className={styles.popupAmountButton} onClick={tipFunction3}>0.05 ETH</button>
+									<button
+										className={styles.popupAmountButton}
+										onClick={tipFunction1}
+									>
+										0.5 ETH
+									</button>
+									<button
+										className={styles.popupAmountButton}
+										onClick={tipFunction2}
+									>
+										0.1 ETH
+									</button>
+									<button
+										className={styles.popupAmountButton}
+										onClick={tipFunction3}
+									>
+										0.05 ETH
+									</button>
 									<button className={styles.popupAmountButton}>$10</button>
 									<button className={styles.popupAmountButton}>$5</button>
 									<button className={styles.popupAmountButton}>$1</button>
