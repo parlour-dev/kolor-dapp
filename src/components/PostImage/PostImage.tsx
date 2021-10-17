@@ -19,6 +19,7 @@ import { LazyLoadImage, ScrollPosition } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import TipPopup from "./TipPopup/TipPopup";
 import { useMediaQuery } from "@mui/material";
+import { resolveNickname } from "../../api/nickname";
 
 type PostImageT = {
 	post: Post;
@@ -102,7 +103,9 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 			<div className={styles.container}>
 				<div className={styles.creator}>
 					<div className={styles.creatorInfo}>
-						<div className={styles.creatorNick}>ja</div>
+						<div className={styles.creatorNick}>
+							{resolveNickname(post?.author || "")}
+						</div>
 						<div className={styles.creatorWallet}>{post?.author}</div>
 					</div>
 					<div className={styles.profilePicutre}>

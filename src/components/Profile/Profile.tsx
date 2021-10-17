@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "../Profile/Profile.module.css";
 import { useEthers } from "@usedapp/core";
 import ProfilePicture from "../ProfilePicture/ProfilePicture";
-import editIcon from "../Profile/editIcon.png";
+//import editIcon from "../Profile/editIcon.png";
 import ReactGa from "react-ga";
 import { useHistory } from "react-router-dom";
 import { useContext } from "react";
@@ -25,6 +25,7 @@ type ProfileT = {
 const Profile: React.FC<ProfileT> = ({
 	walletAddress,
 	author,
+	username,
 	scrollPosition,
 }) => {
 	const posts = useContext(PostsContext);
@@ -42,8 +43,6 @@ const Profile: React.FC<ProfileT> = ({
 
 	let history = useHistory();
 
-	const [username /*, setUsername*/] = useState(author.substr(0, 8));
-
 	const [balanceRaw] = useTCPDataCall("getBalance", [author]) || [0];
 	const balance = ethers.utils.formatEther(balanceRaw);
 
@@ -54,9 +53,9 @@ const Profile: React.FC<ProfileT> = ({
 			</div>
 			<div className={styles.usernameEditBox}>
 				<div className={styles.username}>{username}</div>
-				<button className={styles.usernameEditButton}>
+				{/*<button className={styles.usernameEditButton}>
 					<img src={editIcon} alt="edit" className={styles.editUsername} />
-				</button>
+				</button>*/}
 				{/*<Popup
 					trigger={
 						

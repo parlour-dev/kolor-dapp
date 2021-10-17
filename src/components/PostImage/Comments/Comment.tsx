@@ -1,3 +1,4 @@
+import { resolveNickname } from "../../../api/nickname";
 import { CommentT } from "../../../types";
 import ProfilePicture from "../../ProfilePicture/ProfilePicture";
 import styles from "../Comments/Comment.module.css";
@@ -10,7 +11,7 @@ const Comment: React.FC<{ data: CommentT }> = ({ data }) => {
 					<ProfilePicture address={data.a} className={styles.profPicture} />
 
 					<div className={styles.userInfoContainer}>
-						<div className={styles.creatorNick}>Jarosław Jakimowicz</div>
+						<div className={styles.creatorNick}>{resolveNickname(data.a)}</div>
 						<div className={styles.creatorWallet}>{data.a}</div>
 					</div>
 				</div>

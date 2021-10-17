@@ -11,6 +11,7 @@ import { rawPostToPost } from "./api/tcpdata";
 import ReactGa from "react-ga";
 import UniversalAlertProvider from "./components/UniversalAlert/UniversalAlertProvider";
 import { useTCPDataCall } from "./hooks";
+import { resolveNickname } from "./api/nickname";
 
 export const PostsContext = React.createContext<Post[]>([]);
 export const NotificationsContext = React.createContext<any[]>([]);
@@ -47,7 +48,7 @@ function App() {
 							{account && (
 								<Route exact path="/profile">
 									<Profile
-										username="helko"
+										username={resolveNickname(account)}
 										walletAddress={account}
 										author={account}
 									/>
