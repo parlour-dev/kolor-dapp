@@ -41,7 +41,7 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 	]) || [0];
 	const etherTipBalance = ethers.utils.formatUnits(etherTipBalanceRaw, "ether");
 
-	const profilePictureHeight = useMediaQuery("@media only screen and (max-width: 500px) and (min-height: 300px)") ? "6vmax" : "3.5vmax";
+	const profilePictureHeight = useMediaQuery("@media only screen and (max-width: 500px) and (min-height: 300px)") ? "5vmax" : "3.5vmax";
 
 	// async function usdToEther() {
 	// 	let etherPrice = await fetch(
