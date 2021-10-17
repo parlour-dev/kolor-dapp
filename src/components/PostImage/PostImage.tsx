@@ -61,7 +61,7 @@ const PostImage: React.FC<PostImageT> = ({ post }) => {
 		fetchComments(post.id)
 			.then((data) => setComments(data))
 			.catch(console.error);
-	}, [post]);
+	}, [post.id]);
 
 	function handleTip() {
 		ReactGa.event({
