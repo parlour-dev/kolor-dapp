@@ -4,7 +4,7 @@
 	flex-direction: row-reverse;
 }
 .profPicture {
-	height: 100%;
+	height: 100% !important;
 	aspect-ratio: 1/1;
 	border-radius: 50%;
 	background-color: rgb(241, 117, 103);

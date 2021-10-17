@@ -15,6 +15,7 @@ const Navbar = () => {
 			action: "Logging in",
 		});
 	}
+
 	return (
 		<div>
 			<div className={styles.navbar}>

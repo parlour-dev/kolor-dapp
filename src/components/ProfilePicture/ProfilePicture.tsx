@@ -32,7 +32,7 @@ type ProfilePictureT = {
 
 const ProfilePicture: React.FC<ProfilePictureT> = ({ address, className, height }) => {
 	let profilePictureStyles = useMemo(
-		() => generateProfilePictureGradient(address, height || "auto"),
+		() => generateProfilePictureGradient(address, height || "3.5vmax"),
 		[address, height]
 	);
 

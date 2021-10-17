@@ -1,3 +1,5 @@
+import { ChainId } from "@usedapp/core";
+
 export type Post = {
 	id: number;
 	text: string;
@@ -28,3 +30,7 @@ export type TipAmounts = {
 		amount: string | number;
 	}[];
 };
+
+export enum SupportedChains {
+	Ropsten = ChainId.Ropsten
+}

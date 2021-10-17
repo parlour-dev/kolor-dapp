@@ -5,8 +5,9 @@ import {
 	LoadingContext,
 	UniversalAlertContext,
 } from "./components/UniversalAlert/UniversalAlertProvider";
-import { tcpdata_abi, tcpdata_address } from "./api/tcpdata";
-import { ethers, Contract } from "ethers";
+import { tcpdata, tcpdata_abi, tcpdata_address } from "./api/tcpdata";
+import { ethers } from "ethers";
+import { SupportedChains } from "./types";
 
 export function useToggle(initial: boolean): [boolean, () => void] {
 	const [state, setState] = useState(initial);
@@ -24,19 +25,19 @@ export function useShowLoading() {
 	return useContext(LoadingContext);
 }
 
-export function useTCPDataFunction(method: string, transactionName?: string) {
+export function useTCPDataFunction(method: string, transactionName?: string, chain?: SupportedChains) {
 	return useContractFunction(
 		// @ts-ignore
-		new Contract(tcpdata_address, tcpdata_abi),
+		tcpdata[chain || SupportedChains.Ropsten],
 		method,
 		{ transactionName: transactionName }
 	);
 }
 
-export function useTCPDataCall(method: string, args?: any[]) {
+export function useTCPDataCall(method: string, args?: any[], chain?: SupportedChains, ) {
 	return useContractCall({
 		abi: new ethers.utils.Interface(tcpdata_abi),
-		address: tcpdata_address,
+		address: tcpdata_address[chain || SupportedChains.Ropsten],
 		method: method,
 		args: args || [],
 	});

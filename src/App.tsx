@@ -5,7 +5,7 @@ import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import CreateNewPost from "../src/components/CreateNewPost/CreateNewPost";
 import Profile from "./components/Profile/Profile";
-import { useEthers } from "@usedapp/core";
+import { useConfig, useEthers } from "@usedapp/core";
 import { Post } from "./types";
 import { rawPostToPost } from "./api/tcpdata";
 import ReactGa from "react-ga";
@@ -22,13 +22,18 @@ function App() {
 		ReactGa.pageview(window.location.pathname);
 	}, []);
 
-	const { account } = useEthers();
+	const { account, library } = useEthers();
 
 	const [postsRaw] = useTCPDataCall("getContent") || [];
 
 	const posts = postsRaw
 		?.map((el: string[], idx: number) => rawPostToPost(idx, el[0], el[1]))
 		.reverse();
+
+	const supportedChains = useConfig().supportedChains
+	console.log(supportedChains)
+
+	library?.getNetwork().then(console.log)
 
 	return (
 		<Router>

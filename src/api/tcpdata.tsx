@@ -1,7 +1,11 @@
+import { ChainId } from "@usedapp/core";
 import { ethers } from "ethers";
-import { Post } from "../types";
+import { Post, SupportedChains } from "../types";
 
-export const tcpdata_address = "0xa398De2fEF0b37cf50c2F9D88b8953b94b49c78C";
+export const tcpdata_address = {
+	[SupportedChains.Ropsten]: "0x0D3E48e537F69d4BDbdc84a1A5BbD70Ad1fD0756",
+	//[SupportedChains.BSCTestnet]: "0xa398De2fEF0b37cf50c2F9D88b8953b94b49c78C"
+};
 export const tcpdata_abi = [
 	"event ContentAdded(uint256 indexed idx)",
 	"event TipReceived(uint256 indexed idx, uint256 amount)",
@@ -23,7 +27,10 @@ export const tcpdata_abi = [
 	"function withdrawBalance()",
 ];
 
-export const tcpdata = new ethers.Contract(tcpdata_address, tcpdata_abi);
+export const tcpdata = {
+	[SupportedChains.Ropsten]: new ethers.Contract(tcpdata_address[ChainId.Ropsten], tcpdata_abi),
+	//[SupportedChains.BSCTestnet]: new ethers.Contract(tcpdata_address[ChainId.BSCTestnet], tcpdata_abi)
+}
 
 export function rawPostToPost(
 	idx: number,
