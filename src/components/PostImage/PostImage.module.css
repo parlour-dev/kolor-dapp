@@ -151,18 +151,12 @@
 	}
 
 	.creatorInfo {
-		margin-left: 3vmax;
+		margin-left: 1.5vmax;
 	}
 
 	.text {
 		margin-top: 4vmax;
 		font-size: 3vmax;
-	}
-
-	.profilePicutre {
-		transform: scale(2);
-		margin-left: 1.8vmax;
-		margin-top: 2vmax;
 	}
 }
 

@@ -18,6 +18,7 @@ import { CommentT, Post } from "../../types";
 import { LazyLoadImage, ScrollPosition } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import TipPopup from "./TipPopup/TipPopup";
+import { useMediaQuery } from "@mui/material";
 
 type PostImageT = {
 	post: Post;
@@ -39,6 +40,8 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 		post.id,
 	]) || [0];
 	const etherTipBalance = ethers.utils.formatUnits(etherTipBalanceRaw, "ether");
+
+	const profilePictureHeight = useMediaQuery("@media only screen and (max-width: 500px) and (min-height: 300px)") ? "6vmax" : "3.5vmax";
 
 	// async function usdToEther() {
 	// 	let etherPrice = await fetch(
@@ -97,7 +100,7 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 						<div className={styles.creatorWallet}>{post?.author}</div>
 					</div>
 					<div className={styles.profilePicutre}>
-						{post.author && <ProfilePicture address={post.author} />}
+						{post.author && <ProfilePicture address={post.author} height={profilePictureHeight} />}
 					</div>
 				</div>
 				<div className={styles.text}>{post.text}</div>

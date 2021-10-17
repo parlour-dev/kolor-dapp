@@ -2,7 +2,7 @@ import MersenneTwister from "mersenne-twister";
 import { useMemo } from "react";
 import styles from "./ProfilePicture.module.css";
 
-const generateProfilePictureGradient = (address: string) => {
+const generateProfilePictureGradient = (address: string, height: string) => {
 	const generator = new MersenneTwister(parseInt(address.substr(2)));
 	const randomInt = (min: number, max: number) =>
 		min + generator.random() * (max - min);
@@ -16,8 +16,9 @@ const generateProfilePictureGradient = (address: string) => {
 
 	const tilt = 0; //randomInt(0, 360);
 
-	const style = {
+	let style = {
 		background: `linear-gradient(${tilt}deg, rgba(${color1},${color2},${color3},1) 0%, rgba(${color4},${color5},${color6},1) 100%)`,
+		height: height
 	};
 
 	return style;
@@ -26,12 +27,13 @@ const generateProfilePictureGradient = (address: string) => {
 type ProfilePictureT = {
 	address: string;
 	className?: string;
+	height?: string;
 };
 
-const ProfilePicture: React.FC<ProfilePictureT> = ({ address, className }) => {
-	const profilePictureStyles = useMemo(
-		() => generateProfilePictureGradient(address),
-		[address]
+const ProfilePicture: React.FC<ProfilePictureT> = ({ address, className, height }) => {
+	let profilePictureStyles = useMemo(
+		() => generateProfilePictureGradient(address, height || "3.5vmax"),
+		[address, height]
 	);
 
 	return (
