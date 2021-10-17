@@ -16,17 +16,17 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { fetchComments, postComment } from "../../api/comments";
 import Comments from "./Comments/Comments";
-import { CommentT } from "../../types";
+import { CommentT, Post } from "../../types";
 import { Box, Modal } from "@mui/material";
+import { LazyLoadImage, ScrollPosition } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 type PostImageT = {
-	text: string;
-	img: string;
-	idx: number;
-	author: string;
+	post: Post;
+	scrollPosition: ScrollPosition;
 };
 
-const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
+const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 	const [showAddComment, toggleAddComment] = useToggle(false);
 	const [comments, setComments] = useState<CommentT[]>([]);
 
@@ -37,9 +37,9 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 
 	const { account, library } = useEthers();
 
-	const [etherTipBalanceRaw] = useTCPDataCall("getContentBalance", [idx]) || [
-		0,
-	];
+	const [etherTipBalanceRaw] = useTCPDataCall("getContentBalance", [
+		post.id,
+	]) || [0];
 	const etherTipBalance = ethers.utils.formatUnits(etherTipBalanceRaw, "ether");
 
 	const [tipAmount, setTipAmount] = useState("0");
@@ -57,10 +57,10 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 	const { send, state } = useTCPDataFunction("tipContent", "Tip post");
 
 	useEffect(() => {
-		fetchComments(idx)
+		fetchComments(post.id)
 			.then((data) => setComments(data))
 			.catch(console.error);
-	}, [idx]);
+	}, [post.id]);
 
 	function handleTip() {
 		ReactGa.event({
@@ -69,12 +69,11 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 		});
 
 		showLoading(true);
-		send(idx, { value: ethers.utils.parseUnits(tipAmount) });
+		send(post.id, { value: ethers.utils.parseUnits(tipAmount) });
 	}
 
 	useEffect(() => {
 		if (state.status !== "None") {
-			console.log("gere");
 			showLoading(false);
 		}
 
@@ -105,7 +104,7 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 			try {
 				// post the comment using the api
 				const result = await postComment(
-					idx,
+					post.id,
 					newComment,
 					account,
 					await library.getSigner().signMessage(newComment)
@@ -133,20 +132,22 @@ const PostImage: React.FC<PostImageT> = ({ text, img, idx, author }) => {
 			<div className={styles.container}>
 				<div className={styles.creator}>
 					<div className={styles.creatorInfo}>
-						<div className={styles.creatorNick}>ja debugid:{idx}</div>
-						<div className={styles.creatorWallet}>{author}</div>
+						<div className={styles.creatorNick}>ja</div>
+						<div className={styles.creatorWallet}>{post?.author}</div>
 					</div>
 					<div className={styles.profilePicutre}>
-						<ProfilePicture address={author} />
+						{post.author && <ProfilePicture address={post.author} />}
 					</div>
 				</div>
-				<div className={styles.text}>{text}</div>
+				<div className={styles.text}>{post.text}</div>
 				<div className={styles.mediaContent}>
-					{img && (
-						<img
+					{post.file && (
+						<LazyLoadImage
 							alt=""
-							src={"https://" + img}
+							effect="blur"
+							src={"https://" + post.file}
 							className={styles.mediaContent}
+							scrollPosition={scrollPosition}
 						/>
 					)}
 				</div>

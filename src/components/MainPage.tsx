@@ -1,8 +1,14 @@
 import PostImage from "./PostImage/PostImage";
 import { useContext } from "react";
 import { PostsContext } from "../App";
+import {
+	trackWindowScroll,
+	ScrollPosition,
+} from "react-lazy-load-image-component";
 
-const MainPage = () => {
+const MainPage: React.FC<{ scrollPosition: ScrollPosition }> = ({
+	scrollPosition,
+}) => {
 	const posts = useContext(PostsContext);
 
 	return (
@@ -10,14 +16,12 @@ const MainPage = () => {
 			{posts?.map((post, idx) => (
 				<PostImage
 					key={idx}
-					text={post.text}
-					author={post.author!}
-					img={post.file!}
-					idx={post.id}
+					scrollPosition={scrollPosition}
+					post={post}
 				></PostImage>
 			))}
 		</>
 	);
 };
 
-export default MainPage;
+export default trackWindowScroll(MainPage);

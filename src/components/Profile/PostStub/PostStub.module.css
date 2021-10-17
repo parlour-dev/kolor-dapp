@@ -1,0 +1,10 @@
+.bottomPostContainer {
+	text-align: left;
+	font-size: 0.9vmax;
+	border-top: 0.1vmax solid #535353;
+	color: white;
+	font-family: "Lato", sans-serif;
+	display: flex;
+	flex-direction: row;
+	padding-bottom: 0.5vmax;
+}

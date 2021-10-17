@@ -1,11 +1,22 @@
+const BATCH_SIZE = 20;
+
 const fetchComments = async (idx: number) => {
-	const response = await fetch(`https://api.desoapp.co/comments/${idx}`, {
-		method: "GET",
-	});
+	const batchid = Math.floor(idx / BATCH_SIZE);
+	const index_in_batch = idx % BATCH_SIZE;
+
+	const response = await fetch(
+		`https://api.desoapp.co/comments/batch-${batchid}`,
+		{
+			method: "GET",
+			cache: "force-cache",
+		}
+	);
 
 	const data = await response.json();
 
-	return data;
+	console.log(data[index_in_batch]);
+
+	return data[index_in_batch] || [];
 };
 
 const postComment = (

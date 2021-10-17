@@ -1,11 +1,13 @@
 .container {
 	width: 50vmax;
-	height: 45vmax;
-	margin: auto;
+	height: auto;
+
+	margin: 0 auto;
 	background-color: #17161d;
 	word-wrap: break-word;
 	border: 0.1vmax solid #535353;
 	border-radius: 1.5vmax;
+	padding: 1rem;
 }
 
 .profilePicture {
@@ -52,9 +54,12 @@
 	margin-top: 0.5vmax;
 }
 
+.balance {
+	color: #fff;
+}
+
 .logOutButton {
 	width: 20vmax;
-	margin: auto;
 	margin-top: 18vmax;
 	background-color: #2e63fb;
 	color: #fff;
@@ -82,10 +87,10 @@
 	transform: scale(1.1);
 	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.42);
 }
+
 @media only screen and (max-width: 1200px) {
 	.container {
 		width: 75%;
-		height: 50vmax;
 	}
 	.logOutButton {
 		margin-top: 23vmax;

@@ -33,29 +33,29 @@ function App() {
 	return (
 		<Router>
 			<UniversalAlertProvider>
-				<div className="App">
-					<Navbar />
-					<div className="Separator" style={{ height: "7.5vmax" }}></div>
-					<Switch>
-						<Route exact path="/">
-							<PostsContext.Provider value={posts}>
+				<PostsContext.Provider value={posts}>
+					<div className="App">
+						<Navbar />
+						<div className="Separator" style={{ height: "7.5vmax" }}></div>
+						<Switch>
+							<Route exact path="/">
 								<MainPage />
-							</PostsContext.Provider>
-						</Route>
-						<Route exact path="/create">
-							<CreateNewPost />
-						</Route>
-						{account && (
-							<Route exact path="/profile">
-								<Profile
-									username="helko"
-									walletAddress={account}
-									author={account}
-								/>
 							</Route>
-						)}
-					</Switch>
-				</div>
+							<Route exact path="/create">
+								<CreateNewPost />
+							</Route>
+							{account && (
+								<Route exact path="/profile">
+									<Profile
+										username="helko"
+										walletAddress={account}
+										author={account}
+									/>
+								</Route>
+							)}
+						</Switch>
+					</div>
+				</PostsContext.Provider>
 			</UniversalAlertProvider>
 		</Router>
 	);

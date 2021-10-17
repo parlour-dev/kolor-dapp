@@ -7,7 +7,7 @@ export const tcpdata_abi = [
 	"event TipReceived(uint256 indexed idx, uint256 amount)",
 	"function addContent(string newHeader)",
 	"function content(uint256) view returns (address author, string header)",
-	"function getBalance() view returns (uint256)",
+	"function getBalance(address target) view returns (uint256)",
 	"function getContent() view returns (tuple(address author, string header)[])",
 	"function getContentBalance(uint256 idx) view returns (uint256)",
 	"function getContentLength() view returns (uint256)",
@@ -41,9 +41,10 @@ export function rawPostToPost(
 		return post;
 	} catch (e) {
 		const post: Post = {
-			author: "0x123",
-			id: 111,
-			text: "error",
+			author: author,
+			id: idx,
+			text: "[removed]",
+			removed: true,
 		};
 		return post;
 	}

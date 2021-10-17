@@ -4,7 +4,7 @@
 	border-radius: 1.5vmax;
 	margin: auto;
 	margin-bottom: 2vmax;
-	font-size: 1vmp;
+	font-size: 1vmax;
 	background-color: #17161d;
 	word-wrap: break-word;
 }
@@ -182,7 +182,6 @@
 .popupAmountButton {
 	display: inline-block;
 	border-radius: 0.8vmax;
-	
 
 	margin: 0 1%;
 
