@@ -32,5 +32,5 @@ export type TipAmounts = {
 };
 
 export enum SupportedChains {
-	Ropsten = ChainId.Ropsten
+	Ropsten = ChainId.Ropsten,
 }

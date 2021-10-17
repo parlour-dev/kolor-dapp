@@ -18,7 +18,7 @@ const generateProfilePictureGradient = (address: string, height: string) => {
 
 	let style = {
 		background: `linear-gradient(${tilt}deg, rgba(${color1},${color2},${color3},1) 0%, rgba(${color4},${color5},${color6},1) 100%)`,
-		height: height
+		height: height,
 	};
 
 	return style;
@@ -30,7 +30,11 @@ type ProfilePictureT = {
 	height?: string;
 };
 
-const ProfilePicture: React.FC<ProfilePictureT> = ({ address, className, height }) => {
+const ProfilePicture: React.FC<ProfilePictureT> = ({
+	address,
+	className,
+	height,
+}) => {
 	let profilePictureStyles = useMemo(
 		() => generateProfilePictureGradient(address, height || "3.5vmax"),
 		[address, height]

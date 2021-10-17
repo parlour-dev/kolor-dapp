@@ -8,7 +8,7 @@ const fetchComments = async (idx: number) => {
 		`https://api.desoapp.co/comments/batch-${batchid}`,
 		{
 			method: "GET",
-			cache: "force-cache",
+			cache: "default",
 		}
 	);
 

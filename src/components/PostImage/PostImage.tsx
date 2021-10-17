@@ -41,7 +41,11 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 	]) || [0];
 	const etherTipBalance = ethers.utils.formatUnits(etherTipBalanceRaw, "ether");
 
-	const profilePictureHeight = useMediaQuery("@media only screen and (max-width: 500px) and (min-height: 300px)") ? "5vmax" : "3.5vmax";
+	const profilePictureHeight = useMediaQuery(
+		"@media only screen and (max-width: 500px) and (min-height: 300px)"
+	)
+		? "5vmax"
+		: "3.5vmax";
 
 	// async function usdToEther() {
 	// 	let etherPrice = await fetch(
@@ -55,6 +59,8 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 			.then((data) => setComments(data))
 			.catch(console.error);
 	}, [post.id]);
+
+	useEffect(() => console.log(comments), [comments]);
 
 	async function onCommentSubmit(newComment: string) {
 		showLoading(true);
@@ -100,7 +106,12 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 						<div className={styles.creatorWallet}>{post?.author}</div>
 					</div>
 					<div className={styles.profilePicutre}>
-						{post.author && <ProfilePicture address={post.author} height={profilePictureHeight} />}
+						{post.author && (
+							<ProfilePicture
+								address={post.author}
+								height={profilePictureHeight}
+							/>
+						)}
 					</div>
 				</div>
 				<div className={styles.text}>{post.text}</div>

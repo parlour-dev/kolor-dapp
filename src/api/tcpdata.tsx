@@ -28,9 +28,12 @@ export const tcpdata_abi = [
 ];
 
 export const tcpdata = {
-	[SupportedChains.Ropsten]: new ethers.Contract(tcpdata_address[ChainId.Ropsten], tcpdata_abi),
+	[SupportedChains.Ropsten]: new ethers.Contract(
+		tcpdata_address[ChainId.Ropsten],
+		tcpdata_abi
+	),
 	//[SupportedChains.BSCTestnet]: new ethers.Contract(tcpdata_address[ChainId.BSCTestnet], tcpdata_abi)
-}
+};
 
 export function rawPostToPost(
 	idx: number,

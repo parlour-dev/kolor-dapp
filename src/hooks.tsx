@@ -25,7 +25,11 @@ export function useShowLoading() {
 	return useContext(LoadingContext);
 }
 
-export function useTCPDataFunction(method: string, transactionName?: string, chain?: SupportedChains) {
+export function useTCPDataFunction(
+	method: string,
+	transactionName?: string,
+	chain?: SupportedChains
+) {
 	return useContractFunction(
 		// @ts-ignore
 		tcpdata[chain || SupportedChains.Ropsten],
@@ -34,7 +38,11 @@ export function useTCPDataFunction(method: string, transactionName?: string, cha
 	);
 }
 
-export function useTCPDataCall(method: string, args?: any[], chain?: SupportedChains, ) {
+export function useTCPDataCall(
+	method: string,
+	args?: any[],
+	chain?: SupportedChains
+) {
 	return useContractCall({
 		abi: new ethers.utils.Interface(tcpdata_abi),
 		address: tcpdata_address[chain || SupportedChains.Ropsten],
