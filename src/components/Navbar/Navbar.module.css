@@ -78,14 +78,13 @@
 }
 
 .logo {
-	margin: auto;
+	margin-bottom: 0.8vmax;
+	margin-left: auto;
+	margin-right: auto;
 	width: auto;
 	justify-content: center;
 	align-self: center;
 	color: #fff;
-	font-family: "Helvetica", sans-serif;
-	font-weight: 700;
-	font-size: 2vmax;
 	background-color: transparent;
 	border: 0px;
 
