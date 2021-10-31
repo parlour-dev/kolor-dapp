@@ -3,11 +3,12 @@
 	display: flex;
 	flex-direction: row-reverse;
 }
+.profContainer {
+	height: 100%;
+	aspect-ratio: 1/1;
+}
 .profPicture {
 	height: 100% !important;
-	aspect-ratio: 1/1;
-	border-radius: 50%;
-	background-color: rgb(241, 117, 103);
 }
 .creatorInfo {
 	width: 100%;
@@ -28,6 +29,10 @@
 	margin-left: 0.1vmax;
 	display: flex;
 	align-items: center;
+	text-decoration: none;
+}
+.creatorNick:hover {
+	text-decoration: underline;
 }
 .creatorWallet {
 	width: 100%;

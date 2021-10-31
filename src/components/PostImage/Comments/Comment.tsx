@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { resolveNickname } from "../../../api/nickname";
 import { CommentT } from "../../../types";
 import ProfilePicture from "../../ProfilePicture/ProfilePicture";
@@ -8,10 +9,14 @@ const Comment: React.FC<{ data: CommentT }> = ({ data }) => {
 		<div>
 			<div className={styles.creator}>
 				<div className={styles.creatorInfo}>
-					<ProfilePicture address={data.a} className={styles.profPicture} />
+					<Link to={`/user/${data.a}`} className={styles.profContainer}>
+						<ProfilePicture address={data.a} className={styles.profPicture} />
+					</Link>
 
 					<div className={styles.userInfoContainer}>
-						<div className={styles.creatorNick}>{resolveNickname(data.a)}</div>
+						<Link to={`/user/${data.a}`} className={styles.creatorNick}>
+							{resolveNickname(data.a)}
+						</Link>
 						<div className={styles.creatorWallet}>{data.a}</div>
 					</div>
 				</div>

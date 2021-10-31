@@ -1,7 +1,13 @@
-import { shortenIfAddress } from "@usedapp/core";
+import { shortenAddress } from "@usedapp/core";
 
 const resolveNickname = (address: string) => {
-	return shortenIfAddress(address);
+	try {
+		return shortenAddress(address);
+	} catch (e) {
+		console.error(e);
+	}
+
+	return address;
 };
 
 export { resolveNickname };

@@ -12,6 +12,7 @@ import ReactGa from "react-ga";
 import UniversalAlertProvider from "./components/UniversalAlert/UniversalAlertProvider";
 import { useTCPDataCall } from "./hooks";
 import { resolveNickname } from "./api/nickname";
+import UserFeed from "./components/UserFeed/UserFeed";
 
 export const PostsContext = React.createContext<Post[]>([]);
 export const NotificationsContext = React.createContext<any[]>([]);
@@ -44,6 +45,9 @@ function App() {
 							</Route>
 							<Route exact path="/create">
 								<CreateNewPost />
+							</Route>
+							<Route exact path="/user/:address">
+								<UserFeed />
 							</Route>
 							{account && (
 								<Route exact path="/profile">

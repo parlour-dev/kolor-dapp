@@ -29,6 +29,10 @@
 	font-weight: 600;
 	font-family: "Lato", sans-serif;
 	color: #fff;
+	text-decoration: none;
+}
+.creatorNick:hover {
+	text-decoration: underline !important;
 }
 .creatorWallet {
 	height: 25%;
