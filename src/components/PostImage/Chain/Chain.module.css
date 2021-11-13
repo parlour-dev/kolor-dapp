@@ -1,0 +1,20 @@
+.container{
+    width: 5vmax;
+    height: 1.2vmax;
+    font-size: 0.75vmax;
+    border: 0.075vmax solid #535353;
+    border-radius: 1vmax;
+    color: #535353;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+}
+.dot{
+    width: 0.3vmax;
+    height: 0.3vmax;
+    border-radius: 100%;
+}
+.blockchain{
+   margin-left: 0.25vmax;
+}

@@ -1,6 +1,7 @@
 import styles from "./PostImage.module.css";
 import AddComment from "./Comments/AddComment";
 import Tips from "../Tips/Tips";
+import Chain from "./Chain/Chain";
 import ProfilePicture from "../ProfilePicture/ProfilePicture";
 import {
 	useShowAlert,
@@ -28,6 +29,8 @@ type PostImageT = {
 };
 
 const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
+	
+
 	const [showAddComment, toggleAddComment] = useToggle(false);
 	const [comments, setComments] = useState<CommentT[]>([]);
 
@@ -119,6 +122,7 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 					</Link>
 				</div>
 				<div className={styles.text}>{post.text}</div>
+				
 				<div className={styles.mediaContent}>
 					{post.file && (
 						<LazyLoadImage
@@ -132,7 +136,11 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 				</div>
 
 				<div id="renderTips">
+					<div style={{display: "flex", justifyContent: "space-between",} }>
 					<Tips amounts={{ ethereum: etherTipBalance }} />
+					<Chain blockchain="test" dotcolor="blue"/>
+					</div>
+					<div style={{borderBottom: "0.1vmax solid #535353", clear: "both", marginTop: "0.5vmax"}}></div>
 				</div>
 
 				<div className={styles.viewerAction}>
