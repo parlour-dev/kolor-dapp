@@ -130,14 +130,13 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 						/>
 					)}
 				</div>
-
 				<div id="renderTips">
 					<Tips amounts={{ ethereum: etherTipBalance }} />
 				</div>
 
 				<div className={styles.viewerAction}>
 					<div
-						className={styles.buttonBlue}
+						className={[styles.buttonBlue, styles.animation].join(" ")}
 						onClick={() => {
 							setPopup(true);
 						}}
@@ -149,7 +148,10 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 						open={popup}
 						onClose={() => setPopup(false)}
 					/>
-					<div className={styles.buttonBlack} onClick={toggleAddComment}>
+					<div
+						className={[styles.buttonBlack, styles.animation].join(" ")}
+						onClick={toggleAddComment}
+					>
 						Comment
 					</div>
 				</div>
