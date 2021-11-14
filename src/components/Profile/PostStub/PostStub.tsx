@@ -8,6 +8,7 @@ import {
 import { Post } from "../../../types";
 import styles from "./PostStub.module.css";
 import { LazyLoadImage, ScrollPosition } from "react-lazy-load-image-component";
+import Chain from "../../PostImage/Chain/Chain";
 
 const PostStub: React.FC<{ post: Post; scrollPosition: ScrollPosition }> = ({
 	post,
@@ -82,6 +83,7 @@ const PostStub: React.FC<{ post: Post; scrollPosition: ScrollPosition }> = ({
 							This post has already been removed.
 						</div>
 					)}
+					<Chain blockchain={post.chainid} />
 				</div>
 			</div>
 		</div>

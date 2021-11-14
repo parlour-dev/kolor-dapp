@@ -30,7 +30,7 @@ const Profile: React.FC<ProfileT> = ({
 }) => {
 	const posts = useContext(PostsContext);
 
-	const { deactivate } = useEthers();
+	const { deactivate, chainId } = useEthers();
 
 	function logOutHandler() {
 		deactivate();
@@ -80,10 +80,11 @@ const Profile: React.FC<ProfileT> = ({
 			</div>
 			<div>
 				{posts
-					?.filter((post) => post.author === author)
-					.map((post, idx) => (
-						<PostStub key={idx} post={post} scrollPosition={scrollPosition} />
-					))}
+					?.filter((post) => post.author?.toLowerCase() === author.toLowerCase())
+					.filter((post) => post.chainid === chainId)
+					.map((post, idx) => {
+						return <PostStub key={idx} post={post} scrollPosition={scrollPosition} />
+					})}
 			</div>
 			<div>
 				<button
