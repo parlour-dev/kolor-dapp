@@ -3,13 +3,7 @@ import AddComment from "./Comments/AddComment";
 import Tips from "../Tips/Tips";
 import Chain from "./Chain/Chain";
 import ProfilePicture from "../ProfilePicture/ProfilePicture";
-import {
-	useShowAlert,
-	useShowLoading,
-	useTCPDataCall,
-	useToggle,
-} from "../../hooks";
-import { ethers } from "ethers";
+import { useShowAlert, useShowLoading, useToggle } from "../../hooks";
 import { useEthers } from "@usedapp/core";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -39,23 +33,11 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 
 	const { account, library } = useEthers();
 
-	const [etherTipBalanceRaw] = useTCPDataCall("getContentBalance", [
-		post.id,
-	]) || [0];
-	const etherTipBalance = ethers.utils.formatUnits(etherTipBalanceRaw, "ether");
-
 	const profilePictureHeight = useMediaQuery(
 		"@media only screen and (max-width: 500px) and (min-height: 300px)"
 	)
 		? "5vmax"
 		: "3.5vmax";
-
-	// async function usdToEther() {
-	// 	let etherPrice = await fetch(
-	// 		"https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd"
-	// 	);
-	// 	console.log(etherPrice);
-	// }
 
 	useEffect(() => {
 		fetchComments(post.id)
@@ -132,7 +114,7 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 				</div>
 				<div id="renderTips">
 					<div style={{ display: "flex", justifyContent: "space-between" }}>
-						<Tips amounts={{ ethereum: etherTipBalance }} />
+						<Tips amounts={{ ethereum: post.balance }} />
 						<Chain blockchain={post.chainid} dotcolor="blue" />
 					</div>
 					<div

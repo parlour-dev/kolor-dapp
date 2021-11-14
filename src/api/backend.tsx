@@ -5,10 +5,13 @@ type BackendResponse = {
 	expiry: Date;
 	fresh: boolean;
 	now: Date;
-	posts: {
-		Author: string;
-		Header: string;
-	}[][];
+	posts: BackendPost[][];
+};
+
+type BackendPost = {
+	Author: string;
+	Header: string;
+	Balance: number;
 };
 
 export async function fetchAllPostsBackend() {
@@ -28,9 +31,7 @@ export async function fetchAllPostsBackend() {
 			const post = response.posts[i][idx];
 			const chainId = response.chainIds[i];
 
-			allposts.push(
-				rawPostToPost(parseInt(idx), chainId, post.Author, post.Header)
-			);
+			allposts.push(rawPostToPost(parseInt(idx), chainId, post));
 		}
 	}
 
@@ -53,27 +54,24 @@ export function resolveChainId(chainId: number): {
 	}
 }
 
-function rawPostToPost(
-	id: number,
-	chainid: number,
-	author: string,
-	header: string
-): Post {
+function rawPostToPost(id: number, chainid: number, raw: BackendPost): Post {
 	try {
-		const header_processed = JSON.parse(header);
+		const header_processed = JSON.parse(raw.Header);
 		const post: Post = {
-			author: author,
+			author: raw.Author,
 			id: id,
 			chainid: chainid,
+			balance: raw.Balance,
 			text: header_processed.title,
 			file: "url" in header_processed ? header_processed.url : undefined,
 		};
 		return post;
 	} catch (e) {
 		const post: Post = {
-			author: author,
+			author: raw.Author,
 			id: id,
 			chainid: chainid,
+			balance: raw.Balance,
 			text: "[removed]",
 			removed: true,
 		};

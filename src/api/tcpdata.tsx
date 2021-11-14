@@ -1,6 +1,6 @@
 import { ChainId } from "@usedapp/core";
 import { ethers } from "ethers";
-import { Post, SupportedChains } from "../types";
+import { SupportedChains } from "../types";
 
 export const tcpdata_address = {
 	[SupportedChains.Ropsten]: "0x0D3E48e537F69d4BDbdc84a1A5BbD70Ad1fD0756",
@@ -34,76 +34,3 @@ export const tcpdata = {
 	),
 	//[SupportedChains.BSCTestnet]: new ethers.Contract(tcpdata_address[ChainId.BSCTestnet], tcpdata_abi)
 };
-
-export function rawPostToPost(
-	idx: number,
-	author: string,
-	header: string
-): Post {
-	try {
-		const header_processed = JSON.parse(header);
-		const post: Post = {
-			author: author,
-			id: idx,
-			chainid: 0,
-			text: header_processed.title,
-			file: "url" in header_processed ? header_processed.url : undefined,
-		};
-		return post;
-	} catch (e) {
-		const post: Post = {
-			author: author,
-			chainid: 0,
-			id: idx,
-			text: "[removed]",
-			removed: true,
-		};
-		return post;
-	}
-}
-
-export async function fetchAllPosts(
-	tcpdata: ethers.Contract,
-	addPost: (post: Post) => void
-) {
-	// add all the fetched posts
-	const contents = await tcpdata.getContent();
-
-	if (!contents) return false;
-
-	for (let idx in contents) {
-		const author = contents[idx].author;
-		const header = JSON.parse(contents[idx].header);
-
-		let url = undefined;
-
-		if (header.url && !header.url.startsWith("blob")) url = header.url;
-
-		const newPost: Post = {
-			id: parseInt(idx),
-			chainid: 0,
-			text: header.title,
-			author: author,
-			file: url,
-		};
-
-		addPost(newPost);
-	}
-
-	return true;
-}
-
-export async function fetchOnePost(tcpdata: ethers.Contract, idx: number) {
-	const content = await tcpdata.content(idx);
-	const author = content.author;
-	const header = JSON.parse(content.header);
-	const post: Post = {
-		id: idx,
-		chainid: 0,
-		text: header.title,
-		author: author,
-		file: header.url || undefined,
-	};
-
-	return post;
-}

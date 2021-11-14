@@ -4,6 +4,7 @@ export type Post = {
 	id: number;
 	chainid: number;
 	text: string;
+	balance: number;
 	file?: string;
 	tags?: string[];
 	comments?: string[];
