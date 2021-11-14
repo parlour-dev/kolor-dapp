@@ -45,6 +45,7 @@ export function rawPostToPost(
 		const post: Post = {
 			author: author,
 			id: idx,
+			chainid: 0,
 			text: header_processed.title,
 			file: "url" in header_processed ? header_processed.url : undefined,
 		};
@@ -52,6 +53,7 @@ export function rawPostToPost(
 	} catch (e) {
 		const post: Post = {
 			author: author,
+			chainid: 0,
 			id: idx,
 			text: "[removed]",
 			removed: true,
@@ -79,6 +81,7 @@ export async function fetchAllPosts(
 
 		const newPost: Post = {
 			id: parseInt(idx),
+			chainid: 0,
 			text: header.title,
 			author: author,
 			file: url,
@@ -96,6 +99,7 @@ export async function fetchOnePost(tcpdata: ethers.Contract, idx: number) {
 	const header = JSON.parse(content.header);
 	const post: Post = {
 		id: idx,
+		chainid: 0,
 		text: header.title,
 		author: author,
 		file: header.url || undefined,

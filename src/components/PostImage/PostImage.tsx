@@ -63,8 +63,6 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 			.catch(console.error);
 	}, [post.id]);
 
-	useEffect(() => console.log(comments), [comments]);
-
 	async function onCommentSubmit(newComment: string) {
 		showLoading(true);
 
@@ -135,7 +133,7 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 				<div id="renderTips">
 					<div style={{ display: "flex", justifyContent: "space-between" }}>
 						<Tips amounts={{ ethereum: etherTipBalance }} />
-						<Chain blockchain="test" dotcolor="blue" />
+						<Chain blockchain={post.chainid} dotcolor="blue" />
 					</div>
 					<div
 						style={{
