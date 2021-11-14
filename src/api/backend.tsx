@@ -15,12 +15,12 @@ type BackendPost = {
 };
 
 export async function fetchAllPostsBackend() {
-	const raw_response = await fetch("http://localhost:8080/get_posts", {
+	const raw_response = await fetch("http://localhost:8000/get_posts", {
 		method: "GET",
 	});
 
 	if (!raw_response.ok) {
-		throw new Error("Failed to upload.");
+		throw new Error("Failed to fetch.");
 	}
 
 	const response = (await raw_response.json()) as BackendResponse;

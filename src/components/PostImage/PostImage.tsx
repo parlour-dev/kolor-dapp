@@ -40,10 +40,10 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 		: "3.5vmax";
 
 	useEffect(() => {
-		fetchComments(post.id)
+		fetchComments(post.id, post.chainid)
 			.then((data) => setComments(data))
 			.catch(console.error);
-	}, [post.id]);
+	}, [post.id, post.chainid]);
 
 	async function onCommentSubmit(newComment: string) {
 		showLoading(true);
@@ -58,6 +58,7 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 				// post the comment using the api
 				const result = await postComment(
 					post.id,
+					post.chainid,
 					newComment,
 					account,
 					await library.getSigner().signMessage(newComment)
