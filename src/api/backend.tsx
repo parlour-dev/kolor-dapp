@@ -15,7 +15,7 @@ type BackendPost = {
 };
 
 export async function fetchAllPostsBackend() {
-	const raw_response = await fetch("http://localhost:8000/get_posts", {
+	const raw_response = await fetch("https://backend.kolor.social/get_posts", {
 		method: "GET",
 	});
 
