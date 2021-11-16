@@ -99,6 +99,12 @@
 	background-color: #050111;
 }
 
+.buttonOff {
+	composes: button;
+	background-color: gray;
+	cursor: default;
+}
+
 .animation {
 	/* animation */
 	-webkit-transition: all 1s ease;

@@ -80,10 +80,14 @@ const Profile: React.FC<ProfileT> = ({
 			</div>
 			<div>
 				{posts
-					?.filter((post) => post.author?.toLowerCase() === author.toLowerCase())
+					?.filter(
+						(post) => post.author?.toLowerCase() === author.toLowerCase()
+					)
 					.filter((post) => post.chainid === chainId)
 					.map((post, idx) => {
-						return <PostStub key={idx} post={post} scrollPosition={scrollPosition} />
+						return (
+							<PostStub key={idx} post={post} scrollPosition={scrollPosition} />
+						);
 					})}
 			</div>
 			<div>

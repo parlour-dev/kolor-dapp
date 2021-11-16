@@ -12,10 +12,10 @@ import Comments from "./Comments/Comments";
 import { CommentT, Post } from "../../types";
 import { LazyLoadImage, ScrollPosition } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import TipPopup from "./TipPopup/TipPopup";
 import { useMediaQuery } from "@mui/material";
 import { resolveNickname } from "../../api/nickname";
 import { Link } from "react-router-dom";
+import TipButton from "./TipButton/TipButton";
 
 type PostImageT = {
 	post: Post;
@@ -25,8 +25,6 @@ type PostImageT = {
 const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 	const [showAddComment, toggleAddComment] = useToggle(false);
 	const [comments, setComments] = useState<CommentT[]>([]);
-
-	const [popup, setPopup] = useState(false);
 
 	const showAlert = useShowAlert();
 	const showLoading = useShowLoading();
@@ -116,7 +114,7 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 				<div id="renderTips">
 					<div style={{ display: "flex", justifyContent: "space-between" }}>
 						<Tips amounts={{ ethereum: post.balance }} />
-						<Chain blockchain={post.chainid} dotcolor="blue" />
+						<Chain blockchain={post.chainid} />
 					</div>
 					<div
 						style={{
@@ -128,19 +126,7 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 				</div>
 
 				<div className={styles.viewerAction}>
-					<div
-						className={[styles.buttonBlue, styles.animation].join(" ")}
-						onClick={() => {
-							setPopup(true);
-						}}
-					>
-						Appreciate
-					</div>
-					<TipPopup
-						postId={post.id}
-						open={popup}
-						onClose={() => setPopup(false)}
-					/>
+					<TipButton post={post} />
 					<div
 						className={[styles.buttonBlack, styles.animation].join(" ")}
 						onClick={toggleAddComment}
