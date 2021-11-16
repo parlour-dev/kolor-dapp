@@ -43,7 +43,7 @@ const Profile: React.FC<ProfileT> = ({
 
 	let history = useHistory();
 
-	const [balanceRaw] = useTCPDataCall("getBalance", [author]) || [0];
+	const [balanceRaw] = useTCPDataCall("getBalance", chainId || 3, [author]) || [0];
 	const balance = ethers.utils.formatEther(balanceRaw);
 
 	return (

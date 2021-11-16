@@ -1,11 +1,19 @@
 import { ChainId } from "@usedapp/core";
-import { ethers } from "ethers";
-import { SupportedChains } from "../types";
+import { Contract, ethers } from "ethers";
 
-export const tcpdata_address = {
-	[SupportedChains.Ropsten]: "0x0D3E48e537F69d4BDbdc84a1A5BbD70Ad1fD0756",
-	//[SupportedChains.BSCTestnet]: "0xa398De2fEF0b37cf50c2F9D88b8953b94b49c78C"
+type TCPDataAddressT = {
+	[I: number]: string
+}
+
+type TCPDataT = {
+	[I: number]: Contract
+}
+
+export const tcpdata_address: TCPDataAddressT = {
+	[ChainId.Ropsten]: "0x0D3E48e537F69d4BDbdc84a1A5BbD70Ad1fD0756",
+	[ChainId.BSCTestnet]: "0xa398De2fEF0b37cf50c2F9D88b8953b94b49c78C"
 };
+
 export const tcpdata_abi = [
 	"event ContentAdded(uint256 indexed idx)",
 	"event TipReceived(uint256 indexed idx, uint256 amount)",
@@ -27,10 +35,10 @@ export const tcpdata_abi = [
 	"function withdrawBalance()",
 ];
 
-export const tcpdata = {
-	[SupportedChains.Ropsten]: new ethers.Contract(
+export const tcpdata: TCPDataT = {
+	[ChainId.Ropsten]: new ethers.Contract(
 		tcpdata_address[ChainId.Ropsten],
 		tcpdata_abi
 	),
-	//[SupportedChains.BSCTestnet]: new ethers.Contract(tcpdata_address[ChainId.BSCTestnet], tcpdata_abi)
+	[ChainId.BSCTestnet]: new ethers.Contract(tcpdata_address[ChainId.BSCTestnet], tcpdata_abi)
 };

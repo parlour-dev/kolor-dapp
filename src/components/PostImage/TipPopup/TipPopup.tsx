@@ -8,6 +8,7 @@ import {
 } from "../../../hooks";
 import ReactGa from "react-ga";
 import styles from "./TipPopup.module.css";
+import { useEthers } from "@usedapp/core";
 
 const TipPopup: React.FC<{
 	open: boolean;
@@ -19,7 +20,9 @@ const TipPopup: React.FC<{
 	const showAlert = useShowAlert();
 	const showLoading = useShowLoading();
 
-	const { send, state } = useTCPDataFunction("tipContent", "Tip post");
+	const { chainId } = useEthers()
+
+	const { send, state } = useTCPDataFunction("tipContent", chainId || 3, "Tip post");
 
 	function handleTip() {
 		ReactGa.event({
