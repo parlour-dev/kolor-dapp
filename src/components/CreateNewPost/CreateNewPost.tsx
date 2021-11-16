@@ -18,9 +18,13 @@ const CreateNewPost = () => {
 
 	let history = useHistory();
 
-	const { chainId } = useEthers()
+	const { chainId } = useEthers();
 
-	const { send, state } = useTCPDataFunction("addContent", chainId || 3, "Add content");
+	const { send, state } = useTCPDataFunction(
+		"addContent",
+		chainId || 3,
+		"Add content"
+	);
 
 	const submitPostHandler = async (e: React.MouseEvent) => {
 		e.preventDefault();

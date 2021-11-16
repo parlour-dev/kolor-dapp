@@ -31,9 +31,12 @@ export type TipAmounts = {
 	}[];
 };
 
+export type ChainData = {
+	name: string;
+	color: string;
+	currency: string;
+};
+
 export type ChainIdsT = {
-	[U: number]: {
-		name: string;
-		color: string;
-	};
+	[U: number]: ChainData;
 };

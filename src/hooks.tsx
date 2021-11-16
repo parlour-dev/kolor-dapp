@@ -27,7 +27,7 @@ export function useShowLoading() {
 export function useTCPDataFunction(
 	method: string,
 	chain: number,
-	transactionName?: string,
+	transactionName?: string
 ) {
 	return useContractFunction(
 		//@ts-ignore
@@ -37,11 +37,7 @@ export function useTCPDataFunction(
 	);
 }
 
-export function useTCPDataCall(
-	method: string,
-	chain: number,
-	args?: any[],
-) {
+export function useTCPDataCall(method: string, chain: number, args?: any[]) {
 	return useContractCall({
 		abi: new ethers.utils.Interface(tcpdata_abi),
 		address: tcpdata_address[chain],

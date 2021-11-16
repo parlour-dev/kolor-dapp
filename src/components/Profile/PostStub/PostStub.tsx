@@ -15,16 +15,20 @@ const PostStub: React.FC<{ post: Post; scrollPosition: ScrollPosition }> = ({
 	post,
 	scrollPosition,
 }) => {
-	const {chainId} = useEthers()
+	const { chainId } = useEthers();
 
-	const { send, state } = useTCPDataFunction("removeContent", chainId || 3, "Remove post");
+	const { send, state } = useTCPDataFunction(
+		"removeContent",
+		chainId || 3,
+		"Remove post"
+	);
 
 	const showLoading = useShowLoading();
 	const showAlert = useShowAlert();
 
-	const time = (useTCPDataCall("getContentTimestamp", chainId ||3, [post.id]) || [
-		ethers.constants.Zero,
-	])[0] as BigNumber;
+	const time = (useTCPDataCall("getContentTimestamp", chainId || 3, [
+		post.id,
+	]) || [ethers.constants.Zero])[0] as BigNumber;
 	const postMillis = time.toNumber() * 1000;
 
 	// 3 days - ( the difference between now and the date the post was created )

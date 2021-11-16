@@ -2,16 +2,16 @@ import { ChainId } from "@usedapp/core";
 import { Contract, ethers } from "ethers";
 
 type TCPDataAddressT = {
-	[I: number]: string
-}
+	[I: number]: string;
+};
 
 type TCPDataT = {
-	[I: number]: Contract
-}
+	[I: number]: Contract;
+};
 
 export const tcpdata_address: TCPDataAddressT = {
 	[ChainId.Ropsten]: "0x0D3E48e537F69d4BDbdc84a1A5BbD70Ad1fD0756",
-	[ChainId.BSCTestnet]: "0xa398De2fEF0b37cf50c2F9D88b8953b94b49c78C"
+	[ChainId.BSCTestnet]: "0xa398De2fEF0b37cf50c2F9D88b8953b94b49c78C",
 };
 
 export const tcpdata_abi = [
@@ -40,5 +40,8 @@ export const tcpdata: TCPDataT = {
 		tcpdata_address[ChainId.Ropsten],
 		tcpdata_abi
 	),
-	[ChainId.BSCTestnet]: new ethers.Contract(tcpdata_address[ChainId.BSCTestnet], tcpdata_abi)
+	[ChainId.BSCTestnet]: new ethers.Contract(
+		tcpdata_address[ChainId.BSCTestnet],
+		tcpdata_abi
+	),
 };

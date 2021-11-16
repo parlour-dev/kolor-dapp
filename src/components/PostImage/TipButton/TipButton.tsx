@@ -25,11 +25,7 @@ const TipButton: React.FC<{ post: Post }> = ({ post }) => {
 				>
 					Appreciate
 				</div>
-				<TipPopup
-					postId={post.id}
-					open={popup}
-					onClose={() => setPopup(false)}
-				/>
+				<TipPopup post={post} open={popup} onClose={() => setPopup(false)} />
 			</>
 		);
 

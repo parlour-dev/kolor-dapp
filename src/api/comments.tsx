@@ -1,6 +1,8 @@
 const BATCH_SIZE = 20;
 
 const fetchComments = async (idx: number, chainid: number) => {
+	// Comments are stored in batches of 20.
+	// Each comment has an index within its batch.
 	const batchid = Math.floor(idx / BATCH_SIZE);
 	const index_in_batch = idx % BATCH_SIZE;
 

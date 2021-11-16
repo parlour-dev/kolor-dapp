@@ -1,4 +1,4 @@
-import { ChainIdsT, Post } from "../types";
+import { ChainData, ChainIdsT, Post } from "../types";
 
 type BackendResponse = {
 	chainIds: number[];
@@ -39,18 +39,15 @@ export async function fetchAllPostsBackend() {
 }
 
 const chainIds: ChainIdsT = {
-	3: { name: "Ropsten", color: "#fc0511" },
-	97: { name: "BSC Testnet", color: "#fce705" },
+	3: { name: "Ropsten", color: "#fc0511", currency: "ETH" },
+	97: { name: "BSC Testnet", color: "#fce705", currency: "BNB" },
 };
 
-export function resolveChainId(chainId: number): {
-	name: string;
-	color: string;
-} {
+export function resolveChainId(chainId: number): ChainData {
 	if (chainId in chainIds) {
 		return chainIds[chainId];
 	} else {
-		return { name: chainId.toString(), color: "#fff" };
+		return { name: chainId.toString(), color: "#fff", currency: "ETH" };
 	}
 }
 
