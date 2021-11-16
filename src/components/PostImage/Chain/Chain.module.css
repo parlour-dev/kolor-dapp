@@ -12,7 +12,8 @@
 .dot {
 	width: 0.3vmax;
 	height: 0.3vmax;
-	border-radius: 100%;
+	border-radius: 50%;
+	aspect-ratio: 1/1;
 }
 .blockchain {
 	margin-left: 0.25vmax;

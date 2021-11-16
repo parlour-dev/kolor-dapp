@@ -4,6 +4,9 @@ import { useEthers } from "@usedapp/core";
 import ProfilePicture from "../ProfilePicture/ProfilePicture";
 import Logo from "../Navbar/logo.png";
 import ReactGa from "react-ga";
+import React, { useMemo } from "react";
+import { resolveChainId } from "../../api/backend";
+
 
 const Navbar = () => {
 	const history = useHistory();
@@ -15,6 +18,10 @@ const Navbar = () => {
 			action: "Logging in",
 		});
 	}
+
+	const { chainId } = useEthers();
+	const chain = useMemo(() => resolveChainId(chainId || 3), [chainId]);
+
 
 	return (
 		<div>
@@ -46,6 +53,12 @@ const Navbar = () => {
 				</div>
 				{/* ConnetWalletButton */}
 				<div className={styles.navbarRight}>
+					
+							<div className={styles.chainDisplayBox}>
+								<div className={styles.chainDot} style={{backgroundColor: chain.color}}></div>
+								<p className={styles.chainName}>{chain.name}</p>
+								</div>
+
 					{!account && (
 						<button
 							className={[styles.navbarButtonRight, styles.animation].join(" ")}

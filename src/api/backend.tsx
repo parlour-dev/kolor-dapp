@@ -39,7 +39,7 @@ export async function fetchAllPostsBackend() {
 }
 
 const chainIds: ChainIdsT = {
-	3: { name: "Ropsten", color: "#fc0511", currency: "ETH" },
+	3: { name: "Ropsten", color: "#ff0b8d", currency: "ETH" },
 	97: { name: "BSC Testnet", color: "#fce705", currency: "BNB" },
 };
 
