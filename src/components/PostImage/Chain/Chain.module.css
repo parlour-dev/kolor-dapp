@@ -14,7 +14,6 @@
 	height: 0.3vmax;
 	aspect-ratio: 1/1;
 	border-radius: 50%;
-	
 }
 .blockchain {
 	margin-left: 0.25vmax;
@@ -33,6 +32,5 @@
 		width: 0.45vmax;
 		height: 0.45vmax;
 		margin-right: 0.25vmax;
-
 	}
 }
