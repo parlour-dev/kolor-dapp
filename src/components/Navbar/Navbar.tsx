@@ -7,7 +7,6 @@ import ReactGa from "react-ga";
 import React, { useMemo } from "react";
 import { resolveChainId } from "../../api/backend";
 
-
 const Navbar = () => {
 	const history = useHistory();
 	const { activateBrowserWallet, account } = useEthers();
@@ -21,7 +20,6 @@ const Navbar = () => {
 
 	const { chainId } = useEthers();
 	const chain = useMemo(() => resolveChainId(chainId || 3), [chainId]);
-
 
 	return (
 		<div>
@@ -53,11 +51,13 @@ const Navbar = () => {
 				</div>
 				{/* ConnetWalletButton */}
 				<div className={styles.navbarRight}>
-					
-							<div className={styles.chainDisplayBox}>
-								<div className={styles.chainDot} style={{backgroundColor: chain.color}}></div>
-								<p className={styles.chainName}>{chain.name}</p>
-								</div>
+					<div className={styles.chainDisplayBox}>
+						<div
+							className={styles.chainDot}
+							style={{ backgroundColor: chain.color }}
+						></div>
+						<p className={styles.chainName}>{chain.name}</p>
+					</div>
 
 					{!account && (
 						<button

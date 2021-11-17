@@ -142,14 +142,7 @@
 		font-size: 2vmax;
 	}
 
-	.buttonBlue {
-		height: 5vmax;
-		line-height: 5vmax;
-		font-size: 2vmax;
-		border-radius: 1.4vmax;
-	}
-
-	.buttonBlack {
+	.button {
 		height: 5vmax;
 		line-height: 5vmax;
 		font-size: 2vmax;

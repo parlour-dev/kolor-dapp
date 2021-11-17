@@ -11,17 +11,21 @@
 	z-index: 9999;
 }
 .navbarButtonLeft {
-	width: 100%;
+	width: 10vmax;
 	height: 60%;
+
 	background-color: #2e63fb;
 	color: #fff;
+
 	border-radius: 0.8vmax;
+
 	font-family: "Lato", sans-serif;
 	font-weight: 600;
 	line-height: 3vmax;
 	font-size: 1.8vmax;
 	text-align: center;
 	font-family: "Lato", sans-serif;
+
 	border: 0px;
 }
 .buttonDisabled {
@@ -32,16 +36,17 @@
 	box-shadow: none;
 	display: flex;
 	align-items: center;
+	justify-content: flex-end;
 	flex-direction: row;
 	margin-right: 1vmax;
-	width: 10vmax;
+	width: 14vmax;
 }
 .navbarLeft {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	margin-left: 1vmax;
-	width: 10vmax;
+	width: 14vmax;
 }
 .navbarButtonRight {
 	width: 10vmax;
@@ -109,17 +114,14 @@
 	background-color: transparent;
 }
 
-
 .chainDisplayBox {
 	color: #515151;
 	border: solid 0.1vmax #515151;
 	border-radius: 100vmax;
-	width: 5vmax;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	padding: 0vmax 0.5vmax;
-	
 }
 
 .chainDot {
