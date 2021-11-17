@@ -23,15 +23,18 @@ const Navbar = () => {
 
 	const [chainDialogOpen, setChainDialogOpen] = useState(false);
 
-	const showAlert = useShowAlert()
+	const showAlert = useShowAlert();
 
 	function logInHandler() {
 		activateBrowserWallet((error) => {
 			console.log(error);
 			if (error.name === "UnsupportedChainIdError") {
-				setChainDialogOpen(true)
+				setChainDialogOpen(true);
 			} else if (error.name === "NoEthereumProviderError") {
-				showAlert("To log in you have to install a browser wallet like MetaMask.", "error")
+				showAlert(
+					"To log in you have to install a browser wallet like MetaMask.",
+					"error"
+				);
 			}
 		});
 		ReactGa.event({
@@ -105,15 +108,14 @@ const Navbar = () => {
 			</div>
 			<Dialog
 				open={chainDialogOpen}
-				sx={{zIndex: 99999}}
+				sx={{ zIndex: 99999 }}
 				onClose={() => setChainDialogOpen(false)}
 			>
-				<DialogTitle>
-					You are connected to an unsupported chain
-				</DialogTitle>
+				<DialogTitle>You are connected to an unsupported chain</DialogTitle>
 				<DialogContent>
 					<DialogContentText>
-						This chain is not supported. Please switch to Ropsten or the BSC Testnet.
+						This chain is not supported. Please switch to Ropsten or the BSC
+						Testnet.
 					</DialogContentText>
 				</DialogContent>
 				<DialogActions>

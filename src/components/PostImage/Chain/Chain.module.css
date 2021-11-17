@@ -1,9 +1,9 @@
 .container {
 	width: 6vmax;
 	height: 1.2vmax;
-	font-size: 0.75vmax;
+	font-size: 0.75em;
 	border: 0.075vmax solid #535353;
-	border-radius: 1vmax;
+	border-radius: 100vmax;
 	color: #a1a1a1;
 	display: flex;
 	align-items: center;
@@ -12,9 +12,25 @@
 .dot {
 	width: 0.3vmax;
 	height: 0.3vmax;
-	border-radius: 50%;
 	aspect-ratio: 1/1;
+	border-radius: 50%;
 }
 .blockchain {
 	margin-left: 0.25vmax;
+}
+
+@media only screen and (max-width: 500px) and (min-height: 300px) {
+	.container {
+		width: auto;
+		height: 2.5vmax;
+		font-size: 1.5em;
+		padding: 0.25vmax 1vmax;
+		margin-bottom: 0.5vmax;
+	}
+
+	.dot {
+		width: 0.45vmax;
+		height: 0.45vmax;
+		margin-right: 0.25vmax;
+	}
 }

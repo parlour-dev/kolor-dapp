@@ -122,16 +122,23 @@
 
 @media only screen and (max-width: 1200px) {
 	.post {
-		width: 50vmax;
+		width: 60vmax;
+	}
+
+	.button {
+		font-size: 2em;
 	}
 }
 
 @media only screen and (max-width: 500px) and (min-height: 300px) {
 	.post {
+		margin-bottom: 2vmax;
 		width: 100%;
-		border-left: none;
-		border-right: none;
+		/* border-left: none; */
+		/* border-right: none; */
+		border: none;
 		border-radius: 0px;
+		padding-bottom: 1vmax;
 	}
 
 	.creator {
@@ -145,7 +152,7 @@
 	.button {
 		height: 5vmax;
 		line-height: 5vmax;
-		font-size: 2vmax;
+		font-size: 2.5em;
 		border-radius: 1.4vmax;
 	}
 

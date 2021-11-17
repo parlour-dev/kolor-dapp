@@ -39,33 +39,33 @@ function App() {
 	return (
 		<Router>
 			<UniversalAlertProvider>
-				<ThemeProvider theme={createTheme({palette: {mode: "dark"}})}>
-				<PostsContext.Provider value={posts}>
-					<div className="App">
-						<Navbar />
-						<div className="Separator" style={{ height: "7.5vmax" }}></div>
-						<Switch>
-							<Route exact path="/">
-								<MainPage />
-							</Route>
-							<Route exact path="/create">
-								<CreateNewPost />
-							</Route>
-							<Route exact path="/user/:address">
-								<UserFeed />
-							</Route>
-							{account && (
-								<Route exact path="/profile">
-									<Profile
-										username={resolveNickname(account)}
-										walletAddress={account}
-										author={account}
-									/>
+				<ThemeProvider theme={createTheme({ palette: { mode: "dark" } })}>
+					<PostsContext.Provider value={posts}>
+						<div className="App">
+							<Navbar />
+							<div className="Separator" style={{ height: "7.5vmax" }}></div>
+							<Switch>
+								<Route exact path="/">
+									<MainPage />
 								</Route>
-							)}
-						</Switch>
-					</div>
-				</PostsContext.Provider>
+								<Route exact path="/create">
+									<CreateNewPost />
+								</Route>
+								<Route exact path="/user/:address">
+									<UserFeed />
+								</Route>
+								{account && (
+									<Route exact path="/profile">
+										<Profile
+											username={resolveNickname(account)}
+											walletAddress={account}
+											author={account}
+										/>
+									</Route>
+								)}
+							</Switch>
+						</div>
+					</PostsContext.Provider>
 				</ThemeProvider>
 			</UniversalAlertProvider>
 		</Router>
