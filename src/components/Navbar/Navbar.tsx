@@ -9,7 +9,9 @@ import { resolveChainId } from "../../api/backend";
 
 const Navbar = () => {
 	const history = useHistory();
-	const { activateBrowserWallet, account } = useEthers();
+	const { activateBrowserWallet, account, chainId } = useEthers();
+	const chain = useMemo(() => resolveChainId(chainId || 3), [chainId]);
+
 	function logInHandler() {
 		activateBrowserWallet();
 		ReactGa.event({
@@ -17,9 +19,6 @@ const Navbar = () => {
 			action: "Logging in",
 		});
 	}
-
-	const { chainId } = useEthers();
-	const chain = useMemo(() => resolveChainId(chainId || 3), [chainId]);
 
 	return (
 		<div>
@@ -51,13 +50,15 @@ const Navbar = () => {
 				</div>
 				{/* ConnetWalletButton */}
 				<div className={styles.navbarRight}>
-					<div className={styles.chainDisplayBox}>
-						<div
-							className={styles.chainDot}
-							style={{ backgroundColor: chain.color }}
-						></div>
-						<p className={styles.chainName}>{chain.name}</p>
-					</div>
+					{ chainId &&
+						<div className={styles.chainDisplayBox}>
+							<div
+								className={styles.chainDot}
+								style={{ backgroundColor: chain.color }}
+							></div>
+							<p className={styles.chainName}>{chain.name}</p>
+						</div>
+					}
 
 					{!account && (
 						<button
