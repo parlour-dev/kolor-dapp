@@ -12,6 +12,7 @@ import UniversalAlertProvider from "./components/UniversalAlert/UniversalAlertPr
 import { resolveNickname } from "./api/nickname";
 import UserFeed from "./components/UserFeed/UserFeed";
 import { fetchAllPostsBackend } from "./api/backend";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 export const PostsContext = React.createContext<Post[]>([]);
 export const NotificationsContext = React.createContext<any[]>([]);
@@ -27,12 +28,6 @@ function App() {
 
 	const [posts, setPosts] = useState<Post[]>([]);
 
-	//const [postsRaw] = useTCPDataCall("getContent") || [];
-
-	/*const posts = postsRaw
-		?.map((el: string[], idx: number) => rawPostToPost(idx, el[0], el[1]))
-		.reverse();*/
-
 	useEffect(() => {
 		(async () => {
 			setPosts(await fetchAllPostsBackend());
@@ -44,6 +39,7 @@ function App() {
 	return (
 		<Router>
 			<UniversalAlertProvider>
+				<ThemeProvider theme={createTheme({palette: {mode: "dark"}})}>
 				<PostsContext.Provider value={posts}>
 					<div className="App">
 						<Navbar />
@@ -70,6 +66,7 @@ function App() {
 						</Switch>
 					</div>
 				</PostsContext.Provider>
+				</ThemeProvider>
 			</UniversalAlertProvider>
 		</Router>
 	);
