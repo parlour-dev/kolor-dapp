@@ -1,6 +1,5 @@
 .createContainer {
-	width: 40vmax;
-	height: 20vmax;
+	width: 40vw;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -17,11 +16,7 @@
 	font-size: 1.5vmax;
 	text-align: left;
 }
-.contentCreate {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-}
+
 .textField {
 	margin-top: 0.5vmax;
 	border: hidden;
@@ -35,46 +30,34 @@
 	border-radius: 1vmax;
 }
 
-.bottomText {
+.contentCreate {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	width: 33%;
-	height: 15vmax;
 	margin-top: 0.5vmax;
 }
-.buttonsUp {
+
+.postTypeButtons {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	margin-top: 1vmax;
 }
 .buttons {
-	width: 33%;
-	font-size: 1vmax;
-	color: white;
-	background-color: #17161d;
-	height: 2.5vmax;
-	border-radius: 1vmax;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-.uploadImage {
-	background-color: #17161d;
-	border-radius: 1vmax;
-	height: 6.5vmax;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	color: white;
-	font-size: 1vmax;
-}
+	width: 32%;
+	font-size: 1em;
 
-/* .uploadImagePreview {
-	height: 90%;
-	display: inline-block;
-} */
+	color: white;
+	background-color: #17161d;
+	font-weight: bold;
+
+	height: 2.5em;
+	border-radius: 1em;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 
 .submit {
 	background-color: #2e63fb;
@@ -86,48 +69,9 @@
 	color: white;
 	font-size: 1vmax;
 }
-.netykietaKurwa {
-	background-color: #17161d;
-	border-radius: 1vmax;
-	height: 7.5vmax;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	color: white;
-	font-size: 1vmax;
-}
-.gigaContainer {
-	height: 17.5vmax;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
-.chain {
-	background-color: #17161d;
-	border-radius: 0.75vmax;
-	height: 2.25vmax;
-	margin-bottom: 0.5vmax;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	color: white;
-	font-size: 1vmax;
-}
-.nsfw {
-	background-color: #17161d;
-	border-radius: 0.75vmax;
-	height: 2vmax;
-	margin-top: 0.5vmax;
-	margin-bottom: 0.5vmax;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	color: white;
-	font-size: 1vmax;
-}
-/* @media only screen and (max-width: 1200px) {
+
+@media only screen and (max-width: 1200px) {
 	.createContainer {
-		width: 40vmax;
-		height: 
+		width: 90vw;
 	}
-} */
+}

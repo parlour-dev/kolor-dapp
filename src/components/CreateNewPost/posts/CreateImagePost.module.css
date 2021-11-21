@@ -1,0 +1,16 @@
+.uploadImage {
+	background-color: #17161d;
+	border-radius: 1vmax;
+	width: 10vmax;
+	height: 6.5vmax;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: white;
+	font-size: 1vmax;
+}
+
+.uploadImagePreview {
+	height: 90%;
+	display: inline-block;
+}
