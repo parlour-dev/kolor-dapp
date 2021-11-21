@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import styles from "../CreateNewPost/CreateNewPost.module.css";
 import imagePlaceholder from "../CreateNewPost/image.png";
 import submitArrow from "../CreateNewPost/arrow.png";
+import AudioPost from "./AudioPost";
+import ImagePost from "./ImagePost";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import { ContractPost } from "../../types";
@@ -14,6 +16,25 @@ const CreateNewPost = () => {
 	const [inputText, setInputText] = useState("");
 	const showAlert = useShowAlert();
 	const showLoading = useShowLoading();
+	const [postTextType, postTextSwitch] = useState(true);
+	const [postImageType, postImageSwitch] = useState(false);
+	const [postAudioType, postAudioSwitch] = useState(false);
+
+	function handleTextPost() {
+		postTextSwitch(true);
+		postImageSwitch(false);
+		postAudioSwitch(false);
+	}
+	function handleImagePost() {
+		postTextSwitch(false);
+		postImageSwitch(true);
+		postAudioSwitch(false);
+	}
+	function handleAudioPost() {
+		postTextSwitch(false);
+		postImageSwitch(false);
+		postAudioSwitch(true);
+	}
 
 	let history = useHistory();
 
@@ -86,15 +107,27 @@ const CreateNewPost = () => {
 	return (
 		<form className={styles.createContainer}>
 			<div className={styles.title}>Create new post</div>
-			<div>
-				<textarea
-					className={styles.textField}
-					placeholder="   What's on your mind?"
-					onChange={(e) => setInputText(e.target.value)}
-				></textarea>
+			<div className={styles.buttonsUp}>
+				<div className={styles.buttons} onClick={handleTextPost}>
+					Text
+				</div>
+				<div className={styles.buttons} onClick={handleImagePost}>
+					Image/Video
+				</div>
+				<div className={styles.buttons} onClick={handleAudioPost}>
+					Audio
+				</div>
 			</div>
-			<div className={styles.bottomButtons}>
-				<div
+			<div className={styles.contentCreate}>
+				<div>
+					<textarea
+						className={styles.textField}
+						// placeholder="   What's on your mind?"
+						onChange={(e) => setInputText(e.target.value)}
+					></textarea>
+				</div>
+				<div className={styles.bottomText}>
+					{/* <div
 					className={styles.uploadImage}
 					onClick={() => {
 						document.getElementById("multi")!.click();
@@ -115,9 +148,22 @@ const CreateNewPost = () => {
 						onChange={handleChange}
 						id="multi"
 					/>
-				</div>
-				<div className={styles.submit} onClick={submitPostHandler}>
-					<img src={submitArrow} alt="Submit" className={styles.submitArrow} />
+				</div> */}
+					<div className={styles.gigaContainer}>
+						{postImageType && <ImagePost />}
+						{postAudioType && <AudioPost />}
+						{postTextType && (
+							<div className={styles.defaultSwitch}>
+								<div className={styles.netykietaKurwa}>RESPECT MR PARK</div>
+								<div className={styles.nsfw}>NSFW</div>
+								<div className={styles.chain}>Chain</div>
+							</div>
+						)}
+
+						<div className={styles.submit} onClick={submitPostHandler}>
+							Submit
+						</div>
+					</div>
 				</div>
 			</div>
 		</form>

@@ -1,7 +1,7 @@
 .container {
 	text-align: left;
 	font-size: 0.9vmax;
-	
+
 	display: flex;
 	flex-direction: row;
 	padding-bottom: 0.5vmax;
@@ -10,7 +10,6 @@
 .mainTips {
 	color: white;
 	margin-right: 0.75vmax;
-	
 }
 
 .mainTips img {

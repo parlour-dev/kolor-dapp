@@ -5,8 +5,6 @@ import { TipAmounts } from "../../types";
 
 const Tips: React.FC<{ amounts: TipAmounts }> = ({ amounts }) => {
 	return (
-
-		
 		<div className={styles.container}>
 			<div className={styles.mainTips}>
 				<img src={eth} alt="ETH " />
@@ -25,7 +23,6 @@ const Tips: React.FC<{ amounts: TipAmounts }> = ({ amounts }) => {
 					</div>
 				))}
 		</div>
-		
 	);
 };
 

@@ -1,0 +1,26 @@
+.container {
+	height: 17vmax;
+	width: 13vmax;
+}
+.test1 {
+	background-color: #17161d;
+	border-radius: 1vmax;
+
+	height: 6.25vmax;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: white;
+	font-size: 1vmax;
+}
+.test2 {
+	background-color: #17161d;
+	margin-top: 0.5vmax;
+	border-radius: 1vmax;
+	height: 6.25vmax;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: white;
+	font-size: 1vmax;
+}
