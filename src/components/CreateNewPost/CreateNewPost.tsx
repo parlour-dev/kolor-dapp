@@ -10,6 +10,7 @@ import { ContractPost } from "../../types";
 import { uploadImageToAWS } from "../../api/uploadImage";
 import ReactGa from "react-ga";
 import { useShowAlert, useShowLoading, useTCPDataFunction } from "../../hooks";
+import { useEthers } from "@usedapp/core";
 
 const CreateNewPost = () => {
 	const [file, setFile] = useState("");
@@ -38,7 +39,13 @@ const CreateNewPost = () => {
 
 	let history = useHistory();
 
-	const { send, state } = useTCPDataFunction("addContent", "Add content");
+	const { chainId } = useEthers();
+
+	const { send, state } = useTCPDataFunction(
+		"addContent",
+		chainId || 3,
+		"Add content"
+	);
 
 	const submitPostHandler = async (e: React.MouseEvent) => {
 		e.preventDefault();

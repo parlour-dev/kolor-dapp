@@ -1,11 +1,19 @@
 import { ChainId } from "@usedapp/core";
-import { ethers } from "ethers";
-import { Post, SupportedChains } from "../types";
+import { Contract, ethers } from "ethers";
 
-export const tcpdata_address = {
-	[SupportedChains.Ropsten]: "0x0D3E48e537F69d4BDbdc84a1A5BbD70Ad1fD0756",
-	//[SupportedChains.BSCTestnet]: "0xa398De2fEF0b37cf50c2F9D88b8953b94b49c78C"
+type TCPDataAddressT = {
+	[I: number]: string;
 };
+
+type TCPDataT = {
+	[I: number]: Contract;
+};
+
+export const tcpdata_address: TCPDataAddressT = {
+	[ChainId.Ropsten]: "0x0D3E48e537F69d4BDbdc84a1A5BbD70Ad1fD0756",
+	[ChainId.BSCTestnet]: "0xa398De2fEF0b37cf50c2F9D88b8953b94b49c78C",
+};
+
 export const tcpdata_abi = [
 	"event ContentAdded(uint256 indexed idx)",
 	"event TipReceived(uint256 indexed idx, uint256 amount)",
@@ -27,79 +35,13 @@ export const tcpdata_abi = [
 	"function withdrawBalance()",
 ];
 
-export const tcpdata = {
-	[SupportedChains.Ropsten]: new ethers.Contract(
+export const tcpdata: TCPDataT = {
+	[ChainId.Ropsten]: new ethers.Contract(
 		tcpdata_address[ChainId.Ropsten],
 		tcpdata_abi
 	),
-	//[SupportedChains.BSCTestnet]: new ethers.Contract(tcpdata_address[ChainId.BSCTestnet], tcpdata_abi)
+	[ChainId.BSCTestnet]: new ethers.Contract(
+		tcpdata_address[ChainId.BSCTestnet],
+		tcpdata_abi
+	),
 };
-
-export function rawPostToPost(
-	idx: number,
-	author: string,
-	header: string
-): Post {
-	try {
-		const header_processed = JSON.parse(header);
-		const post: Post = {
-			author: author,
-			id: idx,
-			text: header_processed.title,
-			file: "url" in header_processed ? header_processed.url : undefined,
-		};
-		return post;
-	} catch (e) {
-		const post: Post = {
-			author: author,
-			id: idx,
-			text: "[removed]",
-			removed: true,
-		};
-		return post;
-	}
-}
-
-export async function fetchAllPosts(
-	tcpdata: ethers.Contract,
-	addPost: (post: Post) => void
-) {
-	// add all the fetched posts
-	const contents = await tcpdata.getContent();
-
-	if (!contents) return false;
-
-	for (let idx in contents) {
-		const author = contents[idx].author;
-		const header = JSON.parse(contents[idx].header);
-
-		let url = undefined;
-
-		if (header.url && !header.url.startsWith("blob")) url = header.url;
-
-		const newPost: Post = {
-			id: parseInt(idx),
-			text: header.title,
-			author: author,
-			file: url,
-		};
-
-		addPost(newPost);
-	}
-
-	return true;
-}
-
-export async function fetchOnePost(tcpdata: ethers.Contract, idx: number) {
-	const content = await tcpdata.content(idx);
-	const author = content.author;
-	const header = JSON.parse(content.header);
-	const post: Post = {
-		id: idx,
-		text: header.title,
-		author: author,
-		file: header.url || undefined,
-	};
-
-	return post;
-}

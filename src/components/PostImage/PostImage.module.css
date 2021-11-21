@@ -99,6 +99,12 @@
 	background-color: #050111;
 }
 
+.buttonOff {
+	composes: button;
+	background-color: gray;
+	cursor: default;
+}
+
 .animation {
 	/* animation */
 	-webkit-transition: all 1s ease;
@@ -110,22 +116,29 @@
 }
 
 .animation:hover {
-	transform: scale(1.1);
+	transform: scale(1.08);
 	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.42);
 }
 
 @media only screen and (max-width: 1200px) {
 	.post {
-		width: 50vmax;
+		width: 60vmax;
+	}
+
+	.button {
+		font-size: 2em;
 	}
 }
 
 @media only screen and (max-width: 500px) and (min-height: 300px) {
 	.post {
+		margin-bottom: 2vmax;
 		width: 100%;
-		border-left: none;
-		border-right: none;
+		/* border-left: none; */
+		/* border-right: none; */
+		border: none;
 		border-radius: 0px;
+		padding-bottom: 1vmax;
 	}
 
 	.creator {
@@ -136,17 +149,10 @@
 		font-size: 2vmax;
 	}
 
-	.buttonBlue {
+	.button {
 		height: 5vmax;
 		line-height: 5vmax;
-		font-size: 2vmax;
-		border-radius: 1.4vmax;
-	}
-
-	.buttonBlack {
-		height: 5vmax;
-		line-height: 5vmax;
-		font-size: 2vmax;
+		font-size: 2.5em;
 		border-radius: 1.4vmax;
 	}
 

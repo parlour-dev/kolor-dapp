@@ -7,7 +7,6 @@ import {
 } from "./components/UniversalAlert/UniversalAlertProvider";
 import { tcpdata, tcpdata_abi, tcpdata_address } from "./api/tcpdata";
 import { ethers } from "ethers";
-import { SupportedChains } from "./types";
 
 export function useToggle(initial: boolean): [boolean, () => void] {
 	const [state, setState] = useState(initial);
@@ -27,25 +26,21 @@ export function useShowLoading() {
 
 export function useTCPDataFunction(
 	method: string,
-	transactionName?: string,
-	chain?: SupportedChains
+	chain: number,
+	transactionName?: string
 ) {
 	return useContractFunction(
-		// @ts-ignore
-		tcpdata[chain || SupportedChains.Ropsten],
+		//@ts-ignore
+		tcpdata[chain],
 		method,
 		{ transactionName: transactionName }
 	);
 }
 
-export function useTCPDataCall(
-	method: string,
-	args?: any[],
-	chain?: SupportedChains
-) {
+export function useTCPDataCall(method: string, chain: number, args?: any[]) {
 	return useContractCall({
 		abi: new ethers.utils.Interface(tcpdata_abi),
-		address: tcpdata_address[chain || SupportedChains.Ropsten],
+		address: tcpdata_address[chain],
 		method: method,
 		args: args || [],
 	});

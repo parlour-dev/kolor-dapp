@@ -59,3 +59,22 @@
 	font-family: "Lato", sans-serif;
 	color: #fff;
 }
+
+@media only screen and (max-width: 500px) and (min-height: 300px) {
+	.creatorNick {
+		margin-left: 1vmax;
+		font-size: 1em;
+	}
+
+	.creatorWallet {
+		font-size: 0.8em;
+	}
+
+	.textContainer {
+		margin-bottom: 1vmax;
+	}
+
+	.text {
+		font-size: 2em;
+	}
+}

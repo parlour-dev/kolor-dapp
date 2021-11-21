@@ -13,15 +13,19 @@
 .navbarButtonLeft {
 	width: 10vmax;
 	height: 60%;
+
 	background-color: #2e63fb;
 	color: #fff;
+
 	border-radius: 0.8vmax;
+
 	font-family: "Lato", sans-serif;
 	font-weight: 600;
 	line-height: 3vmax;
 	font-size: 1.8vmax;
 	text-align: center;
 	font-family: "Lato", sans-serif;
+
 	border: 0px;
 }
 .buttonDisabled {
@@ -32,14 +36,17 @@
 	box-shadow: none;
 	display: flex;
 	align-items: center;
+	justify-content: flex-end;
 	flex-direction: row;
 	margin-right: 1vmax;
+	width: 14vmax;
 }
 .navbarLeft {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	margin-left: 1vmax;
+	width: 14vmax;
 }
 .navbarButtonRight {
 	width: 10vmax;
@@ -57,7 +64,7 @@
 	justify-self: right;
 }
 .profilePictureButton {
-	width: 10vmax;
+	width: 5vmax;
 	display: flex;
 	justify-content: flex-end;
 }
@@ -105,4 +112,27 @@
 .logo:hover {
 	transform: scale(1.2);
 	background-color: transparent;
+}
+
+.chainDisplayBox {
+	color: #515151;
+	border: solid 0.1vmax #515151;
+	border-radius: 100vmax;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0vmax 0.5vmax;
+}
+
+.chainDot {
+	width: 0.3vmax;
+	height: 0.3vmax;
+	border-radius: 50%;
+	aspect-ratio: 1/1;
+	margin-right: 0.25vmax;
+}
+
+.chainName {
+	font-size: 1vmax;
+	margin: 0.5vmax 0vmax;
 }

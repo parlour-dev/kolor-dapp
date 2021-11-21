@@ -8,7 +8,7 @@ ReactDOM.render(
 	<React.StrictMode>
 		<DAppProvider
 			config={{
-				readOnlyChainId: ChainId.Ropsten,
+				readOnlyChainId: undefined,
 				readOnlyUrls: {
 					[ChainId.Ropsten]:
 						"https://ropsten.infura.io/v3/40ecaa4d584d4e2e8624f7352dfd5136",
@@ -16,7 +16,7 @@ ReactDOM.render(
 					[ChainId.BSCTestnet]:
 						"https://data-seed-prebsc-1-s1.binance.org:8545/",
 				},
-				supportedChains: [ChainId.Ropsten],
+				supportedChains: [ChainId.Ropsten, ChainId.BSCTestnet],
 			}}
 		>
 			<App />

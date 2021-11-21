@@ -1,6 +1,6 @@
 import { Box, Modal } from "@mui/material";
 import { ethers } from "ethers";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
 	useShowAlert,
 	useShowLoading,
@@ -8,18 +8,29 @@ import {
 } from "../../../hooks";
 import ReactGa from "react-ga";
 import styles from "./TipPopup.module.css";
+import { resolveChainId } from "../../../api/backend";
+import { Post } from "../../../types";
 
 const TipPopup: React.FC<{
 	open: boolean;
 	onClose: () => void;
-	postId: number;
-}> = ({ open, onClose, postId }) => {
+	post: Post;
+}> = ({ open, onClose, post }) => {
 	const [tipAmount, setTipAmount] = useState("0");
 
 	const showAlert = useShowAlert();
 	const showLoading = useShowLoading();
 
-	const { send, state } = useTCPDataFunction("tipContent", "Tip post");
+	const currency = useMemo(
+		() => resolveChainId(post.chainid).currency,
+		[post.chainid]
+	);
+
+	const { send, state } = useTCPDataFunction(
+		"tipContent",
+		post.chainid,
+		"Tip post"
+	);
 
 	function handleTip() {
 		ReactGa.event({
@@ -28,7 +39,7 @@ const TipPopup: React.FC<{
 		});
 
 		showLoading(true);
-		send(postId, { value: ethers.utils.parseUnits(tipAmount) });
+		send(post.id, { value: ethers.utils.parseUnits(tipAmount) });
 	}
 
 	useEffect(() => {
@@ -71,7 +82,7 @@ const TipPopup: React.FC<{
 							onChange={(e) => setTipAmount(e.target.value)}
 							value={tipAmount}
 						/>
-						<div className={styles.currency}>ETH</div>
+						<div className={styles.currency}>{currency}</div>
 						<div onClick={handleTip} className={styles.popupTip}>
 							Send
 						</div>
@@ -81,19 +92,19 @@ const TipPopup: React.FC<{
 							className={styles.popupAmountButton}
 							onClick={() => setTipAmount("0.01")}
 						>
-							0.01 ETH
+							0.01 {currency}
 						</button>
 						<button
 							className={styles.popupAmountButton}
 							onClick={() => setTipAmount("0.005")}
 						>
-							0.005 ETH
+							0.005 {currency}
 						</button>
 						<button
 							className={styles.popupAmountButton}
 							onClick={() => setTipAmount("0.001")}
 						>
-							0.001 ETH
+							0.001 {currency}
 						</button>
 						<button
 							className={styles.popupAmountButton}

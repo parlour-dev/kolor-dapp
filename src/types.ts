@@ -1,8 +1,8 @@
-import { ChainId } from "@usedapp/core";
-
 export type Post = {
 	id: number;
+	chainid: number;
 	text: string;
+	balance: number;
 	file?: string;
 	tags?: string[];
 	comments?: string[];
@@ -31,6 +31,12 @@ export type TipAmounts = {
 	}[];
 };
 
-export enum SupportedChains {
-	Ropsten = ChainId.Ropsten,
-}
+export type ChainData = {
+	name: string;
+	color: string;
+	currency: string;
+};
+
+export type ChainIdsT = {
+	[U: number]: ChainData;
+};

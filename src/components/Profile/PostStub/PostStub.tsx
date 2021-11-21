@@ -8,19 +8,27 @@ import {
 import { Post } from "../../../types";
 import styles from "./PostStub.module.css";
 import { LazyLoadImage, ScrollPosition } from "react-lazy-load-image-component";
+import Chain from "../../PostImage/Chain/Chain";
+import { useEthers } from "@usedapp/core";
 
 const PostStub: React.FC<{ post: Post; scrollPosition: ScrollPosition }> = ({
 	post,
 	scrollPosition,
 }) => {
-	const { send, state } = useTCPDataFunction("removeContent", "Remove post");
+	const { chainId } = useEthers();
+
+	const { send, state } = useTCPDataFunction(
+		"removeContent",
+		chainId || 3,
+		"Remove post"
+	);
 
 	const showLoading = useShowLoading();
 	const showAlert = useShowAlert();
 
-	const time = (useTCPDataCall("getContentTimestamp", [post.id]) || [
-		ethers.constants.Zero,
-	])[0] as BigNumber;
+	const time = (useTCPDataCall("getContentTimestamp", chainId || 3, [
+		post.id,
+	]) || [ethers.constants.Zero])[0] as BigNumber;
 	const postMillis = time.toNumber() * 1000;
 
 	// 3 days - ( the difference between now and the date the post was created )
@@ -82,6 +90,7 @@ const PostStub: React.FC<{ post: Post; scrollPosition: ScrollPosition }> = ({
 							This post has already been removed.
 						</div>
 					)}
+					<Chain blockchain={post.chainid} />
 				</div>
 			</div>
 		</div>

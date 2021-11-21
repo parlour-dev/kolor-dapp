@@ -3,13 +3,7 @@ import AddComment from "./Comments/AddComment";
 import Tips from "../Tips/Tips";
 import Chain from "./Chain/Chain";
 import ProfilePicture from "../ProfilePicture/ProfilePicture";
-import {
-	useShowAlert,
-	useShowLoading,
-	useTCPDataCall,
-	useToggle,
-} from "../../hooks";
-import { ethers } from "ethers";
+import { useShowAlert, useShowLoading, useToggle } from "../../hooks";
 import { useEthers } from "@usedapp/core";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -18,10 +12,10 @@ import Comments from "./Comments/Comments";
 import { CommentT, Post } from "../../types";
 import { LazyLoadImage, ScrollPosition } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import TipPopup from "./TipPopup/TipPopup";
 import { useMediaQuery } from "@mui/material";
 import { resolveNickname } from "../../api/nickname";
 import { Link } from "react-router-dom";
+import TipButton from "./TipButton/TipButton";
 
 type PostImageT = {
 	post: Post;
@@ -32,17 +26,10 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 	const [showAddComment, toggleAddComment] = useToggle(false);
 	const [comments, setComments] = useState<CommentT[]>([]);
 
-	const [popup, setPopup] = useState(false);
-
 	const showAlert = useShowAlert();
 	const showLoading = useShowLoading();
 
 	const { account, library } = useEthers();
-
-	const [etherTipBalanceRaw] = useTCPDataCall("getContentBalance", [
-		post.id,
-	]) || [0];
-	const etherTipBalance = ethers.utils.formatUnits(etherTipBalanceRaw, "ether");
 
 	const profilePictureHeight = useMediaQuery(
 		"@media only screen and (max-width: 500px) and (min-height: 300px)"
@@ -50,20 +37,11 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 		? "5vmax"
 		: "3.5vmax";
 
-	// async function usdToEther() {
-	// 	let etherPrice = await fetch(
-	// 		"https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd"
-	// 	);
-	// 	console.log(etherPrice);
-	// }
-
 	useEffect(() => {
-		fetchComments(post.id)
+		fetchComments(post.id, post.chainid)
 			.then((data) => setComments(data))
 			.catch(console.error);
-	}, [post.id]);
-
-	useEffect(() => console.log(comments), [comments]);
+	}, [post.id, post.chainid]);
 
 	async function onCommentSubmit(newComment: string) {
 		showLoading(true);
@@ -78,6 +56,7 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 				// post the comment using the api
 				const result = await postComment(
 					post.id,
+					post.chainid,
 					newComment,
 					account,
 					await library.getSigner().signMessage(newComment)
@@ -132,11 +111,10 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 						/>
 					)}
 				</div>
-
 				<div id="renderTips">
 					<div style={{ display: "flex", justifyContent: "space-between" }}>
-						<Tips amounts={{ ethereum: etherTipBalance }} />
-						<Chain blockchain="test" dotcolor="blue" />
+						<Tips amounts={{ ethereum: post.balance }} />
+						<Chain blockchain={post.chainid} />
 					</div>
 					<div
 						style={{
@@ -148,20 +126,11 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 				</div>
 
 				<div className={styles.viewerAction}>
+					<TipButton post={post} />
 					<div
-						className={styles.buttonBlue}
-						onClick={() => {
-							setPopup(true);
-						}}
+						className={[styles.buttonBlack, styles.animation].join(" ")}
+						onClick={toggleAddComment}
 					>
-						Appreciate
-					</div>
-					<TipPopup
-						postId={post.id}
-						open={popup}
-						onClose={() => setPopup(false)}
-					/>
-					<div className={styles.buttonBlack} onClick={toggleAddComment}>
 						Comment
 					</div>
 				</div>
