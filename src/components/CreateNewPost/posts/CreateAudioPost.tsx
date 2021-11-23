@@ -1,8 +1,9 @@
-import styles from "./CreateAudioPost.module.css";
-export default function CreateAudioPost(props: any) {
+import styles from "../CreateNewPost.module.css";
+
+const CreateAudioPost: React.FC = () => {
 	return (
-		<div className={styles.container}>
-			<div className={styles.test1}>Coming Soon</div>
-		</div>
+		<div className={styles.comingSoon}>Coming Soon</div>
 	);
 }
+
+export default CreateAudioPost

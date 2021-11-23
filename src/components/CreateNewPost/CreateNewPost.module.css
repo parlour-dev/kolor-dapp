@@ -1,5 +1,5 @@
 .createContainer {
-	width: 40vw;
+	width: 70vw;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -32,9 +32,10 @@
 
 .contentCreate {
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	justify-content: space-between;
-	margin-top: 0.5vmax;
+
+	margin: 2em 0;
 }
 
 .postTypeButtons {
@@ -45,33 +46,120 @@
 }
 .buttons {
 	width: 32%;
-	font-size: 1em;
+	font-size: 1.2em;
 
 	color: white;
 	background-color: #17161d;
-	font-weight: bold;
+	cursor: pointer;
+	user-select: none;
 
 	height: 2.5em;
-	border-radius: 1em;
+	border-radius: 1vmax;
 
 	display: flex;
 	justify-content: center;
 	align-items: center;
+
+	transition: 0.2s;
+}
+
+.buttonsChosen {
+	composes: buttons;
+	background-color: #2e63fb !important;
+}
+
+.submitColumn {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: stretch;
+
+	width: 32%;
+}
+
+.logoSection {
+	font-size: 1.3em;
+}
+
+.logo {
+	height: 1em;
+}
+
+.beNice {
+	color: white;
+	background-color: #17161d;
+
+	text-align: left;
+	padding: 1em;
+	margin-bottom: 1em;
+	border-radius: 1em;
 }
 
 .submit {
 	background-color: #2e63fb;
 	border-radius: 0.75vmax;
-	height: 5vmax;
+	cursor: pointer;
+	user-select: none;
+
+	min-height: 3em;
+	width: 100%;
+
 	display: flex;
 	justify-content: center;
 	align-items: center;
+
+	color: white;
+	font-size: 1.1em;
+}
+
+.uploadImage {
+	background-color: #17161d;
+	border-radius: 1vmax;
+
+	width: 100%;
+	height: 7em;
+	margin-bottom: 1em;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
 	color: white;
 	font-size: 1vmax;
+	cursor: pointer;
+}
+
+.uploadImagePreview {
+	height: 90%;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.comingSoon {
+	background-color: #17161d;
+	color: white;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	font-size: 2em;
+	height: 3em;
+	border-radius: 1vmax;
+
+	width: 100%;
 }
 
 @media only screen and (max-width: 1200px) {
 	.createContainer {
 		width: 90vw;
 	}
+}
+
+.TextFieldBorderRadius fieldset {
+	border-radius: 1vmax;
+}
+
+.TextFieldBorderRadius {
+	width: 66%;
 }

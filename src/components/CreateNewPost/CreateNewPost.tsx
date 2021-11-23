@@ -12,6 +12,8 @@ import ReactGa from "react-ga";
 import { useShowAlert, useShowLoading, useTCPDataFunction } from "../../hooks";
 import { useEthers } from "@usedapp/core";
 
+export type OnSubmit = (text: string | undefined, file: string | undefined) => void
+
 const CreateNewPost = () => {
 	const [postType, setPostType] = useState<"text" | "image" | "audio">("image");
 
@@ -21,13 +23,17 @@ const CreateNewPost = () => {
 
 	let history = useHistory();
 
-	const { chainId } = useEthers();
+	const { account, chainId } = useEthers();
 
 	const { send, state } = useTCPDataFunction(
 		"addContent",
 		chainId || 3,
 		"Add content"
 	);
+
+	const submitPost: OnSubmit = async (text, file) => {
+		console.log(text, file)
+	}
 
 	/*const submitPostHandler = async (e: React.MouseEvent) => {
 		e.preventDefault();
@@ -88,33 +94,47 @@ const CreateNewPost = () => {
 
 	// FIXME: ZA MAŁY KONTRAST
 
+	if (!account) {
+		return (
+			<form className={styles.createContainer}>
+				<div className={styles.title}>You have to log in to create a post</div>
+			</form>
+		);
+	}
+
 	return (
 		<form className={styles.createContainer}>
 			<div className={styles.title}>Create new post</div>
 			<div className={styles.postTypeButtons}>
-				<div className={styles.buttons} onClick={() => setPostType("text")}>
+				<div
+					className={
+						postType === "text" ? styles.buttonsChosen : styles.buttons
+					}
+					onClick={() => setPostType("text")}
+				>
 					Text
 				</div>
-				<div className={styles.buttons} onClick={() => setPostType("image")}>
+				<div
+					className={
+						postType === "image" ? styles.buttonsChosen : styles.buttons
+					}
+					onClick={() => setPostType("image")}
+				>
 					Image/Video
 				</div>
-				<div className={styles.buttons} onClick={() => setPostType("audio")}>
+				<div
+					className={
+						postType === "audio" ? styles.buttonsChosen : styles.buttons
+					}
+					onClick={() => setPostType("audio")}
+				>
 					Audio
 				</div>
 			</div>
 			<div className={styles.contentCreate}>
-				{postType === "image" && <CreateImagePost />}
+				{postType === "image" && <CreateImagePost onSubmit={submitPost} />}
 				{postType === "audio" && <CreateAudioPost />}
-				{postType === "text" && <CreateTextPost />}
-				{/*<div className={styles.defaultSwitch}>
-						<div className={styles.netykietaKurwa}>RESPECT MR PARK</div>
-						<div className={styles.nsfw}>NSFW</div>
-						<div className={styles.chain}>Chain</div>
-				</div>
-
-				<div className={styles.submit} onClick={() => {} submitPostHandler}>
-					Submit
-				</div>*/}
+				{postType === "text" && <CreateTextPost onSubmit={submitPost} />}
 			</div>
 		</form>
 	);
