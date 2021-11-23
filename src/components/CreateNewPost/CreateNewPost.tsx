@@ -15,9 +15,8 @@ import { useEthers } from "@usedapp/core";
 export type OnSubmit = (text: string | undefined, file: string | undefined) => void
 
 const CreateNewPost = () => {
-	const [postType, setPostType] = useState<"text" | "image" | "audio">("image");
+	const [postType, setPostType] = useState<"text" | "image" | "audio">("text");
 
-	const [inputText, setInputText] = useState("");
 	const showAlert = useShowAlert();
 	const showLoading = useShowLoading();
 
@@ -32,18 +31,12 @@ const CreateNewPost = () => {
 	);
 
 	const submitPost: OnSubmit = async (text, file) => {
-		console.log(text, file)
-	}
-
-	/*const submitPostHandler = async (e: React.MouseEvent) => {
-		e.preventDefault();
-
 		ReactGa.event({
 			category: "Post Creation",
 			action: "Post submission ",
 		});
 
-		if (!inputText && !file) {
+		if (!text) {
 			showAlert("The post can't be empty!", "error");
 			ReactGa.event({
 				category: "Post Creation",
@@ -58,7 +51,7 @@ const CreateNewPost = () => {
 			let fileUploadedTo = file ? await uploadImageToAWS(file) : undefined;
 
 			const newPost: ContractPost = {
-				title: inputText,
+				title: text,
 				url: fileUploadedTo,
 				tags: ["testtag"],
 			};
@@ -68,7 +61,7 @@ const CreateNewPost = () => {
 			showLoading(false);
 			showAlert("There was an error while creating your post.", "error");
 		}
-	};
+	}
 
 	useEffect(() => {
 		if (state.status !== "None") {
@@ -87,10 +80,9 @@ const CreateNewPost = () => {
 				"Your post has been submitted. You will need to wait a minute until the transaction is mined on the blockchain.",
 				"info"
 			);
-			//setInputText("");
 			history.push("/");
 		}
-	}, [state, history, showAlert, showLoading]);*/
+	}, [state, history, showAlert, showLoading]);
 
 	// FIXME: ZA MAŁY KONTRAST
 
