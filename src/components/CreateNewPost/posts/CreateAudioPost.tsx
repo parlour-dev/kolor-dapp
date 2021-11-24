@@ -7,20 +7,35 @@ import AudioFileRoundedIcon from "@mui/icons-material/AudioFileRounded";
 import { useEthers } from "@usedapp/core";
 import { resolveChainId } from "../../../api/backend";
 import { OnSubmit } from "../CreateNewPost";
+import { useShowAlert } from "../../../hooks";
 
 const CreateAudioPost: React.FC<{ onSubmit: OnSubmit }> = ({ onSubmit }) => {
 	const { chainId } = useEthers();
 	const chain = resolveChainId(chainId || 3);
 
+	const showAlert = useShowAlert();
+
 	const [file, setFile] = useState("");
 	const [fileName, setFileName] = useState<string | undefined>();
+	const [fileContentType, setFileContentType] = useState<string | undefined>(
+		""
+	);
 	const [inputText, setInputText] = useState("");
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		try {
+			setFile("");
+			setFileName(undefined);
+
+			if (!e.target?.files?.item(0)?.type.startsWith("audio/")) {
+				showAlert("This is not an audio file.", "warning");
+				return;
+			}
+
 			// @ts-ignore
 			setFile(URL.createObjectURL(e.target.files[0]));
 			setFileName(e.target?.files?.item(0)?.name);
+			setFileContentType(e.target?.files?.item(0)?.type);
 		} catch (e) {}
 	};
 
@@ -67,7 +82,7 @@ const CreateAudioPost: React.FC<{ onSubmit: OnSubmit }> = ({ onSubmit }) => {
 				</div>
 				<div
 					className={styles.submit}
-					onClick={() => onSubmit(inputText, file)}
+					onClick={() => onSubmit(inputText, "audio", file, fileContentType)}
 				>
 					<CreateIcon sx={{ marginLeft: 0, marginRight: "0.1em" }} /> Submit
 				</div>

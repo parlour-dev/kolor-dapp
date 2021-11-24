@@ -31,6 +31,10 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 
 	const { account, library } = useEthers();
 
+	console.log(post.tags);
+
+	const isAudioPost: boolean = post.tags?.at(0) === "audio";
+
 	const profilePictureHeight = useMediaQuery(
 		"@media only screen and (max-width: 500px) and (min-height: 300px)"
 	)
@@ -101,7 +105,7 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 				<div className={styles.text}>{post.text}</div>
 
 				<div className={styles.mediaContent}>
-					{post.file && (
+					{post.file && !isAudioPost && (
 						<LazyLoadImage
 							alt=""
 							effect="blur"
@@ -109,6 +113,12 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 							className={styles.mediaContent}
 							scrollPosition={scrollPosition}
 						/>
+					)}
+					{isAudioPost && post.file && (
+						<audio controls>
+							<source src={"https://" + post.file} />
+							Your browser does not support the audio element.
+						</audio>
 					)}
 				</div>
 				<div id="renderTips">

@@ -64,6 +64,7 @@ function rawPostToPost(id: number, chainid: number, raw: BackendPost): Post {
 			chainid: chainid,
 			balance: raw.Balance,
 			text: header_processed.title,
+			tags: header_processed.tags || [],
 			file: "url" in header_processed ? header_processed.url : undefined,
 		};
 		return post;

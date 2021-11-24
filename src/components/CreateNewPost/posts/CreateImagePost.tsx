@@ -65,7 +65,9 @@ const CreateImagePost: React.FC<{ onSubmit: OnSubmit }> = ({ onSubmit }) => {
 				<div className={styles.beNice}>Posting to {chain.name}.</div>
 				<div
 					className={styles.submit}
-					onClick={() => onSubmit(inputText, file)}
+					onClick={() =>
+						onSubmit(inputText, "image", file, "application/octet-stream")
+					}
 				>
 					<CreateIcon sx={{ marginLeft: 0, marginRight: "0.1em" }} /> Submit
 				</div>

@@ -7,18 +7,25 @@ import CreateTextPost from "./posts/CreateTextPost";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import { ContractPost } from "../../types";
-import { uploadImageToAWS } from "../../api/uploadImage";
+import {
+	uploadAudioToAWS,
+	uploadImageToAWS,
+} from "../../api/uploadImageOrAudio";
 import ReactGa from "react-ga";
 import { useShowAlert, useShowLoading, useTCPDataFunction } from "../../hooks";
 import { useEthers } from "@usedapp/core";
 
+type PostType = "text" | "image" | "audio";
+
 export type OnSubmit = (
 	text: string | undefined,
-	file: string | undefined
+	type: PostType,
+	file?: string,
+	fileContentType?: string
 ) => void;
 
 const CreateNewPost = () => {
-	const [postType, setPostType] = useState<"text" | "image" | "audio">("text");
+	const [postType, setPostType] = useState<PostType>("text");
 
 	const showAlert = useShowAlert();
 	const showLoading = useShowLoading();
@@ -33,7 +40,7 @@ const CreateNewPost = () => {
 		"Add content"
 	);
 
-	const submitPost: OnSubmit = async (text, file) => {
+	const submitPost: OnSubmit = async (text, type, file, fileContentType) => {
 		ReactGa.event({
 			category: "Post Creation",
 			action: "Post submission ",
@@ -41,22 +48,32 @@ const CreateNewPost = () => {
 
 		if (!text) {
 			showAlert("The post can't be empty!", "error");
-			ReactGa.event({
-				category: "Post Creation",
-				action: "Empty Post",
-			});
+			return;
+		}
+
+		if (type !== "text" && !file) {
+			showAlert("You have to choose a file!", "error");
 			return;
 		}
 
 		showLoading(true);
 
 		try {
-			let fileUploadedTo = file ? await uploadImageToAWS(file) : undefined;
+			let fileUploadedTo = undefined;
+
+			if (type === "image" && file) {
+				fileUploadedTo = await uploadImageToAWS(file);
+			} else if (type === "audio" && file) {
+				fileUploadedTo = await uploadAudioToAWS(
+					file,
+					fileContentType || "application/octet-stream"
+				);
+			}
 
 			const newPost: ContractPost = {
 				title: text,
 				url: fileUploadedTo,
-				tags: ["testtag"],
+				tags: [type],
 			};
 
 			send(JSON.stringify(newPost));
