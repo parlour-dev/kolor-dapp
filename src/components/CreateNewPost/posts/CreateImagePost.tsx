@@ -9,9 +9,9 @@ import { resolveChainId } from "../../../api/backend";
 import { OnSubmit } from "../CreateNewPost";
 
 const CreateImagePost: React.FC<{ onSubmit: OnSubmit }> = ({ onSubmit }) => {
-	const { chainId } = useEthers()
-	const chain = resolveChainId(chainId || 3)
-	
+	const { chainId } = useEthers();
+	const chain = resolveChainId(chainId || 3);
+
 	const [file, setFile] = useState("");
 	const [inputText, setInputText] = useState("");
 
@@ -30,7 +30,7 @@ const CreateImagePost: React.FC<{ onSubmit: OnSubmit }> = ({ onSubmit }) => {
 					fullWidth
 					minRows={10}
 					value={inputText}
-					onChange={e => setInputText(e.target.value)}
+					onChange={(e) => setInputText(e.target.value)}
 					label="What's on your mind?"
 				/>
 			</div>
@@ -57,18 +57,21 @@ const CreateImagePost: React.FC<{ onSubmit: OnSubmit }> = ({ onSubmit }) => {
 						id="multi"
 					/>
 				</div>
-				<div style={{
-					flexGrow: 1
-				}} />
-				<div className={styles.beNice}>
-					Posting to {chain.name}.
-				</div>
-				<div className={styles.submit} onClick={() => onSubmit(inputText, file)}>
+				<div
+					style={{
+						flexGrow: 1,
+					}}
+				/>
+				<div className={styles.beNice}>Posting to {chain.name}.</div>
+				<div
+					className={styles.submit}
+					onClick={() => onSubmit(inputText, file)}
+				>
 					<CreateIcon sx={{ marginLeft: 0, marginRight: "0.1em" }} /> Submit
 				</div>
 			</div>
 		</>
 	);
-}
+};
 
-export default CreateImagePost
+export default CreateImagePost;

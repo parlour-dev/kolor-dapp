@@ -36,7 +36,10 @@ const PostStub: React.FC<{ post: Post; scrollPosition: ScrollPosition }> = ({
 
 	async function handleDeletePost() {
 		send(post.id);
-		showAlert("Please allow up to 6 minutes for your post to be deleted.", "info");
+		showAlert(
+			"Please allow up to 6 minutes for your post to be deleted.",
+			"info"
+		);
 	}
 
 	return (

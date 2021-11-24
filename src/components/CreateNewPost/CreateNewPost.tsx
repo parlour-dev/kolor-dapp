@@ -12,7 +12,10 @@ import ReactGa from "react-ga";
 import { useShowAlert, useShowLoading, useTCPDataFunction } from "../../hooks";
 import { useEthers } from "@usedapp/core";
 
-export type OnSubmit = (text: string | undefined, file: string | undefined) => void
+export type OnSubmit = (
+	text: string | undefined,
+	file: string | undefined
+) => void;
 
 const CreateNewPost = () => {
 	const [postType, setPostType] = useState<"text" | "image" | "audio">("text");
@@ -61,7 +64,7 @@ const CreateNewPost = () => {
 			showLoading(false);
 			showAlert("There was an error while creating your post.", "error");
 		}
-	}
+	};
 
 	useEffect(() => {
 		if (state.status !== "None") {
@@ -125,7 +128,7 @@ const CreateNewPost = () => {
 			</div>
 			<div className={styles.contentCreate}>
 				{postType === "image" && <CreateImagePost onSubmit={submitPost} />}
-				{postType === "audio" && <CreateAudioPost />}
+				{postType === "audio" && <CreateAudioPost onSubmit={submitPost} />}
 				{postType === "text" && <CreateTextPost onSubmit={submitPost} />}
 			</div>
 		</form>

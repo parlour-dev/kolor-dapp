@@ -8,8 +8,8 @@ import { useState } from "react";
 import { OnSubmit } from "../CreateNewPost";
 
 const CreateTextPost: React.FC<{ onSubmit: OnSubmit }> = ({ onSubmit }) => {
-	const { chainId } = useEthers()
-	const chain = resolveChainId(chainId || 3)
+	const { chainId } = useEthers();
+	const chain = resolveChainId(chainId || 3);
 
 	const [inputText, setInputText] = useState("");
 
@@ -21,7 +21,7 @@ const CreateTextPost: React.FC<{ onSubmit: OnSubmit }> = ({ onSubmit }) => {
 					fullWidth
 					minRows={10}
 					value={inputText}
-					onChange={e => setInputText(e.target.value)}
+					onChange={(e) => setInputText(e.target.value)}
 					label="What's on your mind?"
 				/>
 			</div>
@@ -38,13 +38,16 @@ const CreateTextPost: React.FC<{ onSubmit: OnSubmit }> = ({ onSubmit }) => {
 					<br />
 					3. Do not copy the work of others
 				</div>
-				<div style={{
-					flexGrow: 1
-				}} />
-				<div className={styles.beNice}>
-					Posting to {chain.name}.
-				</div>
-				<div className={styles.submit} onClick={() => onSubmit(inputText, undefined)}>
+				<div
+					style={{
+						flexGrow: 1,
+					}}
+				/>
+				<div className={styles.beNice}>Posting to {chain.name}.</div>
+				<div
+					className={styles.submit}
+					onClick={() => onSubmit(inputText, undefined)}
+				>
 					<CreateIcon sx={{ marginLeft: 0, marginRight: "0.1em" }} /> Submit
 				</div>
 			</div>
