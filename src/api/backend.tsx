@@ -31,7 +31,11 @@ export async function fetchAllPostsBackend() {
 			const post = response.posts[i][idx];
 			const chainId = response.chainIds[i];
 
-			allposts.push(rawPostToPost(parseInt(idx), chainId, post));
+			const processedPost = rawPostToPost(parseInt(idx), chainId, post);
+
+			if (!processedPost.removed) {
+				allposts.push(processedPost);
+			}
 		}
 	}
 
