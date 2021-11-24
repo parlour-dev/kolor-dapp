@@ -31,7 +31,11 @@ export async function fetchAllPostsBackend() {
 			const post = response.posts[i][idx];
 			const chainId = response.chainIds[i];
 
-			allposts.push(rawPostToPost(parseInt(idx), chainId, post));
+			const processedPost = rawPostToPost(parseInt(idx), chainId, post);
+
+			if (!processedPost.removed) {
+				allposts.push(processedPost);
+			}
 		}
 	}
 
@@ -60,6 +64,7 @@ function rawPostToPost(id: number, chainid: number, raw: BackendPost): Post {
 			chainid: chainid,
 			balance: raw.Balance,
 			text: header_processed.title,
+			tags: header_processed.tags || [],
 			file: "url" in header_processed ? header_processed.url : undefined,
 		};
 		return post;

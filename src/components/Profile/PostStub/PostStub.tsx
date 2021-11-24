@@ -1,7 +1,6 @@
 import { BigNumber, ethers } from "ethers";
 import {
 	useShowAlert,
-	useShowLoading,
 	useTCPDataCall,
 	useTCPDataFunction,
 } from "../../../hooks";
@@ -17,13 +16,12 @@ const PostStub: React.FC<{ post: Post; scrollPosition: ScrollPosition }> = ({
 }) => {
 	const { chainId } = useEthers();
 
-	const { send, state } = useTCPDataFunction(
+	const { send } = useTCPDataFunction(
 		"removeContent",
 		chainId || 3,
 		"Remove post"
 	);
 
-	const showLoading = useShowLoading();
 	const showAlert = useShowAlert();
 
 	const time = (useTCPDataCall("getContentTimestamp", chainId || 3, [
@@ -37,21 +35,11 @@ const PostStub: React.FC<{ post: Post; scrollPosition: ScrollPosition }> = ({
 	const [days, hours, minutes] = formatTimeLeft(timeLeft);
 
 	async function handleDeletePost() {
-		showLoading(true);
-		await send(post.id);
-
-		if (state.status === "Exception") {
-			showAlert("There was a problem while processing your request.", "error");
-		} else if (state.status === "Mining") {
-			showAlert(
-				"The deletion request has been sent. You will need to wait a minute until the transaction is mined on the blockchain.",
-				"info"
-			);
-		} else if (state.status === "Success") {
-			showAlert("Your post has been deleted.", "info");
-		}
-
-		showLoading(false);
+		send(post.id);
+		showAlert(
+			"Please allow up to 6 minutes for your post to be deleted.",
+			"info"
+		);
 	}
 
 	return (

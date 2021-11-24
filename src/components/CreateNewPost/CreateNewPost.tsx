@@ -1,45 +1,38 @@
 import React, { useEffect } from "react";
 import styles from "../CreateNewPost/CreateNewPost.module.css";
-import imagePlaceholder from "../CreateNewPost/image.png";
-import submitArrow from "../CreateNewPost/arrow.png";
-import AudioPost from "./AudioPost";
-import ImagePost from "./ImagePost";
+//import submitArrow from "../CreateNewPost/arrow.png";
+import CreateAudioPost from "./posts/CreateAudioPost";
+import CreateImagePost from "./posts/CreateImagePost";
+import CreateTextPost from "./posts/CreateTextPost";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import { ContractPost } from "../../types";
-import { uploadImageToAWS } from "../../api/uploadImage";
+import {
+	uploadAudioToAWS,
+	uploadImageToAWS,
+} from "../../api/uploadImageOrAudio";
 import ReactGa from "react-ga";
 import { useShowAlert, useShowLoading, useTCPDataFunction } from "../../hooks";
 import { useEthers } from "@usedapp/core";
 
+type PostType = "text" | "image" | "audio";
+
+export type OnSubmit = (
+	text: string | undefined,
+	type: PostType,
+	file?: string,
+	fileContentType?: string
+) => void;
+
 const CreateNewPost = () => {
-	const [file, setFile] = useState("");
-	const [inputText, setInputText] = useState("");
+	const [postType, setPostType] = useState<PostType>("text");
+
 	const showAlert = useShowAlert();
 	const showLoading = useShowLoading();
-	const [postTextType, postTextSwitch] = useState(true);
-	const [postImageType, postImageSwitch] = useState(false);
-	const [postAudioType, postAudioSwitch] = useState(false);
-
-	function handleTextPost() {
-		postTextSwitch(true);
-		postImageSwitch(false);
-		postAudioSwitch(false);
-	}
-	function handleImagePost() {
-		postTextSwitch(false);
-		postImageSwitch(true);
-		postAudioSwitch(false);
-	}
-	function handleAudioPost() {
-		postTextSwitch(false);
-		postImageSwitch(false);
-		postAudioSwitch(true);
-	}
 
 	let history = useHistory();
 
-	const { chainId } = useEthers();
+	const { account, chainId } = useEthers();
 
 	const { send, state } = useTCPDataFunction(
 		"addContent",
@@ -47,32 +40,40 @@ const CreateNewPost = () => {
 		"Add content"
 	);
 
-	const submitPostHandler = async (e: React.MouseEvent) => {
-		e.preventDefault();
-
+	const submitPost: OnSubmit = async (text, type, file, fileContentType) => {
 		ReactGa.event({
 			category: "Post Creation",
 			action: "Post submission ",
 		});
 
-		if (!inputText && !file) {
+		if (!text) {
 			showAlert("The post can't be empty!", "error");
-			ReactGa.event({
-				category: "Post Creation",
-				action: "Empty Post",
-			});
+			return;
+		}
+
+		if (type !== "text" && !file) {
+			showAlert("You have to choose a file!", "error");
 			return;
 		}
 
 		showLoading(true);
 
 		try {
-			let fileUploadedTo = file ? await uploadImageToAWS(file) : undefined;
+			let fileUploadedTo = undefined;
+
+			if (type === "image" && file) {
+				fileUploadedTo = await uploadImageToAWS(file);
+			} else if (type === "audio" && file) {
+				fileUploadedTo = await uploadAudioToAWS(
+					file,
+					fileContentType || "application/octet-stream"
+				);
+			}
 
 			const newPost: ContractPost = {
-				title: inputText,
+				title: text,
 				url: fileUploadedTo,
-				tags: ["testtag"],
+				tags: [type],
 			};
 
 			send(JSON.stringify(newPost));
@@ -80,13 +81,6 @@ const CreateNewPost = () => {
 			showLoading(false);
 			showAlert("There was an error while creating your post.", "error");
 		}
-	};
-
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		try {
-			// @ts-ignore
-			setFile(URL.createObjectURL(e.target.files[0]));
-		} catch (e) {}
 	};
 
 	useEffect(() => {
@@ -106,72 +100,53 @@ const CreateNewPost = () => {
 				"Your post has been submitted. You will need to wait a minute until the transaction is mined on the blockchain.",
 				"info"
 			);
-			setInputText("");
 			history.push("/");
 		}
 	}, [state, history, showAlert, showLoading]);
 
+	// FIXME: ZA MAŁY KONTRAST
+
+	if (!account) {
+		return (
+			<form className={styles.createContainer}>
+				<div className={styles.title}>You have to log in to create a post</div>
+			</form>
+		);
+	}
+
 	return (
 		<form className={styles.createContainer}>
 			<div className={styles.title}>Create new post</div>
-			<div className={styles.buttonsUp}>
-				<div className={styles.buttons} onClick={handleTextPost}>
+			<div className={styles.postTypeButtons}>
+				<div
+					className={
+						postType === "text" ? styles.buttonsChosen : styles.buttons
+					}
+					onClick={() => setPostType("text")}
+				>
 					Text
 				</div>
-				<div className={styles.buttons} onClick={handleImagePost}>
+				<div
+					className={
+						postType === "image" ? styles.buttonsChosen : styles.buttons
+					}
+					onClick={() => setPostType("image")}
+				>
 					Image/Video
 				</div>
-				<div className={styles.buttons} onClick={handleAudioPost}>
+				<div
+					className={
+						postType === "audio" ? styles.buttonsChosen : styles.buttons
+					}
+					onClick={() => setPostType("audio")}
+				>
 					Audio
 				</div>
 			</div>
 			<div className={styles.contentCreate}>
-				<div>
-					<textarea
-						className={styles.textField}
-						// placeholder="   What's on your mind?"
-						onChange={(e) => setInputText(e.target.value)}
-					></textarea>
-				</div>
-				<div className={styles.bottomText}>
-					{/* <div
-					className={styles.uploadImage}
-					onClick={() => {
-						document.getElementById("multi")!.click();
-						ReactGa.event({
-							category: "Post creating",
-							action: "Image submission",
-						});
-					}}
-				>
-					<img
-						src={file ? file : imagePlaceholder}
-						alt="Upload"
-						className={styles.uploadImagePreview}
-					/>
-					<input
-						style={{ display: "none", width: 0, height: 0 }}
-						type="file"
-						onChange={handleChange}
-						id="multi"
-					/>
-				</div> */}
-					<div className={styles.gigaContainer}>
-						{postImageType && <ImagePost />}
-						{postAudioType && <AudioPost />}
-						{postTextType && (
-							<div className={styles.defaultSwitch}>
-								<div className={styles.netykietaKurwa}>RESPECT MR PARK</div>
-								<div className={styles.nsfw}>NSFW</div>
-								<div className={styles.chain}>Chain</div>
-							</div>
-						)}
-
-						<div className={styles.submit} onClick={submitPostHandler}>
-							Submit
-						</div>
-					</div>
-				</div>
+				{postType === "image" && <CreateImagePost onSubmit={submitPost} />}
+				{postType === "audio" && <CreateAudioPost onSubmit={submitPost} />}
+				{postType === "text" && <CreateTextPost onSubmit={submitPost} />}
 			</div>
 		</form>
 	);
