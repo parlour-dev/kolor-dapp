@@ -10,7 +10,11 @@ const Comment: React.FC<{ data: CommentT }> = ({ data }) => {
 			<div className={styles.creator}>
 				<div className={styles.creatorInfo}>
 					<Link to={`/user/${data.a}`} className={styles.profContainer}>
-						<ProfilePicture address={data.a} className={styles.profPicture} />
+						<ProfilePicture
+							address={data.a}
+							className={styles.profPicture}
+							height="1.2em"
+						/>
 					</Link>
 
 					<div className={styles.userInfoContainer}>

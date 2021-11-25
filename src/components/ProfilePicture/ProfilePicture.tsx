@@ -19,6 +19,7 @@ const generateProfilePictureGradient = (address: string, height: string) => {
 	let style = {
 		background: `linear-gradient(${tilt}deg, rgba(${color1},${color2},${color3},1) 0%, rgba(${color4},${color5},${color6},1) 100%)`,
 		height: height,
+		width: height,
 	};
 
 	return style;

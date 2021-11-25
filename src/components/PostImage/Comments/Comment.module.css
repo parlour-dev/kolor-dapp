@@ -7,9 +7,6 @@
 	height: 100%;
 	aspect-ratio: 1/1;
 }
-.profPicture {
-	height: 100% !important;
-}
 .creatorInfo {
 	width: 100%;
 	display: flex;

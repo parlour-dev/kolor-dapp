@@ -31,9 +31,11 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 
 	const { account, library } = useEthers();
 
-	console.log(post.tags);
+	let isAudioPost = false;
 
-	const isAudioPost: boolean = post.tags?.at(0) === "audio";
+	if (post && post.tags && 0 in post.tags) {
+		isAudioPost = post.tags[0] === "audio";
+	}
 
 	const profilePictureHeight = useMediaQuery(
 		"@media only screen and (max-width: 500px) and (min-height: 300px)"
