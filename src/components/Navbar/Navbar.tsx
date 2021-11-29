@@ -81,7 +81,9 @@ const Navbar = () => {
 								className={styles.chainDot}
 								style={{ backgroundColor: chain.color }}
 							></div>
-							<p className={styles.chainName}>{chain.name} v{version?.toString() || "?"}</p>
+							<p className={styles.chainName}>
+								{chain.name} v{version?.toString() || "?"}
+							</p>
 						</div>
 					)}
 

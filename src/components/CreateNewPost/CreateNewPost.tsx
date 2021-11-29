@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "../CreateNewPost/CreateNewPost.module.css";
 //import submitArrow from "../CreateNewPost/arrow.png";
 import CreateAudioPost from "./posts/CreateAudioPost";
@@ -12,8 +12,9 @@ import {
 	uploadImageToAWS,
 } from "../../api/uploadImageOrAudio";
 import ReactGa from "react-ga";
-import { useShowAlert, useShowLoading, useTCPDataFunction } from "../../hooks";
+import { useShowAlert, useShowLoading } from "../../hooks";
 import { useEthers } from "@usedapp/core";
+import { createNewPostBackend } from "../../api/backend";
 
 type PostType = "text" | "image" | "audio";
 
@@ -32,13 +33,7 @@ const CreateNewPost = () => {
 
 	let history = useHistory();
 
-	const { account, chainId } = useEthers();
-
-	const { send, state } = useTCPDataFunction(
-		"addContent",
-		chainId || 3,
-		"Add content"
-	);
+	const { account, library } = useEthers();
 
 	const submitPost: OnSubmit = async (text, type, file, fileContentType) => {
 		ReactGa.event({
@@ -76,33 +71,31 @@ const CreateNewPost = () => {
 				tags: [type],
 			};
 
-			send(JSON.stringify(newPost));
+			const newPostHeader = JSON.stringify(newPost);
+
+			const request = createNewPostBackend(
+				newPostHeader,
+				account || "",
+				(await library?.getSigner().signMessage(newPostHeader)) || ""
+			);
+
+			if ((await request).ok) {
+				showAlert(
+					"Your post has been submitted. You will need to wait a minute until the transaction is mined on the blockchain.",
+					"info"
+				);
+
+				showLoading(false);
+				history.goBack();
+			} else {
+				throw new Error("");
+			}
 		} catch (err) {
-			showLoading(false);
 			showAlert("There was an error while creating your post.", "error");
 		}
+
+		showLoading(false);
 	};
-
-	useEffect(() => {
-		if (state.status !== "None") {
-			showLoading(false);
-		}
-
-		if (state.status === "Exception") {
-			showAlert(
-				"There was a problem while processing your transaction.",
-				"error"
-			);
-		}
-
-		if (state.status === "Mining") {
-			showAlert(
-				"Your post has been submitted. You will need to wait a minute until the transaction is mined on the blockchain.",
-				"info"
-			);
-			history.push("/");
-		}
-	}, [state, history, showAlert, showLoading]);
 
 	// FIXME: ZA MAŁY KONTRAST
 

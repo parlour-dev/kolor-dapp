@@ -55,6 +55,24 @@ export function resolveChainId(chainId: number): ChainData {
 	}
 }
 
+export function createNewPostBackend(
+	header: string,
+	address: string,
+	signature: string
+) {
+	const query = `h=${encodeURIComponent(header)}&s=${encodeURIComponent(
+		signature
+	)}&a=${encodeURIComponent(address)}`;
+
+	return fetch(`https://backend.kolor.social/upload_post`, {
+		method: "POST",
+		body: query,
+		headers: {
+			"Content-Type": "application/x-www-form-urlencoded",
+		},
+	});
+}
+
 function rawPostToPost(id: number, chainid: number, raw: BackendPost): Post {
 	try {
 		const header_processed = JSON.parse(raw.Header);
