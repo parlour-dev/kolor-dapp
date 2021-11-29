@@ -14,7 +14,7 @@ import {
 	DialogContentText,
 	DialogTitle,
 } from "@mui/material";
-import { useShowAlert } from "../../hooks";
+import { useShowAlert, useTCPDataCall } from "../../hooks";
 
 const Navbar = () => {
 	const history = useHistory();
@@ -24,6 +24,8 @@ const Navbar = () => {
 	const [chainDialogOpen, setChainDialogOpen] = useState(false);
 
 	const showAlert = useShowAlert();
+
+	const version = useTCPDataCall("version", chainId || 3);
 
 	function logInHandler() {
 		activateBrowserWallet((error) => {
@@ -69,7 +71,7 @@ const Navbar = () => {
 					)}
 				</div>
 				<div className={styles.logo} onClick={() => history.push("/")}>
-					<img src={Logo} alt="DeSo" />
+					<img src={Logo} alt="Kolor" />
 				</div>
 				{/* ConnetWalletButton */}
 				<div className={styles.navbarRight}>
@@ -79,7 +81,7 @@ const Navbar = () => {
 								className={styles.chainDot}
 								style={{ backgroundColor: chain.color }}
 							></div>
-							<p className={styles.chainName}>{chain.name}</p>
+							<p className={styles.chainName}>{chain.name} v{version?.toString() || "?"}</p>
 						</div>
 					)}
 
