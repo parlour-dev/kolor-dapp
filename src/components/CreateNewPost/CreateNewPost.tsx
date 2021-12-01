@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "../CreateNewPost/CreateNewPost.module.css";
-//import submitArrow from "../CreateNewPost/arrow.png";
 import CreateAudioPost from "./posts/CreateAudioPost";
 import CreateImagePost from "./posts/CreateImagePost";
 import CreateTextPost from "./posts/CreateTextPost";
@@ -25,11 +24,19 @@ export type OnSubmit = (
 	fileContentType?: string
 ) => void;
 
+export type CreatePostType = {
+	onSubmit: OnSubmit;
+	inputText: string;
+	setInputText: React.Dispatch<React.SetStateAction<string>>;
+};
+
 const CreateNewPost = () => {
 	const [postType, setPostType] = useState<PostType>("text");
 
 	const showAlert = useShowAlert();
 	const showLoading = useShowLoading();
+
+	const [inputText, setInputText] = useState("");
 
 	let history = useHistory();
 
@@ -110,6 +117,9 @@ const CreateNewPost = () => {
 	return (
 		<form className={styles.createContainer}>
 			<div className={styles.title}>Create new post</div>
+			<div className={styles.subtitle}>
+				Posting is free. We'll pay the fees!
+			</div>
 			<div className={styles.postTypeButtons}>
 				<div
 					className={
@@ -137,9 +147,27 @@ const CreateNewPost = () => {
 				</div>
 			</div>
 			<div className={styles.contentCreate}>
-				{postType === "image" && <CreateImagePost onSubmit={submitPost} />}
-				{postType === "audio" && <CreateAudioPost onSubmit={submitPost} />}
-				{postType === "text" && <CreateTextPost onSubmit={submitPost} />}
+				{postType === "image" && (
+					<CreateImagePost
+						inputText={inputText}
+						setInputText={setInputText}
+						onSubmit={submitPost}
+					/>
+				)}
+				{postType === "audio" && (
+					<CreateAudioPost
+						inputText={inputText}
+						setInputText={setInputText}
+						onSubmit={submitPost}
+					/>
+				)}
+				{postType === "text" && (
+					<CreateTextPost
+						inputText={inputText}
+						setInputText={setInputText}
+						onSubmit={submitPost}
+					/>
+				)}
 			</div>
 		</form>
 	);

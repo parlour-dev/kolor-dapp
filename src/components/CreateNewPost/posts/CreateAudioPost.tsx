@@ -4,15 +4,14 @@ import ReactGa from "react-ga";
 import { TextField } from "@mui/material";
 import CreateIcon from "@mui/icons-material/Create";
 import AudioFileRoundedIcon from "@mui/icons-material/AudioFileRounded";
-import { useEthers } from "@usedapp/core";
-import { resolveChainId } from "../../../api/backend";
-import { OnSubmit } from "../CreateNewPost";
+import { CreatePostType } from "../CreateNewPost";
 import { useShowAlert } from "../../../hooks";
 
-const CreateAudioPost: React.FC<{ onSubmit: OnSubmit }> = ({ onSubmit }) => {
-	const { chainId } = useEthers();
-	const chain = resolveChainId(chainId || 3);
-
+const CreateAudioPost: React.FC<CreatePostType> = ({
+	onSubmit,
+	inputText,
+	setInputText,
+}) => {
 	const showAlert = useShowAlert();
 
 	const [file, setFile] = useState("");
@@ -20,7 +19,6 @@ const CreateAudioPost: React.FC<{ onSubmit: OnSubmit }> = ({ onSubmit }) => {
 	const [fileContentType, setFileContentType] = useState<string | undefined>(
 		""
 	);
-	const [inputText, setInputText] = useState("");
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		try {
@@ -77,9 +75,7 @@ const CreateAudioPost: React.FC<{ onSubmit: OnSubmit }> = ({ onSubmit }) => {
 						flexGrow: 1,
 					}}
 				/>
-				<div className={styles.beNice}>
-					Posting {fileName} to {chain.name}.
-				</div>
+				<div className={styles.beNice}>Posting {fileName} to Ropsten.</div>
 				<div
 					className={styles.submit}
 					onClick={() => onSubmit(inputText, "audio", file, fileContentType)}

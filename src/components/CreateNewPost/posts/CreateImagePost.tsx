@@ -4,16 +4,14 @@ import styles from "../CreateNewPost.module.css";
 import ReactGa from "react-ga";
 import { TextField } from "@mui/material";
 import CreateIcon from "@mui/icons-material/Create";
-import { useEthers } from "@usedapp/core";
-import { resolveChainId } from "../../../api/backend";
-import { OnSubmit } from "../CreateNewPost";
+import { CreatePostType } from "../CreateNewPost";
 
-const CreateImagePost: React.FC<{ onSubmit: OnSubmit }> = ({ onSubmit }) => {
-	const { chainId } = useEthers();
-	const chain = resolveChainId(chainId || 3);
-
+const CreateImagePost: React.FC<CreatePostType> = ({
+	onSubmit,
+	inputText,
+	setInputText,
+}) => {
 	const [file, setFile] = useState("");
-	const [inputText, setInputText] = useState("");
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		try {
@@ -62,7 +60,7 @@ const CreateImagePost: React.FC<{ onSubmit: OnSubmit }> = ({ onSubmit }) => {
 						flexGrow: 1,
 					}}
 				/>
-				<div className={styles.beNice}>Posting to {chain.name}.</div>
+				<div className={styles.beNice}>Posting to Ropsten.</div>
 				<div
 					className={styles.submit}
 					onClick={() =>

@@ -2,17 +2,13 @@ import { TextField } from "@mui/material";
 import CreateIcon from "@mui/icons-material/Create";
 import styles from "../CreateNewPost.module.css";
 import Logo from "../../Navbar/logo.png";
-import { useEthers } from "@usedapp/core";
-import { resolveChainId } from "../../../api/backend";
-import { useState } from "react";
-import { OnSubmit } from "../CreateNewPost";
+import { CreatePostType } from "../CreateNewPost";
 
-const CreateTextPost: React.FC<{ onSubmit: OnSubmit }> = ({ onSubmit }) => {
-	const { chainId } = useEthers();
-	const chain = resolveChainId(chainId || 3);
-
-	const [inputText, setInputText] = useState("");
-
+const CreateTextPost: React.FC<CreatePostType> = ({
+	onSubmit,
+	inputText,
+	setInputText,
+}) => {
 	return (
 		<>
 			<div className={styles.TextFieldBorderRadius}>
@@ -43,7 +39,7 @@ const CreateTextPost: React.FC<{ onSubmit: OnSubmit }> = ({ onSubmit }) => {
 						flexGrow: 1,
 					}}
 				/>
-				<div className={styles.beNice}>Posting to {chain.name}.</div>
+				<div className={styles.beNice}>Posting to Ropsten.</div>
 				<div
 					className={styles.submit}
 					onClick={() => onSubmit(inputText, "text")}
