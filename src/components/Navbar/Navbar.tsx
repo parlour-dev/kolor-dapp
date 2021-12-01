@@ -21,23 +21,15 @@ const Navbar = () => {
 	const { activateBrowserWallet, account, chainId } = useEthers();
 	const chain = useMemo(() => resolveChainId(chainId || 3), [chainId]);
 
-	const [chainDialogOpen, setChainDialogOpen] = useState(false);
-
-	const showAlert = useShowAlert();
+	const [errorDialogOpen, setErrorDialogOpen] = useState(false);
 
 	const version = useTCPDataCall("version", chainId || 3);
 
+	const showAlert = useShowAlert();
+
 	function logInHandler() {
 		activateBrowserWallet((error) => {
-			console.log(error);
-			if (error.name === "UnsupportedChainIdError") {
-				setChainDialogOpen(true);
-			} else if (error.name === "NoEthereumProviderError") {
-				showAlert(
-					"To log in you have to install a browser wallet like MetaMask.",
-					"error"
-				);
-			}
+			setErrorDialogOpen(true);
 		});
 		ReactGa.event({
 			category: "User status",
@@ -111,20 +103,47 @@ const Navbar = () => {
 				</div>
 			</div>
 			<Dialog
-				open={chainDialogOpen}
+				open={errorDialogOpen}
 				sx={{ zIndex: 99999 }}
-				onClose={() => setChainDialogOpen(false)}
+				onClose={() => setErrorDialogOpen(false)}
 			>
-				<DialogTitle>You are connected to an unsupported chain</DialogTitle>
+				<DialogTitle>Error</DialogTitle>
 				<DialogContent>
 					<DialogContentText>
-						This chain is not supported. Please switch to Ropsten or the BSC
-						Testnet.
+						There was an error logging in. Please install MetaMask and switch to
+						a supported chain. The supported chains are{" "}
+						<b>Ropsten and BSC Testnet</b>.
 					</DialogContentText>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={() => setChainDialogOpen(false)} autoFocus>
+					<Button onClick={() => setErrorDialogOpen(false)} autoFocus>
 						OK
+					</Button>
+					<Button
+						onClick={async () => {
+							try {
+								// @ts-ignore
+								await ethereum.request({
+									method: "wallet_switchEthereumChain",
+									params: [{ chainId: "0x3" }],
+								});
+
+								setErrorDialogOpen(false);
+
+								activateBrowserWallet((error) => {
+									setErrorDialogOpen(true);
+								});
+							} catch (switchError) {
+								showAlert(
+									"There was an error while switching the chain.",
+									"error"
+								);
+
+								setErrorDialogOpen(false);
+							}
+						}}
+					>
+						Switch to Ropsten
 					</Button>
 				</DialogActions>
 			</Dialog>
