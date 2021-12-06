@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "../CreateNewPost/CreateNewPost.module.css";
 import CreateAudioPost from "./posts/CreateAudioPost";
 import CreateImagePost from "./posts/CreateImagePost";
@@ -11,7 +11,7 @@ import {
 	uploadImageToAWS,
 } from "../../api/uploadImageOrAudio";
 import ReactGa from "react-ga";
-import { useShowAlert, useShowLoading } from "../../hooks";
+import { useShowAlert, useShowLoading, useTCPDataFunction } from "../../hooks";
 import { useEthers } from "@usedapp/core";
 import { createNewPostBackend } from "../../api/backend";
 
@@ -24,8 +24,16 @@ export type OnSubmit = (
 	fileContentType?: string
 ) => void;
 
+export type GetContractPost = (
+	text: string | undefined,
+	type: PostType,
+	file?: string,
+	fileContentType?: string
+) => Promise<ContractPost | undefined>;
+
 export type CreatePostType = {
-	onSubmit: OnSubmit;
+	onSubmitFree: OnSubmit;
+	onSubmitPaid: OnSubmit;
 	inputText: string;
 	setInputText: React.Dispatch<React.SetStateAction<string>>;
 };
@@ -40,9 +48,20 @@ const CreateNewPost = () => {
 
 	let history = useHistory();
 
-	const { account, library } = useEthers();
+	const { account, library, chainId } = useEthers();
 
-	const submitPost: OnSubmit = async (text, type, file, fileContentType) => {
+	const { send, state } = useTCPDataFunction(
+		"addContent",
+		chainId || 3,
+		"Add content"
+	);
+
+	const getContractPost: GetContractPost = async (
+		text,
+		type,
+		file,
+		fileContentType
+	) => {
 		ReactGa.event({
 			category: "Post Creation",
 			action: "Post submission ",
@@ -60,23 +79,35 @@ const CreateNewPost = () => {
 
 		showLoading(true);
 
+		let fileUploadedTo = undefined;
+
+		if (type === "image" && file) {
+			fileUploadedTo = await uploadImageToAWS(file);
+		} else if (type === "audio" && file) {
+			fileUploadedTo = await uploadAudioToAWS(
+				file,
+				fileContentType || "application/octet-stream"
+			);
+		}
+
+		const newPost: ContractPost = {
+			title: text,
+			url: fileUploadedTo,
+			tags: [type],
+		};
+
+		return newPost;
+	};
+
+	const submitPostFree: OnSubmit = async (
+		text,
+		type,
+		file,
+		fileContentType
+	) => {
 		try {
-			let fileUploadedTo = undefined;
-
-			if (type === "image" && file) {
-				fileUploadedTo = await uploadImageToAWS(file);
-			} else if (type === "audio" && file) {
-				fileUploadedTo = await uploadAudioToAWS(
-					file,
-					fileContentType || "application/octet-stream"
-				);
-			}
-
-			const newPost: ContractPost = {
-				title: text,
-				url: fileUploadedTo,
-				tags: [type],
-			};
+			const newPost = await getContractPost(text, type, file, fileContentType);
+			if (!newPost) return;
 
 			const newPostHeader = JSON.stringify(newPost);
 
@@ -103,6 +134,43 @@ const CreateNewPost = () => {
 
 		showLoading(false);
 	};
+
+	const submitPostPaid: OnSubmit = async (
+		text,
+		type,
+		file,
+		fileContentType
+	) => {
+		try {
+			const newPost = await getContractPost(text, type, file, fileContentType);
+			if (!newPost) return;
+
+			send(JSON.stringify(newPost));
+		} catch (err) {
+			showAlert("There was an error while creating your post.", "error");
+		}
+	};
+
+	useEffect(() => {
+		if (state.status !== "None") {
+			showLoading(false);
+		}
+
+		if (state.status === "Exception") {
+			showAlert(
+				"There was a problem while processing your transaction.",
+				"error"
+			);
+		}
+
+		if (state.status === "Mining") {
+			showAlert(
+				"Your post has been submitted. You will need to wait a minute until the transaction is mined on the blockchain.",
+				"info"
+			);
+			history.push("/");
+		}
+	}, [state, history, showAlert, showLoading]);
 
 	// FIXME: ZA MAŁY KONTRAST
 
@@ -151,21 +219,24 @@ const CreateNewPost = () => {
 					<CreateImagePost
 						inputText={inputText}
 						setInputText={setInputText}
-						onSubmit={submitPost}
+						onSubmitPaid={submitPostPaid}
+						onSubmitFree={submitPostFree}
 					/>
 				)}
 				{postType === "audio" && (
 					<CreateAudioPost
 						inputText={inputText}
 						setInputText={setInputText}
-						onSubmit={submitPost}
+						onSubmitPaid={submitPostPaid}
+						onSubmitFree={submitPostFree}
 					/>
 				)}
 				{postType === "text" && (
 					<CreateTextPost
 						inputText={inputText}
 						setInputText={setInputText}
-						onSubmit={submitPost}
+						onSubmitPaid={submitPostPaid}
+						onSubmitFree={submitPostFree}
 					/>
 				)}
 			</div>

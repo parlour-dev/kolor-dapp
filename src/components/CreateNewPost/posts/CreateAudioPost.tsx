@@ -2,13 +2,17 @@ import { useState } from "react";
 import styles from "../CreateNewPost.module.css";
 import ReactGa from "react-ga";
 import { TextField } from "@mui/material";
-import CreateIcon from "@mui/icons-material/Create";
+import NTFBackground from "../NFTBg.png";
+import ChainBackground from "../chainBg.png";
 import AudioFileRoundedIcon from "@mui/icons-material/AudioFileRounded";
 import { CreatePostType } from "../CreateNewPost";
 import { useShowAlert } from "../../../hooks";
+import { useEthers } from "@usedapp/core";
+import { resolveChainId } from "../../../api/backend";
 
 const CreateAudioPost: React.FC<CreatePostType> = ({
-	onSubmit,
+	onSubmitPaid,
+	onSubmitFree,
 	inputText,
 	setInputText,
 }) => {
@@ -19,6 +23,9 @@ const CreateAudioPost: React.FC<CreatePostType> = ({
 	const [fileContentType, setFileContentType] = useState<string | undefined>(
 		""
 	);
+
+	const { chainId } = useEthers();
+	const chain = resolveChainId(chainId || 3);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		try {
@@ -75,12 +82,44 @@ const CreateAudioPost: React.FC<CreatePostType> = ({
 						flexGrow: 1,
 					}}
 				/>
-				<div className={styles.beNice}>Posting {fileName} to Ropsten.</div>
+				<div className={styles.beNice}>
+					{fileName && (
+						<>
+							{" "}
+							`Posting ${fileName}.` <br />{" "}
+						</>
+					)}
+					Clicking "Save to blockchain" will allow you to post to {chain.name}.
+					When you click "Submit", we'll post to Ropsten for you.
+				</div>
+				<div
+					className={styles.submitToChain}
+					onClick={() =>
+						onSubmitPaid(inputText, "audio", file, fileContentType)
+					}
+					style={{
+						backgroundImage: `url("${ChainBackground}")`,
+						backgroundSize: "40%",
+					}}
+				>
+					Save to Blockchain
+				</div>
+				<div
+					className={styles.submitNFT}
+					onClick={() => showAlert("Coming soon!", "info")}
+					style={{
+						backgroundImage: `url("${NTFBackground}")`,
+					}}
+				>
+					Mint as NFT
+				</div>
 				<div
 					className={styles.submit}
-					onClick={() => onSubmit(inputText, "audio", file, fileContentType)}
+					onClick={() =>
+						onSubmitFree(inputText, "audio", file, fileContentType)
+					}
 				>
-					<CreateIcon sx={{ marginLeft: 0, marginRight: "0.1em" }} /> Submit
+					Submit for free
 				</div>
 			</div>
 		</>

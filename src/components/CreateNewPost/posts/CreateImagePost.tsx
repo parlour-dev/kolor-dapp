@@ -3,15 +3,24 @@ import imagePlaceholder from "../image.png";
 import styles from "../CreateNewPost.module.css";
 import ReactGa from "react-ga";
 import { TextField } from "@mui/material";
-import CreateIcon from "@mui/icons-material/Create";
+import NTFBackground from "../NFTBg.png";
+import ChainBackground from "../chainBg.png";
 import { CreatePostType } from "../CreateNewPost";
+import { useShowAlert } from "../../../hooks";
+import { useEthers } from "@usedapp/core";
+import { resolveChainId } from "../../../api/backend";
 
 const CreateImagePost: React.FC<CreatePostType> = ({
-	onSubmit,
+	onSubmitFree,
+	onSubmitPaid,
 	inputText,
 	setInputText,
 }) => {
 	const [file, setFile] = useState("");
+	const showAlert = useShowAlert();
+
+	const { chainId } = useEthers();
+	const chain = resolveChainId(chainId || 3);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		try {
@@ -60,14 +69,38 @@ const CreateImagePost: React.FC<CreatePostType> = ({
 						flexGrow: 1,
 					}}
 				/>
-				<div className={styles.beNice}>Posting to Ropsten.</div>
+				<div className={styles.beNice}>
+					Clicking "Save to blockchain" will allow you to post to {chain.name}.
+					When you click "Submit", we'll post to Ropsten for you.
+				</div>
+				<div
+					className={styles.submitToChain}
+					onClick={() =>
+						onSubmitPaid(inputText, "image", file, "application/octet-stream")
+					}
+					style={{
+						backgroundImage: `url("${ChainBackground}")`,
+						backgroundSize: "40%",
+					}}
+				>
+					Save to Blockchain
+				</div>
+				<div
+					className={styles.submitNFT}
+					onClick={() => showAlert("Coming soon!", "info")}
+					style={{
+						backgroundImage: `url("${NTFBackground}")`,
+					}}
+				>
+					Mint as NFT
+				</div>
 				<div
 					className={styles.submit}
 					onClick={() =>
-						onSubmit(inputText, "image", file, "application/octet-stream")
+						onSubmitFree(inputText, "image", file, "application/octet-stream")
 					}
 				>
-					<CreateIcon sx={{ marginLeft: 0, marginRight: "0.1em" }} /> Submit
+					Submit for free
 				</div>
 			</div>
 		</>

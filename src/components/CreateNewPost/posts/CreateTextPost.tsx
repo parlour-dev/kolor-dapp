@@ -1,14 +1,24 @@
 import { TextField } from "@mui/material";
-import CreateIcon from "@mui/icons-material/Create";
 import styles from "../CreateNewPost.module.css";
 import Logo from "../../Navbar/logo.png";
+import NTFBackground from "../NFTBg.png";
+import ChainBackground from "../chainBg.png";
 import { CreatePostType } from "../CreateNewPost";
+import { useShowAlert } from "../../../hooks";
+import { resolveChainId } from "../../../api/backend";
+import { useEthers } from "@usedapp/core";
 
 const CreateTextPost: React.FC<CreatePostType> = ({
-	onSubmit,
+	onSubmitFree,
+	onSubmitPaid,
 	inputText,
 	setInputText,
 }) => {
+	const { chainId } = useEthers();
+
+	const showAlert = useShowAlert();
+	const chain = resolveChainId(chainId || 3);
+
 	return (
 		<>
 			<div className={styles.TextFieldBorderRadius}>
@@ -39,12 +49,34 @@ const CreateTextPost: React.FC<CreatePostType> = ({
 						flexGrow: 1,
 					}}
 				/>
-				<div className={styles.beNice}>Posting to Ropsten.</div>
+				<div className={styles.beNice}>
+					Clicking "Save to blockchain" will allow you to post to {chain.name}.
+					When you click "Submit", we'll post to Ropsten for you.
+				</div>
+				<div
+					className={styles.submitToChain}
+					onClick={() => onSubmitPaid(inputText, "text")}
+					style={{
+						backgroundImage: `url("${ChainBackground}")`,
+						backgroundSize: "40%",
+					}}
+				>
+					Save to Blockchain
+				</div>
+				<div
+					className={styles.submitNFT}
+					onClick={() => showAlert("Coming soon!", "info")}
+					style={{
+						backgroundImage: `url("${NTFBackground}")`,
+					}}
+				>
+					Mint as NFT
+				</div>
 				<div
 					className={styles.submit}
-					onClick={() => onSubmit(inputText, "text")}
+					onClick={() => onSubmitFree(inputText, "text")}
 				>
-					<CreateIcon sx={{ marginLeft: 0, marginRight: "0.1em" }} /> Submit
+					Submit for free
 				</div>
 			</div>
 		</>

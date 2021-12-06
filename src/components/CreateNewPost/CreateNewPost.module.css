@@ -108,6 +108,7 @@
 
 	min-height: 3em;
 	width: 100%;
+	margin-bottom: 1em;
 
 	display: flex;
 	justify-content: center;
@@ -115,6 +116,23 @@
 
 	color: white;
 	font-size: 1.1em;
+	font-weight: bold;
+
+	background-position: right center;
+	background-size: 33%;
+	background-repeat: no-repeat;
+}
+
+.submitNFT {
+	composes: submit;
+	font-weight: normal;
+	background-color: #17161d;
+}
+
+.submitToChain {
+	composes: submit;
+	font-weight: normal;
+	background-color: #17161d;
 }
 
 .uploadImage {
