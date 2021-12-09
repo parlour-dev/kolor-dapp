@@ -1,10 +1,13 @@
 .container {
-	width: 6vmax;
 	height: 1.2vmax;
+	padding: .2em .7em;
+
 	font-size: 0.75em;
 	border: 0.075vmax solid #535353;
+
 	border-radius: 100vmax;
 	color: #a1a1a1;
+
 	display: flex;
 	align-items: center;
 	justify-content: center;

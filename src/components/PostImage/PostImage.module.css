@@ -1,12 +1,19 @@
 .post {
 	width: 35vmax;
-	border: 0.1vmax solid #535353;
 	border-radius: 1.5vmax;
 	margin: auto;
 	margin-bottom: 2vmax;
+	padding-bottom: .5em;
 	font-size: 1vmax;
 	background-color: #17161d;
 	word-wrap: break-word;
+
+	box-shadow: 0px 0px 10px black;
+
+	transition: all 0.2s;
+}
+.post:hover {
+	transform: scale(1.02);
 }
 .container {
 	width: 90%;
