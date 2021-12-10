@@ -132,6 +132,7 @@
 .submitToChain {
 	composes: submit;
 	font-weight: normal;
+	background-size: 40%;
 	background-color: #17161d;
 }
 
@@ -149,7 +150,6 @@
 	align-items: center;
 
 	color: white;
-	font-size: 1vmax;
 	cursor: pointer;
 }
 
@@ -174,16 +174,31 @@
 	width: 100%;
 }
 
-@media only screen and (max-width: 1200px) {
-	.createContainer {
-		width: 90vw;
-	}
-}
-
 .TextFieldBorderRadius fieldset {
 	border-radius: 1vmax;
 }
 
 .TextFieldBorderRadius {
 	width: 66%;
+}
+
+@media only screen and (max-width: 1200px) {
+	.createContainer {
+		width: 90vw;
+	}
+}
+
+@media only screen and (max-width: 900px) {
+	.contentCreate {
+		flex-direction: column;
+	}
+
+	.submitColumn {
+		width: 100%;
+	}
+
+	.TextFieldBorderRadius {
+		width: 100%;
+		margin-bottom: 1em;
+	}
 }

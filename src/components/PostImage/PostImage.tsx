@@ -124,7 +124,13 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 					)}
 				</div>
 				<div id="renderTips">
-					<div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
+					<div
+						style={{
+							display: "flex",
+							justifyContent: "space-between",
+							alignItems: "flex-end",
+						}}
+					>
 						<Tips amounts={{ ethereum: post.balance }} />
 						<Chain blockchain={post.chainid} />
 					</div>

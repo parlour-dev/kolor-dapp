@@ -99,7 +99,6 @@ const CreateAudioPost: React.FC<CreatePostType> = ({
 					}
 					style={{
 						backgroundImage: `url("${ChainBackground}")`,
-						backgroundSize: "40%",
 					}}
 				>
 					Save to Blockchain
