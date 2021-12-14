@@ -2,6 +2,7 @@
 	width: 70vw;
 	margin-left: auto;
 	margin-right: auto;
+	margin-top: 0.5vmax;
 }
 .defaultSwitch {
 	display: flex;

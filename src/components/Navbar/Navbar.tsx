@@ -40,7 +40,7 @@ const Navbar = () => {
 	return (
 		<div>
 			<div className={styles.navbar}>
-				<div className={styles.navbarLeft}>
+				{/* <div className={styles.navbarLeft}>
 					{account && (
 						<button
 							className={[styles.navbarButtonLeft, styles.animation].join(" ")}
@@ -61,10 +61,10 @@ const Navbar = () => {
 							Create
 						</button>
 					)}
-				</div>
-				<div className={styles.logo} onClick={() => history.push("/")}>
+				</div> */}
+				{/* <div className={styles.logo} onClick={() => history.push("/")}>
 					<img src={Logo} alt="Kolor" />
-				</div>
+				</div> */}
 				{/* ConnetWalletButton */}
 				<div className={styles.navbarRight}>
 					{chainId && (

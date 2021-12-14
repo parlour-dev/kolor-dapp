@@ -1,14 +1,13 @@
 .navbar {
-	width: 100%;
 	height: auto;
-	background-color: #17161d;
-	border-bottom: 0.1vmax solid #535353;
+	/* background-color: #17161d;
+	border-bottom: 0.1vmax solid #535353; */
 	margin-bottom: 2vmax;
 	display: flex;
 	align-items: center;
-	position: fixed;
-	margin-bottom: 5vmax;
 	z-index: 9999;
+
+	margin-left: -15vmax;
 }
 .navbarButtonLeft {
 	width: 10vmax;
@@ -118,6 +117,8 @@
 	color: #515151;
 	border: solid 0.1vmax #515151;
 	border-radius: 100vmax;
+	margin-left: 3vmax;
+	height: 2vmax;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -133,6 +134,14 @@
 }
 
 .chainName {
-	font-size: 1vmax;
+	font-size: 0.75vmax;
 	margin: 0.5vmax 0vmax;
+}
+@media only screen and (max-width: 1200px) {
+	.chainDisplayBox {
+		visibility: hidden;
+	}
+	.navbar {
+		margin-top: 1.25vmax;
+	}
 }
