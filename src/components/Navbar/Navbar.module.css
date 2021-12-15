@@ -18,14 +18,11 @@
 	color: #fff;
 
 	border-radius: 0.8vmax;
-
-	font-family: "Lato", sans-serif;
+	font-family: "mainFont";
 	font-weight: 600;
 	line-height: 3vmax;
 	font-size: 1.8vmax;
 	text-align: center;
-	font-family: "Lato", sans-serif;
-
 	border: 0px;
 }
 .buttonDisabled {
@@ -57,7 +54,7 @@
 	line-height: 3vmax;
 	font-size: 1.8vmax;
 	text-align: center;
-	font-family: "Lato", sans-serif;
+	font-family: "mainFont";
 	border: 0px;
 	display: flex;
 	justify-content: center;

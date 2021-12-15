@@ -55,6 +55,12 @@ function App() {
 								<Route exact path="/login">
 									<LoginScreen />
 								</Route>
+								<Route exact path="/login/token">
+									<LoginScreen />
+								</Route>
+								<Route exact path="/login/launch">
+									<LoginScreen />
+								</Route>
 								<Route exact path="/user/:address">
 									<UserFeed />
 								</Route>
