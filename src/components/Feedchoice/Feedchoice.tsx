@@ -8,14 +8,14 @@ export default function FeedChoice(props: any) {
 		<div className={styles.container}>
 			<img src={Logo} className={styles.logo}></img>
 			<Link to="/">
-				{" "}
+				{/* {" "} */}
 				<div className={styles.action}>
-					{" "}
+					{/* {" "} */}
 					<img src={Home} className={styles.icon}></img> Feed
 				</div>
 			</Link>
 			<div className={styles.action}>
-				{" "}
+				{/* {" "} */}
 				<img src={Rocket} className={styles.icon}></img> Explore
 			</div>
 		</div>
