@@ -1,0 +1,168 @@
+.loginStepsContainer {
+	display: flex;
+	justify-content: space-between;
+	margin: 0rem 6rem;
+	flex-wrap: wrap;
+	color: #ffffff;
+	font-family: "mainFont";
+}
+
+.loginStep {
+	background-color: #17161d;
+	width: 30rem;
+	height: 15rem;
+	margin: 2rem 2rem;
+	border-radius: 2rem;
+}
+
+.loginStepNumber {
+	background-color: #2e63fb;
+	width: 2.4rem;
+	height: 2.4rem;
+	line-height: 2.4rem;
+	aspect-ratio: 1/1;
+	border-radius: 100rem;
+	margin: 1rem auto;
+	font-weight: bold;
+}
+
+.loginStepNumberInactive {
+	border: 0.15rem solid #41414b;
+	color: #41414b;
+	width: 2.4rem;
+	height: 2.4rem;
+	line-height: 2.4rem;
+	aspect-ratio: 1/1;
+	border-radius: 100rem;
+	margin: 1rem auto;
+}
+
+.activeLoginStep {
+	border: 0.2rem solid #2e63fb;
+}
+
+.completedLoginStep {
+	border: 0.2rem solid #62d571;
+}
+
+.loginStepInfo {
+	font-size: 2.5rem;
+	font-weight: bold;
+	margin-top: 3rem;
+	padding: 1rem 1.5rem;
+}
+
+.loginStepInfoInactive {
+	font-size: 2.5rem;
+	margin-top: 3rem;
+	color: #41414b;
+	padding: 1rem 1.5rem;
+}
+
+.actionContainer {
+	width: 50rem;
+	height: 30rem;
+	border-radius: 2rem;
+	border: 0.15rem solid #41414b;
+	background-color: #17161d;
+	margin: 2rem auto;
+	display: flex;
+	flex-direction: column;
+	color: #ffffff;
+	font-family: "mainFont";
+}
+
+.actionContainerTitle {
+	font-size: 2.5rem;
+	padding: 1rem 10rem;
+	font-weight: bold;
+}
+
+.walletProviderImage img {
+	margin-top: 2rem;
+	width: 6rem;
+}
+
+.connectWalletButton {
+	font-weight: bold;
+	line-height: 3rem;
+	font-size: 1.5rem;
+	background-color: #2e63fb;
+	margin: 1rem auto;
+	height: 3rem;
+	width: 20rem;
+	border-radius: 1rem;
+}
+
+.verifyButton {
+	width: 50%;
+	background-color: #050111;
+	font-weight: bold;
+	font-size: 1.5rem;
+	margin: 1rem auto;
+	border-radius: 1.2rem;
+	display: flex;
+	justify-content: center;
+}
+
+.verifyIcon {
+	height: 2rem;
+	margin-top: auto;
+	margin-bottom: auto;
+	margin-left: 1rem;
+}
+
+.welcomeToKolorTitle {
+	font-size: 8rem;
+	font-family: "mainFont";
+	color: #ffffff;
+	font-weight: bold;
+}
+
+@media only screen and (max-width: 500px) and (min-height: 300px) {
+	.loginStep {
+		margin: 1rem 0rem;
+	}
+
+	.loginStepInfo {
+		font-size: 2rem;
+		margin-top: 1rem;
+	}
+
+	.loginStepInfoInactive {
+		font-size: 2rem;
+		margin-top: 1rem;
+	}
+
+	.loginStepsContainer {
+		margin: 0rem 1rem;
+	}
+
+	.actionContainer {
+		width: 90%;
+		height: auto;
+	}
+
+	.actionContainerTitle {
+		padding: 1rem 1rem;
+	}
+
+	.connectWalletButton {
+		width: 80%;
+		font-size: 1rem;
+	}
+
+	.verifyButton {
+		padding: 0.5rem 20%;
+	}
+
+	.welcomeToKolorTitle {
+		font-size: 100%;
+	}
+}
+
+@media only screen and (max-width: 1200px) {
+	.loginStepsContainer {
+		justify-content: center;
+	}
+}
