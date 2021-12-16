@@ -1,7 +1,7 @@
 .container {
 	width: 50vmax;
 	height: auto;
-
+	margin-top: 0.5vmax;
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: 6vmax;
@@ -98,7 +98,6 @@
 		width: 80%;
 	}
 	.logOutButton {
-		margin-top: 23vmax;
 	}
 }
 
@@ -146,21 +145,4 @@
 	padding-left: 1vmax;
 	padding-right: 1vmax;
 	border: 0;
-}
-
-@media only screen and (max-width: 500px) and (min-height: 300px) {
-	.container {
-		width: 100%;
-		margin: 0;
-		padding: 0;
-		border: none;
-		margin-bottom: 6vmax;
-	}
-
-	.logOutButton {
-		font-size: 3vmax;
-		width: 60%;
-		height: 4vmax;
-		border-radius: 1vmax;
-	}
 }

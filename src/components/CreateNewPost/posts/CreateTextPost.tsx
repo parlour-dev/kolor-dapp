@@ -1,6 +1,6 @@
 import { TextField } from "@mui/material";
 import styles from "../CreateNewPost.module.css";
-import Logo from "../../Navbar/logo.png";
+import Logo from "./web-logo.png";
 import NTFBackground from "../NFTBg.png";
 import ChainBackground from "../chainBg.png";
 import { CreatePostType } from "../CreateNewPost";

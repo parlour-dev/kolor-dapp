@@ -1,10 +1,12 @@
-import Navbar from "../src/components/Navbar/Navbar";
+// import Navbar from "../src/components/Navbar/Navbar";
 import MainPage from "./components/MainPage";
 import "./App.css";
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import CreateNewPost from "../src/components/CreateNewPost/CreateNewPost";
 import Profile from "./components/Profile/Profile";
+import FeedChoice from "./components/Navigation/Feedchoice/Feedchoice";
+import UserSide from "./components/Navigation/UserSide/UserSide";
 import { useEthers } from "@usedapp/core";
 import { Post } from "./types";
 import ReactGa from "react-ga";
@@ -43,8 +45,9 @@ function App() {
 				<ThemeProvider theme={createTheme({ palette: { mode: "dark" } })}>
 					<PostsContext.Provider value={posts}>
 						<div className="App">
-							<Navbar />
-							<div className="Separator" style={{ height: "7.5vmax" }}></div>
+							<FeedChoice />
+							<UserSide />
+
 							<Switch>
 								<Route exact path="/">
 									<MainPage />

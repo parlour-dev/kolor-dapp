@@ -9,7 +9,6 @@
 	word-wrap: break-word;
 	font-family: "mainFont";
 	box-shadow: 0px 0px 10px black;
-
 	transition: all 0.2s;
 }
 .post:hover {
@@ -126,6 +125,7 @@
 }
 
 @media only screen and (max-width: 1200px) {
+
 	.post {
 		width: 60vmax;
 	}
@@ -136,6 +136,7 @@
 }
 
 @media only screen and (max-width: 500px) and (min-height: 300px) {
+
 	.post {
 		margin-bottom: 2vmax;
 		width: 100%;
@@ -144,6 +145,14 @@
 		border: none;
 		border-radius: 0px;
 		padding-bottom: 1vmax;
+	}
+
+	.post:hover {
+		transform: scale(1.00);
+	}
+
+	.animation:hover {
+		transform: scale(1.00);
 	}
 
 	.creator {
