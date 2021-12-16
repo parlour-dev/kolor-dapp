@@ -15,6 +15,7 @@ import { resolveNickname } from "./api/nickname";
 import UserFeed from "./components/UserFeed/UserFeed";
 import { fetchAllPostsBackend } from "./api/backend";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import LoginScreen from "./components/LoginScreen/LoginScreen";
 
 export const PostsContext = React.createContext<Post[]>([]);
 export const NotificationsContext = React.createContext<any[]>([]);
@@ -53,6 +54,15 @@ function App() {
 								</Route>
 								<Route exact path="/create">
 									<CreateNewPost />
+								</Route>
+								<Route exact path="/login">
+									<LoginScreen />
+								</Route>
+								<Route exact path="/login/token">
+									<LoginScreen />
+								</Route>
+								<Route exact path="/login/launch">
+									<LoginScreen />
 								</Route>
 								<Route exact path="/user/:address">
 									<UserFeed />

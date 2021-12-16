@@ -7,6 +7,7 @@
 	font-size: 1vmax;
 	background-color: #17161d;
 	word-wrap: break-word;
+	font-family: "mainFont";
 	box-shadow: 0px 0px 10px black;
 	transition: all 0.2s;
 }
@@ -32,7 +33,6 @@
 .creatorNick {
 	font-size: 1.2vmax;
 	font-weight: 600;
-	font-family: "Lato", sans-serif;
 	color: #fff;
 	text-decoration: none;
 }
@@ -43,7 +43,7 @@
 	height: 25%;
 	margin-top: 0.08vmax;
 	font-size: 1vmax;
-	font-family: "Lato", sans-serif;
+
 	color: #535353;
 }
 .text {
@@ -51,7 +51,7 @@
 	margin-bottom: 1vmax;
 	text-align: left;
 	font-size: 1.5vmax;
-	font-family: "Lato", sans-serif;
+
 	color: #fff;
 }
 .mediaContent {
@@ -81,7 +81,6 @@
 	line-height: 2.5vmax;
 	font-size: 1.5vmax;
 	text-align: center;
-	font-family: "Lato", sans-serif;
 	font-weight: 600;
 
 	display: flex;
@@ -183,8 +182,6 @@
 		margin-top: 4vmax;
 		font-size: 3vmax;
 	}
-
-	
 }
 
 /* Hide input arrows */
