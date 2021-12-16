@@ -12,7 +12,7 @@ export default function Journey(props: any) {
 				<div className={styles.InfoContainer}>
 					<div style={{ display: "flex", justifyContent: "left" }}>
 						<div className={styles.ProfStyling}>
-							<ProfilePicture address={"234243"}></ProfilePicture>
+							<ProfilePicture address={"234243"} height={"1.5vmax"}></ProfilePicture>
 						</div>
 						<div className={styles.UserNickname}>asdasd123</div>
 					</div>

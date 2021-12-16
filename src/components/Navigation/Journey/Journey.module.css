@@ -1,5 +1,5 @@
 .container {
-	height: 15vmax;
+	height: 15.5vmax;
 	width: 35vmax;
 	margin-top: 0.5vmax;
 	justify-content: center;
@@ -14,7 +14,7 @@
 .JourneyPost {
 	width: 35vmax;
 	margin-top: 1vmax;
-	height: 13.5vmax;
+	height: 14.5vmax;
 	background-color: #17161d;
 	border-radius: 1.5vmax;
 }
@@ -37,11 +37,12 @@
 	display: flex;
 	align-items: center;
 	font-size: 0.75vmax;
-	margin-left: 0.1vmax;
+	margin-left: 0.75vmax;
 }
 .UserAdress {
 	width: 5vmax;
 	font-size: 0.5vmax;
+	margin-right: 0.33vmax;
 	display: flex;
 	align-items: center;
 	justify-content: right;
@@ -52,7 +53,7 @@
 	margin-top: 0.5vmax;
 	height: 6vmax;
 	background-color: #050111;
-	border-radius: 1.5vmax;
+	border-radius: 1vmax;
 	margin: auto;
 	resize: none;
 	color: white;
@@ -62,10 +63,11 @@
 	background-color: transparent;
 	color: white;
 	font-size: 0.75vmax;
-	width: 95%;
+	width: 97.5%;
 	outline: none;
 	margin: auto;
 	margin-top: 0.5vmax;
+	margin-left: 0.5vmax;
 	height: 4.5vmax;
 	border: none;
 	overflow: hidden;
@@ -73,7 +75,7 @@
 .Buttons {
 	width: 90%;
 	padding-top: 0.5vmax;
-	height: 3vmax;
+	height: 4vmax;
 	margin: auto;
 	display: flex;
 	flex-direction: row;
@@ -84,16 +86,16 @@
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	width: 58%;
+	width: 57.5%;
 }
 .ButtonMedia {
-	height: 2.5vmax;
-	width: 5vmax;
+	height: 3vmax;
+	width: 30%;
 	background-color: #050111;
 	border-radius: 0.75vmax;
 }
 .ButtonCreate {
-	height: 2.5vmax;
+	height: 3vmax;
 	width: 40%;
 	font-size: 1.5vmax;
 	border-radius: 0.75vmax;
@@ -103,7 +105,8 @@
 	align-items: center;
 }
 .ProfStyling {
-	transform: scale(0.5);
+margin-top:1vmax;
+margin-bottom: 1vmax;
 }
 @media only screen and (max-width: 1200px) {
 	.JourneyPost {
