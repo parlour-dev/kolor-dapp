@@ -7,20 +7,23 @@ export default function FeedChoice(props: any) {
 	return (
 		<div className={styles.container}>
 			<Link to="/">
-			<img src={Logo} className={styles.logo} />
+				<img src={Logo} alt="Kolor logo" className={styles.logo} />
 			</Link>
-			<Link to="/">
-				{/* {" "} */}
+			<div className={styles.menuItems}>
+				<Link to="/">
+					{/* {" "} */}
+
+					<div className={styles.action}>
+						{/* {" "} */}
+						<img src={Home} alt="Home" className={styles.icon} />
+						<p className={styles.menuItem}>Feed</p>
+					</div>
+				</Link>
 				<div className={styles.action}>
 					{/* {" "} */}
-					<img src={Home} className={styles.icon} /> 
-					Feed
+					<img src={Rocket} alt="Explore" className={styles.icon} />
+					<p className={styles.menuItem}>Explore</p>
 				</div>
-			</Link>
-			<div className={styles.action}>
-				{/* {" "} */}
-				<img src={Rocket} className={styles.icon} /> 
-				Explore
 			</div>
 		</div>
 	);

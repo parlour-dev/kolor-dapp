@@ -1,7 +1,7 @@
 import styles from "./Journey.module.css";
 import ProfilePicture from "../../ProfilePicture/ProfilePicture";
-import AudioFileRoundedIcon from "@mui/icons-material/AudioFileRounded";
-import Image from "./image.png";
+// import AudioFileRoundedIcon from "@mui/icons-material/AudioFileRounded";
+// import Image from "./image.png";
 
 export default function Journey(props: any) {
 	let quote = "Go out and change the world! Now!";

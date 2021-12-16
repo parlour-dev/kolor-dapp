@@ -1,46 +1,62 @@
-a {
-	width: auto;
+.container {
+	position: fixed;
 }
 
-.container {
+.menuItems {
 	height: 10vmax;
 	width: 15vmax;
 	color: white;
-	position: fixed;
 	display: flex;
 	flex-direction: column;
 	font-family: "mainFont";
 }
 .logo {
-	width: 3vmax;
+	width: 5rem;
 	height: auto;
-	margin-left: 1vmax;
+	margin-left: 1rem;
 	margin-top: 1rem;
-	margin-bottom: 2rem;
 }
 .icon {
-	width: 1vmax;
+	width: 2.5rem;
+	height: 2.5rem;
 	margin-right: 0.5vmax;
 }
 .action {
-	font-size: 1vmax;
 	margin-left: 1vmax;
-	width: 10vmax;
-	margin-top: 0.75vmax;
+	margin-top: 2rem;
 	display: flex;
-	justify-content: left;
+	flex-direction: row;
 	color: white;
+	font-weight: bold;
 }
+
+.menuItem {
+	font-size: 2rem;
+	margin: 0px;
+}
+
 a:link {
 	text-decoration: none;
 }
 @media only screen and (max-width: 1200px) {
-	.container {
+	.menuItems {
+		margin: 0px !important;
 		bottom: 0px;
+		width: 100%;
+		height: 5vmax;
+		background-color: #050111;
 		z-index: 9999;
 		margin-bottom: 2vmax;
+		flex-direction: row;
+		justify-content: space-around;
+		align-items: center;
 	}
+
+	.menuItems {
+	}
+
 	.logo {
+		margin: 0px;
 		width: 0vmax;
 		height: auto;
 		margin-left: 1vmax;
@@ -48,12 +64,14 @@ a:link {
 	}
 	.icon {
 		width: 4vmax;
-		height: auto;
-		margin-top: 0.5vmax;
-
-		margin-right: 0.5vmax;
+		height: 4vmax;
 	}
 	.action {
 		font-size: 0vmax;
+		margin: 0px;
+	}
+
+	.menuItem {
+		font-size: 0px;
 	}
 }

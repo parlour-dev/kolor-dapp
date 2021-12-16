@@ -125,7 +125,6 @@
 }
 
 @media only screen and (max-width: 1200px) {
-
 	.post {
 		width: 60vmax;
 	}
@@ -136,7 +135,6 @@
 }
 
 @media only screen and (max-width: 500px) and (min-height: 300px) {
-
 	.post {
 		margin-bottom: 2vmax;
 		width: 100%;
@@ -148,11 +146,11 @@
 	}
 
 	.post:hover {
-		transform: scale(1.00);
+		transform: scale(1);
 	}
 
 	.animation:hover {
-		transform: scale(1.00);
+		transform: scale(1);
 	}
 
 	.creator {

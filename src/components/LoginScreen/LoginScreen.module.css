@@ -1,7 +1,7 @@
 .loginStepsContainer {
 	display: flex;
 	justify-content: space-between;
-	margin: 0rem 6rem;
+	margin: 0rem 12rem;
 	flex-wrap: wrap;
 	color: #ffffff;
 	font-family: "mainFont";
@@ -24,17 +24,14 @@
 	border-radius: 100rem;
 	margin: 1rem auto;
 	font-weight: bold;
+	display: flex;
+	justify-content: center;
 }
 
 .loginStepNumberInactive {
 	border: 0.15rem solid #41414b;
 	color: #41414b;
-	width: 2.4rem;
-	height: 2.4rem;
-	line-height: 2.4rem;
-	aspect-ratio: 1/1;
-	border-radius: 100rem;
-	margin: 1rem auto;
+	background-color: transparent;
 }
 
 .activeLoginStep {
@@ -50,13 +47,13 @@
 	font-weight: bold;
 	margin-top: 3rem;
 	padding: 1rem 1.5rem;
+	display: flex;
+	justify-content: center;
 }
 
 .loginStepInfoInactive {
-	font-size: 2.5rem;
-	margin-top: 3rem;
 	color: #41414b;
-	padding: 1rem 1.5rem;
+	font-weight: normal;
 }
 
 .actionContainer {
@@ -68,6 +65,8 @@
 	margin: 2rem auto;
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 	color: #ffffff;
 	font-family: "mainFont";
 }
@@ -76,10 +75,16 @@
 	font-size: 2.5rem;
 	padding: 1rem 10rem;
 	font-weight: bold;
+	text-align: center;
+}
+
+.walletProviderImage {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .walletProviderImage img {
-	margin-top: 2rem;
 	width: 6rem;
 }
 
@@ -92,6 +97,9 @@
 	height: 3rem;
 	width: 20rem;
 	border-radius: 1rem;
+	display: flex;
+	justify-content: center;
+	cursor: pointer;
 }
 
 .verifyButton {
@@ -103,6 +111,7 @@
 	border-radius: 1.2rem;
 	display: flex;
 	justify-content: center;
+	cursor: pointer;
 }
 
 .verifyIcon {
@@ -112,11 +121,31 @@
 	margin-left: 1rem;
 }
 
+.launchScreenContent {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
 .welcomeToKolorTitle {
 	font-size: 8rem;
 	font-family: "mainFont";
 	color: #ffffff;
 	font-weight: bold;
+}
+
+.letsGoButton {
+	color: #ffffff;
+	background-color: #2e63fb;
+	padding: 1rem 2rem;
+	line-height: 3rem;
+	text-align: center;
+	width: 8rem;
+	height: 3rem;
+	font-size: 2rem;
+	font-weight: bold;
+	border-radius: 1.5rem;
 }
 
 @media only screen and (max-width: 500px) and (min-height: 300px) {
@@ -148,8 +177,9 @@
 	}
 
 	.connectWalletButton {
-		width: 80%;
+		width: 15rem;
 		font-size: 1rem;
+		text-align: center;
 	}
 
 	.verifyButton {

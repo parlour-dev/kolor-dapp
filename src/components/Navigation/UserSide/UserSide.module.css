@@ -1,7 +1,6 @@
 .container {
 	display: flex;
 	justify-content: right;
-	
 }
 .CreateButton {
 	margin-top: 0.75vmax;
@@ -15,7 +14,7 @@
 	background-color: #2e63fb;
 	font-size: 1.5vmax;
 	text-decoration: none;
-	color: #FFFFFF;
+	color: #ffffff;
 }
 .Logo {
 	height: 3vmax;
@@ -29,7 +28,7 @@
 }
 a:link {
 	text-decoration: none;
-	color: #FFFFFF;
+	color: #ffffff;
 }
 
 a:visited {
