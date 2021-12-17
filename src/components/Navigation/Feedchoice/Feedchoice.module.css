@@ -11,14 +11,14 @@
 	font-family: "mainFont";
 }
 .logo {
-	width: 5rem;
+	width: 4vmax;
 	height: auto;
 	margin-left: 1rem;
 	margin-top: 1rem;
 }
 .icon {
-	width: 2.5rem;
-	height: 2.5rem;
+	width: 2vmax;
+	height: 2vmax;
 	margin-right: 0.5vmax;
 }
 .action {
@@ -31,7 +31,7 @@
 }
 
 .menuItem {
-	font-size: 2rem;
+	font-size: 1.5vmax;
 	margin: 0px;
 }
 
