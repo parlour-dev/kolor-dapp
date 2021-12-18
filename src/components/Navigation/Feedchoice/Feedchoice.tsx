@@ -7,7 +7,11 @@ export default function FeedChoice(props: any) {
 	return (
 		<div className={styles.container}>
 			<Link to="/">
-				<img src={Logo} alt="Kolor logo" className={[styles.logo, styles.animation].join(" ")} />
+				<img
+					src={Logo}
+					alt="Kolor logo"
+					className={[styles.logo, styles.animation].join(" ")}
+				/>
 			</Link>
 			<div className={styles.menuItems}>
 				<Link to="/">

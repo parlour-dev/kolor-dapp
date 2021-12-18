@@ -4,7 +4,9 @@ import ProfilePicture from "../../ProfilePicture/ProfilePicture";
 import { useEthers } from "@usedapp/core";
 import { Link } from "react-router-dom";
 // import AudioFileRoundedIcon from "@mui/icons-material/AudioFileRounded";
-// import Image from "./image.png";
+import Image from "./image.png";
+import Video from "./video.png";
+import Audio from "./audio.png";
 
 const Journey: React.FC = () => {
 	const { account } = useEthers();
@@ -18,7 +20,7 @@ const Journey: React.FC = () => {
 		"For the future of social media.",
 		"I have a flood of ideas in my mind. I just follow my vision.",
 		"Creativity takes courage.",
-		"We don't make mistakes, just happy little accidents."
+		"We don't make mistakes, just happy little accidents.",
 	];
 	const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
 
@@ -28,18 +30,18 @@ const Journey: React.FC = () => {
 			{account && (
 				<div className={styles.JourneyPost}>
 					<Link to="/profile">
-					<div className={styles.InfoContainer}>
-						<div style={{ display: "flex", justifyContent: "left" }}>
-							<div className={styles.ProfStyling}>
-								<ProfilePicture address={"asdsad"} />
+						<div className={styles.InfoContainer}>
+							<div style={{ display: "flex", justifyContent: "left" }}>
+								<div className={styles.ProfStyling}>
+									<ProfilePicture address={"asdsad"} />
+								</div>
+								<div className={styles.userNickname}>
+									{account.substring(0, 6)}...{account.substring(38, 42)}
+								</div>
 							</div>
-							<div className={styles.userNickname}>
-								{account.substring(0, 6)}...{account.substring(38, 42)}
-							</div>
-						</div>
 
-						<div className={styles.userAddress}>{account}</div>
-					</div>
+							<div className={styles.userAddress}>{account}</div>
+						</div>
 					</Link>
 
 					<div className={styles.MediaContent}>
@@ -51,11 +53,19 @@ const Journey: React.FC = () => {
 
 					<div className={styles.buttons}>
 						<div className={styles.buttonsContainer}>
-							<div className={styles.buttonMedia}></div>
-							<div className={styles.buttonMedia}></div>
-							<div className={styles.buttonMedia}></div>
+							<div className={[styles.buttonMedia, styles.animation].join(" ")}>
+								<img className={styles.buttonIcon} src={Image} alt="Upload" />
+							</div>
+							<div className={[styles.buttonMedia, styles.animation].join(" ")}>
+								<img className={styles.buttonIcon} src={Video} alt="Upload" />
+							</div>
+							<div className={[styles.buttonMedia, styles.animation].join(" ")}>
+								<img className={styles.buttonIcon} src={Audio} alt="Upload" />
+							</div>
 						</div>
-						<div className={styles.buttonCreate}>Create</div>
+						<div className={[styles.buttonCreate, styles.animation].join(" ")}>
+							Create
+						</div>
 					</div>
 				</div>
 			)}

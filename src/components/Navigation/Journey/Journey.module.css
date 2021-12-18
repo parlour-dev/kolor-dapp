@@ -37,7 +37,7 @@
 	font-size: 1rem;
 	font-weight: bold;
 	margin-left: 0.1vmax;
-	color: #FFFFFF;
+	color: #ffffff;
 }
 .userAddress {
 	width: 5vmax;
@@ -72,10 +72,10 @@
 	font-family: "mainFont";
 }
 
-::placeholder { 
+::placeholder {
 	color: #41414b;
 	opacity: 1;
-  }
+}
 
 .buttons {
 	width: 90%;
@@ -99,7 +99,16 @@
 	width: 5.7vmax;
 	background-color: #050111;
 	border-radius: 0.75vmax;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
 }
+
+.buttonIcon {
+	width: 45%;
+}
+
 .buttonCreate {
 	height: 3vmax;
 	width: 40%;
@@ -110,10 +119,27 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	cursor: pointer;
 }
 .ProfStyling {
 	transform: scale(0.5);
 }
+
+.animation {
+	/* animation */
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+	-ms-transition: all 1s ease;
+	transition: all 1s ease;
+	transition-duration: 300ms;
+}
+
+.animation:hover {
+	transform: scale(1.05);
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.42);
+}
+
 @media only screen and (max-width: 1200px) {
 	.JourneyPost {
 		width: 60vmax;
@@ -128,6 +154,8 @@
 
 @media only screen and (max-width: 500px) and (min-height: 300px) {
 	.JourneyPost {
+		min-height: 27vmax;
+		height: auto;
 		margin-top: 4vmax;
 		margin-bottom: 2vmax;
 		width: 100%;
@@ -151,8 +179,11 @@
 	}
 
 	.buttonCreate {
-		margin: 1vmax 0vmax;
+		margin: 2vmax auto;
 		height: 5vmax;
+		width: 100%;
+		border-radius: 2vmax;
+		font-size: 1.5rem;
 	}
 
 	.buttons {
