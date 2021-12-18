@@ -35,6 +35,12 @@
 	color: #61dafb;
 }
 
+.App {
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column;
+}
+
 @keyframes App-logo-spin {
 	from {
 		transform: rotate(0deg);

@@ -1,6 +1,10 @@
 .container {
 	display: flex;
 	justify-content: right;
+	height: auto;
+	position: fixed;
+	right: 1vmax;
+	top: 1vmax;
 }
 .CreateButton {
 	margin-top: 0.75vmax;
@@ -26,6 +30,63 @@
 	height: 3vmax;
 	background-color: #2e63fb;
 }
+
+.loginButton {
+	width: 10vmax;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 2vmax;
+	border: none;
+	border-radius: 1rem;
+	background-color: #2e63fb;
+	font-size: 1.5vmax;
+	text-decoration: none;
+	color: #ffffff;
+	font-weight: bold;
+	font-family: "mainFont";
+	padding: 2rem 2rem;
+}
+
+.chainDisplayBox {
+	color: #41414b;
+	border: solid 0.15vmax #41414b;
+	border-radius: 100vmax;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0vmax 0.5vmax;
+	margin-right: 1vmax;
+}
+
+.chainDot {
+	width: 0.3vmax;
+	height: 0.3vmax;
+	border-radius: 50%;
+	aspect-ratio: 1/1;
+	margin-right: 0.25vmax;
+}
+
+.chainName {
+	font-size: 1vmax;
+	margin: 0.5vmax 0vmax;
+}
+
+.animation {
+	/* animation */
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+	-ms-transition: all 1s ease;
+	transition: all 1s ease;
+	transition-duration: 300ms;
+}
+
+.animation:hover {
+	transform: scale(1.1);
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.42);
+}
+
 a:link {
 	text-decoration: none;
 	color: #ffffff;
@@ -55,5 +116,28 @@ a:active {
 	.CreateButton {
 		margin-right: 5.5vmax;
 		margin-top: 2vmax;
+	}
+
+	.chainDisplayBox {
+		color: transparent;
+		border: none;
+		align-items: center;
+		padding: 0px;
+		margin-right: 1vmax;
+	}
+	
+	.chainDot {
+		width: 0vmax;
+		height: 0vmax;
+		margin-right: 0vmax;
+	}
+	
+	.chainName {
+		font-size: 0vmax;
+		margin: 0vmax 0vmax;
+	}
+
+	.loginButton {
+		padding: 1rem;
 	}
 }

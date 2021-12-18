@@ -15,7 +15,6 @@ const MainPage: React.FC<{ scrollPosition: ScrollPosition }> = ({
 	return (
 		<>
 			<Journey />
-			<div className="Separator" style={{ height: "3.5vmax" }}></div>
 			{posts?.map((post, idx) => (
 				<PostImage
 					key={idx}

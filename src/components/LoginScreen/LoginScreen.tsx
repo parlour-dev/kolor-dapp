@@ -5,13 +5,36 @@ import MetaMaskLogo from "./metamask.webp";
 import WalletConnectLogo from "./walletconnect.png";
 import twitterLogo from "./twitterLogo.png";
 import ensLogo from "./ensLogo.png";
+import { useEthers } from "@usedapp/core";
+import ReactGa from "react-ga";
+import {
+	Button,
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogContentText,
+	DialogTitle,
+} from "@mui/material";
 
 const LoginScreen = () => {
 	let [loginStage, setLoginStage] = useState<"login" | "token" | "launch">(
 		"login"
 	);
 
-	console.log(loginStage);
+	const { activateBrowserWallet } = useEthers();
+
+	const [errorDialogOpen, setErrorDialogOpen] = useState(false);
+
+	function logInHandler() {
+		activateBrowserWallet((error) => {
+			setErrorDialogOpen(true);
+		});
+		ReactGa.event({
+			category: "User status",
+			action: "Logging in",
+		});
+		setLoginStage("token");
+	}
 
 	return (
 		<>
@@ -74,7 +97,7 @@ const LoginScreen = () => {
 						<div className={styles.walletProviderImage}>
 							<img src={MetaMaskLogo} alt="MetaMask logo" />
 							<div
-								onClick={() => setLoginStage("token")}
+								onClick={logInHandler}
 								className={styles.connectWalletButton}
 							>
 								Connect MetaMask
@@ -176,6 +199,51 @@ const LoginScreen = () => {
 							/>
 						</div>
 					</div>
+					<Dialog
+						open={errorDialogOpen}
+						sx={{ zIndex: 99999 }}
+						onClose={() => setErrorDialogOpen(false)}
+					>
+						<DialogTitle>Error</DialogTitle>
+						<DialogContent>
+							<DialogContentText>
+								There was an error logging in. Please install MetaMask and
+								switch to a supported chain. The supported chains are{" "}
+								<b>Ropsten and BSC Testnet</b>.
+							</DialogContentText>
+						</DialogContent>
+						<DialogActions>
+							<Button onClick={() => setErrorDialogOpen(false)} autoFocus>
+								OK
+							</Button>
+							<Button
+								onClick={async () => {
+									try {
+										// @ts-ignore
+										await ethereum.request({
+											method: "wallet_switchEthereumChain",
+											params: [{ chainId: "0x3" }],
+										});
+
+										setErrorDialogOpen(false);
+
+										activateBrowserWallet((error) => {
+											setErrorDialogOpen(true);
+										});
+									} catch (switchError) {
+										showAlert(
+											"There was an error while switching the chain.",
+											"error"
+										);
+
+										setErrorDialogOpen(false);
+									}
+								}}
+							>
+								Switch to Ropsten
+							</Button>
+						</DialogActions>
+					</Dialog>
 				</div>
 			)}
 			{/* End of Get Kolor Token */}
@@ -248,3 +316,6 @@ const LoginScreen = () => {
 };
 
 export default LoginScreen;
+function showAlert(arg0: string, arg1: string) {
+	throw new Error("Function not implemented.");
+}

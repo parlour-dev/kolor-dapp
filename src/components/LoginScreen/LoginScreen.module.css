@@ -1,7 +1,8 @@
 .loginStepsContainer {
 	display: flex;
 	justify-content: space-between;
-	margin: 0rem 12rem;
+
+	margin: 0rem 20vmax;
 	flex-wrap: wrap;
 	color: #ffffff;
 	font-family: "mainFont";
@@ -9,10 +10,11 @@
 
 .loginStep {
 	background-color: #17161d;
-	width: 30rem;
+	width: 20rem;
 	height: 15rem;
-	margin: 2rem 2rem;
+	margin: 2rem 1rem;
 	border-radius: 2rem;
+	text-align: center;
 }
 
 .loginStepNumber {
@@ -151,16 +153,34 @@
 @media only screen and (max-width: 500px) and (min-height: 300px) {
 	.loginStep {
 		margin: 1rem 0rem;
+		width: 100%;
+		max-height: 10vmax;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.loginStepNumber {
+		width: 0rem;
+
+		height: 0rem;
+		line-height: 0rem;
+		font-size: 0px;
+		margin: 0px;
+	}
+
+	.loginStepNumberInactive {
+		border: none;
 	}
 
 	.loginStepInfo {
 		font-size: 2rem;
-		margin-top: 1rem;
+		margin: auto auto;
+		padding: 0rem;
 	}
 
 	.loginStepInfoInactive {
 		font-size: 2rem;
-		margin-top: 1rem;
 	}
 
 	.loginStepsContainer {
@@ -170,6 +190,7 @@
 	.actionContainer {
 		width: 90%;
 		height: auto;
+		margin-bottom: 10vmax;
 	}
 
 	.actionContainerTitle {

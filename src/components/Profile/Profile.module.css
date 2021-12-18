@@ -1,15 +1,15 @@
 .container {
 	width: 50vmax;
 	height: auto;
-	margin-top: 0.5vmax;
+	margin-top: 2vmax;
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: 6vmax;
 	background-color: #17161d;
 	word-wrap: break-word;
-	border: 0.1vmax solid #535353;
 	border-radius: 1.5vmax;
 	padding: 1rem;
+	text-align: center;
 }
 
 .profilePicture {

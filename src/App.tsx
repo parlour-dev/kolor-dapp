@@ -46,7 +46,6 @@ function App() {
 					<PostsContext.Provider value={posts}>
 						<div className="App">
 							<FeedChoice />
-							<UserSide />
 
 							<Switch>
 								<Route exact path="/">
@@ -56,12 +55,6 @@ function App() {
 									<CreateNewPost />
 								</Route>
 								<Route exact path="/login">
-									<LoginScreen />
-								</Route>
-								<Route exact path="/login/token">
-									<LoginScreen />
-								</Route>
-								<Route exact path="/login/launch">
 									<LoginScreen />
 								</Route>
 								<Route exact path="/user/:address">
@@ -77,6 +70,7 @@ function App() {
 									</Route>
 								)}
 							</Switch>
+							<UserSide />
 						</div>
 					</PostsContext.Provider>
 				</ThemeProvider>

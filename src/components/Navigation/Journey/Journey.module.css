@@ -1,11 +1,8 @@
 .container {
-	height: 15vmax;
 	width: 35vmax;
-	margin-top: 0.5vmax;
+	margin: 2rem auto;
 	justify-content: center;
 	color: white;
-	margin-left: auto;
-	margin-right: auto;
 }
 .JourneyText {
 	text-align: left;
@@ -14,7 +11,8 @@
 .JourneyPost {
 	width: 35vmax;
 	margin-top: 1vmax;
-	height: 13.5vmax;
+	min-height: 14vmax;
+	height: auto;
 	background-color: #17161d;
 	border-radius: 1.5vmax;
 }
@@ -33,44 +31,53 @@
 	margin: auto;
 	justify-content: space-between;
 }
-.UserNickname {
+.userNickname {
 	display: flex;
 	align-items: center;
-	font-size: 0.75vmax;
+	font-size: 1rem;
+	font-weight: bold;
 	margin-left: 0.1vmax;
+	color: #FFFFFF;
 }
-.UserAdress {
+.userAddress {
 	width: 5vmax;
-	font-size: 0.5vmax;
+	font-size: 0.8vmax;
 	display: flex;
 	align-items: center;
 	justify-content: right;
-	color: #535353;
+	color: #41414b;
 }
 .MediaContent {
+	min-height: 1vmax;
 	width: 90%;
-	margin-top: 0.5vmax;
-	height: 6vmax;
+	height: auto;
 	background-color: #050111;
-	border-radius: 1.5vmax;
+	border-radius: 1vmax;
 	margin: auto;
 	resize: none;
 	color: white;
 }
-.TextareaStyling {
+.textareaStyling {
+	min-height: 3vmax;
 	resize: none;
 	background-color: transparent;
 	color: white;
-	font-size: 0.75vmax;
+	font-size: 1rem;
 	width: 95%;
 	outline: none;
-	margin: auto;
-	margin-top: 0.5vmax;
+	padding: 1rem;
 	height: 4.5vmax;
 	border: none;
-	overflow: hidden;
+	overflow: auto;
+	font-family: "mainFont";
 }
-.Buttons {
+
+::placeholder { 
+	color: #41414b;
+	opacity: 1;
+  }
+
+.buttons {
 	width: 90%;
 	padding-top: 0.5vmax;
 	height: 3vmax;
@@ -80,24 +87,26 @@
 	justify-content: space-between;
 	align-items: center;
 }
-.ButtonsContainer {
+.buttonsContainer {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	width: 58%;
 }
-.ButtonMedia {
-	height: 2.5vmax;
-	width: 5vmax;
+
+.buttonMedia {
+	height: 3vmax;
+	width: 5.7vmax;
 	background-color: #050111;
 	border-radius: 0.75vmax;
 }
-.ButtonCreate {
-	height: 2.5vmax;
+.buttonCreate {
+	height: 3vmax;
 	width: 40%;
 	font-size: 1.5vmax;
 	border-radius: 0.75vmax;
 	background-color: #2e63fb;
+	font-weight: bold;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -119,6 +128,7 @@
 
 @media only screen and (max-width: 500px) and (min-height: 300px) {
 	.JourneyPost {
+		margin-top: 4vmax;
 		margin-bottom: 2vmax;
 		width: 100%;
 		/* border-left: none; */
@@ -127,10 +137,43 @@
 		border-radius: 0px;
 		padding-bottom: 1vmax;
 	}
-	.ButtonMedia {
+
+	.textareaStyling {
+		font-size: 0.75rem;
+	}
+
+	.buttonsContainer {
+		width: 100%;
+	}
+
+	.buttonMedia {
+		height: 5vmax;
+	}
+
+	.buttonCreate {
+		margin: 1vmax 0vmax;
+		height: 5vmax;
+	}
+
+	.buttons {
+		margin-top: 2vmax;
+		display: block;
+	}
+
+	.buttonMedia {
 		width: 10vmax;
 	}
 	.container {
 		width: 100%;
+		margin-top: 0.5rem;
+		margin-bottom: 0rem;
+	}
+
+	.JourneyText {
+		font-size: 0rem;
+	}
+
+	.userNickname {
+		font-size: 0.5rem;
 	}
 }
