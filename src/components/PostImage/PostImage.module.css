@@ -77,7 +77,7 @@
 
 .button {
 	width: 48%;
-	height: max(3rem, 3vmax);
+	height: max(2.3rem, 3vmax);
 
 	border-radius: 0.8vmax;
 	margin: 1rem 0;

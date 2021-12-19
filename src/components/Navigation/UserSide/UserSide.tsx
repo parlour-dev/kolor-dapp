@@ -7,7 +7,7 @@ import { resolveChainId } from "../../../api/backend";
 import ProfilePicture from "../../ProfilePicture/ProfilePicture";
 import { useTCPDataCall } from "../../../hooks";
 
-const UserSide = (props: any) => {
+const UserSide = () => {
 	const history = useHistory();
 
 	const { account, chainId } = useEthers();
@@ -42,7 +42,7 @@ const UserSide = (props: any) => {
 					onClick={() => history.push("/profile")}
 				>
 					{account && (
-						<ProfilePicture className={styles.animation} address={account} />
+						<ProfilePicture className={styles.animation} address={account} height="3rem" />
 					)}
 				</div>
 			)}
