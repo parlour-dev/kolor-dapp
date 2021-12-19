@@ -61,10 +61,6 @@ const CreateAudioPost: React.FC<CreatePostType> = ({
 					className={styles.uploadImage}
 					onClick={() => {
 						document.getElementById("multi")!.click();
-						ReactGa.event({
-							category: "Post creating",
-							action: "Image submission",
-						});
 					}}
 				>
 					<AudioFileRoundedIcon
@@ -94,9 +90,13 @@ const CreateAudioPost: React.FC<CreatePostType> = ({
 				</div>
 				<div
 					className={styles.submitToChain}
-					onClick={() =>
-						onSubmitPaid(inputText, "audio", file, fileContentType)
-					}
+					onClick={() => {
+						onSubmitPaid(inputText, "audio", file, fileContentType);
+						ReactGa.event({
+							category: "Post creating",
+							action: "Submit audio to chain",
+						});
+					}}
 					style={{
 						backgroundImage: `url("${ChainBackground}")`,
 					}}
@@ -105,7 +105,13 @@ const CreateAudioPost: React.FC<CreatePostType> = ({
 				</div>
 				<div
 					className={styles.submitNFT}
-					onClick={() => showAlert("Coming soon!", "info")}
+					onClick={() => {
+						showAlert("Coming soon!", "info");
+						ReactGa.event({
+							category: "Post creating",
+							action: "Submit audio as NFT",
+						});
+					}}
 					style={{
 						backgroundImage: `url("${NTFBackground}")`,
 					}}
@@ -114,9 +120,13 @@ const CreateAudioPost: React.FC<CreatePostType> = ({
 				</div>
 				<div
 					className={styles.submit}
-					onClick={() =>
-						onSubmitFree(inputText, "audio", file, fileContentType)
-					}
+					onClick={() => {
+						onSubmitFree(inputText, "audio", file, fileContentType);
+						ReactGa.event({
+							category: "Post creating",
+							action: "Submit audio for free",
+						});
+					}}
 				>
 					Submit for free
 				</div>

@@ -46,10 +46,6 @@ const CreateImagePost: React.FC<CreatePostType> = ({
 					className={styles.uploadImage}
 					onClick={() => {
 						document.getElementById("multi")!.click();
-						ReactGa.event({
-							category: "Post creating",
-							action: "Image submission",
-						});
 					}}
 				>
 					<img
@@ -75,9 +71,13 @@ const CreateImagePost: React.FC<CreatePostType> = ({
 				</div>
 				<div
 					className={styles.submitToChain}
-					onClick={() =>
-						onSubmitPaid(inputText, "image", file, "application/octet-stream")
-					}
+					onClick={() => {
+						onSubmitPaid(inputText, "image", file, "application/octet-stream");
+						ReactGa.event({
+							category: "Post creating",
+							action: "Submit image on chain",
+						});
+					}}
 					style={{
 						backgroundImage: `url("${ChainBackground}")`,
 						backgroundSize: "40%",
@@ -87,7 +87,13 @@ const CreateImagePost: React.FC<CreatePostType> = ({
 				</div>
 				<div
 					className={styles.submitNFT}
-					onClick={() => showAlert("Coming soon!", "info")}
+					onClick={() => {
+						showAlert("Coming soon!", "info");
+						ReactGa.event({
+							category: "Post creating",
+							action: "Submit image as NFT",
+						});
+					}}
 					style={{
 						backgroundImage: `url("${NTFBackground}")`,
 					}}
@@ -96,9 +102,13 @@ const CreateImagePost: React.FC<CreatePostType> = ({
 				</div>
 				<div
 					className={styles.submit}
-					onClick={() =>
-						onSubmitFree(inputText, "image", file, "application/octet-stream")
-					}
+					onClick={() => {
+						onSubmitFree(inputText, "image", file, "application/octet-stream");
+						ReactGa.event({
+							category: "Post creating",
+							action: "Submit image for free",
+						});
+					}}
 				>
 					Submit for free
 				</div>
