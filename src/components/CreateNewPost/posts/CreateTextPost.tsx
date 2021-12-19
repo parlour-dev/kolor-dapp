@@ -1,6 +1,7 @@
 import { TextField } from "@mui/material";
 import styles from "../CreateNewPost.module.css";
 import Logo from "./web-logo.png";
+import ReactGa from "react-ga";
 import NTFBackground from "../NFTBg.png";
 import ChainBackground from "../chainBg.png";
 import { CreatePostType } from "../CreateNewPost";
@@ -55,7 +56,13 @@ const CreateTextPost: React.FC<CreatePostType> = ({
 				</div>
 				<div
 					className={styles.submitToChain}
-					onClick={() => onSubmitPaid(inputText, "text")}
+					onClick={() => {
+						onSubmitPaid(inputText, "text");
+						ReactGa.event({
+							category: "Post creating",
+							action: "Submit text to chain",
+						});
+					}}
 					style={{
 						backgroundImage: `url("${ChainBackground}")`,
 						backgroundSize: "40%",
@@ -65,7 +72,13 @@ const CreateTextPost: React.FC<CreatePostType> = ({
 				</div>
 				<div
 					className={styles.submitNFT}
-					onClick={() => showAlert("Coming soon!", "info")}
+					onClick={() => {
+						showAlert("Coming soon!", "info");
+						ReactGa.event({
+							category: "Post creating",
+							action: "Submit text as NFT",
+						});
+					}}
 					style={{
 						backgroundImage: `url("${NTFBackground}")`,
 					}}
@@ -74,7 +87,13 @@ const CreateTextPost: React.FC<CreatePostType> = ({
 				</div>
 				<div
 					className={styles.submit}
-					onClick={() => onSubmitFree(inputText, "text")}
+					onClick={() => {
+						onSubmitFree(inputText, "text");
+						ReactGa.event({
+							category: "Post creating",
+							action: "Submit text for free",
+						});
+					}}
 				>
 					Submit for free
 				</div>
