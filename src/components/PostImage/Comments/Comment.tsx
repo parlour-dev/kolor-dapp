@@ -6,14 +6,14 @@ import styles from "../Comments/Comment.module.css";
 
 const Comment: React.FC<{ data: CommentT }> = ({ data }) => {
 	return (
-		<div>
+		<div style={{margin: ".7rem auto"}}>
 			<div className={styles.creator}>
 				<div className={styles.creatorInfo}>
 					<Link to={`/user/${data.a}`} className={styles.profContainer}>
 						<ProfilePicture
 							address={data.a}
 							className={styles.profPicture}
-							height="1.2em"
+							height="1.2rem"
 						/>
 					</Link>
 

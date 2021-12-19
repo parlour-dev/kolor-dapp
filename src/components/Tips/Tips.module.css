@@ -1,33 +1,23 @@
 .container {
 	text-align: left;
-	font-size: 0.9vmax;
+	font-size: 1rem;
 
 	display: flex;
 	flex-direction: row;
 	align-self: center;
+	align-items: center;
 }
 .mainTips {
 	color: white;
-	margin-right: 0.75vmax;
+	margin-right: 0.75rem;
 }
 
 .mainTips img {
-	width: 0.8vmax;
-	margin-right: 0.25vmax;
+	width: 0.8rem;
+	margin-right: 0.25rem;
 }
 
 .additionalTips {
 	margin-left: 0.75vmax;
 	color: #535353;
-}
-
-@media only screen and (max-width: 500px) and (min-height: 300px) {
-	.container {
-		font-size: 2vmax;
-	}
-
-	.mainTips img {
-		width: 1.4vmax;
-		margin-right: 0.5vmax;
-	}
 }

@@ -12,7 +12,6 @@ import Comments from "./Comments/Comments";
 import { CommentT, Post } from "../../types";
 import { LazyLoadImage, ScrollPosition } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import { useMediaQuery } from "@mui/material";
 import { resolveNickname } from "../../api/nickname";
 import { Link } from "react-router-dom";
 import TipButton from "./TipButton/TipButton";
@@ -36,12 +35,6 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 	if (post && post.tags && 0 in post.tags) {
 		isAudioPost = post.tags[0] === "audio";
 	}
-
-	const profilePictureHeight = useMediaQuery(
-		"@media only screen and (max-width: 500px) and (min-height: 300px)"
-	)
-		? "5vmax"
-		: "3.5vmax";
 
 	useEffect(() => {
 		fetchComments(post.id, post.chainid)
@@ -99,7 +92,7 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 						{post.author && (
 							<ProfilePicture
 								address={post.author}
-								height={profilePictureHeight}
+								height="2.8rem"
 							/>
 						)}
 					</Link>
@@ -112,7 +105,8 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 							alt=""
 							effect="blur"
 							src={"https://" + post.file}
-							className={styles.mediaContent}
+							style={{width: "100%", height: "100%"}}
+							className={styles.image}
 							scrollPosition={scrollPosition}
 						/>
 					)}

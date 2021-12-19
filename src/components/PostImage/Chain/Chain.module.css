@@ -1,8 +1,7 @@
 .container {
-	height: 1.2vmax;
-	padding: 0.2em 0.7em;
+	padding: 0.1em 0.7em;
 
-	font-size: 0.75em;
+	font-size: 0.8rem;
 	border: 0.075vmax solid #535353;
 
 	border-radius: 100vmax;
@@ -13,27 +12,10 @@
 	justify-content: center;
 }
 .dot {
-	width: 0.3vmax;
-	height: 0.3vmax;
-	aspect-ratio: 1/1;
+	width: 0.3rem;
+	height: 0.3rem;
 	border-radius: 50%;
 }
 .blockchain {
-	margin-left: 0.25vmax;
-}
-
-@media only screen and (max-width: 500px) and (min-height: 300px) {
-	.container {
-		width: auto;
-		height: 2.5vmax;
-		font-size: 1.5em;
-		padding: 0.25vmax 1vmax;
-		margin-bottom: 0.5vmax;
-	}
-
-	.dot {
-		width: 0.45vmax;
-		height: 0.45vmax;
-		margin-right: 0.25vmax;
-	}
+	margin-left: 0.25rem;
 }

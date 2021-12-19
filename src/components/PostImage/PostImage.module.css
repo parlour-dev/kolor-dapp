@@ -1,5 +1,5 @@
 .post {
-	width: 35vmax;
+	width: 35vw;
 	border-radius: 1.5vmax;
 	margin: auto;
 	margin-bottom: 2vmax;
@@ -18,6 +18,9 @@
 	width: 90%;
 	margin: auto;
 	padding-top: 5%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 .creator {
 	height: 4vmax;
@@ -28,10 +31,10 @@
 }
 .creatorInfo {
 	width: 100%;
-	margin-left: 0.8vmax;
+	margin-left: .5rem;
 }
 .creatorNick {
-	font-size: 1.2vmax;
+	font-size: 1rem;
 	font-weight: 600;
 	color: #fff;
 	text-decoration: none;
@@ -42,23 +45,28 @@
 .creatorWallet {
 	height: 25%;
 	margin-top: 0.08vmax;
-	font-size: 1vmax;
+	font-size: .8rem;
 
 	color: #535353;
 }
 .text {
-	margin-top: 1vmax;
-	margin-bottom: 1vmax;
+	margin: 1rem 0;
 	text-align: left;
-	font-size: 1.5vmax;
+	font-size: 1.2rem;
 
 	color: #fff;
 }
+
 .mediaContent {
-	width: 100%;
-	border-radius: 1.5vmax;
+	width: 80%;
 	padding-top: 2%;
-	margin-bottom: 1vmax;
+	margin: 0 auto;
+	margin-bottom: 1rem;
+}
+.image {
+	width: 100%;
+	height: 100%;
+	border-radius: 1.5vmax;
 }
 .viewerAction {
 	height: 10%;
@@ -68,18 +76,15 @@
 }
 
 .button {
-	width: 47%;
-	height: 70%;
-	aspect-ratio: 6/1;
+	width: 48%;
+	height: max(3rem, 3vmax);
 
 	border-radius: 0.8vmax;
-	margin-top: 1vmax;
-	margin-bottom: 1vmax;
+	margin: 1rem 0;
 
-	padding: 0.2vmax;
+	padding: 0.2rem;
 
-	line-height: 2.5vmax;
-	font-size: 1.5vmax;
+	font-size: 1.5rem;
 	text-align: center;
 	font-weight: 600;
 
@@ -126,7 +131,7 @@
 
 @media only screen and (max-width: 1200px) {
 	.post {
-		width: 60vmax;
+		width: 80vw;
 	}
 
 	.button {
@@ -134,51 +139,25 @@
 	}
 }
 
-@media only screen and (max-width: 500px) and (min-height: 300px) {
+@media only screen and (max-width: 600px) {
 	.post {
-		margin-bottom: 2vmax;
 		width: 100%;
 		/* border-left: none; */
 		/* border-right: none; */
 		border: none;
 		border-radius: 0px;
-		padding-bottom: 1vmax;
 	}
 
 	.post:hover {
-		transform: scale(1);
+		transform: none;
 	}
 
 	.animation:hover {
-		transform: scale(1);
+		transform: none;
 	}
 
 	.creator {
 		margin-top: 0px;
-	}
-
-	.text {
-		font-size: 2vmax;
-	}
-
-	.button {
-		height: 5vmax;
-		line-height: 5vmax;
-		font-size: 2.5em;
-		border-radius: 1.4vmax;
-	}
-
-	.creatorNick {
-		font-size: 2vmax;
-	}
-
-	.creatorInfo {
-		margin-left: 1.3vmax;
-	}
-
-	.text {
-		margin-top: 4vmax;
-		font-size: 3vmax;
 	}
 }
 

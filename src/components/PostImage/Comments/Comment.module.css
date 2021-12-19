@@ -1,6 +1,7 @@
 .creator {
 	text-align: left;
 	display: flex;
+	align-items: center;
 	flex-direction: row-reverse;
 }
 .profContainer {
@@ -11,19 +12,21 @@
 	width: 100%;
 	display: flex;
 	flex-direction: row;
+	align-items: center;
 }
 .userInfoContainer {
 	width: 100%;
+	margin-left: .3rem;
 	display: flex;
+	flex-wrap: wrap;
 	flex-direction: row;
+	justify-content: space-between;
 }
 .creatorNick {
-	width: 100%;
-	font-size: 0.6vmax;
-	font-weight: 600;
+	font-size: 0.9rem;
+	font-weight: 400;
 	font-family: "Lato", sans-serif;
 	color: #fff;
-	margin-left: 0.1vmax;
 	display: flex;
 	align-items: center;
 	text-decoration: none;
@@ -32,8 +35,7 @@
 	text-decoration: underline;
 }
 .creatorWallet {
-	width: 100%;
-	font-size: 0.6vmax;
+	font-size: 0.7rem;
 	font-family: "Lato", sans-serif;
 	color: #535353;
 	display: flex;
@@ -41,8 +43,7 @@
 	justify-content: right;
 }
 .textContainer {
-	margin-top: 0.5vmax;
-	margin-bottom: 0.5vmax;
+	margin-top: 0.7rem;
 	background-color: #050111;
 	border-radius: 1vmax;
 }
@@ -52,26 +53,14 @@
 	padding-bottom: 0.8rem;
 	margin: auto;
 	text-align: left;
-	font-size: 1vmax;
+	font-size: .85rem;
 	font-family: "Lato", sans-serif;
 	color: #fff;
 }
 
-@media only screen and (max-width: 500px) and (min-height: 300px) {
-	.creatorNick {
-		margin-left: 1vmax;
-		font-size: 1em;
-	}
-
+@media only screen and (max-width: 600px) {
 	.creatorWallet {
-		font-size: 0.8em;
-	}
-
-	.textContainer {
-		margin-bottom: 1vmax;
-	}
-
-	.text {
-		font-size: 2em;
+		font-size: 0;
+		visibility: hidden;
 	}
 }
