@@ -31,10 +31,8 @@ const Journey: React.FC = () => {
 				<div className={styles.JourneyPost}>
 					<Link to="/profile">
 						<div className={styles.InfoContainer}>
-							<div style={{ display: "flex", justifyContent: "left" }}>
-								<div className={styles.ProfStyling}>
-									<ProfilePicture address={"asdsad"} />
-								</div>
+							<div className={styles.userInfo}>
+								<ProfilePicture address={account} height="1.3rem" />
 								<div className={styles.userNickname}>
 									{account.substring(0, 6)}...{account.substring(38, 42)}
 								</div>
