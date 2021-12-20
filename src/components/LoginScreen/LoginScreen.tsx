@@ -104,6 +104,7 @@ const LoginScreen = () => {
 							</div>
 						</div>
 						<p>or</p>
+						<br />
 						<div className={styles.walletProviderImage}>
 							<img src={WalletConnectLogo} alt="WalletConnect logo" />
 							<div
