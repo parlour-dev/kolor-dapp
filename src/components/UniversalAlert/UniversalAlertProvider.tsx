@@ -7,6 +7,7 @@ import {
 import React from "react";
 import { useState } from "react";
 import AlertSnackbar from "./AlertSnackbar";
+import styles from "./UniversalAlertProvider.module.css";
 
 type ShowAlertT = (text: string, severity: AlertColor) => void;
 
@@ -45,12 +46,14 @@ const UniversalAlertProvider: React.FC = ({ children }) => {
 			<LoadingContext.Provider value={showLoading}>
 				{children}
 				{alertOpen && (
-					<AlertSnackbar
-						severity={alertSeverity}
-						value={alertText}
-						open={alertOpen}
-						handleClose={handleAlertClose}
-					/>
+					<div className={styles.alertContainer}>
+						<AlertSnackbar
+							severity={alertSeverity}
+							value={alertText}
+							open={alertOpen}
+							handleClose={handleAlertClose}
+						/>
+					</div>
 				)}
 				{loading && (
 					<Backdrop sx={{ color: "#fff", zIndex: 999999 }} open={loading}>

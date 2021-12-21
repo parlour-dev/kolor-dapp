@@ -122,6 +122,12 @@
 	cursor: pointer;
 }
 
+.fileName {
+	width: 89%;
+	margin: 0 auto;
+	margin-top: 0.5rem;
+}
+
 .animation {
 	/* animation */
 	-webkit-transition: all 1s ease;

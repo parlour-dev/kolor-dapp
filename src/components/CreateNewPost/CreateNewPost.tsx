@@ -15,7 +15,7 @@ import { useShowAlert, useShowLoading, useTCPDataFunction } from "../../hooks";
 import { useEthers } from "@usedapp/core";
 import { createNewPostBackend } from "../../api/backend";
 
-type PostType = "text" | "image" | "audio";
+export type PostType = "text" | "image" | "audio";
 
 export type OnSubmit = (
 	text: string | undefined,

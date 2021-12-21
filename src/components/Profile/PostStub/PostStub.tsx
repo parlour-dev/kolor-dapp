@@ -63,10 +63,10 @@ const PostStub: React.FC<{
 					/>
 				)}
 				{isAudioPost && post.file && (
-						<audio controls>
-							<source src={"https://" + post.file} />
-							Your browser does not support the audio element.
-						</audio>
+					<audio controls>
+						<source src={"https://" + post.file} />
+						Your browser does not support the audio element.
+					</audio>
 				)}
 			</div>
 			<div className={styles.bottomPostContainer}>

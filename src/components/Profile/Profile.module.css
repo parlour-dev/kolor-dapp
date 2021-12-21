@@ -140,7 +140,7 @@
 	}
 
 	.postStub {
-		background-color: #17161d;
+		background-color: #17161d !important;
 	}
 }
 
