@@ -2,14 +2,14 @@
 	display: flex;
 	justify-content: space-between;
 	margin: 0rem 20vw;
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
 	color: #ffffff;
 	font-family: "mainFont";
 }
 
 .loginStep {
 	background-color: #17161d;
-	width: 18vw;
+	width: 30%;
 	min-height: 15rem;
 	height: auto;
 	margin: 2vw 1vw;
@@ -153,7 +153,11 @@
 	border-radius: 1.5rem;
 }
 
-@media only screen and (max-width: 500px) and (min-height: 300px) {
+@media only screen and (max-width: 600px) {
+	.loginStepsContainer {
+		flex-wrap: wrap;
+	}
+
 	.loginStep {
 		margin: 1rem 0rem;
 		width: 100%;
