@@ -35,6 +35,12 @@ const PostStub: React.FC<{
 		3 * 24 * 60 * 60 - Math.floor((+new Date() - postMillis) / 1000);
 	const [days, hours, minutes] = formatTimeLeft(timeLeft);
 
+	let isAudioPost = false;
+
+	if (post && post.tags && 0 in post.tags) {
+		isAudioPost = post.tags[0] === "audio";
+	}
+
 	async function handleDeletePost() {
 		send(post.id);
 		showAlert(
@@ -47,7 +53,7 @@ const PostStub: React.FC<{
 		<div className={[styles.container, className].join(" ")}>
 			<div className={styles.text}>{post.text}</div>
 			<div className={styles.mediaContent}>
-				{post.file && post.file.startsWith("p.deso") && (
+				{!isAudioPost && post.file && post.file.startsWith("p.deso") && (
 					<LazyLoadImage
 						alt=""
 						effect="blur"
@@ -55,6 +61,12 @@ const PostStub: React.FC<{
 						className={styles.mediaContent}
 						scrollPosition={scrollPosition}
 					/>
+				)}
+				{isAudioPost && post.file && (
+						<audio controls>
+							<source src={"https://" + post.file} />
+							Your browser does not support the audio element.
+						</audio>
 				)}
 			</div>
 			<div className={styles.bottomPostContainer}>
