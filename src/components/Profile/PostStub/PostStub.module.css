@@ -2,7 +2,7 @@
 	width: 80%;
 	height: auto;
 
-	margin: 1vmax auto;
+	margin: 1.5em auto;
 
 	background-color: #050111;
 	word-wrap: break-word;
@@ -14,7 +14,7 @@
 .mediaContent {
 	width: 100%;
 	border-radius: 1vmax;
-	margin-bottom: 0.5vmax;
+	margin-bottom: 0.5rem;
 }
 
 .text {
@@ -22,25 +22,35 @@
 	font-size: 1.5rem;
 	padding: 0.2rem 0.8rem;
 	text-align: left;
-	margin-bottom: 1vmax;
+	margin-bottom: 1rem;
 }
 
 .bottomPostContainer {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	flex-wrap: wrap;
 }
 
-.bottomPostContainer button {
+.deleteButtonContainer {
+	margin-left: 0.8rem;
+	margin-bottom: 0.5rem;
+	flex-basis: 100%;
+	display: flex;
+}
+
+.deleteButtonContainer button {
 	background-color: #2e63fb;
 	color: #fff;
 	border: none;
-	border-radius: 0.4vmax;
-	margin-left: 0.8vmax;
-	padding: 0.2vmax 0.6vmax;
+	border-radius: 0.8vmax;
+
+	padding: 0.2rem 0.6rem;
 	font-weight: bold;
 	font-size: 1rem;
 	font-family: "Lato", "Helvetica", "Arial";
+
+	width: 10rem;
 }
 
 .timeAdded {
@@ -50,22 +60,14 @@
 	font-size: 1rem;
 }
 
+.chain {
+	margin-left: 0.8rem;
+}
+
 @media only screen and (max-width: 600px) {
-	.bottomPostContainer {
-		flex-direction: column-reverse;
-		justify-content: flex-start;
-		align-items: flex-end;
-	}
-
-	.bottomPostContainer button {
-		margin: 0;
-		padding: 0.2vmax 0.6vmax;
-		font-weight: bold;
-		width: 100%;
-		border-radius: 1vmax;
-	}
-
 	.container {
 		width: 100%;
+		border-radius: 0;
+		padding: 1.7rem;
 	}
 }

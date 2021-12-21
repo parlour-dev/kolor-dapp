@@ -10,10 +10,11 @@ import { LazyLoadImage, ScrollPosition } from "react-lazy-load-image-component";
 import Chain from "../../PostImage/Chain/Chain";
 import { useEthers } from "@usedapp/core";
 
-const PostStub: React.FC<{ post: Post; scrollPosition: ScrollPosition }> = ({
-	post,
-	scrollPosition,
-}) => {
+const PostStub: React.FC<{
+	post: Post;
+	scrollPosition: ScrollPosition;
+	className?: string;
+}> = ({ post, scrollPosition, className }) => {
 	const { chainId } = useEthers();
 
 	const { send } = useTCPDataFunction(
@@ -43,41 +44,44 @@ const PostStub: React.FC<{ post: Post; scrollPosition: ScrollPosition }> = ({
 	}
 
 	return (
-		<div className={styles.post}>
-			<div className={styles.container}>
-				<div className={styles.text}>{post.text}</div>
-				<div className={styles.mediaContent}>
-					{post.file && post.file.startsWith("p.deso") && (
-						<LazyLoadImage
-							alt=""
-							effect="blur"
-							src={"https://" + post.file}
-							className={styles.mediaContent}
-							scrollPosition={scrollPosition}
-						/>
-					)}
-				</div>
-				<div className={styles.bottomPostContainer}>
-					{timeLeft > 0 && !post.removed && (
-						<>
+		<div className={[styles.container, className].join(" ")}>
+			<div className={styles.text}>{post.text}</div>
+			<div className={styles.mediaContent}>
+				{post.file && post.file.startsWith("p.deso") && (
+					<LazyLoadImage
+						alt=""
+						effect="blur"
+						src={"https://" + post.file}
+						className={styles.mediaContent}
+						scrollPosition={scrollPosition}
+					/>
+				)}
+			</div>
+			<div className={styles.bottomPostContainer}>
+				{timeLeft > 0 && !post.removed && (
+					<>
+						<div className={styles.deleteButtonContainer}>
 							<button onClick={handleDeletePost}>Remove post</button>
-							<div className={styles.timeAdded}>
-								Time left to remove: {days} {days === 1 ? "day" : "days"}{" "}
-								{hours} {hours === 1 ? "hour" : "hours"} {minutes}{" "}
-								{minutes === 1 ? "minute" : "minutes"}
-							</div>
-						</>
-					)}
-					{timeLeft <= 0 && !post.removed && (
-						<div className={styles.timeAdded}>
-							It's too late for this post to be removed.
 						</div>
-					)}
-					{post.removed && (
 						<div className={styles.timeAdded}>
-							This post has already been removed.
+							Time left to remove: {days} {days === 1 ? "day" : "days"} {hours}{" "}
+							{hours === 1 ? "hour" : "hours"} {minutes}{" "}
+							{minutes === 1 ? "minute" : "minutes"}
 						</div>
-					)}
+					</>
+				)}
+				{timeLeft <= 0 && !post.removed && (
+					<div className={styles.timeAdded}>
+						It's too late for this post to be removed.
+					</div>
+				)}
+				{post.removed && (
+					<div className={styles.timeAdded}>
+						This post has already been removed.
+					</div>
+				)}
+
+				<div className={styles.chain}>
 					<Chain blockchain={post.chainid} />
 				</div>
 			</div>

@@ -1,26 +1,19 @@
 .container {
 	width: 50vw;
-	height: auto;
-	margin-top: 2vmax;
-	margin-left: auto;
-	margin-right: auto;
-	margin-bottom: 6vmax;
-	background-color: #17161d;
-	word-wrap: break-word;
-	border-radius: 1.5vmax;
+	margin: 6vmax auto;
 	padding: 1rem;
+	border-radius: 1.5vmax;
+
+	background-color: #17161d;
+
+	word-wrap: break-word;
 	text-align: center;
 }
 
 .profilePicture {
-	border-radius: 100vmax;
-	aspect-ratio: 1/1;
-	width: 3.5vmax;
-	height: auto;
-	margin: auto;
-	margin-top: 5vmax;
-	margin-bottom: 4vmax;
-	transform: scale(3);
+	margin-top: 2rem;
+	margin-bottom: 1.5rem;
+	display: inline-block;
 }
 
 .usernameEditBox {
@@ -38,7 +31,7 @@
 .username {
 	color: #fff;
 	font-family: "Lato", sans-serif;
-	font-size: 2vmax;
+	font-size: 2rem;
 	font-weight: 600;
 	margin-top: 1vmax;
 	display: table-cell;
@@ -52,29 +45,30 @@
 
 .walletAddress {
 	color: #535353;
-	font-size: 1.1vmax;
+	font-size: 1.1rem;
 	margin-top: 0.5vmax;
 }
 
 .balance {
-	margin: 1vmax 1vmax;
-	font-size: 1vmax;
+	margin: 1rem 1rem;
+	font-size: 1rem;
 	color: #fff;
 }
 
 .logOutButton {
-	width: 20vmax;
-	margin-top: 18vmax;
-	margin-bottom: 2vmax;
+	width: 14rem;
+	height: 2rem;
+	margin-top: 5rem;
+	margin-bottom: 1rem;
 	background-color: #2e63fb;
 	color: #fff;
 	border-radius: 0.8vmax;
+
 	font-family: "Lato", sans-serif;
 	font-weight: 600;
-	line-height: 3vmax;
-	font-size: 1.8vmax;
+	font-size: 1.3rem;
 	text-align: center;
-	font-family: "Lato", sans-serif;
+
 	border: 0px;
 }
 
@@ -91,14 +85,6 @@
 .animation:hover {
 	transform: scale(1.1);
 	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.42);
-}
-
-@media only screen and (max-width: 1200px) {
-	.container {
-		width: 80%;
-	}
-	.logOutButton {
-	}
 }
 
 /* Popup */
@@ -145,4 +131,28 @@
 	padding-left: 1vmax;
 	padding-right: 1vmax;
 	border: 0;
+}
+
+@media only screen and (max-width: 1200px) {
+	.container {
+		width: 100%;
+		background-color: transparent;
+	}
+
+	.postStub {
+		background-color: #17161d;
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	.container {
+		margin-left: 0;
+		margin-right: 0;
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	.walletAddress {
+		display: none;
+	}
 }

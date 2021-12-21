@@ -54,7 +54,7 @@ const Profile: React.FC<ProfileT> = ({
 	return (
 		<div className={styles.container}>
 			<div className={styles.profilePicture}>
-				<ProfilePicture address={author} />
+				<ProfilePicture address={author} height="8rem" />
 			</div>
 			<div className={styles.usernameEditBox}>
 				<div className={styles.username}>{username}</div>
@@ -94,7 +94,12 @@ const Profile: React.FC<ProfileT> = ({
 					.filter((post) => post.chainid === chainId)
 					.map((post, idx) => {
 						return (
-							<PostStub key={idx} post={post} scrollPosition={scrollPosition} />
+							<PostStub
+								key={idx}
+								post={post}
+								className={styles.postStub}
+								scrollPosition={scrollPosition}
+							/>
 						);
 					})}
 			</div>
