@@ -3,7 +3,8 @@ import Logo from "./Logo.png";
 import Home from "./Home.png";
 import Rocket from "./Rocket.png";
 import { Link } from "react-router-dom";
-export default function FeedChoice(props: any) {
+
+export default function FeedChoice() {
 	return (
 		<div className={styles.container}>
 			<Link to="/">

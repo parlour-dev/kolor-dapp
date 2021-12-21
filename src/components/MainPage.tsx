@@ -6,6 +6,7 @@ import {
 	trackWindowScroll,
 	ScrollPosition,
 } from "react-lazy-load-image-component";
+import styles from "./MainPage.module.css";
 
 const MainPage: React.FC<{ scrollPosition: ScrollPosition }> = ({
 	scrollPosition,
@@ -13,7 +14,7 @@ const MainPage: React.FC<{ scrollPosition: ScrollPosition }> = ({
 	const posts = useContext(PostsContext);
 
 	return (
-		<>
+		<div className={styles.mainPage}>
 			<Journey />
 			{posts?.map((post, idx) => (
 				<PostImage
@@ -22,7 +23,7 @@ const MainPage: React.FC<{ scrollPosition: ScrollPosition }> = ({
 					post={post}
 				></PostImage>
 			))}
-		</>
+		</div>
 	);
 };
 

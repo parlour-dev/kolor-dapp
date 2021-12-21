@@ -19,8 +19,8 @@
 
 .text {
 	color: #fff;
-	font-size: 1.6vmax;
-	padding: 0.2vmax 0.8vmax;
+	font-size: 1.5rem;
+	padding: 0.2rem 0.8rem;
 	text-align: left;
 	margin-bottom: 1vmax;
 }
@@ -39,32 +39,33 @@
 	margin-left: 0.8vmax;
 	padding: 0.2vmax 0.6vmax;
 	font-weight: bold;
-	font-size: 1vmax;
+	font-size: 1rem;
 	font-family: "Lato", "Helvetica", "Arial";
 }
 
 .timeAdded {
 	color: #535353;
 	text-align: left;
-	padding: 0.2vmax 0.8vmax;
-	font-size: 1vmax;
+	padding: 0.2rem 0.8rem;
+	font-size: 1rem;
 }
 
-@media only screen and (max-width: 500px) and (min-height: 300px) {
-	.text {
-		font-size: 3vmax;
-	}
-
-	.timeAdded {
-		font-size: 1.4vmax;
+@media only screen and (max-width: 600px) {
+	.bottomPostContainer {
+		flex-direction: column-reverse;
+		justify-content: flex-start;
+		align-items: flex-end;
 	}
 
 	.bottomPostContainer button {
-		margin-left: 0.8vmax;
+		margin: 0;
 		padding: 0.2vmax 0.6vmax;
 		font-weight: bold;
-		width: 20%;
+		width: 100%;
 		border-radius: 1vmax;
-		font-size: 1vmax;
+	}
+
+	.container {
+		width: 100%;
 	}
 }

@@ -1,5 +1,6 @@
 .container {
 	margin: 2rem auto;
+	margin-bottom: 2rem;
 	color: white;
 }
 .JourneyText {
@@ -9,9 +10,9 @@
 .JourneyPost {
 	width: 35vw;
 	margin-top: 1vmax;
-	padding-bottom: 1rem;
+	padding: 1.5rem 0;
 	min-height: 14vmax;
-	height: auto;
+
 	background-color: #17161d;
 	border-radius: 1.5vmax;
 }
@@ -19,31 +20,27 @@
 .InfoContainer {
 	display: flex;
 	flex-direction: row;
-	width: 90%;
-	padding: 1vmax 0;
-	margin: auto;
-	justify-content: space-between;
 	align-items: center;
-	flex-wrap: wrap;
+
+	width: 90%;
+	margin: 0 auto;
+	margin-bottom: 1rem;
 }
 
 .userInfo {
-	margin-top: .3rem;
 	display: flex;
-	flex-direction: row;
-	justify-content: flex-start;
-	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+	margin-left: 0.4rem;
 }
 
 .userNickname {
 	font-size: 1rem;
 	font-weight: bold;
-	margin-left: 0.4rem;
 	color: white;
 }
 
 .userAddress {
-	margin-top: .3rem;
 	font-size: 0.8rem;
 	display: flex;
 	align-items: center;
@@ -175,7 +172,7 @@
 	}
 
 	.buttons {
-		margin-top: .7vmax;
+		margin-top: 0.7vmax;
 		display: block;
 	}
 
@@ -188,5 +185,17 @@
 	.JourneyText {
 		font-size: 0rem;
 		visibility: hidden;
+	}
+
+	.userAddress {
+		display: none;
+	}
+
+	.userInfo {
+		margin-left: 0.2rem;
+	}
+
+	.profilePicutre {
+		transform: scale(0.8);
 	}
 }

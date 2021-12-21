@@ -74,6 +74,8 @@ a:link {
 		flex-direction: row;
 		justify-content: space-around;
 		align-items: center;
+
+		border-top: 0.1vmax solid RGBA(83, 83, 83, 0.5);
 	}
 
 	.logo {

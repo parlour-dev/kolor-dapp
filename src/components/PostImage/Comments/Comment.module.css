@@ -16,7 +16,7 @@
 }
 .userInfoContainer {
 	width: 100%;
-	margin-left: .3rem;
+	margin-left: 0.3rem;
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: row;
@@ -53,7 +53,7 @@
 	padding-bottom: 0.8rem;
 	margin: auto;
 	text-align: left;
-	font-size: .85rem;
+	font-size: 0.85rem;
 	font-family: "Lato", sans-serif;
 	color: #fff;
 }

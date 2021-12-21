@@ -42,7 +42,11 @@ const UserSide = () => {
 					onClick={() => history.push("/profile")}
 				>
 					{account && (
-						<ProfilePicture className={styles.animation} address={account} height="3rem" />
+						<ProfilePicture
+							className={styles.animation}
+							address={account}
+							height="3rem"
+						/>
 					)}
 				</div>
 			)}

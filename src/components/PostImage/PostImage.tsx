@@ -90,10 +90,7 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 					</div>
 					<Link to={`/user/${post?.author}`} className={styles.profilePicutre}>
 						{post.author && (
-							<ProfilePicture
-								address={post.author}
-								height="2.8rem"
-							/>
+							<ProfilePicture address={post.author} height="2.8rem" />
 						)}
 					</Link>
 				</div>
@@ -105,7 +102,7 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 							alt=""
 							effect="blur"
 							src={"https://" + post.file}
-							style={{width: "100%", height: "100%"}}
+							style={{ width: "100%", height: "100%" }}
 							className={styles.image}
 							scrollPosition={scrollPosition}
 						/>

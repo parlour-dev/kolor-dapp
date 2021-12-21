@@ -6,7 +6,7 @@ import styles from "../Comments/Comment.module.css";
 
 const Comment: React.FC<{ data: CommentT }> = ({ data }) => {
 	return (
-		<div style={{margin: ".7rem auto"}}>
+		<div style={{ margin: ".7rem auto" }}>
 			<div className={styles.creator}>
 				<div className={styles.creatorInfo}>
 					<Link to={`/user/${data.a}`} className={styles.profContainer}>
