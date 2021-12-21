@@ -1,0 +1,7 @@
+.alertContainer {
+	z-index: 9999 !important;
+}
+
+.alertContainer * {
+	z-index: 9999 !important;
+}
