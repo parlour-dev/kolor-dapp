@@ -21,7 +21,9 @@
 		"@types/react-rte": "^0.16.3",
 		"@usedapp/coingecko": "^0.3.24",
 		"@usedapp/core": "^0.5.4",
+		"@walletconnect/web3-provider": "^1.7.0",
 		"@web3-react/core": "^6.1.9",
+		"@web3-react/walletconnect-connector": "^6.2.8",
 		"axios": "^0.21.4",
 		"ethers": "^5.4.1",
 		"mersenne-twister": "^1.1.0",
@@ -34,7 +36,7 @@
 		"react-scripts": "^4.0.3",
 		"typescript": "^4.4.3",
 		"web-vitals": "^1.0.1",
-		"web3": "^1.5.2",
+		"web3": "^1.6.1",
 		"web3-react": "^5.0.5"
 	},
 	"scripts": {

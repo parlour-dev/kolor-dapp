@@ -6,6 +6,7 @@ import WalletConnectLogo from "./walletconnect.png";
 import twitterLogo from "./twitterLogo.png";
 import ensLogo from "./ensLogo.png";
 import { useEthers } from "@usedapp/core";
+import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
 import ReactGa from "react-ga";
 import {
 	Button,
@@ -21,11 +22,11 @@ const LoginScreen = () => {
 		"login"
 	);
 
-	const { activateBrowserWallet } = useEthers();
-
 	const [errorDialogOpen, setErrorDialogOpen] = useState(false);
 
-	function logInHandler() {
+	const { activateBrowserWallet } = useEthers();
+
+	function MetaMaskLogin() {
 		activateBrowserWallet((error) => {
 			setErrorDialogOpen(true);
 		});
@@ -33,7 +34,23 @@ const LoginScreen = () => {
 			category: "User status",
 			action: "Logging in",
 		});
-		setLoginStage("token");
+		setLoginStage("launch");
+	}
+
+	const { activate } = useEthers();
+
+	function WalletConnectHandler() {
+		const walletconnect = new WalletConnectConnector({
+			infuraId: "40ecaa4d584d4e2e8624f7352dfd5136",
+		});
+
+		const WalletConnectLogin = () => {
+			// this could be any wallet
+			activate(walletconnect);
+		};
+
+		WalletConnectLogin();
+		setLoginStage("launch");
 	}
 
 	return (
@@ -97,7 +114,7 @@ const LoginScreen = () => {
 						<div className={styles.walletProviderImage}>
 							<img src={MetaMaskLogo} alt="MetaMask logo" />
 							<div
-								onClick={logInHandler}
+								onClick={MetaMaskLogin}
 								className={styles.connectWalletButton}
 							>
 								Connect MetaMask
@@ -108,11 +125,7 @@ const LoginScreen = () => {
 						<div className={styles.walletProviderImage}>
 							<img src={WalletConnectLogo} alt="WalletConnect logo" />
 							<div
-								onClick={() => {
-									alert(
-										"Coming soon. \nIf you know how to add WalletConnect integration, make a pull request at https://github.com/parlour-dev/kolor-dapp"
-									);
-								}}
+								onClick={WalletConnectHandler}
 								className={styles.connectWalletButton}
 							>
 								Connect any wallet
