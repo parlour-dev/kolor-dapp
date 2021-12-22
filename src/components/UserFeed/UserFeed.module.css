@@ -1,0 +1,29 @@
+.title {
+    color: #FFFFFF;
+    text-align: center;
+    padding: 1vw;
+    font-size: 2rem;
+}
+
+.button {
+    background-color: #2e63fb;
+    color: #FFFFFF;
+    width: 15rem;
+    text-align: center;
+    margin: 1rem auto;
+    font-size: 2rem;
+    border-radius: 1rem;
+    padding: 0.5rem;
+}
+
+@media only screen and (max-width: 600px) {
+    .button {
+        width: 90%;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .title {
+        margin-top: 100px;
+    }
+}
