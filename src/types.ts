@@ -1,21 +1,23 @@
 export type Post = {
 	id: number;
+	uuid: string;
 	chainid: number;
+	timestamp: Date;
 	text: string;
 	balance: number;
+
 	file?: string;
+	contentType?: string;
+
 	tags?: string[];
-	comments?: string[];
+	comments: CommentT[];
 	author?: string;
 	removed?: boolean;
-	contentType?: string;
-	timestamp: Date;
 };
 
 export type CommentT = {
-	a: string; // author
-	c: string; // content
-	s?: string; // signature
+	author: string;
+	content: string;
 };
 
 export type ContractPost = {

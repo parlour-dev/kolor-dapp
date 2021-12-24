@@ -1,43 +1,25 @@
-const BATCH_SIZE = 20;
-
-const fetchComments = async (idx: number, chainid: number) => {
-	// Comments are stored in batches of 20.
-	// Each comment has an index within its batch.
-	const batchid = Math.floor(idx / BATCH_SIZE);
-	const index_in_batch = idx % BATCH_SIZE;
-
-	const response = await fetch(
-		`https://api.desoapp.co/comments/${chainid}/batch-${batchid}`,
-		{
-			method: "GET",
-			cache: "default",
-		}
-	);
-
-	const data = await response.json();
-	return data[index_in_batch] || [];
-};
+import { backendURI } from "./backend";
 
 const postComment = (
-	idx: number,
-	chainid: number,
+	targetPost: string,
 	content: string,
 	address: string,
 	signature: string
 ) => {
-	const value = {
-		a: address,
-		c: content,
-		s: signature,
-	};
+	const a = encodeURIComponent(address);
+	const c = encodeURIComponent(content);
+	const s = encodeURIComponent(signature);
+	const t = encodeURIComponent(targetPost);
 
-	return fetch(`https://api.desoapp.co/comments/${chainid}/${idx}`, {
+	const query = `a=${a}&c=${c}&s=${s}&t=${t}`;
+
+	return fetch(`${backendURI}/upload_comment`, {
 		method: "POST",
-		body: JSON.stringify(value),
+		body: query,
 		headers: {
-			"Content-Type": "application/json",
+			"Content-Type": "application/x-www-form-urlencoded",
 		},
 	});
 };
 
-export { fetchComments, postComment };
+export { postComment };

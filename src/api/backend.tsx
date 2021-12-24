@@ -1,4 +1,4 @@
-import { ChainData, ChainIdsT, Post } from "../types";
+import { ChainData, ChainIdsT, CommentT, Post } from "../types";
 
 type BackendResponse = {
 	expiry: Date;
@@ -28,9 +28,10 @@ type BackendPostDb = {
 	mintid: string;
 	timestamp: Date;
 	post: BackendPost;
+	comments: CommentT[] | null;
 };
 
-const backendURI = "http://localhost:8000"; //"backend.kolor.social"
+export const backendURI = "http://localhost:8000"; //"backend.kolor.social"
 
 export async function fetchAllPostsBackend() {
 	const raw_response = await fetch(`${backendURI}/get_posts`, {
@@ -113,9 +114,11 @@ function rawPostToPost(id: number, chainid: number, raw: BackendPostDb): Post {
 	try {
 		const post: Post = {
 			author: raw.post.properties.author.description,
+			uuid: raw.uuid,
 			id: id,
 			chainid: chainid,
 			balance: 0,
+			comments: raw.comments || [],
 			text: raw.post.properties.text.description,
 			tags: [],
 			file: raw.post.properties.file.description || undefined,
@@ -126,10 +129,12 @@ function rawPostToPost(id: number, chainid: number, raw: BackendPostDb): Post {
 	} catch (e) {
 		const post: Post = {
 			author: raw.post.properties.author.description,
+			uuid: raw.uuid,
 			id: id,
 			chainid: chainid,
 			balance: 0,
 			text: "[removed]",
+			comments: [],
 			removed: true,
 			timestamp: new Date(raw.timestamp),
 		};

@@ -9,24 +9,24 @@ const Comment: React.FC<{ data: CommentT }> = ({ data }) => {
 		<div style={{ margin: ".7rem auto" }}>
 			<div className={styles.creator}>
 				<div className={styles.creatorInfo}>
-					<Link to={`/user/${data.a}`} className={styles.profContainer}>
+					<Link to={`/user/${data.author}`} className={styles.profContainer}>
 						<ProfilePicture
-							address={data.a}
+							address={data.author}
 							className={styles.profPicture}
 							height="1.2rem"
 						/>
 					</Link>
 
 					<div className={styles.userInfoContainer}>
-						<Link to={`/user/${data.a}`} className={styles.creatorNick}>
-							{resolveNickname(data.a)}
+						<Link to={`/user/${data.author}`} className={styles.creatorNick}>
+							{resolveNickname(data.author)}
 						</Link>
-						<div className={styles.creatorWallet}>{data.a}</div>
+						<div className={styles.creatorWallet}>{data.author}</div>
 					</div>
 				</div>
 			</div>
 			<div className={styles.textContainer}>
-				<div className={styles.text}>{data.c}</div>
+				<div className={styles.text}>{data.content}</div>
 			</div>
 		</div>
 	);

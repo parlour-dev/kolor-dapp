@@ -5,9 +5,8 @@ import Chain from "./Chain/Chain";
 import ProfilePicture from "../ProfilePicture/ProfilePicture";
 import { useShowAlert, useShowLoading, useToggle } from "../../hooks";
 import { useEthers } from "@usedapp/core";
-import { useEffect } from "react";
 import { useState } from "react";
-import { fetchComments, postComment } from "../../api/comments";
+import { postComment } from "../../api/comments";
 import Comments from "./Comments/Comments";
 import { CommentT, Post } from "../../types";
 import { LazyLoadImage, ScrollPosition } from "react-lazy-load-image-component";
@@ -23,7 +22,7 @@ type PostImageT = {
 
 const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 	const [showAddComment, toggleAddComment] = useToggle(false);
-	const [comments, setComments] = useState<CommentT[]>([]);
+	const [comments, setComments] = useState<CommentT[]>(post.comments);
 
 	const showAlert = useShowAlert();
 	const showLoading = useShowLoading();
@@ -31,12 +30,6 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 	const { account, library } = useEthers();
 
 	const isAudioPost = post.contentType?.startsWith("audio/");
-
-	useEffect(() => {
-		fetchComments(post.id, post.chainid)
-			.then((data) => setComments(data))
-			.catch(console.error);
-	}, [post.id, post.chainid]);
 
 	async function onCommentSubmit(newComment: string) {
 		showLoading(true);
@@ -48,19 +41,21 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 			showAlert("You have to be logged in to add a comment.", "error");
 		} else {
 			try {
+				const toSign =
+					"Kolor Comment: " + newComment + "\nFor post: " + post.uuid;
+
 				// post the comment using the api
 				const result = await postComment(
-					post.id,
-					post.chainid,
+					post.uuid,
 					newComment,
 					account,
-					await library.getSigner().signMessage(newComment)
+					await library.getSigner().signMessage(toSign)
 				);
 
 				// if the posting went fine, add the comment to the local list
 				// (to avoid fetching again)
 				if (result.ok)
-					setComments([...comments, { a: account, c: newComment }]);
+					setComments([...comments, { author: account, content: newComment }]);
 				else
 					showAlert(
 						"There was an error while submitting your comment.",
