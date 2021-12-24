@@ -8,6 +8,8 @@ export type Post = {
 	comments?: string[];
 	author?: string;
 	removed?: boolean;
+	contentType?: string;
+	timestamp: Date;
 };
 
 export type CommentT = {
@@ -40,3 +42,19 @@ export type ChainData = {
 export type ChainIdsT = {
 	[U: number]: ChainData;
 };
+
+export type PostType = "text" | "image" | "audio";
+
+export type OnSubmit = (
+	text: string | undefined,
+	type: PostType,
+	file?: string,
+	fileContentType?: string
+) => void;
+
+export type GetContractPost = (
+	text: string | undefined,
+	type: PostType,
+	file?: string,
+	fileContentType?: string
+) => Promise<ContractPost | undefined>;

@@ -7,7 +7,7 @@ import {
 } from "react-lazy-load-image-component";
 import { resolveNickname } from "../../api/nickname";
 import { useParams } from "react-router";
-import styles from "./UserFeed.module.css"
+import styles from "./UserFeed.module.css";
 import { Link } from "react-router-dom";
 
 interface UserFeedParams {
@@ -40,12 +40,12 @@ const UserFeed: React.FC<{ scrollPosition: ScrollPosition }> = ({
 
 			{userPosts.length === 0 && (
 				<>
-				<p className={styles.title}>
-					{nick} is on the platform but hasn't posted yet...
-				</p>
-				<Link to="/">
-				<div className={styles.button}>Go back</div>
-				</Link>
+					<p className={styles.title}>
+						{nick} is on the platform but hasn't posted yet...
+					</p>
+					<Link to="/">
+						<div className={styles.button}>Go back</div>
+					</Link>
 				</>
 			)}
 		</div>

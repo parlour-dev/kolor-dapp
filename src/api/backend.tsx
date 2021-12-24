@@ -1,21 +1,39 @@
 import { ChainData, ChainIdsT, Post } from "../types";
 
 type BackendResponse = {
-	chainIds: number[];
 	expiry: Date;
 	fresh: boolean;
 	now: Date;
-	posts: BackendPost[][];
+	posts: BackendPostDb[];
 };
 
 type BackendPost = {
-	Author: string;
-	Header: string;
-	Balance: number;
+	title: string;
+	type: string;
+	properties: {
+		text: ERC721Property;
+		file: ERC721Property;
+		contentType: ERC721Property;
+		author: ERC721Property;
+	};
 };
 
+type ERC721Property = {
+	type: string;
+	description: string;
+};
+
+type BackendPostDb = {
+	uuid: string;
+	mintid: string;
+	timestamp: Date;
+	post: BackendPost;
+};
+
+const backendURI = "http://localhost:8000"; //"backend.kolor.social"
+
 export async function fetchAllPostsBackend() {
-	const raw_response = await fetch("https://backend.kolor.social/get_posts", {
+	const raw_response = await fetch(`${backendURI}/get_posts`, {
 		method: "GET",
 	});
 
@@ -26,16 +44,15 @@ export async function fetchAllPostsBackend() {
 	const response = (await raw_response.json()) as BackendResponse;
 	var allposts: Post[] = [];
 
-	for (var i = 0; i < response.chainIds.length; i++) {
-		for (const idx in response.posts[i]) {
-			const post = response.posts[i][idx];
-			const chainId = response.chainIds[i];
+	for (const idx in response.posts) {
+		const processedPost = rawPostToPost(
+			parseInt(idx),
+			parseInt(response.posts[idx].mintid),
+			response.posts[idx]
+		);
 
-			const processedPost = rawPostToPost(parseInt(idx), chainId, post);
-
-			if (!processedPost.removed) {
-				allposts.push(processedPost);
-			}
+		if (!processedPost.removed) {
+			allposts.push(processedPost);
 		}
 	}
 
@@ -43,7 +60,9 @@ export async function fetchAllPostsBackend() {
 }
 
 const chainIds: ChainIdsT = {
+	0: { name: "Unminted", color: "#fff", currency: "" },
 	3: { name: "Ropsten", color: "#ff0b8d", currency: "ETH" },
+	56: { name: "BSC Mainnet", color: "#fce705", currency: "BNB" },
 	97: { name: "BSC Testnet", color: "#fce705", currency: "BNB" },
 };
 
@@ -55,16 +74,33 @@ export function resolveChainId(chainId: number): ChainData {
 	}
 }
 
+// type SignedHeader struct {
+// 	Title       string `form:"title"`
+// 	Text        string `form:"text"`
+// 	ContentType string `form:"contentType"`
+// 	File        string `form:"file"`
+// 	Address     string `form:"addr"`
+// 	Signature   string `form:"sign"`
+// }
+
 export function createNewPostBackend(
-	header: string,
+	title: string,
+	text: string,
+	contentType: string,
+	file: string,
 	address: string,
 	signature: string
 ) {
-	const query = `h=${encodeURIComponent(header)}&s=${encodeURIComponent(
-		signature
-	)}&a=${encodeURIComponent(address)}`;
+	const title_url = encodeURIComponent(title);
+	const text_url = encodeURIComponent(text);
+	const contentType_url = encodeURIComponent(contentType);
+	const file_url = encodeURIComponent(file);
+	const addr_url = encodeURIComponent(address);
+	const sign_url = encodeURIComponent(signature);
 
-	return fetch(`https://backend.kolor.social/upload_post`, {
+	const query = `title=${title_url}&text=${text_url}&contentType=${contentType_url}&file=${file_url}&addr=${addr_url}&sign=${sign_url}`;
+
+	return fetch(`${backendURI}/upload_post`, {
 		method: "POST",
 		body: query,
 		headers: {
@@ -73,27 +109,29 @@ export function createNewPostBackend(
 	});
 }
 
-function rawPostToPost(id: number, chainid: number, raw: BackendPost): Post {
+function rawPostToPost(id: number, chainid: number, raw: BackendPostDb): Post {
 	try {
-		const header_processed = JSON.parse(raw.Header);
 		const post: Post = {
-			author: raw.Author,
+			author: raw.post.properties.author.description,
 			id: id,
 			chainid: chainid,
-			balance: raw.Balance,
-			text: header_processed.title,
-			tags: header_processed.tags || [],
-			file: "url" in header_processed ? header_processed.url : undefined,
+			balance: 0,
+			text: raw.post.properties.text.description,
+			tags: [],
+			file: raw.post.properties.file.description || undefined,
+			contentType: raw.post.properties.contentType.description || undefined,
+			timestamp: new Date(raw.timestamp),
 		};
 		return post;
 	} catch (e) {
 		const post: Post = {
-			author: raw.Author,
+			author: raw.post.properties.author.description,
 			id: id,
 			chainid: chainid,
-			balance: raw.Balance,
+			balance: 0,
 			text: "[removed]",
 			removed: true,
+			timestamp: new Date(raw.timestamp),
 		};
 		return post;
 	}

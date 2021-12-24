@@ -1,48 +1,24 @@
-import { BigNumber, ethers } from "ethers";
-import {
-	useShowAlert,
-	useTCPDataCall,
-	useTCPDataFunction,
-} from "../../../hooks";
+import { useShowAlert } from "../../../hooks";
 import { Post } from "../../../types";
 import styles from "./PostStub.module.css";
 import { LazyLoadImage, ScrollPosition } from "react-lazy-load-image-component";
 import Chain from "../../PostImage/Chain/Chain";
-import { useEthers } from "@usedapp/core";
 
 const PostStub: React.FC<{
 	post: Post;
 	scrollPosition: ScrollPosition;
 	className?: string;
 }> = ({ post, scrollPosition, className }) => {
-	const { chainId } = useEthers();
-
-	const { send } = useTCPDataFunction(
-		"removeContent",
-		chainId || 3,
-		"Remove post"
-	);
-
 	const showAlert = useShowAlert();
-
-	const time = (useTCPDataCall("getContentTimestamp", chainId || 3, [
-		post.id,
-	]) || [ethers.constants.Zero])[0] as BigNumber;
-	const postMillis = time.toNumber() * 1000;
 
 	// 3 days - ( the difference between now and the date the post was created )
 	let timeLeft =
-		3 * 24 * 60 * 60 - Math.floor((+new Date() - postMillis) / 1000);
+		3 * 24 * 60 * 60 - Math.floor((+new Date() - +post.timestamp) / 1000);
 	const [days, hours, minutes] = formatTimeLeft(timeLeft);
 
-	let isAudioPost = false;
-
-	if (post && post.tags && 0 in post.tags) {
-		isAudioPost = post.tags[0] === "audio";
-	}
+	let isAudioPost = post.contentType?.startsWith("audio/");
 
 	async function handleDeletePost() {
-		send(post.id);
 		showAlert(
 			"Please allow up to 6 minutes for your post to be deleted.",
 			"info"

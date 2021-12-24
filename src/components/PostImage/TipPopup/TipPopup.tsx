@@ -1,11 +1,6 @@
 import { Box, Modal } from "@mui/material";
-import { ethers } from "ethers";
-import { useEffect, useMemo, useState } from "react";
-import {
-	useShowAlert,
-	useShowLoading,
-	useTCPDataFunction,
-} from "../../../hooks";
+import { useMemo, useState } from "react";
+import { useShowLoading } from "../../../hooks";
 import ReactGa from "react-ga";
 import styles from "./TipPopup.module.css";
 import { resolveChainId } from "../../../api/backend";
@@ -18,18 +13,11 @@ const TipPopup: React.FC<{
 }> = ({ open, onClose, post }) => {
 	const [tipAmount, setTipAmount] = useState("0");
 
-	const showAlert = useShowAlert();
 	const showLoading = useShowLoading();
 
 	const currency = useMemo(
 		() => resolveChainId(post.chainid).currency,
 		[post.chainid]
-	);
-
-	const { send, state } = useTCPDataFunction(
-		"tipContent",
-		post.chainid,
-		"Tip post"
 	);
 
 	function handleTip() {
@@ -39,10 +27,9 @@ const TipPopup: React.FC<{
 		});
 
 		showLoading(true);
-		send(post.id, { value: ethers.utils.parseUnits(tipAmount) });
 	}
 
-	useEffect(() => {
+	/*useEffect(() => {
 		if (state.status !== "None") {
 			showLoading(false);
 		}
@@ -60,7 +47,7 @@ const TipPopup: React.FC<{
 				"info"
 			);
 		}
-	}, [state, showAlert, showLoading]);
+	}, [state, showAlert, showLoading]);*/
 
 	return (
 		<Modal open={open} onClose={onClose} sx={{ zIndex: 99999 }}>

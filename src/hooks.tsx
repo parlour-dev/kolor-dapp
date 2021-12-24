@@ -23,7 +23,7 @@ export function useShowAlert() {
 export function useShowLoading() {
 	return useContext(LoadingContext);
 }
-
+/*
 export function useTCPDataFunction(
 	method: string,
 	chain: number,
@@ -45,3 +45,4 @@ export function useTCPDataCall(method: string, chain: number, args?: any[]) {
 		args: args || [],
 	});
 }
+*/

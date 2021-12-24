@@ -5,20 +5,21 @@ import { useEthers } from "@usedapp/core";
 import { Link } from "react-router-dom";
 // import AudioFileRoundedIcon from "@mui/icons-material/AudioFileRounded";
 import Image from "./image.png";
-import Video from "./video.png";
+//import Video from "./video.png";
 import Audio from "./audio.png";
-import {
-	GetContractPost,
-	OnSubmit,
-	PostType,
-} from "../../CreateNewPost/CreateNewPost";
+
 import { useShowAlert, useShowLoading } from "../../../hooks";
 import ReactGa from "react-ga";
 import {
 	uploadAudioToAWS,
 	uploadImageToAWS,
 } from "../../../api/uploadImageOrAudio";
-import { ContractPost } from "../../../types";
+import {
+	ContractPost,
+	GetContractPost,
+	OnSubmit,
+	PostType,
+} from "../../../types";
 import { createNewPostBackend } from "../../../api/backend";
 
 const Journey: React.FC = () => {
@@ -99,15 +100,27 @@ const Journey: React.FC = () => {
 		fileContentType
 	) => {
 		try {
+			const title = "Some Title";
 			const newPost = await getContractPost(text, type, file, fileContentType);
 			if (!newPost) return;
 
-			const newPostHeader = JSON.stringify(newPost);
+			const headerToSign =
+				"Kolor Post: " +
+				(title || "") +
+				"\nText: " +
+				(newPost.title || "") +
+				"\nFile: " +
+				(newPost.url || "") +
+				"\n" +
+				(fileContentType || "");
 
 			const request = createNewPostBackend(
-				newPostHeader,
+				title || "",
+				newPost.title || "",
+				fileContentType || "",
+				newPost.url || "",
 				account || "",
-				(await library?.getSigner().signMessage(newPostHeader)) || ""
+				(await library?.getSigner().signMessage(headerToSign)) || ""
 			);
 
 			if ((await request).ok) {
@@ -197,7 +210,7 @@ const Journey: React.FC = () => {
 							>
 								<img className={styles.buttonIcon} src={Image} alt="Upload" />
 							</div>
-							<div
+							{/*<div
 								className={[styles.buttonMedia, styles.animation].join(" ")}
 								onClick={() => {
 									setPostType("image");
@@ -205,7 +218,7 @@ const Journey: React.FC = () => {
 								}}
 							>
 								<img className={styles.buttonIcon} src={Video} alt="Upload" />
-							</div>
+							</div>*/}
 							<div
 								className={[styles.buttonMedia, styles.animation].join(" ")}
 								onClick={() => {

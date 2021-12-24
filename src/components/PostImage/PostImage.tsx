@@ -30,11 +30,7 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 
 	const { account, library } = useEthers();
 
-	let isAudioPost = false;
-
-	if (post && post.tags && 0 in post.tags) {
-		isAudioPost = post.tags[0] === "audio";
-	}
+	const isAudioPost = post.contentType?.startsWith("audio/");
 
 	useEffect(() => {
 		fetchComments(post.id, post.chainid)

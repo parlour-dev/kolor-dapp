@@ -5,7 +5,7 @@ import { useEthers } from "@usedapp/core";
 import { useMemo } from "react";
 import { resolveChainId } from "../../../api/backend";
 import ProfilePicture from "../../ProfilePicture/ProfilePicture";
-import { useTCPDataCall } from "../../../hooks";
+//import { useTCPDataCall } from "../../../hooks";
 
 const UserSide = () => {
 	const history = useHistory();
@@ -13,7 +13,8 @@ const UserSide = () => {
 	const { account, chainId } = useEthers();
 	const chain = useMemo(() => resolveChainId(chainId || 3), [chainId]);
 
-	const version = useTCPDataCall("version", chainId || 3);
+	//const version = useTCPDataCall("version", chainId || 3);
+	const version = 6;
 
 	return (
 		<div className={styles.container}>

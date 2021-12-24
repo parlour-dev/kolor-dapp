@@ -3,7 +3,6 @@ import MainPage from "./components/MainPage";
 import "./App.css";
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import CreateNewPost from "../src/components/CreateNewPost/CreateNewPost";
 import Profile from "./components/Profile/Profile";
 import FeedChoice from "./components/Navigation/Feedchoice/Feedchoice";
 import UserSide from "./components/Navigation/UserSide/UserSide";
@@ -50,9 +49,6 @@ function App() {
 							<Switch>
 								<Route exact path="/">
 									<MainPage />
-								</Route>
-								<Route exact path="/create">
-									<CreateNewPost />
 								</Route>
 								<Route exact path="/login">
 									<LoginScreen />

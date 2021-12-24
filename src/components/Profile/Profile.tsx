@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import styles from "../Profile/Profile.module.css";
 import { useEthers } from "@usedapp/core";
 import ProfilePicture from "../ProfilePicture/ProfilePicture";
@@ -7,14 +7,11 @@ import ReactGa from "react-ga";
 import { useHistory } from "react-router-dom";
 import { useContext } from "react";
 import { PostsContext } from "../../App";
-import { useTCPDataCall } from "../../hooks";
-import { ethers } from "ethers";
 import PostStub from "./PostStub/PostStub";
 import {
 	trackWindowScroll,
 	ScrollPosition,
 } from "react-lazy-load-image-component";
-import { resolveChainId } from "../../api/backend";
 
 type ProfileT = {
 	walletAddress: string;
@@ -31,7 +28,7 @@ const Profile: React.FC<ProfileT> = ({
 }) => {
 	const posts = useContext(PostsContext);
 
-	const { deactivate, chainId } = useEthers();
+	const { deactivate } = useEthers();
 
 	function logOutHandler() {
 		deactivate();
@@ -43,13 +40,6 @@ const Profile: React.FC<ProfileT> = ({
 	}
 
 	let history = useHistory();
-
-	const [balanceRaw] = useTCPDataCall("getBalance", chainId || 3, [author]) || [
-		0,
-	];
-	const balance = ethers.utils.formatEther(balanceRaw);
-
-	const chain = useMemo(() => resolveChainId(chainId || 3), [chainId]);
 
 	return (
 		<div className={styles.container}>
@@ -80,18 +70,17 @@ const Profile: React.FC<ProfileT> = ({
 				</Popup>*/}
 			</div>
 			<div className={styles.walletAddress}>{walletAddress}</div>
-			<div className={styles.balance}>
+			{/*<div className={styles.balance}>
 				Your total earnings on {chain.name}:{" "}
 				<b>
 					{balance} {chain.currency}
 				</b>
-			</div>
+			</div>*/}
 			<div>
 				{posts
 					?.filter(
 						(post) => post.author?.toLowerCase() === author.toLowerCase()
 					)
-					.filter((post) => post.chainid === chainId)
 					.map((post, idx) => {
 						return (
 							<PostStub
