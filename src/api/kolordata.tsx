@@ -1,19 +1,19 @@
 import { ChainId } from "@usedapp/core";
 import { Contract, ethers } from "ethers";
 
-type TCPDataAddressT = {
+type KolorDataAddressT = {
 	[I: number]: string;
 };
 
-type TCPDataT = {
+type KolorDataT = {
 	[I: number]: Contract;
 };
 
-export const tcpdata_address: TCPDataAddressT = {
-	[ChainId.Ropsten]: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+export const kolordata_address: KolorDataAddressT = {
+	[ChainId.Ropsten]: "0x0531aFBb877b438D213A39681D97F29Ddf53a51a",
 };
 
-export const tcpdata_abi = [
+export const kolordata_abi = [
 	"event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId)",
 	"event ApprovalForAll(address indexed owner, address indexed operator, bool approved)",
 	"event ContentAdded(uint256 indexed idx, address indexed author)",
@@ -41,10 +41,10 @@ export const tcpdata_abi = [
 	"function version() pure returns (uint256)",
 ];
 
-export const tcpdata: TCPDataT = {
+export const kolordata: KolorDataT = {
 	[ChainId.Ropsten]: new ethers.Contract(
-		tcpdata_address[ChainId.Ropsten],
-		tcpdata_abi
+		kolordata_address[ChainId.Ropsten],
+		kolordata_abi
 	),
 	/*[ChainId.BSCTestnet]: new ethers.Contract(
 		tcpdata_address[ChainId.BSCTestnet],
