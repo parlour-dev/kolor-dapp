@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./LoginScreen.module.css";
 import { Link } from "react-router-dom";
 import MetaMaskLogo from "./metamask.webp";
@@ -15,25 +15,40 @@ import {
 	DialogContentText,
 	DialogTitle,
 } from "@mui/material";
+import { useShowAlert } from "../../hooks";
+
+type LoginStage = "login" | "token" | "launch";
 
 const LoginScreen = () => {
-	let [loginStage, setLoginStage] = useState<"login" | "token" | "launch">(
-		"login"
-	);
+	const { activateBrowserWallet, account } = useEthers();
 
-	const { activateBrowserWallet } = useEthers();
+	const showAlert = useShowAlert();
 
 	const [errorDialogOpen, setErrorDialogOpen] = useState(false);
 
-	function logInHandler() {
+	let [loginStage, setLoginStage] = useState<LoginStage>("login");
+
+	useEffect(() => {
+		if (localStorage.getItem("hasAlreadyLoggedIn") === "metamask" && !account) {
+			activateBrowserWallet();
+		}
+
+		if (loginStage === "login" && account) {
+			setLoginStage("launch");
+			localStorage.setItem("hasAlreadyLoggedIn", "metamask");
+			//setLoginStage("token");
+		}
+	}, [loginStage, account, activateBrowserWallet]);
+
+	function logInHandlerMetamask() {
 		activateBrowserWallet((error) => {
 			setErrorDialogOpen(true);
+			setLoginStage("login");
 		});
 		ReactGa.event({
 			category: "User status",
 			action: "Logging in",
 		});
-		setLoginStage("token");
 	}
 
 	return (
@@ -97,7 +112,7 @@ const LoginScreen = () => {
 						<div className={styles.walletProviderImage}>
 							<img src={MetaMaskLogo} alt="MetaMask logo" />
 							<div
-								onClick={logInHandler}
+								onClick={logInHandlerMetamask}
 								className={styles.connectWalletButton}
 							>
 								Connect MetaMask
@@ -200,51 +215,6 @@ const LoginScreen = () => {
 							/>
 						</div>
 					</div>
-					<Dialog
-						open={errorDialogOpen}
-						sx={{ zIndex: 99999 }}
-						onClose={() => setErrorDialogOpen(false)}
-					>
-						<DialogTitle>Error</DialogTitle>
-						<DialogContent>
-							<DialogContentText>
-								There was an error logging in. Please install MetaMask and
-								switch to a supported chain. The supported chains are{" "}
-								<b>Ropsten and BSC Testnet</b>.
-							</DialogContentText>
-						</DialogContent>
-						<DialogActions>
-							<Button onClick={() => setErrorDialogOpen(false)} autoFocus>
-								OK
-							</Button>
-							<Button
-								onClick={async () => {
-									try {
-										// @ts-ignore
-										await ethereum.request({
-											method: "wallet_switchEthereumChain",
-											params: [{ chainId: "0x3" }],
-										});
-
-										setErrorDialogOpen(false);
-
-										activateBrowserWallet((error) => {
-											setErrorDialogOpen(true);
-										});
-									} catch (switchError) {
-										showAlert(
-											"There was an error while switching the chain.",
-											"error"
-										);
-
-										setErrorDialogOpen(false);
-									}
-								}}
-							>
-								Switch to Ropsten
-							</Button>
-						</DialogActions>
-					</Dialog>
 				</div>
 			)}
 			{/* End of Get Kolor Token */}
@@ -312,11 +282,54 @@ const LoginScreen = () => {
 				</div>
 			)}
 			{/* End of Welcome to Kolor */}
+
+			<Dialog
+				open={errorDialogOpen}
+				sx={{ zIndex: 99999 }}
+				onClose={() => setErrorDialogOpen(false)}
+			>
+				<DialogTitle>Error</DialogTitle>
+				<DialogContent>
+					<DialogContentText>
+						There was an error logging in. Please install MetaMask and switch to
+						a supported chain. The supported chains are{" "}
+						<b>Ropsten and BSC Testnet</b>.
+					</DialogContentText>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={() => setErrorDialogOpen(false)} autoFocus>
+						OK
+					</Button>
+					<Button
+						onClick={async () => {
+							try {
+								// @ts-ignore
+								await ethereum.request({
+									method: "wallet_switchEthereumChain",
+									params: [{ chainId: "0x3" }],
+								});
+
+								setErrorDialogOpen(false);
+
+								activateBrowserWallet((error) => {
+									setErrorDialogOpen(true);
+								});
+							} catch (switchError) {
+								showAlert(
+									"There was an error while switching the chain.",
+									"error"
+								);
+
+								setErrorDialogOpen(false);
+							}
+						}}
+					>
+						Switch to Ropsten
+					</Button>
+				</DialogActions>
+			</Dialog>
 		</>
 	);
 };
 
 export default LoginScreen;
-function showAlert(arg0: string, arg1: string) {
-	throw new Error("Function not implemented.");
-}
