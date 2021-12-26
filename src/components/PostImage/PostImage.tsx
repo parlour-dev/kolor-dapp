@@ -18,9 +18,14 @@ import TipButton from "./TipButton/TipButton";
 type PostImageT = {
 	post: Post;
 	scrollPosition: ScrollPosition;
+	hideAction?: boolean;
 };
 
-const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
+const PostImage: React.FC<PostImageT> = ({
+	post,
+	scrollPosition,
+	hideAction,
+}) => {
 	const [showAddComment, toggleAddComment] = useToggle(false);
 	const [comments, setComments] = useState<CommentT[]>(post.comments);
 
@@ -125,15 +130,19 @@ const PostImage: React.FC<PostImageT> = ({ post, scrollPosition }) => {
 					></div>
 				</div>
 
-				<div className={styles.viewerAction}>
-					<TipButton post={post} />
-					<div
-						className={[styles.buttonBlack, styles.animation].join(" ")}
-						onClick={toggleAddComment}
-					>
-						Comment
+				{!hideAction && (
+					<div className={styles.viewerAction}>
+						<TipButton post={post} />
+						<div
+							className={[styles.buttonBlack, styles.animation].join(" ")}
+							onClick={toggleAddComment}
+						>
+							Comment
+						</div>
+						hihihi a tutaj jakiś link do: /mint/{post.uuid}
 					</div>
-				</div>
+				)}
+
 				{showAddComment && <AddComment onSubmit={onCommentSubmit} />}
 
 				<Comments commentData={comments} />

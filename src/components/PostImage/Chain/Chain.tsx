@@ -1,9 +1,12 @@
 import { resolveChainId } from "../../../api/backend";
 import styles from "./Chain.module.css";
 
-export default function Chain(props: any) {
-	const chainProps = resolveChainId(props.blockchain || 0);
+type ChainT = { blockchain: number };
 
+const Chain: React.FC<ChainT> = ({ blockchain }) => {
+	const chainProps = resolveChainId(blockchain || 0);
+
+	// TODO: niech to będzie link do Etherscana z konkretnym tokenId
 	return (
 		<div className={styles.container}>
 			<div
@@ -13,4 +16,6 @@ export default function Chain(props: any) {
 			<div className={styles.blockchain}>{chainProps.name}</div>
 		</div>
 	);
-}
+};
+
+export default Chain;

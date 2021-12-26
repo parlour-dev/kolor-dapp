@@ -124,10 +124,7 @@ const Journey: React.FC = () => {
 			);
 
 			if ((await request).ok) {
-				showAlert(
-					"Your post has been submitted. You will need to wait a minute until the transaction is mined on the blockchain.",
-					"info"
-				);
+				showAlert("Your post has been submitted.", "info");
 
 				showLoading(false);
 			} else {

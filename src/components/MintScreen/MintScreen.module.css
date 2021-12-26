@@ -1,0 +1,234 @@
+.loginStepsContainer {
+	display: flex;
+	justify-content: space-between;
+	margin: 0rem 20vw;
+	flex-wrap: nowrap;
+	color: #ffffff;
+	font-family: "mainFont";
+}
+
+.loginStep {
+	background-color: #17161d;
+	width: 30%;
+	min-height: 15rem;
+	height: auto;
+	margin: 2vw 1vw;
+	border-radius: 2rem;
+	text-align: center;
+}
+
+.loginStepNumber {
+	background-color: #2e63fb;
+	width: 2.4rem;
+	height: 2.4rem;
+	line-height: 2.4rem;
+	border-radius: 100rem;
+	margin: 1rem auto;
+	font-weight: bold;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.loginStepNumberInactive {
+	border: 0.15rem solid #41414b;
+	color: #41414b;
+	background-color: transparent;
+}
+
+.activeLoginStep {
+	border: 0.2rem solid #2e63fb;
+}
+
+.completedLoginStep {
+	border: 0.2rem solid #62d571;
+}
+
+.loginStepInfo {
+	font-size: 2.5vw;
+	font-weight: bold;
+	margin-top: 3rem;
+	padding: 1rem 1.5rem;
+	display: flex;
+	justify-content: center;
+}
+
+.loginStepInfoInactive {
+	color: #41414b;
+	font-weight: normal;
+}
+
+.actionContainer {
+	width: 50vw;
+	border-radius: 2rem;
+	margin: 2rem auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	color: #ffffff;
+	font-family: "mainFont";
+}
+
+.actionContainerTitle {
+	font-size: 2.5rem;
+	padding: 1rem 10rem;
+	font-weight: bold;
+	text-align: center;
+}
+
+.walletProviderImage {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.walletProviderImage img {
+	width: 8vh;
+}
+
+.connectWalletButton {
+	font-weight: bold;
+	font-size: 1.5rem;
+	background-color: #2e63fb;
+	margin: 1rem auto;
+	height: 3rem;
+	/* width: 18vw; */
+	padding: 0vw 2vw;
+	border-radius: 1rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+
+.verifyButton {
+	min-width: 20vw;
+	padding: 1vh 0vw;
+	background-color: #050111;
+	font-weight: bold;
+	font-size: 1.5rem;
+	margin: 1rem auto;
+	border-radius: 1.2rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+
+.verifyIcon {
+	height: 2rem;
+	margin-top: auto;
+	margin-bottom: auto;
+	margin-left: 1rem;
+}
+
+.launchScreenContent {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.welcomeToKolorTitle {
+	font-size: 8vw;
+	font-family: "mainFont";
+	color: #ffffff;
+	font-weight: bold;
+}
+
+.letsGoButton {
+	margin-top: 2vh;
+	color: #ffffff;
+	background-color: #2e63fb;
+	padding: 1rem 2rem;
+	line-height: 3rem;
+	text-align: center;
+	font-size: 2rem;
+	font-weight: bold;
+	border-radius: 1.5rem;
+}
+
+@media only screen and (max-width: 600px) {
+	.loginStepsContainer {
+		flex-wrap: wrap;
+	}
+
+	.loginStep {
+		margin: 1rem 0rem;
+		width: 100%;
+		min-height: 10vmax;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.loginStepNumber {
+		width: 0rem;
+
+		height: 0rem;
+		line-height: 0rem;
+		font-size: 0px;
+		margin: 0px;
+	}
+
+	.loginStepNumberInactive {
+		border: none;
+	}
+
+	.loginStepInfo {
+		font-size: 2rem;
+		margin: auto auto;
+		padding: 0rem;
+	}
+
+	.loginStepInfoInactive {
+		font-size: 2rem;
+	}
+
+	.loginStepsContainer {
+		margin: 0rem 1rem;
+	}
+
+	.actionContainer {
+		width: 90%;
+		height: auto;
+		margin-bottom: 10vmax;
+	}
+
+	.actionContainerTitle {
+		padding: 1rem 1rem;
+	}
+
+	.connectWalletButton {
+		width: 15rem;
+		font-size: 1rem;
+		text-align: center;
+	}
+
+	.verifyButton {
+		padding: 0.5rem 20%;
+	}
+
+	.welcomeToKolorTitle {
+		font-size: 0px;
+	}
+}
+
+@media only screen and (max-width: 1200px) {
+	.loginStepsContainer {
+		justify-content: center;
+	}
+
+	.connectWalletButton {
+		font-size: 1rem;
+	}
+
+	.verifyButton {
+		font-size: 1rem;
+	}
+
+	.actionContainerTitle {
+		font-size: 2rem;
+	}
+}

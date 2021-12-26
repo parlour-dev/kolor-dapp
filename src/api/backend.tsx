@@ -1,3 +1,4 @@
+import { ChainId } from "@usedapp/core";
 import { ChainData, ChainIdsT, CommentT, Post } from "../types";
 
 type BackendResponse = {
@@ -8,30 +9,31 @@ type BackendResponse = {
 };
 
 type BackendPost = {
-	title: string;
-	type: string;
-	properties: {
-		text: ERC721Property;
-		file: ERC721Property;
-		contentType: ERC721Property;
-		author: ERC721Property;
-	};
-};
-
-type ERC721Property = {
-	type: string;
+	name: string;
 	description: string;
+	image: string; // NOTE: this is not necessarily an image
+	contentType: string;
+	author: string;
 };
 
 type BackendPostDb = {
 	uuid: string;
-	mintid: string;
+	mintid: number;
 	timestamp: Date;
 	post: BackendPost;
 	comments: CommentT[] | null;
 };
 
-export const backendURI = "http://localhost:8000"; //"backend.kolor.social"
+export const backendURI = "https://backend.kolor.social";
+
+// The ERC721 standard allows for adding metadata to NFTs.
+// Our metadata is stored at ${MintingBaseURI}/${postUUID}.
+// This is an important constant for minting posts on the blockchain.
+export const MintingBaseURI = "https://backend.kolor.social/post";
+
+export function getURIToMint(postUUID: string) {
+	return `${MintingBaseURI}/${postUUID}`;
+}
 
 export async function fetchAllPostsBackend() {
 	const raw_response = await fetch(`${backendURI}/get_posts`, {
@@ -48,7 +50,7 @@ export async function fetchAllPostsBackend() {
 	for (const idx in response.posts) {
 		const processedPost = rawPostToPost(
 			parseInt(idx),
-			parseInt(response.posts[idx].mintid),
+			ChainId.Ropsten,
 			response.posts[idx]
 		);
 
@@ -113,25 +115,27 @@ export function createNewPostBackend(
 function rawPostToPost(id: number, chainid: number, raw: BackendPostDb): Post {
 	try {
 		const post: Post = {
-			author: raw.post.properties.author.description,
+			author: raw.post.author,
 			uuid: raw.uuid,
 			id: id,
-			chainid: chainid,
+			chainid: raw.mintid ? chainid : 0,
+			tokenid: raw.mintid,
 			balance: 0,
 			comments: raw.comments || [],
-			text: raw.post.properties.text.description,
+			text: raw.post.description,
 			tags: [],
-			file: raw.post.properties.file.description || undefined,
-			contentType: raw.post.properties.contentType.description || undefined,
+			file: raw.post.image || undefined,
+			contentType: raw.post.contentType || undefined,
 			timestamp: new Date(raw.timestamp),
 		};
 		return post;
 	} catch (e) {
 		const post: Post = {
-			author: raw.post.properties.author.description,
+			author: raw.post.author,
 			uuid: raw.uuid,
 			id: id,
-			chainid: chainid,
+			chainid: 0,
+			tokenid: 0,
 			balance: 0,
 			text: "[removed]",
 			comments: [],

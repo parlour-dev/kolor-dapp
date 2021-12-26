@@ -2,6 +2,8 @@ export type Post = {
 	id: number;
 	uuid: string;
 	chainid: number;
+	tokenid: number;
+
 	timestamp: Date;
 	text: string;
 	balance: number;
@@ -10,9 +12,10 @@ export type Post = {
 	contentType?: string;
 
 	tags?: string[];
-	comments: CommentT[];
 	author?: string;
 	removed?: boolean;
+
+	comments: CommentT[];
 };
 
 export type CommentT = {

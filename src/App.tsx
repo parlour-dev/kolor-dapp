@@ -15,6 +15,7 @@ import UserFeed from "./components/UserFeed/UserFeed";
 import { fetchAllPostsBackend } from "./api/backend";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import LoginScreen from "./components/LoginScreen/LoginScreen";
+import MintScreen from "./components/MintScreen/MintScreen";
 
 export const PostsContext = React.createContext<Post[]>([]);
 export const NotificationsContext = React.createContext<any[]>([]);
@@ -55,6 +56,9 @@ function App() {
 								</Route>
 								<Route exact path="/user/:address">
 									<UserFeed />
+								</Route>
+								<Route exact path="/mint/:uuid">
+									<MintScreen />
 								</Route>
 								{account && (
 									<Route exact path="/profile">
