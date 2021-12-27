@@ -47,7 +47,37 @@ const MintScreen: React.FC<{ scrollPosition: ScrollPosition }> = ({
 	}, [state]);
 
 	// TODO: display an error message here
-	if (!desiredPost) return null;
+	if (!desiredPost) {
+		return (
+			<>
+				<div className={styles.actionContainer}>
+					<div className={styles.mintInfo}>
+						<b style={{ fontSize: "1.5rem" }}>This post does not exist.</b>
+						<br />
+						<br />
+						We cannot find this post.
+					</div>
+				</div>
+			</>
+		);
+	}
+
+	if (desiredPost.chainid !== 0) {
+		return (
+			<>
+				<div className={styles.actionContainer}>
+					<div className={styles.mintInfo}>
+						<b style={{ fontSize: "1.5rem" }}>
+							This post has already been minted.
+						</b>
+						<br />
+						<br />
+						This post is already present on the Ropsten blockchain.
+					</div>
+				</div>
+			</>
+		);
+	}
 
 	// TODO: add explanations of steps & add actual steps
 	// TODO: disallow minting if you're not the author (dynamically)
@@ -147,7 +177,7 @@ const MintScreen: React.FC<{ scrollPosition: ScrollPosition }> = ({
 							<p>Your NFT will be minted in just a couple of seconds.</p>
 							<br />
 							<a
-								href={`https://etherscan.io/address/${account}`}
+								href={`https://ropsten.etherscan.io/address/${account}`}
 								target="_blank"
 								rel="noreferrer"
 								className={styles.button}

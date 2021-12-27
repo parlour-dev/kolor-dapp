@@ -11,6 +11,13 @@ const TipButton: React.FC<{ post: Post }> = ({ post }) => {
 
 	const { account, chainId } = useEthers();
 
+	// NOTE: this is temporary
+	return (
+		<Tooltip title="Donating is currently disabled.">
+			<div className={styles.buttonOff}>Appreciate</div>
+		</Tooltip>
+	);
+
 	// If the user is logged in and the user is on the correct chain,
 	// show the donate button
 	// and make it possible to use a popup

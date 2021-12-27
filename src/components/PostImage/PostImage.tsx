@@ -14,6 +14,7 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import { resolveNickname } from "../../api/nickname";
 import { Link } from "react-router-dom";
 import TipButton from "./TipButton/TipButton";
+import { Tooltip } from "@mui/material";
 
 type PostImageT = {
 	post: Post;
@@ -132,13 +133,23 @@ const PostImage: React.FC<PostImageT> = ({
 
 				{!hideAction && (
 					<div className={styles.viewerAction}>
-						{account === post.author && (
+						{account === post.author && post.chainid === 0 && (
 							<Link
 								className={[styles.buttonMint, styles.animation].join(" ")}
 								to={`/mint/${post.uuid}`}
 							>
 								Mint as NFT
 							</Link>
+						)}
+						{account === post.author && post.chainid !== 0 && (
+							<Tooltip title={`This post has already been minted.`}>
+								<Link
+									className={[styles.buttonOff, styles.animation].join(" ")}
+									to="#"
+								>
+									Mint as NFT
+								</Link>
+							</Tooltip>
 						)}
 						{account !== post.author && <TipButton post={post} />}
 
