@@ -132,14 +132,22 @@ const PostImage: React.FC<PostImageT> = ({
 
 				{!hideAction && (
 					<div className={styles.viewerAction}>
-						<TipButton post={post} />
+						{account === post.author && (
+							<Link
+								className={[styles.buttonMint, styles.animation].join(" ")}
+								to={`/mint/${post.uuid}`}
+							>
+								Mint as NFT
+							</Link>
+						)}
+						{account !== post.author && <TipButton post={post} />}
+
 						<div
 							className={[styles.buttonBlack, styles.animation].join(" ")}
 							onClick={toggleAddComment}
 						>
 							Comment
 						</div>
-						hihihi a tutaj jakiś link do: /mint/{post.uuid}
 					</div>
 				)}
 

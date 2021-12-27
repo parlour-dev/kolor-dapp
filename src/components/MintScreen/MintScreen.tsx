@@ -1,10 +1,11 @@
 import { useEthers } from "@usedapp/core";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
 	ScrollPosition,
 	trackWindowScroll,
 } from "react-lazy-load-image-component";
 import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 import { getURIToMint } from "../../api/backend";
 import { PostsContext } from "../../App";
 import { useKolorDataFunction } from "../../hooks";
@@ -15,15 +16,19 @@ interface MintScreenParams {
 	uuid: string;
 }
 
+type MintingStage = "mint" | "allDone";
+
 const MintScreen: React.FC<{ scrollPosition: ScrollPosition }> = ({
 	scrollPosition,
 }) => {
+	const [mintingStage, setMintingStage] = useState<MintingStage>("mint");
+
 	const posts = useContext(PostsContext);
 
 	const uuidToMint = useParams<MintScreenParams>().uuid;
 	const desiredPost = posts?.find((p) => p.uuid === uuidToMint);
 
-	const { chainId } = useEthers();
+	const { account, chainId } = useEthers();
 	const { state, send } = useKolorDataFunction(
 		"createPost",
 		chainId || 3,
@@ -33,6 +38,7 @@ const MintScreen: React.FC<{ scrollPosition: ScrollPosition }> = ({
 	useEffect(() => {
 		if (state.status === "Mining") {
 			console.dir(state);
+			setMintingStage("allDone");
 		}
 
 		if (state.status === "Exception" || state.status === "Fail") {
@@ -48,57 +54,116 @@ const MintScreen: React.FC<{ scrollPosition: ScrollPosition }> = ({
 
 	return (
 		<>
-			<div className={styles.loginStepsContainer}>
-				<div className={[styles.loginStep, styles.activeLoginStep].join(" ")}>
-					<div className={styles.loginStepNumber}>1</div>
-					<p className={styles.loginStepInfo}>Review</p>
-				</div>
-				<div className={styles.loginStep}>
-					<div
-						className={[
-							styles.loginStepNumber,
-							styles.loginStepNumberInactive,
-						].join(" ")}
-					>
-						2
+			{mintingStage === "mint" && (
+				<div>
+					<div className={styles.loginStepsContainer}>
+						<div
+							className={[styles.loginStep, styles.activeLoginStep].join(" ")}
+						>
+							<div className={styles.loginStepNumber}>1</div>
+							<p className={styles.loginStepInfo}>Mint</p>
+						</div>
+						<div className={styles.loginStep}>
+							<div
+								className={[
+									styles.loginStepNumber,
+									styles.loginStepNumberInactive,
+								].join(" ")}
+							>
+								2
+							</div>
+							<p
+								className={[
+									styles.loginStepInfo,
+									styles.loginStepInfoInactive,
+								].join(" ")}
+							>
+								All done
+							</p>
+						</div>
 					</div>
-					<p
-						className={[
-							styles.loginStepInfo,
-							styles.loginStepInfoInactive,
-						].join(" ")}
-					>
-						Mint
-					</p>
-				</div>
-				<div className={styles.loginStep}>
-					<div
-						className={[
-							styles.loginStepNumber,
-							styles.loginStepNumberInactive,
-						].join(" ")}
-					>
-						3
+					<div className={styles.actionContainer}>
+						<div className={styles.mintInfo}>
+							<b style={{ fontSize: "1.5rem" }}>
+								You are minting this post as NFT.
+							</b>
+							<br />
+							<br />
+							Your post will be permanently stored on the blockchain. The NFT
+							will then be transferred to your wallet. The Ethereum network
+							requires that you pay a network fee for doing this. We don't
+							control or benefit from this fee. It may vary depending on network
+							congestion.
+						</div>
+						<PostImage
+							post={desiredPost}
+							hideAction={true}
+							scrollPosition={scrollPosition}
+						/>
+						<button
+							className={styles.button}
+							onClick={() => send(getURIToMint(uuidToMint))}
+						>
+							Mint
+						</button>
 					</div>
-					<p
-						className={[
-							styles.loginStepInfo,
-							styles.loginStepInfoInactive,
-						].join(" ")}
-					>
-						All done
-					</p>
 				</div>
-			</div>
-
-			<div className={styles.actionContainer}>
-				<PostImage
-					post={desiredPost}
-					hideAction={true}
-					scrollPosition={scrollPosition}
-				/>
-				<button onClick={() => send(getURIToMint(uuidToMint))}>Mint</button>
-			</div>
+			)}
+			{mintingStage === "allDone" && (
+				<div>
+					<div className={styles.loginStepsContainer}>
+						<div
+							className={[styles.loginStep, styles.completedLoginStep].join(
+								" "
+							)}
+						>
+							<div
+								className={[
+									styles.loginStepNumber,
+									styles.loginStepNumberInactive,
+								].join(" ")}
+							>
+								1
+							</div>
+							<p
+								className={[
+									styles.loginStepInfo,
+									styles.loginStepInfoInactive,
+								].join(" ")}
+							>
+								Mint
+							</p>
+						</div>
+						<div
+							className={[styles.loginStep, styles.activeLoginStep].join(" ")}
+						>
+							<div className={styles.loginStepNumber}>2</div>
+							<p className={styles.loginStepInfo}>All done</p>
+						</div>
+					</div>
+					<div className={styles.actionContainer}>
+						<div className={styles.allDoneText}>
+							<b>All done</b>
+							<p>Your NFT will be minted in just a couple of seconds.</p>
+							<br />
+							<a
+								href={`https://etherscan.io/address/${account}`}
+								target="_blank"
+								rel="noreferrer"
+								className={styles.button}
+							>
+								View your wallet
+							</a>
+							<br />
+							<br />
+							<br />
+							<Link to="/" className={styles.button}>
+								Go back
+							</Link>
+						</div>
+					</div>
+				</div>
+			)}
 		</>
 	);
 };

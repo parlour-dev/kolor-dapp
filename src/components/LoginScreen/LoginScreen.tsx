@@ -26,7 +26,7 @@ const LoginScreen = () => {
 
 	const [errorDialogOpen, setErrorDialogOpen] = useState(false);
 
-	let [loginStage, setLoginStage] = useState<LoginStage>("login");
+	const [loginStage, setLoginStage] = useState<LoginStage>("login");
 
 	useEffect(() => {
 		if (localStorage.getItem("hasAlreadyLoggedIn") === "metamask" && !account) {

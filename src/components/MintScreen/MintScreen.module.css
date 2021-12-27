@@ -1,7 +1,7 @@
 .loginStepsContainer {
 	display: flex;
-	justify-content: space-between;
-	margin: 0rem 20vw;
+	justify-content: center;
+	margin: 0rem 22vw;
 	flex-wrap: nowrap;
 	color: #ffffff;
 	font-family: "mainFont";
@@ -10,7 +10,7 @@
 .loginStep {
 	background-color: #17161d;
 	width: 30%;
-	min-height: 15rem;
+	min-height: 13rem;
 	height: auto;
 	margin: 2vw 1vw;
 	border-radius: 2rem;
@@ -45,9 +45,8 @@
 }
 
 .loginStepInfo {
-	font-size: 2.5vw;
+	font-size: 2.5em;
 	font-weight: bold;
-	margin-top: 3rem;
 	padding: 1rem 1.5rem;
 	display: flex;
 	justify-content: center;
@@ -59,94 +58,39 @@
 }
 
 .actionContainer {
-	width: 50vw;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.mintInfo {
+	width: 35vw;
+	min-height: 20vh;
+	border: 0.13rem solid #41414b;
 	border-radius: 2rem;
-	margin: 2rem auto;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	color: #ffffff;
-	font-family: "mainFont";
-}
-
-.actionContainerTitle {
-	font-size: 2.5rem;
-	padding: 1rem 10rem;
-	font-weight: bold;
-	text-align: center;
-}
-
-.walletProviderImage {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-
-.walletProviderImage img {
-	width: 8vh;
-}
-
-.connectWalletButton {
-	font-weight: bold;
-	font-size: 1.5rem;
-	background-color: #2e63fb;
 	margin: 1rem auto;
-	height: 3rem;
-	/* width: 18vw; */
-	padding: 0vw 2vw;
+	padding: 1rem;
+	color: #ffffff;
+}
+
+.button {
+	margin: auto;
+	font-family: "mainFont", "Roboto", sans-serif;
+	background-color: #2e63fb;
+	border: none;
 	border-radius: 1rem;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	cursor: pointer;
-}
-
-.verifyButton {
-	min-width: 20vw;
-	padding: 1vh 0vw;
-	background-color: #050111;
-	font-weight: bold;
-	font-size: 1.5rem;
-	margin: 1rem auto;
-	border-radius: 1.2rem;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	cursor: pointer;
-}
-
-.verifyIcon {
-	height: 2rem;
-	margin-top: auto;
-	margin-bottom: auto;
-	margin-left: 1rem;
-}
-
-.launchScreenContent {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
-
-.welcomeToKolorTitle {
-	font-size: 8vw;
-	font-family: "mainFont";
 	color: #ffffff;
-	font-weight: bold;
-}
-
-.letsGoButton {
-	margin-top: 2vh;
-	color: #ffffff;
-	background-color: #2e63fb;
+	font-size: 2rem;
 	padding: 1rem 2rem;
-	line-height: 3rem;
+	font-weight: bold;
+	cursor: pointer;
+	width: 35vw;
+}
+
+.allDoneText {
+	color: #ffffff;
 	text-align: center;
 	font-size: 2rem;
-	font-weight: bold;
-	border-radius: 1.5rem;
 }
 
 @media only screen and (max-width: 600px) {
@@ -190,28 +134,13 @@
 		margin: 0rem 1rem;
 	}
 
-	.actionContainer {
+	.mintInfo {
 		width: 90%;
-		height: auto;
-		margin-bottom: 10vmax;
 	}
 
-	.actionContainerTitle {
-		padding: 1rem 1rem;
-	}
-
-	.connectWalletButton {
-		width: 15rem;
-		font-size: 1rem;
-		text-align: center;
-	}
-
-	.verifyButton {
-		padding: 0.5rem 20%;
-	}
-
-	.welcomeToKolorTitle {
-		font-size: 0px;
+	.button {
+		margin-bottom: 10vh;
+		width: 90%;
 	}
 }
 
@@ -220,15 +149,11 @@
 		justify-content: center;
 	}
 
-	.connectWalletButton {
-		font-size: 1rem;
+	.mintInfo {
+		width: 80vw;
 	}
 
-	.verifyButton {
-		font-size: 1rem;
-	}
-
-	.actionContainerTitle {
-		font-size: 2rem;
+	.button {
+		width: 80vw;
 	}
 }

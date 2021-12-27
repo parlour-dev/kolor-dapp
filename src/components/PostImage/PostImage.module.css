@@ -112,6 +112,11 @@
 	background-color: #050111;
 }
 
+.buttonMint {
+	composes: button;
+	background-color: #2e63fb;
+}
+
 .buttonOff {
 	composes: button;
 	background-color: gray;
