@@ -112,6 +112,21 @@ export function createNewPostBackend(
 	});
 }
 
+export function deletePostBackend(uuid: string, signature: string) {
+	const uuid_url = encodeURIComponent(uuid);
+	const sign_url = encodeURIComponent(signature);
+
+	const query = `uuid=${uuid_url}&sign=${sign_url}`;
+
+	return fetch(`${backendURI}/delete_post`, {
+		method: "POST",
+		body: query,
+		headers: {
+			"Content-Type": "application/x-www-form-urlencoded",
+		},
+	});
+}
+
 function rawPostToPost(id: number, chainid: number, raw: BackendPostDb): Post {
 	try {
 		const post: Post = {

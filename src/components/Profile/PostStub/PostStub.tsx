@@ -3,6 +3,8 @@ import { Post } from "../../../types";
 import styles from "./PostStub.module.css";
 import { LazyLoadImage, ScrollPosition } from "react-lazy-load-image-component";
 import Chain from "../../PostImage/Chain/Chain";
+import { deletePostBackend } from "../../../api/backend";
+import { useEthers } from "@usedapp/core";
 
 const PostStub: React.FC<{
 	post: Post;
@@ -10,6 +12,7 @@ const PostStub: React.FC<{
 	className?: string;
 }> = ({ post, scrollPosition, className }) => {
 	const showAlert = useShowAlert();
+	const { library } = useEthers();
 
 	// 3 days - ( the difference between now and the date the post was created )
 	let timeLeft =
@@ -19,10 +22,21 @@ const PostStub: React.FC<{
 	let isAudioPost = post.contentType?.startsWith("audio/");
 
 	async function handleDeletePost() {
-		showAlert(
-			"Please allow up to 6 minutes for your post to be deleted.",
-			"info"
-		);
+		try {
+			const toSign = "Kolor Post Deletion\nFor post: " + post.uuid;
+			const resp = await deletePostBackend(
+				post.uuid,
+				(await library?.getSigner().signMessage(toSign)) || ""
+			);
+			if (resp.ok) {
+				showAlert("Please allow a minute for your post to be deleted.", "info");
+			} else {
+				console.dir(await resp.text());
+				showAlert("There was an error deleting your post.", "error");
+			}
+		} catch (e) {
+			showAlert("There was an error deleting your post.", "error");
+		}
 	}
 
 	return (

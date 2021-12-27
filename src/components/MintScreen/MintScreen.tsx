@@ -79,6 +79,21 @@ const MintScreen: React.FC<{ scrollPosition: ScrollPosition }> = ({
 		);
 	}
 
+	if (desiredPost.author !== account) {
+		return (
+			<>
+				<div className={styles.actionContainer}>
+					<div className={styles.mintInfo}>
+						<b style={{ fontSize: "1.5rem" }}>You are not the author.</b>
+						<br />
+						<br />
+						This post has a different author. You cannot mint it.
+					</div>
+				</div>
+			</>
+		);
+	}
+
 	// TODO: add explanations of steps & add actual steps
 	// TODO: disallow minting if you're not the author (dynamically)
 
