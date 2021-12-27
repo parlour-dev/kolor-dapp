@@ -34,17 +34,16 @@
 
 	resize: none;
 	font-family: "Lato", sans-serif;
-	font-size: 1vmax;
+	font-size: .9rem;
 
 	padding: 0.8rem 5%;
 }
 
 .button {
 	border-radius: 0.8vmax;
-	margin: 0.7vmax 0;
-	padding: 0 1vmax;
+	margin: 0.7em 0;
+	padding: .5em 1em;
 
-	line-height: 2.5vmax;
 	font-size: 1rem;
 	font-family: "Lato", sans-serif;
 	font-weight: 600;
