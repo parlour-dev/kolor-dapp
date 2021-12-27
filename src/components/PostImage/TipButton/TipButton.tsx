@@ -1,15 +1,15 @@
 import styles from "../PostImage.module.css";
 import { Tooltip } from "@mui/material";
-import { useEthers } from "@usedapp/core";
-import { useState } from "react";
+// import { useEthers } from "@usedapp/core";
+// import { useState } from "react";
 import { Post } from "../../../types";
-import TipPopup from "../TipPopup/TipPopup";
-import { resolveChainId } from "../../../api/backend";
+// import TipPopup from "../TipPopup/TipPopup";
+// import { resolveChainId } from "../../../api/backend";
 
 const TipButton: React.FC<{ post: Post }> = ({ post }) => {
-	const [popup, setPopup] = useState(false);
+	// const [popup, setPopup] = useState(false);
 
-	const { account, chainId } = useEthers();
+	// const { account, chainId } = useEthers();
 
 	// NOTE: this is temporary
 	return (
@@ -21,7 +21,8 @@ const TipButton: React.FC<{ post: Post }> = ({ post }) => {
 	// If the user is logged in and the user is on the correct chain,
 	// show the donate button
 	// and make it possible to use a popup
-	if (account && chainId === post.chainid) {
+
+	/*if (account && chainId === post.chainid) {
 		return (
 			<>
 				<div
@@ -38,6 +39,7 @@ const TipButton: React.FC<{ post: Post }> = ({ post }) => {
 
 		// If the user is logged in, but they're on the wrong chain,
 		// show a grey button and a message
+
 	} else if (account && chainId !== post.chainid) {
 		return (
 			<Tooltip
@@ -55,7 +57,7 @@ const TipButton: React.FC<{ post: Post }> = ({ post }) => {
 				<div className={styles.buttonOff}>Appreciate</div>
 			</Tooltip>
 		);
-	}
+	}*/
 };
 
 export default TipButton;
