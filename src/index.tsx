@@ -16,7 +16,7 @@ ReactDOM.render(
 					[ChainId.BSCTestnet]:
 						"https://data-seed-prebsc-1-s1.binance.org:8545/",
 				},
-				supportedChains: [ChainId.Ropsten],
+				supportedChains: [ChainId.Ropsten, ChainId.BSC, ChainId.BSCTestnet],
 			}}
 		>
 			<App />

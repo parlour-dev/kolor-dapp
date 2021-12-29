@@ -1,33 +1,86 @@
 import { Box, Modal } from "@mui/material";
-import { useMemo, useState } from "react";
-import { useShowLoading } from "../../../hooks";
+import { useState } from "react";
+import { useShowAlert, useShowLoading } from "../../../hooks";
 import ReactGa from "react-ga";
 import styles from "./TipPopup.module.css";
-import { resolveChainId } from "../../../api/backend";
 import { Post } from "../../../types";
+import tokensEhh from "../../../api/tokens_bsc.json";
+import Select, { OptionProps, components } from "react-select";
+import { useEthers } from "@usedapp/core";
+import ERC20ABI from "../../../api/erc20abi.json";
+import { ethers } from "ethers";
+import { BigNumber } from "@usedapp/core/node_modules/ethers";
+import { parseUnits } from "@ethersproject/units";
+import { TransactionResponse } from "@ethersproject/abstract-provider";
+
+type TokenData = {
+	address: string;
+	chainId: number;
+	decimals: number;
+	logoURI: string;
+	name: string;
+	symbol: string;
+	label?: string;
+	value?: string;
+};
 
 const TipPopup: React.FC<{
 	open: boolean;
 	onClose: () => void;
 	post: Post;
 }> = ({ open, onClose, post }) => {
-	const [tipAmount, setTipAmount] = useState("0");
+	const tokens = tokensEhh.tokens.filter((e) => e.chainId === 56);
+	const [tipAmount, setTipAmount] = useState("1");
+	const [tokenSelected, setTokenSelected] = useState(tokens[0]);
+
+	const { library } = useEthers();
 
 	const showLoading = useShowLoading();
+	const showAlert = useShowAlert();
 
-	const currency = useMemo(
-		() => resolveChainId(post.chainid).currency,
-		[post.chainid]
-	);
-
-	function handleTip() {
+	async function handleTip() {
 		ReactGa.event({
 			category: "Tip",
 			action: "Tip sent",
 		});
 
+		const tipAmountWei = parseUnits(tipAmount, tokenSelected.decimals);
+
 		showLoading(true);
+
+		try {
+			const contract = new ethers.Contract(
+				tokenSelected.address,
+				ERC20ABI,
+				library?.getSigner()
+			);
+			const tx: TransactionResponse = await contract.transfer(
+				post.author,
+				tipAmountWei
+			);
+
+			showAlert("Tip sent!", "info");
+		} catch (e: any) {
+			if ("data" in e && "message" in e.data) {
+				showAlert(e.data.message, "error");
+			} else if ("message" in e) {
+				showAlert(e.message, "error");
+			} else {
+				showAlert("There was an error in sending your tip.", "error");
+			}
+		}
+
+		showLoading(false);
 	}
+
+	let options: TokenData[] = [];
+
+	tokens.forEach((element) => {
+		let newEl: TokenData = element;
+		newEl.label = element.name;
+		newEl.value = element.address;
+		options.push(newEl);
+	});
 
 	/*useEffect(() => {
 		if (state.status !== "None") {
@@ -50,7 +103,7 @@ const TipPopup: React.FC<{
 	}, [state, showAlert, showLoading]);*/
 
 	return (
-		<Modal open={open} onClose={onClose} sx={{ zIndex: 99999 }}>
+		<Modal open={open} onClose={onClose} sx={{ zIndex: 9999 }}>
 			<Box
 				sx={{
 					position: "absolute",
@@ -62,6 +115,19 @@ const TipPopup: React.FC<{
 			>
 				<div className={styles.popupContainer}>
 					<div className={styles.popupRow}>
+						<Select
+							className={styles.currencySelect}
+							options={tokens}
+							defaultValue={tokenSelected}
+							components={{ Option }}
+							isMulti={false}
+							onChange={(newValue) => {
+								console.dir(newValue?.address);
+								newValue && setTokenSelected(newValue);
+							}}
+						/>
+					</div>
+					<div className={styles.popupRow}>
 						<input
 							type="number"
 							className={styles.popupInput}
@@ -69,12 +135,12 @@ const TipPopup: React.FC<{
 							onChange={(e) => setTipAmount(e.target.value)}
 							value={tipAmount}
 						/>
-						<div className={styles.currency}>{currency}</div>
+						<div className={styles.currency}>{tokenSelected.symbol}</div>
 						<div onClick={handleTip} className={styles.popupTip}>
 							Send
 						</div>
 					</div>
-					<div className={styles.popupRow}>
+					{/*<div className={styles.popupRow}>
 						<button
 							className={styles.popupAmountButton}
 							onClick={() => setTipAmount("0.01")}
@@ -117,10 +183,52 @@ const TipPopup: React.FC<{
 						>
 							$1
 						</button>
-					</div>
+						</div>*/}
 				</div>
 			</Box>
 		</Modal>
+	);
+};
+
+const Option = (props: OptionProps<TokenData, false>) => {
+	return (
+		<div
+			style={{
+				display: "flex",
+				flexDirection: "row",
+				justifyContent: "space-between",
+				minWidth: "20rem",
+			}}
+		>
+			<components.Option {...props}>
+				<div
+					style={{
+						display: "flex",
+						flexDirection: "row",
+						justifyContent: "space-between",
+					}}
+				>
+					<div
+						style={{
+							display: "flex",
+							flexDirection: "row",
+							alignItems: "center",
+						}}
+					>
+						<img
+							src={props.data.logoURI}
+							style={{
+								height: "1rem",
+								marginRight: "1rem",
+							}}
+							alt=""
+						/>
+						<div>{props.data.name}</div>
+					</div>
+					<div style={{ opacity: "50%" }}>{props.data.symbol}</div>
+				</div>
+			</components.Option>
+		</div>
 	);
 };
 

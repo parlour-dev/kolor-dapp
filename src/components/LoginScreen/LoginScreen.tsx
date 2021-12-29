@@ -306,7 +306,7 @@ const LoginScreen = () => {
 								// @ts-ignore
 								await ethereum.request({
 									method: "wallet_switchEthereumChain",
-									params: [{ chainId: "0x3" }],
+									params: [{ chainId: "0x38" }],
 								});
 
 								setErrorDialogOpen(false);

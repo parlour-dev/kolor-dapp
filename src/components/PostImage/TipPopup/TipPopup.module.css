@@ -51,6 +51,15 @@
 	cursor: pointer;
 }
 
+.currencySelect {
+	color: black;
+	margin-left: 1%;
+	margin-right: 1%;
+	font-size: 1rem;
+	border-radius: 1vmax;
+	width: 100%;
+}
+
 .currency {
 	color: #fff;
 	display: flex;
@@ -64,7 +73,7 @@
 	/* background-color: #050111; */
 	background-color: transparent;
 	border: 0.1vmax solid #535353;
-	border-radius: 1vmax;
+	border-radius: 1.5vmax;
 }
 
 .popupAmountButton {
