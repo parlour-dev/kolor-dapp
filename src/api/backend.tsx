@@ -50,7 +50,7 @@ export async function fetchAllPostsBackend() {
 	for (const idx in response.posts) {
 		const processedPost = rawPostToPost(
 			parseInt(idx),
-			ChainId.Ropsten,
+			ChainId.BSC,
 			response.posts[idx]
 		);
 
@@ -63,9 +63,9 @@ export async function fetchAllPostsBackend() {
 }
 
 const chainIds: ChainIdsT = {
-	0: { name: "Unminted", color: "#fff", currency: "" },
+	0: { name: "Unminted", color: "#fff", currency: "BNB" },
 	3: { name: "Ropsten", color: "#ff0b8d", currency: "ETH" },
-	56: { name: "BSC Mainnet", color: "#fce705", currency: "BNB" },
+	56: { name: "BSC", color: "#fce705", currency: "BNB" },
 	97: { name: "BSC Testnet", color: "#fce705", currency: "BNB" },
 };
 
@@ -73,7 +73,7 @@ export function resolveChainId(chainId: number): ChainData {
 	if (chainId in chainIds) {
 		return chainIds[chainId];
 	} else {
-		return { name: chainId.toString(), color: "#fff", currency: "ETH" };
+		return { name: chainId.toString(), color: "#fff", currency: "BNB" };
 	}
 }
 

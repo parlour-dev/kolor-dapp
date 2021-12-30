@@ -12,6 +12,7 @@ type KolorDataT = {
 export const kolordata_address: KolorDataAddressT = {
 	[ChainId.Ropsten]: "0x0531aFBb877b438D213A39681D97F29Ddf53a51a",
 	[ChainId.BSCTestnet]: "0xFEc8d2071fD4916FaacB60C4EFC35831ec62a54B",
+	[ChainId.BSC]: "0x1d1DFe3b000124c208bFc6Cb0577EaF9f834D997",
 };
 
 export const kolordata_abi = [
@@ -85,4 +86,8 @@ export const kolordata: KolorDataT = {
 		kolordata_address[ChainId.BSCTestnet],
 		kolordata_abi
 	),
+	[ChainId.BSC]: new ethers.Contract(
+		kolordata_address[ChainId.BSC],
+		kolordata_abi
+	)
 };

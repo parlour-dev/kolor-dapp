@@ -31,7 +31,7 @@ const MintScreen: React.FC<{ scrollPosition: ScrollPosition }> = ({
 	const { account, chainId } = useEthers();
 	const { state, send } = useKolorDataFunction(
 		"createPost",
-		chainId || 3,
+		chainId || 56,
 		"mintPost"
 	);
 

@@ -291,9 +291,9 @@ const LoginScreen = () => {
 				<DialogTitle>Error</DialogTitle>
 				<DialogContent>
 					<DialogContentText>
-						There was an error logging in. Please install MetaMask and switch to
-						a supported chain. The supported chains are{" "}
-						<b>Ropsten and BSC Testnet</b>.
+						There was an error logging in. Please install MetaMask and switch 
+						to the{" "}
+						<b>Binance Smart Chain</b>.
 					</DialogContentText>
 				</DialogContent>
 				<DialogActions>
@@ -315,16 +315,34 @@ const LoginScreen = () => {
 									setErrorDialogOpen(true);
 								});
 							} catch (switchError) {
-								showAlert(
-									"There was an error while switching the chain.",
-									"error"
-								);
-
-								setErrorDialogOpen(false);
+								try {
+									// @ts-ignore
+									await ethereum.request({
+										method: 'wallet_addEthereumChain',
+										params: [{
+										  chainId: '0x38',
+										  chainName: 'Binance Smart Chain',
+										  nativeCurrency: {
+											name: 'BNB',
+											symbol: 'BNB',
+											decimals: 18
+										   },
+										  rpcUrls: ['https://bsc-dataseed.binance.org/'],
+										  blockExplorerUrls: ['https://bscscan.com/']
+										}]
+									})
+								} catch (addError) {
+									showAlert(
+										"There was an error while switching the chain.",
+										"error"
+									);
+	
+									setErrorDialogOpen(false);
+								}
 							}
 						}}
 					>
-						Switch to Ropsten
+						Switch to BSC
 					</Button>
 				</DialogActions>
 			</Dialog>
