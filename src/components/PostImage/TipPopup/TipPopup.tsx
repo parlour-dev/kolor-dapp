@@ -9,9 +9,9 @@ import Select, { OptionProps, components } from "react-select";
 import { useEthers } from "@usedapp/core";
 import ERC20ABI from "../../../api/erc20abi.json";
 import { ethers } from "ethers";
-import { BigNumber } from "@usedapp/core/node_modules/ethers";
 import { parseUnits } from "@ethersproject/units";
 import { TransactionResponse } from "@ethersproject/abstract-provider";
+import { registerTipBackend } from "../../../api/backend";
 
 type TokenData = {
 	address: string;
@@ -59,7 +59,16 @@ const TipPopup: React.FC<{
 				tipAmountWei
 			);
 
-			showAlert("Tip sent!", "info");
+			const status = await registerTipBackend(tx.hash, post.uuid);
+
+			if (status.ok) {
+				showAlert("Tip sent!", "info");
+			} else {
+				showAlert(
+					"Couldn't register tip. Backend returned: " + (await status.text()),
+					"error"
+				);
+			}
 		} catch (e: any) {
 			if ("data" in e && "message" in e.data) {
 				showAlert(e.data.message, "error");

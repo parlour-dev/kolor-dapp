@@ -127,6 +127,21 @@ export function deletePostBackend(uuid: string, signature: string) {
 	});
 }
 
+export function registerTipBackend(txHash: string, postUUID: string) {
+	const tx_url = encodeURIComponent(txHash);
+	const uuid_url = encodeURIComponent(postUUID);
+
+	const query = `tx=${tx_url}&uuid=${uuid_url}`;
+
+	return fetch(`${backendURI}/register_tip`, {
+		method: "POST",
+		body: query,
+		headers: {
+			"Content-Type": "application/x-www-form-urlencoded",
+		},
+	});
+}
+
 function rawPostToPost(id: number, chainid: number, raw: BackendPostDb): Post {
 	try {
 		const post: Post = {
