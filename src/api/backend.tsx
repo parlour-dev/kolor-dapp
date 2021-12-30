@@ -65,7 +65,7 @@ export async function fetchAllPostsBackend() {
 const chainIds: ChainIdsT = {
 	0: { name: "Unminted", color: "#fff", currency: "BNB" },
 	3: { name: "Ropsten", color: "#ff0b8d", currency: "ETH" },
-	56: { name: "BSC", color: "#fce705", currency: "BNB" },
+	56: { name: "Binance Smart Chain", color: "#fce705", currency: "BNB" },
 	97: { name: "BSC Testnet", color: "#fce705", currency: "BNB" },
 };
 
