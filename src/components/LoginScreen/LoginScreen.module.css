@@ -120,6 +120,11 @@
 	cursor: pointer;
 }
 
+.verifyButtonBlue {
+	composes: verifyButton;
+	background-color: #2e63fb;
+}
+
 .verifyIcon {
 	height: 2rem;
 	margin-top: auto;

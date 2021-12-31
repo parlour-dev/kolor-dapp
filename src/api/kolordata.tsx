@@ -1,7 +1,7 @@
 import { ChainId } from "@usedapp/core";
 import { Contract, ethers } from "ethers";
 
-type KolorDataAddressT = {
+type KolorAddressT = {
 	[I: number]: string;
 };
 
@@ -9,7 +9,11 @@ type KolorDataT = {
 	[I: number]: Contract;
 };
 
-export const kolordata_address: KolorDataAddressT = {
+export const kolortoken_address: KolorAddressT = {
+	[ChainId.BSC]: "0x7b530Cfb1CB99D2fBf5047254CcF62699C3Cd5e8",
+};
+
+export const kolordata_address: KolorAddressT = {
 	[ChainId.Ropsten]: "0x0531aFBb877b438D213A39681D97F29Ddf53a51a",
 	[ChainId.BSCTestnet]: "0xFEc8d2071fD4916FaacB60C4EFC35831ec62a54B",
 	[ChainId.BSC]: "0x1d1DFe3b000124c208bFc6Cb0577EaF9f834D997",
@@ -89,5 +93,5 @@ export const kolordata: KolorDataT = {
 	[ChainId.BSC]: new ethers.Contract(
 		kolordata_address[ChainId.BSC],
 		kolordata_abi
-	)
+	),
 };

@@ -3,8 +3,8 @@ import styles from "./LoginScreen.module.css";
 import { Link } from "react-router-dom";
 import MetaMaskLogo from "./metamask.webp";
 import WalletConnectLogo from "./walletconnect.png";
-import twitterLogo from "./twitterLogo.png";
-import ensLogo from "./ensLogo.png";
+//import twitterLogo from "./twitterLogo.png";
+//import ensLogo from "./ensLogo.png";
 import { useEthers } from "@usedapp/core";
 import ReactGa from "react-ga";
 import {
@@ -16,11 +16,13 @@ import {
 	DialogTitle,
 } from "@mui/material";
 import { useShowAlert } from "../../hooks";
+import { kolortoken_address } from "../../api/kolordata";
+import { DefaultChainId } from "../../constants";
 
 type LoginStage = "login" | "token" | "launch";
 
 const LoginScreen = () => {
-	const { activateBrowserWallet, account } = useEthers();
+	const { activateBrowserWallet, account, chainId } = useEthers();
 
 	const showAlert = useShowAlert();
 
@@ -30,20 +32,24 @@ const LoginScreen = () => {
 
 	useEffect(() => {
 		if (localStorage.getItem("hasAlreadyLoggedIn") === "metamask" && !account) {
-			activateBrowserWallet();
+			logInHandlerMetamask();
 		}
 
-		if (loginStage === "login" && account) {
-			setLoginStage("launch");
-			localStorage.setItem("hasAlreadyLoggedIn", "metamask");
-			//setLoginStage("token");
+		if (loginStage === "login" && account && chainId === DefaultChainId) {
+			if (localStorage.getItem("hasAlreadyLoggedIn") === "metamask") {
+				setLoginStage("launch");
+			} else {
+				localStorage.setItem("hasAlreadyLoggedIn", "metamask");
+				setLoginStage("token");
+			}
 		}
-	}, [loginStage, account, activateBrowserWallet]);
+		// eslint-disable-next-line
+	}, [loginStage, account, chainId]);
 
 	function logInHandlerMetamask() {
 		activateBrowserWallet((error) => {
 			if (error.message.startsWith("Unsupported chain id")) {
-				switchOrAddBSC()
+				switchOrAddBSC();
 			} else {
 				setErrorDialogOpen(true);
 			}
@@ -62,9 +68,9 @@ const LoginScreen = () => {
 				method: "wallet_switchEthereumChain",
 				params: [{ chainId: "0x38" }],
 			});
-	
-			setErrorDialogOpen(false)
-	
+
+			setErrorDialogOpen(false);
+
 			activateBrowserWallet((error) => {
 				setErrorDialogOpen(true);
 			});
@@ -72,29 +78,46 @@ const LoginScreen = () => {
 			try {
 				// @ts-ignore
 				await ethereum.request({
-					method: 'wallet_addEthereumChain',
-					params: [{
-					  chainId: '0x38',
-					  chainName: 'Binance Smart Chain',
-					  nativeCurrency: {
-						name: 'BNB',
-						symbol: 'BNB',
-						decimals: 18
-					   },
-					  rpcUrls: ['https://bsc-dataseed.binance.org/'],
-					  blockExplorerUrls: ['https://bscscan.com/']
-					}]
-				})
+					method: "wallet_addEthereumChain",
+					params: [
+						{
+							chainId: "0x38",
+							chainName: "Binance Smart Chain",
+							nativeCurrency: {
+								name: "BNB",
+								symbol: "BNB",
+								decimals: 18,
+							},
+							rpcUrls: ["https://bsc-dataseed.binance.org/"],
+							blockExplorerUrls: ["https://bscscan.com/"],
+						},
+					],
+				});
 			} catch (addError) {
-				showAlert(
-					"There was an error while switching the chain.",
-					"error"
-				);
-	
+				showAlert("There was an error while switching the chain.", "error");
+
 				setErrorDialogOpen(true);
 			}
 		}
-	}
+	};
+
+	const addToken = async () => {
+		// @ts-ignore
+		ethereum.request({
+			method: "wallet_watchAsset",
+			params: {
+				type: "ERC20",
+				options: {
+					address: kolortoken_address[chainId || DefaultChainId],
+					symbol: "KOL",
+					decimals: 18,
+					image: "https://app.kolor.social/token.png",
+				},
+			},
+		});
+
+		setLoginStage("launch");
+	};
 
 	return (
 		<>
@@ -228,9 +251,18 @@ const LoginScreen = () => {
 					</div>
 					<div className={styles.actionContainer}>
 						<p className={styles.actionContainerTitle}>
-							Verify your account and get 100 KOL for free
+							Add the Kolor Token to your wallet
 						</p>
+						<div onClick={() => addToken()} className={styles.verifyButtonBlue}>
+							<p>Add token</p>
+						</div>
 						<div
+							onClick={() => setLoginStage("launch")}
+							className={styles.verifyButton}
+						>
+							<p>Skip</p>
+						</div>
+						{/*<div
 							onClick={() => setLoginStage("launch")}
 							className={styles.verifyButton}
 						>
@@ -251,7 +283,7 @@ const LoginScreen = () => {
 								alt="Ethereum Name Service"
 								className={styles.verifyIcon}
 							/>
-						</div>
+						</div>*/}
 					</div>
 				</div>
 			)}
@@ -329,9 +361,8 @@ const LoginScreen = () => {
 				<DialogTitle>Error</DialogTitle>
 				<DialogContent>
 					<DialogContentText>
-						There was an error logging in. Please install MetaMask and switch 
-						to the{" "}
-						<b>Binance Smart Chain</b>.
+						There was an error logging in. Please install MetaMask and switch to
+						the <b>Binance Smart Chain</b>.
 					</DialogContentText>
 				</DialogContent>
 				<DialogActions>

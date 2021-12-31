@@ -4,7 +4,7 @@ import { useShowAlert, useShowLoading } from "../../../hooks";
 import ReactGa from "react-ga";
 import styles from "./TipPopup.module.css";
 import { Post } from "../../../types";
-import tokensEhh from "../../../api/tokens_bsc.json";
+import { tokens } from "../../../api/tokens_bsc.json";
 import Select, { OptionProps, components } from "react-select";
 import { useEthers } from "@usedapp/core";
 import ERC20ABI from "../../../api/erc20abi.json";
@@ -29,7 +29,6 @@ const TipPopup: React.FC<{
 	onClose: () => void;
 	post: Post;
 }> = ({ open, onClose, post }) => {
-	const tokens = tokensEhh.tokens.filter((e) => e.chainId === 56);
 	const [tipAmount, setTipAmount] = useState("1");
 	const [tokenSelected, setTokenSelected] = useState(tokens[0]);
 
