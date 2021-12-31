@@ -42,7 +42,11 @@ const LoginScreen = () => {
 
 	function logInHandlerMetamask() {
 		activateBrowserWallet((error) => {
-			setErrorDialogOpen(true);
+			if (error.message.startsWith("Unsupported chain id")) {
+				switchOrAddBSC()
+			} else {
+				setErrorDialogOpen(true);
+			}
 			setLoginStage("login");
 		});
 		ReactGa.event({
@@ -51,15 +55,49 @@ const LoginScreen = () => {
 		});
 	}
 
+	const switchOrAddBSC = async () => {
+		try {
+			// @ts-ignore
+			await ethereum.request({
+				method: "wallet_switchEthereumChain",
+				params: [{ chainId: "0x38" }],
+			});
+	
+			setErrorDialogOpen(false)
+	
+			activateBrowserWallet((error) => {
+				setErrorDialogOpen(true);
+			});
+		} catch (switchError) {
+			try {
+				// @ts-ignore
+				await ethereum.request({
+					method: 'wallet_addEthereumChain',
+					params: [{
+					  chainId: '0x38',
+					  chainName: 'Binance Smart Chain',
+					  nativeCurrency: {
+						name: 'BNB',
+						symbol: 'BNB',
+						decimals: 18
+					   },
+					  rpcUrls: ['https://bsc-dataseed.binance.org/'],
+					  blockExplorerUrls: ['https://bscscan.com/']
+					}]
+				})
+			} catch (addError) {
+				showAlert(
+					"There was an error while switching the chain.",
+					"error"
+				);
+	
+				setErrorDialogOpen(true);
+			}
+		}
+	}
+
 	return (
 		<>
-			{/* For testing purposes */}
-			{/* <div style={{ marginLeft: 500 }}>
-				<button onClick={() => setLoginStage("login")}>LOGIN</button>
-				<button onClick={() => setLoginStage("token")}>TOKEN</button>
-				<button onClick={() => setLoginStage("launch")}>LAUNCH</button>
-			</div> */}
-
 			{/* Connect your wallet */}
 			{loginStage === "login" && (
 				<div>
@@ -299,50 +337,6 @@ const LoginScreen = () => {
 				<DialogActions>
 					<Button onClick={() => setErrorDialogOpen(false)} autoFocus>
 						OK
-					</Button>
-					<Button
-						onClick={async () => {
-							try {
-								// @ts-ignore
-								await ethereum.request({
-									method: "wallet_switchEthereumChain",
-									params: [{ chainId: "0x38" }],
-								});
-
-								setErrorDialogOpen(false);
-
-								activateBrowserWallet((error) => {
-									setErrorDialogOpen(true);
-								});
-							} catch (switchError) {
-								try {
-									// @ts-ignore
-									await ethereum.request({
-										method: 'wallet_addEthereumChain',
-										params: [{
-										  chainId: '0x38',
-										  chainName: 'Binance Smart Chain',
-										  nativeCurrency: {
-											name: 'BNB',
-											symbol: 'BNB',
-											decimals: 18
-										   },
-										  rpcUrls: ['https://bsc-dataseed.binance.org/'],
-										  blockExplorerUrls: ['https://bscscan.com/']
-										}]
-									})
-								} catch (addError) {
-									showAlert(
-										"There was an error while switching the chain.",
-										"error"
-									);
-	
-									setErrorDialogOpen(false);
-								}
-							}
-						}}
-					>
-						Switch to BSC
 					</Button>
 				</DialogActions>
 			</Dialog>
