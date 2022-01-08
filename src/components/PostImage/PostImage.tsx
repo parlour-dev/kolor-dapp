@@ -15,6 +15,7 @@ import { resolveNickname } from "../../api/nickname";
 import { Link } from "react-router-dom";
 import TipButton from "./TipButton/TipButton";
 import { Tooltip } from "@mui/material";
+import DOMPurify from "dompurify";
 
 type PostImageT = {
 	post: Post;
@@ -47,13 +48,14 @@ const PostImage: React.FC<PostImageT> = ({
 			showAlert("You have to be logged in to add a comment.", "error");
 		} else {
 			try {
-				const toSign =
-					"Kolor Comment: " + newComment + "\nFor post: " + post.uuid;
+				const text = newComment.replaceAll("\n", "<br/>");
+
+				const toSign = "Kolor Comment: " + text + "\nFor post: " + post.uuid;
 
 				// post the comment using the api
 				const result = await postComment(
 					post.uuid,
-					newComment,
+					text,
 					account,
 					await library.getSigner().signMessage(toSign)
 				);
@@ -61,7 +63,7 @@ const PostImage: React.FC<PostImageT> = ({
 				// if the posting went fine, add the comment to the local list
 				// (to avoid fetching again)
 				if (result.ok)
-					setComments([...comments, { author: account, content: newComment }]);
+					setComments([...comments, { author: account, content: text }]);
 				else
 					showAlert(
 						"There was an error while submitting your comment.",
@@ -91,7 +93,14 @@ const PostImage: React.FC<PostImageT> = ({
 						)}
 					</Link>
 				</div>
-				<div className={styles.text}>{post.text}</div>
+				<div
+					className={styles.text}
+					dangerouslySetInnerHTML={{
+						__html: DOMPurify.sanitize(post.text, {
+							USE_PROFILES: { html: true },
+						}),
+					}}
+				></div>
 
 				<div className={styles.mediaContent}>
 					{post.file && !isAudioPost && (

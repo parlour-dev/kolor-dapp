@@ -1,3 +1,4 @@
+import DOMPurify from "dompurify";
 import { Link } from "react-router-dom";
 import { resolveNickname } from "../../../api/nickname";
 import { CommentT } from "../../../types";
@@ -26,7 +27,12 @@ const Comment: React.FC<{ data: CommentT }> = ({ data }) => {
 				</div>
 			</div>
 			<div className={styles.textContainer}>
-				<div className={styles.text}>{data.content}</div>
+				<div
+					className={styles.text}
+					dangerouslySetInnerHTML={{
+						__html: DOMPurify.sanitize(data.content, { ALLOWED_TAGS: ["br"] }),
+					}}
+				></div>
 			</div>
 		</div>
 	);

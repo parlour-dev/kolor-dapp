@@ -11,8 +11,6 @@ const AddComment: React.FC<{ onSubmit: (newComment: string) => void }> = ({
 	const inputBox = useRef<HTMLDivElement>(null);
 
 	function addComment() {
-		if (!account) return;
-
 		onSubmit(inputBox.current!.textContent || "");
 		inputBox.current!.textContent = "";
 		ReactGa.event({

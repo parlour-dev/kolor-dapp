@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import Image from "./image.png";
 //import Video from "./video.png";
 import Audio from "./audio.png";
-
+import { marked } from "marked";
 import { useShowAlert, useShowLoading } from "../../../hooks";
 import ReactGa from "react-ga";
 import {
@@ -101,7 +101,18 @@ const Journey: React.FC = () => {
 	) => {
 		try {
 			const title = "Some Title";
-			const newPost = await getContractPost(text, type, file, fileContentType);
+			const parsedText = marked.parseInline(text || "", {
+				gfm: true,
+				breaks: true,
+				silent: true,
+				xhtml: true,
+			});
+			const newPost = await getContractPost(
+				parsedText,
+				type,
+				file,
+				fileContentType
+			);
 			if (!newPost) return;
 
 			const headerToSign =
