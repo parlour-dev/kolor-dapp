@@ -5,6 +5,7 @@ import { LazyLoadImage, ScrollPosition } from "react-lazy-load-image-component";
 import Chain from "../../PostImage/Chain/Chain";
 import { deletePostBackend } from "../../../api/backend";
 import { useEthers } from "@usedapp/core";
+import DOMPurify from "dompurify";
 
 const PostStub: React.FC<{
 	post: Post;
@@ -41,9 +42,16 @@ const PostStub: React.FC<{
 
 	return (
 		<div className={[styles.container, className].join(" ")}>
-			<div className={styles.text}>{post.text}</div>
+			<div
+				className={styles.text}
+				dangerouslySetInnerHTML={{
+					__html: DOMPurify.sanitize(post.text, {
+						USE_PROFILES: { html: true },
+					}),
+				}}
+			></div>
 			<div className={styles.mediaContent}>
-				{!isAudioPost && post.file && post.file.startsWith("p.deso") && (
+				{!isAudioPost && post.file && (
 					<LazyLoadImage
 						alt=""
 						effect="blur"
