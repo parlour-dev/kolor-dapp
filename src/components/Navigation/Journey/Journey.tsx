@@ -21,6 +21,7 @@ import {
 	PostType,
 } from "../../../types";
 import { createNewPostBackend } from "../../../api/backend";
+import { useUsername } from "../../../api/username";
 
 const Journey: React.FC = () => {
 	const { account, library } = useEthers();
@@ -31,6 +32,8 @@ const Journey: React.FC = () => {
 		""
 	);
 	const [inputText, setInputText] = useState("");
+
+	const username = useUsername(account);
 
 	const quotes = [
 		"Dreams come true when you don't sleep.",
@@ -101,7 +104,7 @@ const Journey: React.FC = () => {
 	) => {
 		try {
 			const title = "Some Title";
-			const parsedText = marked.parseInline(text || "", {
+			const parsedText = marked.parse(text || "", {
 				gfm: true,
 				breaks: true,
 				silent: true,
@@ -189,9 +192,7 @@ const Journey: React.FC = () => {
 								height="2.8rem"
 							/>
 							<div className={styles.userInfo}>
-								<div className={styles.userNickname}>
-									{account.substring(0, 6)}...{account.substring(38, 42)}
-								</div>
+								<div className={styles.userNickname}>{username}</div>
 								<div className={styles.userAddress}>{account}</div>
 							</div>
 						</div>

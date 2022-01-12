@@ -11,11 +11,11 @@ import Comments from "./Comments/Comments";
 import { CommentT, Post } from "../../types";
 import { LazyLoadImage, ScrollPosition } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import { resolveNickname } from "../../api/nickname";
 import { Link } from "react-router-dom";
 import TipButton from "./TipButton/TipButton";
 import { Tooltip } from "@mui/material";
 import DOMPurify from "dompurify";
+import { useUsername } from "../../api/username";
 
 type PostImageT = {
 	post: Post;
@@ -35,6 +35,8 @@ const PostImage: React.FC<PostImageT> = ({
 	const showLoading = useShowLoading();
 
 	const { account, library } = useEthers();
+
+	const authorUsername = useUsername(post.author);
 
 	const isAudioPost = post.contentType?.startsWith("audio/");
 
@@ -83,7 +85,7 @@ const PostImage: React.FC<PostImageT> = ({
 				<div className={styles.creator}>
 					<div className={styles.creatorInfo}>
 						<Link to={`/user/${post?.author}`} className={styles.creatorNick}>
-							{resolveNickname(post?.author || "")}
+							{authorUsername}
 						</Link>
 						<div className={styles.creatorWallet}>{post?.author}</div>
 					</div>
@@ -100,7 +102,8 @@ const PostImage: React.FC<PostImageT> = ({
 							USE_PROFILES: { html: true },
 						}),
 					}}
-				></div>
+				>
+				</div>
 
 				<div className={styles.mediaContent}>
 					{post.file && !isAudioPost && (

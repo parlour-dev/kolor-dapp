@@ -17,30 +17,36 @@
 }
 
 .usernameEditBox {
-	display: table;
-	table-layout: fixed;
-	margin-left: auto;
-	margin-right: auto;
+	display: flex;
+
+	justify-content: center;
+	align-items: center;
+
+	margin: auto;
+	margin-top: 1vmax;
 }
 
 .usernameEditButton {
 	background-color: transparent;
 	border: 0;
+
+	margin-left: 0.5rem;
+
+	width: 2rem;
+	height: 2rem;
+
+	cursor: pointer;
+}
+
+.usernameEditButton img {
+	width: 100%;
 }
 
 .username {
 	color: #fff;
 	font-family: "Lato", sans-serif;
-	font-size: 2rem;
+	font-size: 2rem !important;
 	font-weight: 600;
-	margin-top: 1vmax;
-	display: table-cell;
-}
-
-.editUsername {
-	width: 1.5vmax;
-	display: table-cell;
-	cursor: pointer;
 }
 
 .walletAddress {

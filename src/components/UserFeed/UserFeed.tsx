@@ -5,10 +5,10 @@ import {
 	trackWindowScroll,
 	ScrollPosition,
 } from "react-lazy-load-image-component";
-import { resolveNickname } from "../../api/nickname";
 import { useParams } from "react-router";
 import styles from "./UserFeed.module.css";
 import { Link } from "react-router-dom";
+import { useUsername } from "../../api/username";
 
 interface UserFeedParams {
 	address: string;
@@ -20,7 +20,7 @@ const UserFeed: React.FC<{ scrollPosition: ScrollPosition }> = ({
 	const posts = useContext(PostsContext);
 
 	const desiredAuthor = useParams<UserFeedParams>().address;
-	const nick = resolveNickname(desiredAuthor);
+	const nick = useUsername(desiredAuthor);
 
 	const userPosts = posts?.filter((p) => p.author === desiredAuthor) || [];
 

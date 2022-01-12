@@ -10,7 +10,6 @@ import { useEthers } from "@usedapp/core";
 import { Post } from "./types";
 import ReactGa from "react-ga";
 import UniversalAlertProvider from "./components/UniversalAlert/UniversalAlertProvider";
-import { resolveNickname } from "./api/nickname";
 import UserFeed from "./components/UserFeed/UserFeed";
 import { fetchAllPostsBackend } from "./api/backend";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -62,11 +61,7 @@ function App() {
 								</Route>
 								{account && (
 									<Route exact path="/profile">
-										<Profile
-											username={resolveNickname(account)}
-											walletAddress={account}
-											author={account}
-										/>
+										<Profile walletAddress={account} author={account} />
 									</Route>
 								)}
 							</Switch>

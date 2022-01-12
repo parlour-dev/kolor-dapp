@@ -142,6 +142,25 @@ export function registerTipBackend(txHash: string, postUUID: string) {
 	});
 }
 
+export function changeUsernameBackend(username: string, signature: string) {
+	const name_url = encodeURIComponent(username);
+	const sign_url = encodeURIComponent(signature);
+
+	const query = `name=${name_url}&sign=${sign_url}`;
+
+	return fetch(`${backendURI}/username`, {
+		method: "PUT",
+		body: query,
+		headers: {
+			"Content-Type": "application/x-www-form-urlencoded",
+		},
+	});
+}
+
+export function getUsernameBackend(address: string) {
+	return fetch(`${backendURI}/username/${address.toLocaleLowerCase()}`);
+}
+
 function rawPostToPost(id: number, chainid: number, raw: BackendPostDb): Post {
 	try {
 		const post: Post = {

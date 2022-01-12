@@ -1,11 +1,12 @@
 import DOMPurify from "dompurify";
 import { Link } from "react-router-dom";
-import { resolveNickname } from "../../../api/nickname";
+import { useUsername } from "../../../api/username";
 import { CommentT } from "../../../types";
 import ProfilePicture from "../../ProfilePicture/ProfilePicture";
 import styles from "../Comments/Comment.module.css";
 
 const Comment: React.FC<{ data: CommentT }> = ({ data }) => {
+	const author = useUsername(data.author);
 	return (
 		<div style={{ margin: ".7rem auto" }}>
 			<div className={styles.creator}>
@@ -20,7 +21,7 @@ const Comment: React.FC<{ data: CommentT }> = ({ data }) => {
 
 					<div className={styles.userInfoContainer}>
 						<Link to={`/user/${data.author}`} className={styles.creatorNick}>
-							{resolveNickname(data.author)}
+							{author}
 						</Link>
 						<div className={styles.creatorWallet}>{data.author}</div>
 					</div>
