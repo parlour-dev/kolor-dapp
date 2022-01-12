@@ -102,8 +102,7 @@ const PostImage: React.FC<PostImageT> = ({
 							USE_PROFILES: { html: true },
 						}),
 					}}
-				>
-				</div>
+				></div>
 
 				<div className={styles.mediaContent}>
 					{post.file && !isAudioPost && (
