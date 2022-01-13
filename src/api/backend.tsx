@@ -14,6 +14,7 @@ type BackendPost = {
 	image: string; // NOTE: this is not necessarily an image
 	contentType: string;
 	author: string;
+	username: string;
 };
 
 type BackendPostDb = {
@@ -176,6 +177,7 @@ function rawPostToPost(id: number, chainid: number, raw: BackendPostDb): Post {
 			file: raw.post.image || undefined,
 			contentType: raw.post.contentType || undefined,
 			timestamp: new Date(raw.timestamp),
+			authorUsername: raw.post.username
 		};
 		return post;
 	} catch (e) {

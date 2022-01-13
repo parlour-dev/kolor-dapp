@@ -14,7 +14,7 @@ import {
 } from "react-lazy-load-image-component";
 import { TextField } from "@mui/material";
 import { useShowAlert, useShowLoading } from "../../hooks";
-import { backendURI, changeUsernameBackend } from "../../api/backend";
+import { backendURI, changeUsernameBackend, getUsernameBackend } from "../../api/backend";
 import { useUsername } from "../../api/username";
 
 type ProfileT = {
@@ -31,13 +31,17 @@ const Profile: React.FC<ProfileT> = ({
 	const posts = useContext(PostsContext);
 
 	const { deactivate, library, account } = useEthers();
-
-	const username = useUsername(account);
-	const [currentUsername, setCurrentUsername] = useState(username);
+	const defaultUsername = useUsername(account)
+	const [currentUsername, setCurrentUsername] = useState(defaultUsername);
 
 	useEffect(() => {
-		setCurrentUsername(username);
-	}, [username]);
+		(async () => {
+			const resp = await getUsernameBackend(account || "")
+			if (resp.ok) {
+				setCurrentUsername(await resp.text());
+			}
+		})()
+	}, [setCurrentUsername, account]);
 
 	const usernameField = useRef<HTMLDivElement>(null);
 
@@ -56,7 +60,7 @@ const Profile: React.FC<ProfileT> = ({
 	let history = useHistory();
 
 	async function usernameChangeHandler() {
-		if (currentUsername === username) {
+		if (currentUsername === defaultUsername) {
 			document.getElementById("inputHack")?.focus();
 			return;
 		}

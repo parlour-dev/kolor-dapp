@@ -85,7 +85,7 @@ const PostImage: React.FC<PostImageT> = ({
 				<div className={styles.creator}>
 					<div className={styles.creatorInfo}>
 						<Link to={`/user/${post?.author}`} className={styles.creatorNick}>
-							{authorUsername}
+							{post.authorUsername || authorUsername}
 						</Link>
 						<div className={styles.creatorWallet}>{post?.author}</div>
 					</div>

@@ -13,6 +13,7 @@ export type Post = {
 
 	tags?: string[];
 	author?: string;
+	authorUsername?: string;
 	removed?: boolean;
 
 	comments: CommentT[];
