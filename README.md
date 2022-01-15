@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://kolor.social">
-    <img src="https://user-images.githubusercontent.com/75305759/149636249-4c32dd54-a9f2-4e17-a19f-6ea2d22e7e2a.png" alt="Kolor logo" style="width: 20rem; "/>
+    <img src="https://user-images.githubusercontent.com/75305759/149636249-4c32dd54-a9f2-4e17-a19f-6ea2d22e7e2a.png" alt="Kolor logo" style="width: 20rem; background: #22272e; padding: 1rem;"/>
   </a>
 </p>
 <h1 align="center">
